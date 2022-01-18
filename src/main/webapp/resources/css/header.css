@@ -1,11 +1,12 @@
-body{
-    font-family: 'Noto Sans Korean';
-    font-weight: 500;
-}
-
 :root{
     --text-color : #323232;
     --accent-color : #564334;
+}
+
+body{
+    font-family: 'Noto Sans Korean';
+    font-weight: 500;
+    color: var(--text-color);
 }
 
 header{
