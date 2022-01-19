@@ -31,7 +31,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-new">NEW</div>
 
@@ -40,7 +40,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-best">BEST</div>
 
@@ -49,7 +49,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sold">품절</div>
 
@@ -58,7 +58,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sale">SALE</div>
 
@@ -68,7 +68,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-new">NEW</div>
 
@@ -77,7 +77,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-best">BEST</div>
 
@@ -86,7 +86,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sold">품절</div>
 
@@ -95,7 +95,7 @@
 				<div class="pdt-img"></div>
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
-				<div style="font-size: 20px;">9,500원</div>
+				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sale">SALE</div>
 

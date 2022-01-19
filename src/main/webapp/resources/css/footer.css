@@ -28,7 +28,7 @@ footer{background-color : #FFF6EE;
     margin:0 30px;
     
 }
-footer>section>hr{
+footer>.footer-section>hr{
     border: 1px solid white;
     margin-bottom:30px;
 }
