@@ -1,0 +1,82 @@
+
+.category-set{
+  width:1200px;
+  margin:auto;
+}
+.main-wrapper{
+  
+  margin:auto;
+}
+.main-banner{
+  
+  background-image: url("../images/pdt-banner.png");
+  background-repeat: no-repeat;
+  height: 350px;
+  background-size :cover;
+  margin-bottom: 40px; 
+}
+.main-category{
+  
+ 
+  text-align: right;
+  margin:0 10px 40px 0;
+}
+.main-category>li{
+  display:inline;
+  
+  
+}
+.main-content{
+  margin:auto;
+  width:1200px;
+}
+.pdt-label{
+  width:78px;
+  height:25px;
+  border-radius: 5%;
+  text-align: center;
+  color:white;
+  margin-top:5px;
+  font-weight: bold;
+  line-height: 1.5;
+  
+}
+.label-new,.label-sale{
+  background-color:#F95858;
+}
+.label-best{
+  background-color:#264D59;
+}
+.label-sold{
+  background-color:#323232;
+  
+}
+.pdt-img{
+  width:280px;
+  height:280px;
+  background-color: gray;
+  border-radius: 15%;
+}
+.pdt-box{
+  margin-right: 15px;
+  width:280px;
+  display: inline-block;
+  margin-bottom:100px;
+}
+.pdt-box:nth-child(4n){
+  width:280px;
+  display: inline-block;
+  margin-bottom:100px;
+}
+.pagination{
+  text-align: center;
+  color:#787878;
+  font-weight: bold;
+  margin-bottom: 70px;
+}
+
+.pagination>li{
+  display: inline-block;
+  margin:auto;
+  text-align: center;
+}

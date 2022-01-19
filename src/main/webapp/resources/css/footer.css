@@ -6,7 +6,7 @@ footer{background-color : #FFF6EE;
     margin:auto;
     text-align: center;
 }
-section{
+.footer-section{
     margin:auto;
     max-width: 1200px;
     
@@ -28,7 +28,7 @@ section{
     margin:0 30px;
     
 }
-footer>section>hr{
+footer>.footer-section>hr{
     border: 1px solid white;
     margin-bottom:30px;
 }
