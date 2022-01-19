@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 
     <footer>
-        <section>
+        <div class="footer-section">
 
             <img class="footer-main-logo" src="${contextPath}/resources/images/로고 최종.png" alt="로고">
             <hr>
@@ -19,5 +19,5 @@
                 <a href="#">개인정보 처리방침</a>
                 <p>copyrightⓒ 2022 All rights reserved by 구독좋아요알림설정</p>
             </div>
-        </section>
+        </div>
     </footer>
