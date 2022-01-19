@@ -1,0 +1,109 @@
+:root{
+    --text-color : #323232;
+    --accent-color : #564334;
+}
+
+body{
+    font-family: 'Noto Sans Korean';
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+header{
+    width: 100%;
+    box-shadow: 3px 3px 3px 5px rgba(169, 169, 169, 0.5);
+}
+
+.nav{
+    width: 70%;
+    display: flex;
+    margin: auto;
+
+    color: var(--text-color);
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 메뉴 */
+.nav-menu{
+    display: flex;
+    padding: 100px 0 0 0 ; 
+}
+
+/* 검색창 */
+.nav-search{
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: gainsboro;
+}
+
+.nav-search:focus{
+    outline:none;
+}
+
+
+/* 로그인 */
+.nav-login{
+    display: flex;
+    padding: 100px 0 0 0 ; 
+} 
+
+.nav-menu li, .nav-login li{
+    padding: 8px ;
+}
+
+.nav-menu li:hover, .nav-login li:last-child:hover{
+    color: var(--accent-color);
+    border-radius: 5px;
+}
+
+/* 비로그 : a 태그 */
+.nav-login > li > a{
+    vertical-align: middle;
+}
+
+/* 로그인 : */
+.nav-login > li > a >img{
+    height: 20px;
+}
+
+.shopping-img{
+    padding-left: 8px;
+}
+
+
+/* 반응형 */
+@media screen and (max-width:768px){
+    .nav{
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .nav-menu, .nav-logo, .nav-login{
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-menu{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 확대 시 | 선 지우기 */
+    .nav-menu li:nth-child(2n){
+        display: none;
+    }
+
+    .nav-logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-login{
+        flex-direction: column;
+        align-items: center;
+        padding: 0 0 30px 0;
+    }
+
+}
