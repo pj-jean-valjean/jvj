@@ -20,8 +20,11 @@
 
 			<ul class="main-category">
 				<li style="color: #f58c8c;">신상품</li>
+				<li>|</li>
 				<li>낮은가격</li>
+				<li>|</li>
 				<li>높은가격</li>
+				<li>|</li>
 				<li>인기상품</li>
 			</ul>
 		</div>
