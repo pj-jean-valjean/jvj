@@ -2,12 +2,12 @@
     --text-color : #323232;
     --accent-color : #564334;
 }
-
 body{
     font-family: 'Noto Sans Korean';
     font-weight: 500;
-    color: var(--text-color);
+    color:  var(--text-color);
 }
+
 
 header{
     width: 100%;
@@ -72,6 +72,50 @@ header{
     padding-left: 8px;
 }
 
+/* ////////////////////////////////////////////////////////////////////// */
+/* 반응형 */
+@media screen and (max-width:1023px){
+    .nav{
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .nav-menu, .nav-logo, .nav-login{
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-menu{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-menu > li, .nav-login > li{
+        font-size: 11px;
+    }
+
+    /* 확대 시 | 선 지우기 */
+    .nav-menu li:nth-child(2n){
+        display: none;
+    }
+
+    .nav-logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-logo img{
+        height: 50px;
+    }
+
+    .nav-login{
+        flex-direction: column;
+        align-items: center;
+        padding: 0 0 30px 0;
+    }
+
+}
+
 
 /* 반응형 */
 @media screen and (max-width:768px){
@@ -90,6 +134,10 @@ header{
         align-items: center;
     }
 
+    .nav-menu > li, .nav-login > li{
+        font-size: 11px;
+    }
+
     /* 확대 시 | 선 지우기 */
     .nav-menu li:nth-child(2n){
         display: none;
@@ -98,6 +146,10 @@ header{
     .nav-logo {
         display: flex;
         justify-content: center;
+    }
+
+    .nav-logo img{
+        height: 50px;
     }
 
     .nav-login{
