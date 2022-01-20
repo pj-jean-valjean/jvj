@@ -29,7 +29,7 @@
             </ul>
             
             <div class="nav-logo">
-                <img src="{contextPath}/resources/images/jvj_logo.png">
+                <img src="${contextPath}/resources/images/jvj_logo.png" alt="jvj_logo">
             </div>
             <ul class="nav-login">
                 <li>
@@ -48,10 +48,10 @@
                 <!-- 로그인 -->
                 <li>
                     <a href="">
-                        <img src="{contextPath}/resources/images/user.png" alt="">
+                        <img src="${contextPath}/resources/images/user.png" alt="user">
                     </a>
                     <a href="">
-                        <img class="shopping-img" src="{contextPath}/resources/images/shopping.png" alt="">
+                        <img class="shopping-img" src="${contextPath}/resources/images/shopping.png" alt="shopping">
                     </a>
                 </li>
             </ul>

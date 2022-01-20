@@ -1,0 +1,130 @@
+/* body{
+    font-family: 'Noto Sans Korean';
+    font-weight: 500;
+}
+ */
+.signUp-title, .signUp-content{
+    width: 70%;
+    text-align: center;
+    margin: auto;
+}
+/* signUp-title - 카테고리 이름 */
+.signUp-title > p{
+    margin-top: 80px;
+    color: var(--accent-color);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* signUp-title - 사진 */
+.signUp-title > img{
+    width: 583px;
+    height: 250px;
+    margin: 50px 0 50px 0;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+
+/* 회원가입 영역 */
+.signUp-content > div{
+    margin: 20px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 카카오톡 버튼 */
+.signUp-btn{
+    width: 18%;
+    height: 40px;
+
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 2px rgba(167,167,167, .2);
+
+}
+/* 회원가입 버튼 배경 */
+.kakao{ background-color: #fae100; }
+.kakao{ background-color: #f9e000; }
+.naver{ background-color: #36C736; }
+.google{ 
+    background-color: #ffffff; 
+    border: 1.5px solid #B9B9B9;
+}
+
+/* 회원가입 버튼 이미지 */
+.signUp-content > div > img{
+    height: 25px;
+    margin-left: 5%;
+    float: left;
+}
+.signUp-content > div > span{
+    font-size: 14px;
+    font-weight: bold;
+    word-spacing: -2px;
+    margin: 0 5% 0 5%;
+    line-height: 25px;
+}
+
+/* 회원가입 글자 */
+.kakao > span{ color: #352927; }
+.naver > span{ color: #ffffff; }
+.google > span{ color: #828282; }
+
+.kakao, .naver, .google:hover{
+    cursor: pointer;
+}
+
+
+
+.login-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0 150px 0;
+}
+.login-link > a{
+    color: #828282;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.login-link a:hover{
+    text-decoration: underline;
+}
+
+
+
+/* 반응형 */
+@media screen and (max-width:1023px){
+    .signUp-title{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signUp-title > img{
+        width: 100%;
+    }
+
+    .signUp-btn{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:768px){
+    .signUp-title{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signUp-title > img{
+        width: 100%;
+    }
+
+    .signUp-btn{
+        width: 100%;
+    }
+}
