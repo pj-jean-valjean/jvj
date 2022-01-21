@@ -1,0 +1,85 @@
+@charset "UTF-8";
+        body{
+            width: 100vw;
+            margin: 0 auto;
+        }
+        section{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #classpname{
+            color: #A78A6C;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 60px;
+            font-size: 30px;
+            border-bottom: 5px solid rgba(167, 138, 108, 0.5);
+        }
+
+        #notice-info{
+            width: 100%;
+        }
+        #notice-info>div{
+            border-bottom: 1px solid #B7B7B7;
+            display: flex;
+        }
+        #notice-info>div>span{
+            height: 60px;
+            line-height: 60px;
+        }
+        #notice-info>div>span:first-of-type{
+            width: 15%;
+            font-weight: bold;
+        }
+        .rvbtn{
+            background: #A78A6C;
+            border: 3px solid #A78A6C;
+            box-sizing: border-box;
+            border-radius: 5px;
+            color: white;
+            margin-top: 20px;
+        }
+        #notice-content{
+            padding: 10px;
+        }
+        input[name="review-title"]{
+            height: 30px;
+            width: 70%;
+            align-self:center;
+            border: none;
+            font-size: 15px;
+        }
+        #notice-create-dt >label{
+            margin-right: 20px;
+            align-self:center;
+        }
+        /* 별 색상 */
+        .gold{
+            color: gold;
+        }
+        .gray{
+            color: gray;
+        }
+        /* 글작성 area */
+        #notice-content>textarea{
+            width: 100%;
+            resize: none;
+            height: 400px;
+            font-size: 15px;
+        }
+        #rvbtns{
+            display: block;
+            margin-bottom: 30px;
+        }
+        #rvbtns>button{
+            height: 40px;
+            width: 120px;
+            font-size: 18px;
+        }
+        #gotolist{
+            width: 160px;
+            margin-right: 810px
+        }
+        #submitrv{
+            margin-right: 10px;
+        }
