@@ -1,0 +1,208 @@
+@charset "UTF-8";
+
+  *{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        body{
+            width: 100vw;
+            margin: 0 auto;
+        }
+        section{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #classmainimg{
+            width: 100%;
+            height: 450px;
+            text-align: center;
+        }
+        #classmainimg>img{
+            width: 100%;
+            height: 100%;
+        }
+        #pathline{
+            height: 80px;
+            width: 100%;
+            line-height: 50px;
+        }
+        #pathline>a{
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        #classpname{
+            color: #A78A6C;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        #align-div{
+            text-align: right;
+        }
+        #align-div>span{
+            display: inline-block;
+            width: 120px;
+            text-align: center;
+        }
+        #align-div>button{
+            border: none;
+            background: none;
+            font-size: 15px;
+        }
+        #align-div>button:hover{
+            cursor: pointer;
+        }
+        #align-div>button:first-of-type{
+            border-right: 1px solid black;
+        }
+        .oneClassLine{
+            margin-top: 35px;
+            width: 100%;
+            height: 525px;
+            display: flex;
+            flex-direction: column;
+        }
+        .dateLine{
+            width: 100%;
+            height: 65px;
+            border-bottom: 1px solid black;
+            display: flex;
+            justify-content:space-between
+        }
+        .classShowLine{
+            height: 450px;
+            display: flex;
+            justify-content:space-between
+        }
+        .oneCdate{
+            width: 300px;
+            height: 65px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .oneCdate>span{
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        .oneCdate>span:first-of-type{
+            color: #C1C1C1;
+        }
+
+        .oneCInfo{
+            width: 300px;
+            height: 450px;
+            text-align: center;
+        }
+        .oneCInfo>div{
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .oneCInfo>div:nth-of-type(2){
+            font-size: 20px;
+        }
+        .classimg{
+            border: none;
+            border-radius: 10px;
+        }
+        .classimg>img{
+            width: 300px;
+            height: 300px;
+        }
+        fa-calendar-alt{
+            color: #A78A6C;
+        }
+        .fa-map-marker-alt{
+            color: #A78A6C;
+        }
+
+        /* 달력 모달 */
+        .cal ,.place{ 
+            position: absolute; 
+            top: 600px; left: 0; 
+            width: 100%; height: 100%; 
+            display: none; 
+            background-color: rgba(0, 0, 0, 0.6); 
+        }
+        .calendar{
+            position: absolute; 
+            top: 100px; right: 30%; 
+            background-color: white;
+        }
+        .calhead,.placehead{
+            margin-bottom: 30px;
+            text-align: center;
+            background-color: #A78A6C;
+        }
+        #today-month{
+            color: black;
+            font-size: 20px;
+        }
+        #selectDate{
+            width: 500px;
+            height: 400px;
+            color: #A78A6C;
+        }
+        #month-day > tr > td.possible:hover{
+            background-color: #A78A6C;
+            color: white;
+            cursor: pointer;
+        }
+        th{text-align: center;}
+        td{vertical-align: middle; font-size: 20px;}
+        td.impossible{
+            color: #eee;
+        }
+        #selectplace{
+            border: none;
+            font-size: 15px;
+            appearance:none;
+        }
+        .opencal{
+            margin-right: 10px;
+            padding-right: 15px;
+        }
+        i{
+            margin-right: 5px;
+        }
+
+        /* 스크롤영역 */
+        .nextButton{
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            border: none;
+            background-color: none;
+        }
+        
+                /* 반응형 */
+        @media screen and (max-width:768px){
+            #pathline{
+                display: none;
+            }
+            section{
+                width:100%;
+            }
+            #classmainimg{
+                height: 150px;
+            }
+            #align-div>*{
+                font-size: 10px!important;
+            }
+            .oneClassLine{
+                height: 370px;
+                margin-top: 10px;
+            }
+            .oneCInfo{
+                height: 300px;
+            }
+            .classimg>img{
+                width: 150px;
+                height: 150px;
+            }
+            .oneCInfo>div:nth-of-type(2){
+                font-size: 10px;
+            }
+            .oneCInfo>div{
+                font-size: 8px;
+            }
+        }
+        
