@@ -24,7 +24,7 @@
             justify-content: center;
         }
         /* 사이드 네비게이션 */
-        aside{
+        #showfunc{
             width: 150px;
             height: 1400px;
             background: #A78A6C;
@@ -39,11 +39,6 @@
             color: #FFFFFF;
             text-align: center;
             cursor: pointer;
-            transition: box-shadow 0.2 s ease-in;
-        }
-        .one-admin-func:hover{
-            box-shadow: 
-            0 -2px 0 0 rgb(255, 255, 255) inset;
         }
 
         /* 본문 */
@@ -62,12 +57,13 @@
             box-sizing: border-box;
             border-radius: 10px;
         }
-        .addBreadType,.input-smallcate{
+        .opencal,.addBreadType,.input-smallcate{
             height: 30px;
         }
         .oneLine{
             width: 100%;
-            margin-top: 25px;
+            margin-top: 5px;
+            margin-bottom: 25px;
             display: flex;
         }
         .ResultLine>li{
@@ -95,7 +91,7 @@
             padding-left: 30px;
             margin-bottom: 0px;
             height: 50px;
-            width: calc( 10% - 20px ); 
+            width: calc( 12% - 30px ); 
         }
         .oneLine> input[name='title']{
             display: inline-block;
@@ -114,9 +110,9 @@
         }
         .oneLine>h2{
             width: 100%;
-            margin-bottom: 25px;
             font-size: 25px;
             text-align: center;
+            margin: 0px;
         }
         .images{
             width: 120px;
@@ -131,7 +127,7 @@
         .eachWriter{
             position: relative;
             top: -100px;
-            right: -150px;
+            right: -142px;
             display: none;
             z-index: 1;
         }
@@ -142,13 +138,14 @@
             list-style: none;
         }
         .adminWriter{
-            width: 150px;
+            width: 120px;
             height: 50px;
             font-size: 15px;
             color: #A78A6C;
             cursor: pointer;
             background-color: #eee;
             text-align: left;
+            z-index: 1;
         }
         input[type="file"]{
             display:none!important;
@@ -159,7 +156,7 @@
             margin-left: 10px;
         }
         #uppercate>label{
-            width: 150px;
+            width: 160px;
         }
         /*  정보 조회 input  */
         .search-member,.subscribe-search, .order-search,.search-review, .addAdmin{
@@ -228,41 +225,25 @@
             color: white;
             cursor: pointer;
         }
-        th{text-align: center;}
+        th{text-align: center!important;}
         td{vertical-align: middle; font-size: 20px;}
         td.impossible{
             color: #eee;
         }
+        /* 반응형 */
+        @media screen and (max-width:1250px){
+            main{
+                flex-direction:column;
+            }
+            #showfunc{
+                flex-direction:row;
+                width: 100%;
+                height: 100px;
+            }
+            .one-admin-func{
+                height: 30px;
+                border-right: 1px solid #FFFFFF;
+                line-height: 30px;
+            }
+        }
 
-                        /* 반응형 */
-                        @media screen and (max-width:768px){
-                            #pathline{
-                                display: none;
-                            }
-                            section{
-                                width:100%;
-                            }
-                            #classmainimg{
-                                height: 150px;
-                            }
-                            #align-div>*{
-                                font-size: 10px!important;
-                            }
-                            .oneClassLine{
-                                height: 370px;
-                                margin-top: 10px;
-                            }
-                            .oneCInfo{
-                                height: 300px;
-                            }
-                            .classimg>img{
-                                width: 150px;
-                                height: 150px;
-                            }
-                            .oneCInfo>div:nth-of-type(2){
-                                font-size: 10px;
-                            }
-                            .oneCInfo>div{
-                                font-size: 8px;
-                            }
-                        }

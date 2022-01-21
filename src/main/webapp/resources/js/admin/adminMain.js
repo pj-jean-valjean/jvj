@@ -3,7 +3,9 @@
         let selectMonth = 0;
         const filecheck = [0 , 0 , 0 , 0 , 0];
         const contentbox = document.getElementById("adminPCont");
-        
+        window.onload = function(){
+            memberInfo();
+        }
         //1-회원 정보 조회
         $(".one-admin-func")[0].addEventListener("click",memberInfo);
         //2-구독 회원 조회
@@ -259,7 +261,7 @@
             const classDate = document.createElement("div");
             classDate.setAttribute("class", "oneLine");
             classDate.innerHTML="<label class='labels'>클래스 날짜</label>"+
-            "<span id='classdate'>날짜를 선택해주세요 <span>"+
+            "<input type='text' id='classdate' readonly placeholder='날짜를 선택해주세요'>"+
             "<button type='button' class='opencal'>날짜 선택</button>";
             
             //수강인원
@@ -468,6 +470,7 @@
         function notesummer(){
             //썸머노트 실행
             $('#summernote').summernote({
+            lang:"ko-KR",
             placeholder: '내용을 입력해주세요',
             tabsize: 2,
             width : 1200,
@@ -591,7 +594,15 @@
                 week = week+1;//for문 1번 == 1주일
                 monthday.append(tr);
             }
+            dateclick();
+            function dateclick(){
+                $(".possible").on("click",function(){
+                    $("#classdate").val(tmonth.innerText+"/"+this.innerText);
+                    $("#closecal").click();
+                })
+            };
     }
+
         //다음달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
@@ -639,6 +650,5 @@
                     }
                 }
             })
-
         }
         
