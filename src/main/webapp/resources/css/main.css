@@ -27,10 +27,21 @@ body{
 .store-pdt{
     width: 588px;
     height: 270px;
-    background-color: gray;
+    background-position-y: -80px;
+    background-size: cover;
     border-radius: 5px;
     display: inline-block;
 }
+.pdt1-img{
+ background-image: url("../images/mainbread1.png");	
+}
+.pdt2-img{
+ background-image: url("../images/mainbread2.png");	
+}
+.pdt3-img{
+ background-image: url("../images/mainbread3.png");	
+}
+
 .store-ex{
     margin: 20px 0;
     width:382px;
@@ -64,14 +75,33 @@ body{
 }
 .subs-wrap{
     display: inline-block;
+    
 }
 .subs-item{
+
     width:588px;
     height:380px;
-    background-color: gray;
+    background-size:cover;
+    background-repeat:no-repeat;
     display: inline-block;
     margin:12px 12px 0 12px;
     border-radius: 5px;
+    
+}
+.subs-item:hover{
+	padding:10px 10px 0 10px;
+	
+	transition-duration:0.4s;
+}
+.subs-img1{
+
+	 background-image: url("../images/subs2.png");
+	
+}
+.subs-img2{
+
+	 background-image: url("../images/subs1.png");	
+	
 }
 .one-day-class{
     text-align: center;
@@ -91,18 +121,27 @@ body{
     margin-top: 30px;
 }
 .bigclass{
-    background-color: gray;
+    background-size:cover;
     border-radius: 5px;
 }
 .smallclass{
     margin-left: 20px;
     width:282px;
     height:200px;
-    background-color: gray;
+    background-size:cover;
     border-radius: 5px;
+    background-position-y:-50px;
     
 }
-
+.class-img0{
+	 background-image: url("../images/onedayclassList/classMain.jpg");	
+}
+.class-img1{
+	 background-image: url("../images/class1.png");	
+}
+.class-img2{
+	 background-image: url("../images/onedayclassList/macaron.jpg");	
+}
 .black-btn{
     width: 100px;
     height: 35px;
