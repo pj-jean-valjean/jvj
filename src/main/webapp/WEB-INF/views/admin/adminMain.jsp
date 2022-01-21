@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,9 +52,9 @@
             <article class="cal">
                     <div class="calendar">
                     <div class="calhead">
-                    <button class="month-control" onclick="prev()"><<<</button>
+                    <button class="month-control" onclick="prev()">&lt;&lt;&lt;</button>
                     <span id="today-month"></span>
-                    <button class="month-control" onclick="next()">>>></button>
+                    <button class="month-control" onclick="next()">&gt;&gt;&gt;</button>
                     <button id="closecal">닫기</button>
                     </div>
                         <table id = "selectDate">
@@ -68,7 +67,7 @@
                                     <th>THU</th>
                                     <th>FRI</th>
                                     <th>SAT</th>
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody id="month-day">
                             </tbody>

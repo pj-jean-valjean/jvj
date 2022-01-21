@@ -58,7 +58,6 @@
             contentbox.append(funcName,searchDiv,SearchResult)
         }
         //-----------------------------------------------------------------//
-
         //2. 구독 회원 조회---------------------------------------------------
         function subscribingInfo(){
             contentbox.innerHTML="";
@@ -66,7 +65,6 @@
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+"구독회원 조회"+"</h2>"
-
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine subscribe-search");
             searchDiv.innerHTML="<select>"+
@@ -85,11 +83,9 @@
                 "<span class='oneMemberInfo'>구독회차</span>"+
                 "<span class='oneMemberInfo'>구독중 여부</span>"+
             "</li>";
-
             contentbox.append(funcName,searchDiv,SearchResult);
         }
         //-----------------------------------------------------------------//
-
         //3. 주문 조회--------------------------------------------------------
         function orderInfo(){
             contentbox.innerHTML="";
@@ -131,10 +127,8 @@
         //4-1. 공지사항 작성------------------------------------------
         //카테고리 / 제목 / 내용
         function noticeboardWriter(writename){
-
             //초기화
             contentbox.innerHTML="";
-
             //폼태그
             const adminwriteform = document.createElement("form")
             adminwriteform.setAttribute("id","writerForm");
@@ -153,11 +147,10 @@
             noticecate.setAttribute("class", "oneLine");
             noticecate.innerHTML="<label class='labels'>카테고리</label>"+
             "<select>"+
-            "<option>프로모션</option>"+
-            "<option>공지사항</option>" +
-            "<option>이벤트</option>" +
+            "<option value='promotion'>프로모션</option>"+
+            "<option value='notice'>공지사항</option>" +
+            "<option value='event'>이벤트</option>" +
             "</select>";
-            
             //제목
             const title = document.createElement("div");
             title.setAttribute("class", "oneLine");
@@ -172,31 +165,28 @@
             notesummer();
             //썸머노트 실행
             $("#writerForm").attr("action","/noticeWrite");
-            
         }
         //-----------------------------------------------------------------//
 
         //4-2. 일반 상품 게시글 작성
         //사진 5장 / 제목 / 가격  / 내용
         function makeNormalPWritePage(){
-            //일반이미지 4장
-            const div33 = document.createElement("div")
-            div33.setAttribute("class", "oneLine imgline");
-            div33.innerHTML="<label class='labels'>일반이미지</label>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"
-            +"<div class='images'><img></div>"+"<div class='images'><img></div>"+
-            "<input type='file' name='images' class='imagesinput'>" +
-            "<input type='file' name='images' class='imagesinput'>" +
-            "<input type='file' name='images' class='imagesinput'>" +
-            "<input type='file' name='images' class='imagesinput'>";
-
+            //수강인원
+            const stock = document.createElement("div");
+            stock.setAttribute("class", "oneLine");
+            stock.innerHTML="<label class='labels'>재고</label><input type='number' name='stock'><span class='won'>개</span>";
+            
             //썸머노트
             const div4 = document.createElement("div");
-            div4.setAttribute("class", "oneLine contnote");
-            div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
-
-            $("#writerForm").append(div33,div4,subcanBTN());
-            $("#writerForm").attr("action","/npwrite");
-
+            div4.className= "oneLine contnote";
+            div4.innerHTML="<label class='labels'>내용</label><br><textarea id='summernote' name='editordata'></textarea>";
+            
+            const writecate = document.createElement("input");
+            writecate.setAttribute("type", "hidden");
+            writecate.setAttribute("name", "writecate");
+            writecate.setAttribute("value", "normal");
+            $("#writerForm").append(stock,div4,subcanBTN(),writecate);
+            $("#writerForm").attr("action","/productWrite");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -213,20 +203,22 @@
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
             
             const div5 = document.createElement("div");
-            div5.setAttribute("class", "oneLine");
+            div5.className= "oneLine";
             div5.setAttribute("id", "uppercate");
             div5.innerHTML="<label class='labels'>상품 대분류</label>"+
             "<label class='labels'>식빵세트 <input type='radio' name='breadCoffee' value='bread'></label>"+
             "<label class='labels'>식빵&커피 세트 <input type='radio' name='breadCoffee' value='coffee'></label>";
-            
 
             const div6 = document.createElement("div");
-            div6.setAttribute("class", "oneLine");
+            div6.className= "oneLine";
             div6.innerHTML="<label class='labels'>식빵 종류</label>"+
             "<input type='text' class='input-smallcate'><button type='button' class='addBreadType'>종류 추가</button>";
-            
-            $("#writerForm").append(div5,div6,div4,subcanBTN());
-            $("#writerForm").attr("action","/subspwrite");
+            const writecate = document.createElement("input");
+            writecate.setAttribute("type", "hidden");
+            writecate.setAttribute("name", "writecate");
+            writecate.setAttribute("value", "subscribe");
+            $("#writerForm").append(div5,div6,div4,subcanBTN(),writecate);
+            $("#writerForm").attr("action","/productWrite");
 
             //썸머노트 실행
             notesummer();
@@ -250,7 +242,6 @@
                 }
             })
         }
-
         //4-4.클래스 상품 
         //사진 1장 / 제목 / 가격 / 지점 / 가능수강일 /  
         function makeClassPWritePage(){
@@ -274,15 +265,18 @@
             //수강인원
             const people = document.createElement("div");
             people.setAttribute("class", "oneLine");
-            people.innerHTML="<label class='labels'>수강 인원</label><input type='number' name='people'><span id='won'>명</span>";
+            people.innerHTML="<label class='labels'>수강 인원</label><input type='number' name='people'><span class='won'>명</span>";
 
             //썸머노트
             const div4 = document.createElement("div");
             div4.setAttribute("class", "oneLine contnote");
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
-            
-            $("#writerForm").append(place,people,classDate,div4,subcanBTN());
-            $("#writerForm").attr("action","/subspwrite");
+            const writecate = document.createElement("input");
+            writecate.setAttribute("type", "hidden");
+            writecate.setAttribute("name", "writecate");
+            writecate.setAttribute("value", "onedayclass");
+            $("#writerForm").append(place,people,classDate,div4,subcanBTN(),writecate);
+            $("#writerForm").attr("action","/productWrite");
                 
             //썸머노트 실행
             notesummer();
@@ -305,7 +299,6 @@
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+writename+"</h2>"
-
             //제목
             const title = document.createElement("div");
             title.setAttribute("class", "oneLine");
@@ -314,13 +307,24 @@
             //가격
             const price = document.createElement("div");
             price.setAttribute("class", "oneLine");
-            price.innerHTML="<label class='labels'>가격</label><input type='number' name='price'><span id='won'>원</span>";
+            price.innerHTML="<label class='labels'>가격</label><input type='number' name='price'><span class='won'>원</span>";
             const div3 = document.createElement("div");
             div3.setAttribute("class", "oneLine imgline");
             div3.innerHTML="<label class='labels'>썸네일</label><div class='images'><img></div>"+
             "<input type='file' name='images' class='imagesinput'>" ;
-            adminwriteform.append(funcName,title,price,div3)
-            contentbox.append(adminwriteform)
+
+            //일반이미지 4장
+            const div33 = document.createElement("div")
+            div33.setAttribute("class", "oneLine imgline");
+            div33.innerHTML="<label class='labels'>일반이미지</label>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"
+            +"<div class='images'><img></div>"+"<div class='images'><img></div>"+
+            "<input type='file' name='images' class='imagesinput'>" +
+            "<input type='file' name='images' class='imagesinput'>" +
+            "<input type='file' name='images' class='imagesinput'>" +
+            "<input type='file' name='images' class='imagesinput'>";
+
+            adminwriteform.append(funcName,title,price,div3,div33);
+            contentbox.append(adminwriteform);
         }
         //-----------------------------------------------------------------//
         
