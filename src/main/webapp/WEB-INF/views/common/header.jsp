@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
-	
+	<link rel="icon" href="${contextPath}/resources/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 
@@ -29,7 +29,9 @@
             </ul>
             
             <div class="nav-logo">
+            <a href="${contextPath }">
                 <img src="${contextPath}/resources/images/jvj_logo.png" alt="jvj_logo">
+                </a>
             </div>
             <ul class="nav-login">
                 <li>
