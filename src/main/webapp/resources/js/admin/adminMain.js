@@ -188,7 +188,7 @@
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "normal");
             $("#writerForm").append(stock,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","/productWrite");
+            $("#writerForm").attr("action","productWrite");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -213,14 +213,18 @@
 
             const div6 = document.createElement("div");
             div6.className= "oneLine";
-            div6.innerHTML="<label class='labels'>식빵 종류</label>"+
-            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType'>종류 추가</button>";
+            div6.innerHTML="<label class='labels'>빵 종류</label>"+
+            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType'>빵 종류 추가</button>";
+            const div7 = document.createElement("div");
+            div7.className= "oneLine";
+            div7.innerHTML="<label class='labels'>맛 종류</label>"+
+            "<input type='text' class='input-taste'><button type='button' class='addBreadType'>맛 추가</button>";
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "subscribe");
-            $("#writerForm").append(div5,div6,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","/productWrite");
+            $("#writerForm").append(div5,div6,div7,div4,subcanBTN(),writecate);
+            $("#writerForm").attr("action","productWrite");
 
             //썸머노트 실행
             notesummer();
@@ -250,18 +254,18 @@
             const place = document.createElement("div");
             place.setAttribute("class", "oneLine");
             place.innerHTML="<label class='labels'>클래스 지점</label>"+
-            "<select>"+
-            "<option>부천점</option>"+
-            "<option>금천점</option>" +
-            "<option>남양주점</option>" +
-            "<option>창동점</option>" +
-            "<option>마포점</option>" +
+            "<select name='place'>"+
+            "<option value='bucheon'>부천점</option>"+
+            "<option value='geumcheon'>금천점</option>" +
+            "<option value='namyangju'>남양주점</option>" +
+            "<option value='changdong'>창동점</option>" +
+            "<option value='mapo'>마포점</option>" +
             "</select>";
             
             const classDate = document.createElement("div");
             classDate.setAttribute("class", "oneLine");
             classDate.innerHTML="<label class='labels'>클래스 날짜</label>"+
-            "<input type='text' id='classdate' readonly placeholder='날짜를 선택해주세요'>"+
+            "<input type='text' id='classdate' name='classdate' readonly placeholder='날짜를 선택해주세요'>"+
             "<button type='button' class='opencal'>날짜 선택</button>";
             
             //수강인원
@@ -278,7 +282,7 @@
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "onedayclass");
             $("#writerForm").append(place,people,classDate,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","/productWrite");
+            $("#writerForm").attr("action","productWrite");
                 
             //썸머노트 실행
             notesummer();
@@ -296,6 +300,7 @@
             //폼태그
             const adminwriteform = document.createElement("form")
             adminwriteform.setAttribute("id","writerForm");
+            adminwriteform.setAttribute("enctype","multipart/form-data");
             adminwriteform.setAttribute("method","POST");
             //이름
             const funcName = document.createElement("div");
@@ -395,7 +400,7 @@
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+"관리자 계정 추가"+"</h2>";
-
+            
             //관리자명
             const adminname = document.createElement("div");
             adminname.setAttribute("class", "oneLine addAdmin");
@@ -448,7 +453,6 @@
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
         }
-
 
         //달력모달 동작
         function calmodal(){

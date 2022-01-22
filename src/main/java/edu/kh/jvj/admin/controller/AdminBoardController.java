@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import edu.kh.jvj.admin.model.vo.ProductWrite;
+
 
 @Controller
 @RequestMapping("admin/board/*")
@@ -30,8 +33,6 @@ public class AdminBoardController {
 	public String showAdminMain() {
 		return "admin/adminMain";
 	}
-	
-	
 	
 	@PostMapping("summernoteImage")
 	//썸머노트 이미지 처리
@@ -61,4 +62,16 @@ public class AdminBoardController {
 		}
 		return gson.toJson(map);
 	}
+	
+	@PostMapping("productWrite")
+	public String productWrite(
+			@RequestParam(value="images", required=false) List<MultipartFile> images,
+			@RequestParam(value="editordata", required=false) String summerNote,
+			ProductWrite Product
+			) {
+		System.out.println("연결됨");
+		
+		return "";
+	}
+	
 }
