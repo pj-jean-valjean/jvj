@@ -54,7 +54,9 @@
 .pdt-img{
   width:280px;
   height:280px;
-  background-color: gray;
+   background-image: url("../images/dog.jpg");
+  background-repeat: no-repeat;
+  background-size :cover;
   border-radius: 20px;
 }
 .pdt-box{
