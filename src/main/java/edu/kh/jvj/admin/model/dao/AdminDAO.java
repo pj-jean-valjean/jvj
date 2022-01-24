@@ -1,5 +1,10 @@
 package edu.kh.jvj.admin.model.dao;
 
-public class AdminDAO {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class AdminDAO {
+	
+	
+	
 }
