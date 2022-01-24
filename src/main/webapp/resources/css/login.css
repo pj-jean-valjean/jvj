@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+.login-title {
+	text-align: center;
+	margin: 80px 0 80px 0;
+}
+
+.login-title > p {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.login-img {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.login-img > img {
+	width: 583px;
+	height: 250px;
+}
+
+.login-btns {
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.login-btns div {
+	display: flex;
+    justify-content: flex-start;
+	width: 200px;
+	height: 40px;
+	margin: auto;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	font-size: 15px;
+	line-height: 38px;
+}
+
+.login-btns img {
+	margin: 7.5px 10px;
+	width: 25px;
+	height: 25px;
+}
+
+.login-kakao {
+	background-color: #FAE100;
+	color: white;
+}
+
+.login-naver {
+	background-color: #36C736;
+	color: white;
+}
+
+.login-google {
+	border: 1.5px solid #B9B9B9;
+	color: #828282;
+}
+
+.goSignUp {
+	font-size: 15px;
+	text-align: center;
+	margin-bottom: 150px;
+	font-weight: bold;
+}
