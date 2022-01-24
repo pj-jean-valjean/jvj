@@ -37,7 +37,6 @@ public class AdminBoardController {
 	public AdminBoardController(AdminService service) {
 		this.service = service;
 	}
-	
 	//로그인시 관리자페이지 메인
 	@PostMapping("main")
 	public String AdmingLoginProcess(
@@ -93,7 +92,6 @@ public class AdminBoardController {
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		
 		int result = service.insertProduct(images, Product, WebPath , serverPath);
-		
 		
 		return "";
 	}
