@@ -16,11 +16,13 @@ public class MemberController {
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
+		System.out.println("풀리퀘용");
 		return "member/login";
 	}
 	
 	@RequestMapping(value = "signUp", method = RequestMethod.GET)
 	public String signUp() {
+		System.out.println("풀리퀘용");
 		return "member/signUp";
 	}
 }
