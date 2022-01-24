@@ -25,9 +25,9 @@
                 <li>|</li>
                 <li><a href="">스토어</a></li>
                 <li>|</li>
-                <li><a href="">원데이 클래스</a></li>
+                <li><a href="${contextPath}/onedayclass/list">원데이 클래스</a></li>
                 <li>|</li>
-                <li><a href="">공지사항</a></li>
+                <li><a href="${contextPath}/notice/list">공지사항</a></li>
             </ul>
             
             <div class="nav-logo">
@@ -36,6 +36,21 @@
                 </a>
             </div>
             <ul class="nav-login">
+                
+
+                <!-- 비로그인 -->
+                <li><a href="${contextPath}/member/login">로그인</a></li>
+
+                <!-- 로그인 -->
+                <%-- <li>
+                    <a href="">
+                        <img src="${contextPath}/resources/images/user.png" alt="user">
+                    </a>
+                    <a href="">
+                        <img class="shopping-img" src="${contextPath}/resources/images/shopping.png" alt="shopping">
+                    </a>
+                </li> --%>
+                
                 <li>
                     <input class="nav-search" type="text" list="search-options" maxlength="20">
                     <datalist class="search-options" id="search-options">
@@ -44,19 +59,6 @@
                         <option value="초코 식빵" />
                         <option value="로우키 커피" />
                     </datalist>
-                </li>
-
-                <!-- 비로그인 -->
-                <!-- <li><a href="">로그인</a></li>  -->
-
-                <!-- 로그인 -->
-                <li>
-                    <a href="">
-                        <img src="${contextPath}/resources/images/user.png" alt="user">
-                    </a>
-                    <a href="">
-                        <img class="shopping-img" src="${contextPath}/resources/images/shopping.png" alt="shopping">
-                    </a>
                 </li>
             </ul>
         </section>

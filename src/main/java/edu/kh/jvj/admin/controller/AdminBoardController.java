@@ -11,16 +11,20 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
+import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 
 
@@ -28,18 +32,33 @@ import edu.kh.jvj.admin.model.vo.ProductWrite;
 @RequestMapping("admin/board/*")
 public class AdminBoardController {
 	
-	//@PostMapping("main")
-	@RequestMapping("main")
-	public String showAdminMain() {
-		return "admin/adminMain";
+	private final AdminService service;
+	@Autowired
+	public AdminBoardController(AdminService service) {
+		this.service = service;
 	}
-	
+	//로그인시 관리자페이지 메인
+	@PostMapping("main")
+	public String AdmingLoginProcess(
+			String adminId, String adminPw,
+			RedirectAttributes ra, Model model
+			) {
+		String path = "";
+		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
+			path =  "admin/adminMain";
+		}
+		else{
+			path = "redirect:/admin/login";
+			ra.addFlashAttribute("message", "아이디 비밀번호를 확인해주세요!");
+		}
+		return path;
+	}
+	//썸머노트 이미지처리 ajax
 	@PostMapping("summernoteImage")
 	//썸머노트 이미지 처리
 	public @ResponseBody String insertFormData2(
 			@RequestParam(value="file", required=false) MultipartFile file,HttpSession session
 			) {
-		System.out.println("이미지 업로드함");
 		Gson gson = new Gson();
 		Map<String, String> map = new HashMap<String, String>();
 		// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
@@ -63,13 +82,16 @@ public class AdminBoardController {
 		return gson.toJson(map);
 	}
 	
+	//관리자 글작성 
 	@PostMapping("productWrite")
 	public String productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
-			@RequestParam(value="editordata", required=false) String summerNote,
-			ProductWrite Product
+			ProductWrite Product, HttpSession session
 			) {
-		System.out.println("연결됨");
+		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
+		String serverPath = session.getServletContext().getRealPath(WebPath);
+		
+		int result = service.insertProduct(images, Product, WebPath , serverPath);
 		
 		return "";
 	}

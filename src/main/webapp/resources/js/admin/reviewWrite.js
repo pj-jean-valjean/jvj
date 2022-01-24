@@ -1,4 +1,4 @@
- const reviewCheckObj = {
+const reviewCheckObj = {
     "title" : false,
     "point" : false,
     "content" : false

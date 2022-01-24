@@ -23,7 +23,6 @@
     <script src="${contextPath}/resources/js/admin/summernote-bs4.min.js"></script>
     <script src="${contextPath}/resources/js/admin/summernote-ko-KR.js"></script>
     
-    
 <!--     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 </head>
@@ -50,6 +49,7 @@
             <div class="one-admin-func">관리자계정 추가</div>
             <div class="one-admin-func">원데이클래스 회원정보</div>
             <div class="one-admin-func">공지사항 관리</div>
+            <div class="one-admin-func">상품 관리</div>
         </aside>
         <section>
             <article id="adminPCont">
@@ -81,9 +81,9 @@
             </article>
         </section>
         </main>
-</body>
-<script>
-	const contextPath = "${contextPath}"
-</script>
+	<script>
+		const contextPath = "${contextPath}"
+	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMain.js"></script>
+</body>
 </html>

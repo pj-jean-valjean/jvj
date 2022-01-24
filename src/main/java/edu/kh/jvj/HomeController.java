@@ -39,7 +39,6 @@ public class HomeController {
 	@GetMapping("/main")
 	public String mainForward() {
 		
-
 		return "common/main";
 		
 	}
