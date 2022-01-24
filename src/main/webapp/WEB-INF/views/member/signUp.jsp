@@ -9,8 +9,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="${contextPath}/resources/css/signUp.css">
 	<jsp:include page="../common/header.jsp" />
+	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
+ 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
+ 	<link rel="stylesheet" href="${contextPath}/resources/css/signUp.css">
+ 	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 </head>
 <body>
 	<main>
@@ -42,6 +45,9 @@
         </section>
     </main>
     
+    
+    
 	<jsp:include page="../common/footer.jsp" />
+	<script type="text/javascript" src="${contextPath}/resources/js/signUp.js"></script>
 </body>
 </html>
