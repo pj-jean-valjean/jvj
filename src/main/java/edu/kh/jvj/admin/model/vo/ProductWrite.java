@@ -9,11 +9,11 @@ public class ProductWrite {
 	private int price;
 	private String place;
 	private int people;
+	private int stock;
+	private String editordata;
 	private String classdate;
 	private List<MultipartFile> imgList;
-	
-	public ProductWrite() {
-	}
+	private int writecate;
 	public String getTitle() {
 		return title;
 	}
@@ -38,6 +38,18 @@ public class ProductWrite {
 	public void setPeople(int people) {
 		this.people = people;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public String getEditordata() {
+		return editordata;
+	}
+	public void setEditordata(String editordata) {
+		this.editordata = editordata;
+	}
 	public String getClassdate() {
 		return classdate;
 	}
@@ -50,11 +62,19 @@ public class ProductWrite {
 	public void setImgList(List<MultipartFile> imgList) {
 		this.imgList = imgList;
 	}
+	public int getWritecate() {
+		return writecate;
+	}
+	public void setWritecate(int writecate) {
+		this.writecate = writecate;
+	}
 	@Override
 	public String toString() {
 		return "ProductWrite [title=" + title + ", price=" + price + ", place=" + place + ", people=" + people
-				+ ", classdate=" + classdate + ", imgList=" + imgList + "]";
+				+ ", stock=" + stock + ", editordata=" + editordata + ", classdate=" + classdate + ", imgList="
+				+ imgList + ", writecate=" + writecate + "]";
 	}
+	
 	
 	
 	

@@ -1,7 +1,82 @@
      //네비게이션 함수
         let writingcheck = false;
         let selectMonth = 0;
-        const filecheck = [0 , 0 , 0 , 0 , 0];
+        let filecheck = [0 , 0 , 0 , 0 , 0];
+
+        //게시글 input check
+        const commonWriteCheckObj = {
+            "title" : false,
+            "price" : false,
+            "images" : false,
+        }
+        const nomalChekcObj = {
+            "stock" : false
+        } 
+        const subsCheckObj = {
+        }
+        const classCheckObj = {
+            "people" : false,
+            "classdate" : false
+        }
+        function initialInputCheck(){
+            for(key in Object.assign(commonWriteCheckObj,nomalChekcObj,subsCheckObj,classCheckObj)){
+                commonWriteCheckObj[key] = false;
+            }
+        } 
+        //게시글 validation
+        function validate(options){
+            for( key  in commonWriteCheckObj ){
+                if( !commonWriteCheckObj[key] ){
+                    let message;
+                    switch(key){
+                        case "title" : message = "제목을 입력해주세요"; break;
+                        case "price" : message = "가격을 입력해주세요"; break;
+                        case "images" : message = "썸네일을 넣어주세요"; break;
+                    }
+                    alert(message);
+                    document.querySelector("input[name="+key+"]").focus();
+                    return false;
+                }
+            }
+            switch(options){
+                case "normal" : 
+                for( key  in nomalChekcObj ){
+                    if( !nomalChekcObj[key] ){
+                        let message;
+                        switch(key){
+                            case "stock" : message = "재고를 입력해주세요"; break;
+                        }
+                        alert(message);
+                        document.querySelector("input[name="+key+"]").focus();
+                        return false;
+                }} break;
+                case "subs" : 
+                for( key  in subsCheckObj ){
+                    if( !subsCheckObj[key] ){
+                        let message;
+                        switch(key){
+                            case "stock" : message = "재고를 입력해주세요"; break;
+                        }
+                        alert(message);
+                        document.querySelector("input[name="+key+"]").focus();
+                        return false;
+                }} break;
+
+                case "class" : 
+                for( key  in classCheckObj ){
+                    if( !classCheckObj[key] ){
+                        let message;
+                        switch(key){
+                            case "people" : message = "인원을 입력해주세요"; break;
+                            case "classdate" : message = "수강일을 입력해주세요"; break;
+                        }
+                        alert(message);
+                        document.querySelector("input[name="+key+"]").focus();
+                        return false;
+                }} break;
+            }
+        }
+
         const contentbox = document.getElementById("adminPCont");
         window.onload = function(){
             memberInfo();
@@ -35,7 +110,6 @@
         $(".one-admin-func")[7].addEventListener("click",modifyWrite);
         //9- 상품 관리
         $(".one-admin-func")[8].addEventListener("click",modifyProduct);
-
         //1. 회원정보 조회---------------------------------------------------
         function memberInfo(){
             contentbox.innerHTML="";
@@ -188,13 +262,23 @@
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
-            writecate.setAttribute("value", "normal");
+            writecate.setAttribute("value", "1");
             $("#writerForm").append(stock,div4,subcanBTN(),writecate);
             $("#writerForm").attr("action","productWrite");
+            $("#writerForm").attr("onsubmit","return validate('normal')");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
+
+            nomalChekcObj.stock =false;
+            filecheck = [0 , 0 , 0 , 0 , 0];
+
+
+            document.querySelector("input[name='stock']").addEventListener("input", function(){
+                if(this.value.trim().length>0) nomalChekcObj.stock = true;
+                else  nomalChekcObj.stock = false;
+            })
         }
         //-----------------------------------------------------------------//
 
@@ -224,15 +308,17 @@
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
-            writecate.setAttribute("value", "subscribe");
+            writecate.setAttribute("value", "2");
             $("#writerForm").append(div5,div6,div7,div4,subcanBTN(),writecate);
             $("#writerForm").attr("action","productWrite");
-
+            $("#writerForm").attr("onsubmit","return validate('subs')");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
             addE();
+
+            filecheck = [0 , 0 , 0 , 0 , 0];
         }
         //-----------------------------------------------------------------//
         function addE(){
@@ -282,16 +368,27 @@
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
-            writecate.setAttribute("value", "onedayclass");
+            writecate.setAttribute("value", "3");
             $("#writerForm").append(place,people,classDate,div4,subcanBTN(),writecate);
             $("#writerForm").attr("action","productWrite");
-                
+            $("#writerForm").attr("onsubmit","return validate('class')");    
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
             //달력모달 함수
             calmodal();
+            classCheckObj.people = false;
+            classCheckObj.classdate = false;
+            filecheck = [0 , 0 , 0 , 0 , 0];
+            document.querySelector("input[name='people']").addEventListener("input", function(){
+                if(this.value.trim().length>0) classCheckObj.people = true;
+                else  classCheckObj.people = false;
+            })
+            document.querySelector("input[name='classdate']").addEventListener("change", function(){
+                if(this.value.trim().length>0) classCheckObj.classdate = true;
+                else  classCheckObj.classdate = false;
+            })
         }
         //-----------------------------------------------------------------//
 
@@ -334,6 +431,24 @@
 
             adminwriteform.append(funcName,title,price,div3,div33);
             contentbox.append(adminwriteform);
+            //게시글 input check
+
+
+            commonWriteCheckObj.title = false; 
+            commonWriteCheckObj.price = false;
+            commonWriteCheckObj.images = false; 
+            document.querySelector("input[name='title']").addEventListener("input", function(){
+                if(this.value.trim().length>0) commonWriteCheckObj.title = true;
+                else  commonWriteCheckObj.title = false;
+            })
+            document.querySelector("input[name='price']").addEventListener("input", function(){
+                if(this.value.trim().length>0) commonWriteCheckObj.price = true;
+                else  commonWriteCheckObj.price = false;
+            })
+            document.querySelector("input[name='images']").addEventListener("input", function(){
+                if(this.value !=null) commonWriteCheckObj.images = true;
+            })
+
         }
         //-----------------------------------------------------------------//
         
@@ -458,7 +573,7 @@
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
         }
-
+        
         //9. 상품 관리
         function modifyProduct(){
             contentbox.innerHTML="";
@@ -642,6 +757,7 @@
             function dateclick(){
                 $(".possible").on("click",function(){
                     $("#classdate").val(tmonth.innerText+"/"+this.innerText);
+                    classCheckObj.classdate = true;
                     $("#closecal").click();
                 })
             };
@@ -674,6 +790,7 @@
                         $(this).children("img").removeAttr("src");
                         $(this).children("img").css("display","none");
                         $("input[name=images]").eq(index).val("");
+                        commonWriteCheckObj.images = false
                         filecheck[index]=0;
                     }
                 }
