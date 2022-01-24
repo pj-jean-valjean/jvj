@@ -13,7 +13,9 @@
 	<link rel="icon" href="${contextPath}/resources/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
-
+	
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
@@ -60,5 +62,3 @@
         </section>
     </header>
 	
-</body>
-</html>
