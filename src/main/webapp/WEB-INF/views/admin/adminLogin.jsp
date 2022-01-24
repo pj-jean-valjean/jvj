@@ -7,18 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 로그인</title>
-    <link rel="stylesheet" href="/reset.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
    	<link rel="stylesheet" href="${contextPath}/resources/css/admin/adminLogin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="admin-wraaper">
         <div id="adminlogin-box">
-            <h1 class="prjName">Jean Val Jean</h1>
+            <h1 class="prjName">Jean Val Jean </h1>
             <h1 class="admin-title">관리자 로그인</h1>
-            <form action="" method="POST">
+            <form action="${contextPath}/admin/board/main" method="POST" onsubmit="return validate()">
                 <div class="login-one-line">
                     <label for="adminId">아이디</label><input type="text" name="adminId" id="adminId" class="admin-input">
                 </div>
@@ -32,5 +33,21 @@
             </form>
         </div>
     </div>
+    <%-- session에 message 속성이 존재하는 경우 alert창으로 해당 내용을 출력 --%>
+	<c:if test="${ !empty requestScope.message }">
+		<script> const message = "${requestScope.message}";
+					window.onload= function(){
+					if(message!=null){
+						swal({
+						  title: message,
+						  text: '아이디 추가는 루트관리자만 가능합니다!',
+						  icon: "error",
+						});
+						message=null;
+					}
+				}
+		</script>
+	</c:if>
+	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminLogin.js"></script>
 </body>
 </html>

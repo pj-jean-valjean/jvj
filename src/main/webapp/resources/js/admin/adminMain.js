@@ -33,6 +33,8 @@
         //$(".one-admin-func")[6].addEventListener("click",onedayClassMember);
         //8- 공지사항 관리
         $(".one-admin-func")[7].addEventListener("click",modifyWrite);
+        //9- 상품 관리
+        $(".one-admin-func")[8].addEventListener("click",modifyProduct);
 
         //1. 회원정보 조회---------------------------------------------------
         function memberInfo(){
@@ -78,7 +80,7 @@
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo'>구독상품명</span>"+
+                "<span class='oneMemberInfo notice-title'>구독상품명</span>"+
                 "<span class='oneMemberInfo'>아이디</span>"+
                 "<span class='oneMemberInfo'>닉네임</span>"+
                 "<span class='oneMemberInfo'>구독시작일</span>"+
@@ -113,9 +115,9 @@
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo'>주문 번호</span>"+
+                "<span class='oneMemberInfo sequence'>주문 번호</span>"+
                 "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo'>배송지</span>"+
+                "<span class='oneMemberInfo notice-title'>배송지</span>"+
                 "<span class='oneMemberInfo'>구매금액</span>"+
                 "<span class='oneMemberInfo'>결제일</span>"+
                 "<span class='oneMemberInfo'>주문상태</span>"+
@@ -378,9 +380,10 @@
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
+                "<span class='oneMemberInfo sequence'>글 번호</span>"+
                 "<span class='oneMemberInfo'>상품명</span>"+
                 "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo'>후기 내용</span>"+
+                "<span class='oneMemberInfo notice-title'>후기 내용</span>"+
                 "<span class='oneMemberInfo'>블라인드 여부</span>"+
                 "<span class='oneMemberInfo'>후기 처리</span>"+
             "</li>";
@@ -421,7 +424,7 @@
         }
         //-----------------------------------------------------------------//
         
-        //9. 공지사항 관리
+        //8. 공지사항 관리
         function modifyWrite(){
             contentbox.innerHTML="";
              //이름
@@ -442,11 +445,13 @@
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
+                "<span class='oneMemberInfo sequence'>글 번호</span>"+
                 "<span class='oneMemberInfo'>카테고리</span>"+
                 "<span class='oneMemberInfo notice-title'>제목</span>"+
                 "<span class='oneMemberInfo'>처리</span>"+
             "</li>"+
             "<li class='oneMemberResult'>"+
+                "<span class='oneMemberInfo sequence'>1</span>"+
                 "<span class='oneMemberInfo'>공지사항</span>"+
                 "<span class='oneMemberInfo notice-title'>공지사항입니다.</span>"+
                 "<span class='oneMemberInfo'>처리</span>"+
@@ -454,6 +459,43 @@
             contentbox.append(funcName,searchDiv,SearchResult);
         }
 
+        //9. 상품 관리
+        function modifyProduct(){
+            contentbox.innerHTML="";
+            //이름
+            const funcName = document.createElement("div");
+            funcName.setAttribute("class", "oneLine");
+            funcName.innerHTML="<h2>"+"상품 관리"+"</h2>"
+
+            const searchDiv = document.createElement("div");
+            searchDiv.setAttribute("class", "oneLine search-review");
+            searchDiv.innerHTML="<select>"+
+            "<option>All</option>"+
+            "<option>스토어 상품</option>"+
+            "<option>구독 상품</option>"+
+            "<option>클래스 상품</option>"+
+            "<input type='text'><button class='opencal'>검색</button>";
+
+            const SearchResult = document.createElement("ul");
+            SearchResult.setAttribute("class", "ResultLine");
+            SearchResult.innerHTML=
+            "<li class='resultTitle oneMemberResult'>"+
+                "<span class='oneMemberInfo sequence'>상품 번호</span>"+
+                "<span class='oneMemberInfo'>카테고리</span>"+
+                "<span class='oneMemberInfo notice-title'>이름</span>"+
+                "<span class='oneMemberInfo'>현재 상태</span>"+
+                "<span class='oneMemberInfo'>처리</span>"+
+            "</li>"+
+            "<li class='oneMemberResult'>"+
+                "<span class='oneMemberInfo sequence'>1</span>"+
+                "<span class='oneMemberInfo'>스토어상품</span>"+
+                "<span class='oneMemberInfo notice-title'>마카롱</span>"+
+                "<span class='oneMemberInfo'>판매 중</span>"+
+                "<span class='oneMemberInfo'>처리</span>"+
+            "</li>";
+            contentbox.append(funcName,searchDiv,SearchResult);
+        }
+        
         //달력모달 동작
         function calmodal(){
             const closecal = document.querySelector('#closecal');
@@ -521,8 +563,6 @@
             });
             } 
         }
-
-
         //날짜선택 달력 함수
         function displaycal(){
         

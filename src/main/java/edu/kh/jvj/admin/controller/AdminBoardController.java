@@ -12,12 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -27,11 +29,20 @@ import edu.kh.jvj.admin.model.vo.ProductWrite;
 @Controller
 @RequestMapping("admin/board/*")
 public class AdminBoardController {
-	
-	//@PostMapping("main")
-	@RequestMapping("main")
-	public String showAdminMain() {
-		return "admin/adminMain";
+	@PostMapping("main")
+	public String AdmingLoginProcess(
+			String adminId, String adminPw,
+			RedirectAttributes ra, Model model
+			) {
+		String path = "";
+		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
+			path =  "admin/adminMain";
+		}
+		else{
+			path = "redirect:/admin/login";
+			ra.addFlashAttribute("message", "아이디 비밀번호를 확인해주세요!");
+		}
+		return path;
 	}
 	
 	@PostMapping("summernoteImage")

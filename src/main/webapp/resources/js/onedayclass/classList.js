@@ -92,7 +92,20 @@
                 week = week+1;//for문 1번 == 1주일
                 monthday.append(tr);
             }
-    }
+
+            const days = document.getElementsByClassName("possible");
+            for(day of days){
+                addDaySelector(day);
+            }
+
+        }
+        function addDaySelector(day){
+            day.addEventListener("click", function(){
+                const ymonth = document.querySelector("#today-month").innerText;
+                const dday = day.innerText;
+                console.log(ymonth+"/"+dday);
+            })
+        }
         //다음달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
@@ -107,8 +120,6 @@
             monthday.innerHTML = "";
             displaycal();
         }
-
-
 
         /* 무한스크롤 구현 */
         //모든 내용을 감싼 공간 = infinitebox
@@ -125,7 +136,7 @@
 
             function OnScroll () { //스크롤 이벤트 함수
             const fullHeight = infinitebox.clientHeight; // infinite 클래스의 높이   , 스크롤 이벤트 안에서 정의해야 추가된 높이가 다시 계산된다
-            const scrollPosition = pageYOffset; // 스크롤 위치
+            const scrollPosition = scrollY; // 스크롤 위치
                 if (fullHeight-screenHeight*1/3 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이/2가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
                     oneTime = true; // oneTime 변수를 true로 변경해주고,
                     addClassLine();//컨텐츠 추가 발동

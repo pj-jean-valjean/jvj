@@ -70,9 +70,7 @@
             display: flex;
             justify-content: space-evenly;
         }
-        .resultTitle{
-            border-bottom: 1px solid #A78A6C;
-        }
+
         /* 썸네일 크기 */
         .imgline{
             height: 120px;
@@ -175,10 +173,6 @@
         .notice-title{
             width: 30%;
         }
-        .resultTitle{
-            font-size: 20px;
-            font-weight: bold;
-        }
         /* 제출 취소 btn */
         .write-btns{
             width: 100%;
@@ -192,7 +186,21 @@
             width: 100px;
             height: 70%;
         }
-
+        .oneMemberInfo{
+            width: 15%;
+            text-align: center;
+        }
+        .sequence{ width:90px;}
+        .notice-title{ width:30%;}
+        .oneMemberResult{
+            border-bottom: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .resultTitle{
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid #A78A6C;
+        }
         /* 달력 모달 */
         .cal { 
             position: absolute; 
