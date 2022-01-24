@@ -54,7 +54,6 @@ public class AdminBoardController {
 		}
 		return path;
 	}
-	
 	//썸머노트 이미지처리 ajax
 	@PostMapping("summernoteImage")
 	//썸머노트 이미지 처리
