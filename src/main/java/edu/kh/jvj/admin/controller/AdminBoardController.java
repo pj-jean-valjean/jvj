@@ -28,9 +28,10 @@ public class AdminBoardController {
 	//@PostMapping("main")
 	@RequestMapping("main")
 	public String showAdminMain() {
-		
 		return "admin/adminMain";
 	}
+	
+	
 	
 	@PostMapping("summernoteImage")
 	//썸머노트 이미지 처리
@@ -40,11 +41,9 @@ public class AdminBoardController {
 		System.out.println("이미지 업로드함");
 		Gson gson = new Gson();
 		Map<String, String> map = new HashMap<String, String>();
-		
 		// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
 		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
-		
 		String originalFileName=file.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
