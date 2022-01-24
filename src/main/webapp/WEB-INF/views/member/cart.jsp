@@ -20,7 +20,7 @@
 				<h2>상품정보</h2>
 			</div>
 			<div
-				style="width: 330px; height: 50px; text-align: center; margin: 0 30px">
+				style="width: 330px; height: 50px; text-align: center; margin: 0 40px">
 				<h2>추가상품</h2>
 			</div>
 			<div style="width: 204px; height: 50px; text-align: center;">
