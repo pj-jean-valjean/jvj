@@ -10,10 +10,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
-	
+	<link rel="icon" href="${contextPath}/resources/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
-
+	
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
@@ -29,7 +31,9 @@
             </ul>
             
             <div class="nav-logo">
+            <a href="${contextPath }">
                 <img src="${contextPath}/resources/images/jvj_logo.png" alt="jvj_logo">
+                </a>
             </div>
             <ul class="nav-login">
                 <li>
@@ -58,5 +62,3 @@
         </section>
     </header>
 	
-</body>
-</html>
