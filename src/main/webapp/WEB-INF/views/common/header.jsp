@@ -51,7 +51,7 @@
 
                 <!-- 로그인 -->
                 <li>
-                    <a href="">
+                    <a href="${contextPath}/member/login">
                         <img src="${contextPath}/resources/images/user.png" alt="user">
                     </a>
                     <a href="">
