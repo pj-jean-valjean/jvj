@@ -11,6 +11,7 @@
 <title>Document</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/store.css">
 <jsp:include page="../common/header.jsp" />
+<jsp:include page="../common/mcart.jsp" />
 </head>
 
 <body>
@@ -31,7 +32,9 @@
 		<div class="main-content">
 
 			<div class="pdt-box">
+			<div class="outer brand-new">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -40,7 +43,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -49,7 +54,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -58,7 +65,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer ">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -68,7 +77,9 @@
 			</div>
 
 			<div class="pdt-box">
+				<div class="outer brand-new">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -77,7 +88,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer ">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -86,7 +99,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
@@ -95,7 +110,9 @@
 
 			</div>
 			<div class="pdt-box">
+				<div class="outer ">
 				<div class="pdt-img"></div>
+			</div>	
 				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
 					식빵</div>
 				<div style="font-size: 20px; margin-top:5px;">9,500원</div>
