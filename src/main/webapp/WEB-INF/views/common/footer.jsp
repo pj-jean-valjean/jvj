@@ -6,7 +6,7 @@
     <footer>
         <div class="footer-section">
 
-            <img class="footer-main-logo" src="${contextPath}/resources/images/jvj_logo.png" alt="로고">
+            <img class="footer-main-logo" src="${contextPath}/resources/images/common/jvj_logo.png" alt="로고">
             <hr>
             <div class="images">
                 <a href="https://www.instagram.com"><img src="${contextPath}/resources/images/instagram.png" alt="로고"></a>

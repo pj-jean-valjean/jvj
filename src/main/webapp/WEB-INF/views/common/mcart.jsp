@@ -8,7 +8,7 @@
    <div class="a">
  
        <div class="open-c">
-       <img class="crt" alt="" src="${contextPath}/resources/images/shopping.png">
+       <img class="crt" alt="" src="${contextPath}/resources/images/common/shopping.png">
        </div>
        <div class="c-wrapper">
            <div class="c-s-box">
