@@ -45,7 +45,7 @@
 				</div>
 			</div>
 			<div
-				style="width: 330px; margin: 0 30px; height: 195px; border-right: 1px solid #d3c5b6;"
+				style="width: 330px; margin: 0 40px; height: 195px; border-right: 1px solid #d3c5b6;"
 				class="inline-block">
 				<h4 style="margin: 0px 0 25px 60px;">버터잼 1000ML 3,000원</h4>
 				<h4 style="margin: 0px 0 25px 60px;">버터칼 5,000원</h4>

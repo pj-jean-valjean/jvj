@@ -41,6 +41,7 @@
   line-height: 1.5;
   
 }
+
 .label-new,.label-sale{
   background-color:#F95858;
 }
@@ -51,6 +52,8 @@
   background-color:#323232;
   
 }
+
+
 .pdt-img{
   width:280px;
   height:280px;

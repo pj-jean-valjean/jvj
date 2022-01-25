@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
-
 <!DOCTYPE html>
 <html>
 <head>

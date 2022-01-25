@@ -23,11 +23,11 @@
             <ul class="nav-menu">
                 <li><a href="">정기 구독</a></li>
                 <li>|</li>
-                <li><a href="">스토어</a></li>
+                <li><a href="${contextPath}/store">스토어</a></li>
                 <li>|</li>
-                <li><a href="">원데이 클래스</a></li>
+                <li><a href="${contextPath}/onedayclass/list">원데이 클래스</a></li>
                 <li>|</li>
-                <li><a href="">공지사항</a></li>
+                <li><a href="${contextPath}/notice/list">공지사항</a></li>
             </ul>
             
             <div class="nav-logo">

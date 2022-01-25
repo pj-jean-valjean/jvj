@@ -83,3 +83,37 @@
         #submitrv{
             margin-right: 10px;
         }
+
+        /* 반응형 */
+        @media screen and (max-width:768px){
+            section{
+                width:100%;
+            }
+            .one-line-notice>span{
+                font-size: 8px;
+                overflow : hidden ; white-space : nowrap ; text-overflow : clip '
+            }
+            #notice-title, #notice-create-dt, #notice-content, #rvbtns{
+                flex-direction:column;
+                text-align: center;
+            }
+            #notice-info>div>span, #notice-info>div>label,#notice-info>div>input{
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+            #notice-info>div>label{
+                margin-bottom: 5px;
+            }
+            #notice-info>div>span:first-of-type{
+                width: 100%;
+            }
+            #gotolist{
+                margin-right: 10px;
+            }
+            #rvbtns>button{
+                width: 80px;
+                height:30px;
+                font-size: 12px;
+            }
+        }
