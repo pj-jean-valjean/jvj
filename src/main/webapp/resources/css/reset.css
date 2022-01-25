@@ -45,3 +45,14 @@ a{
 	text-decoration: none; 
     color:inherit;
 }
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb{
+	background: rgb(233, 199, 97);
+	border-radius:8px;
+}
+::-webkit-scrollbar-track{
+	box-shadow:rgb(238 234 244) 0px 0px 5px inset;
+	border-radius:10px;
+}
