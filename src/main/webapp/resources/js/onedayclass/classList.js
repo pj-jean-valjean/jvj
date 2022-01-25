@@ -1,4 +1,5 @@
     let selectMonth = 0;
+    let pagination = 1;
     const tempDate = new Date();
     window.onload = function(){
         calmodal();
@@ -126,11 +127,10 @@
         const infinitebox = document.getElementById("infinitebox");
         //스크롤함수 실행
         classScroll();
-        
         function classScroll(){
             const pagination = document.querySelector('.pagination');/* 페이지네이션 정보 */
             const screenHeight = screen.height;/* 화면크기 */
-            let oneTime = false; // 일회용 글로벌 변수
+            let oneTime = false; // 일회성 보장 변수
 
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
@@ -147,10 +147,51 @@
 
         //컨텐츠 추가함수
         function addClassLine(){
+            ++pagination;//페이지네이션 증가
+
+            //로딩 이미지 추가
+            
+
+            //박스 추가
             const box = document.createElement("div");
             box.className="oneClassLine";
-            box.innerText="스크롤로 추가됐습니다.";
-            box.setAttribute("value",1)
+            box.setAttribute("value", pagination);
+                const dateLine = document.createElement("div");
+                dateLine.className="dateLine"; //날짜라인
+                const hr = document.createElement("hr");
+                const showLine = document.createElement("div");
+                showLine.className="classShowLine"; //클래스정보라인
+                box.append(dateLine, hr, showLine);
+
+
+            //로딩 이미지 삭제
+
+
+/*             $.ajax({
+                url : "morelist",
+                data: {"cp" : pagination},
+                type : "POST",
+                dataType : 'JSON',
+                success : function(classList){
+                    if(classList != null){
+                        ++pagination;//페이지네이션 증가
+                        //3개 * 2줄
+                        for(let i = 0 ; i<2 ; i++){
+                            const box = document.createElement("div");
+                            box.className="oneClassLine";
+                            box.setAttribute("value", pagination);
+
+                                const dateLine = document.createElement("div");
+                                dateLine.className="dateLine"; //날짜라인
+                                const hr = document.createElement("hr");
+                                const showLine = document.createElement("div");
+                                showLine.className="classShowLine"; //클래스정보라인
+                                box.append(dateLine, hr, showLine);
+                                
+                            }
+                        }
+                    }
+            }) */
             infinitebox.append(box);
             oneTime = false;
         }

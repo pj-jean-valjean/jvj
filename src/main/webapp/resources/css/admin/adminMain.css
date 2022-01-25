@@ -196,6 +196,17 @@
             border-bottom: 1px solid #eee;
             margin-top: 10px;
         }
+
+        .tagspan{
+            background: #eee;
+            border: 1px solid #eee;
+            color: A78A6C;
+            height: 25px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            margin-left: 15px;
+        }
+
         .resultTitle{
             font-size: 20px;
             font-weight: bold;

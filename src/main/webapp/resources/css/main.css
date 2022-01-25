@@ -7,7 +7,7 @@ body{
     
     width:100%;
     height: 600px;
-    background-image: url("../images/mainbanner3.png");
+    background-image: url("../images/main/mainbanner3.png");
     background-repeat: no-repeat;
     background-size :cover;
     margin-bottom:70px;
@@ -22,24 +22,24 @@ body{
 }
 .store{
     display: inline-block;
-    margin-bottom:100px;
+    margin-bottom:150px;
 }
 .store-pdt{
     width: 588px;
-    height: 270px;
-    background-position-y: -80px;
+    height: 340px;
+    
     background-size: cover;
     border-radius: 5px;
     display: inline-block;
 }
 .pdt1-img{
- background-image: url("../images/mainbread1.png");	
+ background-image: url("../images/main/mainbread1.png");	
 }
 .pdt2-img{
- background-image: url("../images/mainbread2.png");	
+ background-image: url("../images/main/mainbread2.png");	
 }
 .pdt3-img{
- background-image: url("../images/mainbread3.png");	
+ background-image: url("../images/main/mainbread3.png");	
 }
 
 .store-ex{
@@ -95,12 +95,12 @@ body{
 }
 .subs-img1{
 
-	 background-image: url("../images/subs2.png");
+	 background-image: url("../images/main/subs2.png");
 	
 }
 .subs-img2{
 
-	 background-image: url("../images/subs1.png");	
+	 background-image: url("../images/main/subs1.png");	
 	
 }
 .one-day-class{

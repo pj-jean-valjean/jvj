@@ -21,9 +21,9 @@
 	<header>
         <section class="nav">
             <ul class="nav-menu">
-                <li><a href="">정기 구독</a></li>
+                <li><a href="${contextPath}/subscribe/subMain">정기 구독</a></li>
                 <li>|</li>
-                <li><a href="">스토어</a></li>
+                <li><a href="${contextPath}/store">스토어</a></li>
                 <li>|</li>
                 <li><a href="${contextPath}/onedayclass/list">원데이 클래스</a></li>
                 <li>|</li>
@@ -31,8 +31,8 @@
             </ul>
             
             <div class="nav-logo">
-            <a href="${contextPath }">
-                <img src="${contextPath}/resources/images/jvj_logo.png" alt="jvj_logo">
+            <a href="${contextPath}">
+                <img src="${contextPath}/resources/images/common/jvj_logo.png" alt="jvj_logo">
                 </a>
             </div>
             <ul class="nav-login">
@@ -44,10 +44,10 @@
                 <!-- 로그인 -->
                 <%-- <li>
                     <a href="">
-                        <img src="${contextPath}/resources/images/user.png" alt="user">
+                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
                     </a>
                     <a href="">
-                        <img class="shopping-img" src="${contextPath}/resources/images/shopping.png" alt="shopping">
+                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
                     </a>
                 </li> --%>
                 

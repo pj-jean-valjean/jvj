@@ -1,6 +1,6 @@
 @charset "UTF-8";
         body{
-            width: 100vw;
+            width: 100%;
             margin: 0 auto;
         }
         section{
@@ -15,7 +15,6 @@
             font-size: 30px;
             border-bottom: 5px solid rgba(167, 138, 108, 0.5);
         }
-
         #notice-info{
             width: 100%;
         }

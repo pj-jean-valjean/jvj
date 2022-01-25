@@ -20,20 +20,20 @@
         <section class="signUp-title">
                 <p>회원가입</p>
 
-                <img src="${contextPath}/resources/images/sub-bread-main.jpg" alt="sub-bread-main">
+                <img src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
         </section>
         
         <section class="signUp-content">
             <div class="signUp-btn kakao" onclick="location.href ='#'">
-                <img src="${contextPath}/resources/images/kakao-talk.png" alt="kakao-talk">
+                <img src="${contextPath}/resources/images/member/kakao-talk.png" alt="kakao-talk">
                 <span>카카오톡으로 가입하기</span> 
             </div>
             <div class="signUp-btn naver" onclick="location.href ='#'">
-                <img src="${contextPath}/resources/images/naver.png" alt="naver">
+                <img src="${contextPath}/resources/images/member/naver.png" alt="naver">
                 <span>네이버로 가입하기</span> 
             </div>
             <div class="signUp-btn google" onclick="location.href ='#'">
-                <img src="${contextPath}/resources/images/google.png" alt="google">
+                <img src="${contextPath}/resources/images/member/google.png" alt="google">
                 <span>구글로 가입하기</span>
             </div>
         </section>

@@ -136,7 +136,6 @@
 		<li><a class="page-link"
 			href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
 	</ul>
-	</div>
 	<!-- main-wrapper end-->
 </body>
 <jsp:include page="../common/footer.jsp" />
