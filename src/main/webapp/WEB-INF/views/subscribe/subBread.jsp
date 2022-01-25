@@ -21,9 +21,9 @@
         <section class="top">
             <section class="main-nav">
                 <a href="">HOME</a>
-                <img src="images/expand_less.png" alt="expand_less">
+                <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="">정기 구독</a>
-                <img src="images/expand_less.png" alt="expand_less">
+                <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="">빵 세트</a>
             </section>     
             
