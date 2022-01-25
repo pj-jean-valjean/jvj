@@ -11,4 +11,8 @@ public class StoreController {
 	public String storeForward() {
 		return "store/storeEx";
 	}
+	@GetMapping("info")
+	public String detailForward() {
+		return "store/storeDetail";
+	}
 }
