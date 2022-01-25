@@ -64,6 +64,7 @@
 }
 
 .pdt-box{
+position:relative;
   margin-right: 15px;
   width:280px;
   display: inline-block;
@@ -86,3 +87,56 @@
   margin:auto;
   text-align: center;
 }
+.content{
+  top:69%;
+  right: 7%;
+  position:absolute;
+  width: 40px;
+  height: 40px;
+   border: 2px solid #eae2e1;
+   border-radius: 50%;
+   cursor: pointer;
+   
+ }
+ .content.heart-active{
+   border-color: #f9b9c4;
+   background: #fbd0d8;
+ }
+ .heart{
+   
+   background: url("../images/store/heart.png") no-repeat;
+   background-position: left;
+   background-size: 2900%;
+   height: 71px;
+   width: 73px;
+  
+   transform: translate(-22%,-19%);
+ }
+ .text{
+ 
+    top:80%;
+    right: 8%;
+   position: absolute;
+   font-size: 13px;
+   color: grey;
+   font-weight: bold;
+ }
+ 
+ .text.heart-active{
+   color: #000;
+ }
+ .heart.heart-active{
+   animation: animate .8s steps(28) 1;
+   background-position: right;
+   
+    
+ }
+ @keyframes animate {
+   0%{
+     background-position: left;
+   }
+   100%{
+     background-position: right;
+   }
+ }
+ 
