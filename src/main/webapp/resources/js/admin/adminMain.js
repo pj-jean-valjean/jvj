@@ -17,11 +17,6 @@
         const classCheckObj = {
             "people" : false,
             "classdate" : false
-        }
-        function initialInputCheck(){
-            for(key in Object.assign(commonWriteCheckObj,nomalChekcObj,subsCheckObj,classCheckObj)){
-                commonWriteCheckObj[key] = false;
-            }
         } 
         //게시글 validation
         function validate(options){
@@ -573,7 +568,7 @@
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
         }
-        
+
         //9. 상품 관리
         function modifyProduct(){
             contentbox.innerHTML="";

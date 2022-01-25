@@ -15,12 +15,11 @@
  	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 </head>
 <body>
-	    <main>
+    <main>
         <section>
             <!-- 공지사항 리스트 -->
             <article>
                 <div id="pathline"><a href="">HOME</a>&gt;<a href="">공지사항</a></div>
-            
                 <h1 id="classpname" style="font-size: 40px;">공지사항</h1>
                 <div id="align-div">
                     <i class="fas fa-map-marker-alt"></i>
@@ -113,9 +112,7 @@
             </article>
             <!-- 페이지네이션 -->
             <article>
-
             </article>
-
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	

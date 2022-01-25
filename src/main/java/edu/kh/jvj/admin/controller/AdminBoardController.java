@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 
-
 @Controller
 @RequestMapping("admin/board/*")
 public class AdminBoardController {
@@ -81,7 +80,6 @@ public class AdminBoardController {
 		}
 		return gson.toJson(map);
 	}
-	
 	//관리자 글작성 
 	@PostMapping("productWrite")
 	public String productWrite(
@@ -90,7 +88,6 @@ public class AdminBoardController {
 			) {
 		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
-		
 		int result = service.insertProduct(images, Product, WebPath , serverPath);
 		
 		return "";
