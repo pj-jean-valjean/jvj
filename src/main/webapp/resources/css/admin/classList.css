@@ -4,7 +4,7 @@
             font-family: 'Noto Sans KR', sans-serif;
         }
         body{
-            width: 100vw;
+            width: 100%;
             margin: 0 auto;
         }
         section{
@@ -13,7 +13,7 @@
         }
         #classmainimg{
             width: 100%;
-            height: 450px;
+            height: 350px;
             text-align: center;
         }
         #classmainimg>img{
@@ -42,6 +42,13 @@
             width: 120px;
             text-align: center;
         }
+        #placespan{
+            display: block;
+            font-size: 15px;
+            text-align: center;
+            color: black;
+        }
+    
         #align-div>button{
             border: none;
             background: none;
@@ -117,14 +124,14 @@
         /* 달력 모달 */
         .cal ,.place{ 
             position: absolute; 
-            top: 600px; left: 0; 
-            width: 100%; height: 100%; 
+            top: 0; left: 0; 
+            width: 100%; height: 2000px; 
             display: none; 
             background-color: rgba(0, 0, 0, 0.6); 
         }
         .calendar{
             position: absolute; 
-            top: 100px; right: 30%; 
+            top: 1000px; right: calc(50%+250px); 
             background-color: white;
         }
         .calhead,.placehead{
@@ -205,4 +212,5 @@
                 font-size: 8px;
             }
         }
+
         

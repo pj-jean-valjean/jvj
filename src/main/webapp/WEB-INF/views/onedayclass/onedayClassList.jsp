@@ -23,8 +23,7 @@
     <section>
         <article>
             <div id="pathline"><a href="">HOME</a>&gt;<a href="">원데이 클래스</a></div>
-            
-            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<h3 style="font-size: 15px; text-align: center;">[클래스 진행 지점] 부천점, 금천점, 남양주점, 창동점, 마포점</h3></h1>
+            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<span id="placespan">[클래스 진행 지점] 부천점, 금천점, 남양주점, 창동점, 마포점</span></h1>
             <div id="align-div">
                 <button onclick="calmodal()" class='opencal'><i class="far fa-calendar-alt"></i>날짜별 정렬</button>
                 <i class="fas fa-map-marker-alt"></i>
@@ -141,6 +140,11 @@
                 </table>
             </div>
             </article>
+			<article class="loadding">		
+	         	<div class="showloading">
+	         		<img src="${contextPath}/resources/images/onedayclassList/loadingIMG.gif">
+	         	</div>
+         	</article>
         </section>
     </main>
 	
