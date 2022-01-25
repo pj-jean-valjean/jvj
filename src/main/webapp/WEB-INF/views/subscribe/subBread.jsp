@@ -414,6 +414,6 @@ DELIVERY / 배송정보
 	
 	
 	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subBread.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
 </body>
 </html>

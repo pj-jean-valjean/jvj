@@ -8,7 +8,7 @@
    <div class="a">
  
        <div class="open-c">
-       <img class="crt" alt="" src="${contextPath}/resources/images/shopping.png">
+       <img class="crt" alt="" src="${contextPath}/resources/images/common/shopping.png">
        </div>
        <div class="c-wrapper">
            <div class="c-s-box">
@@ -45,7 +45,7 @@
        
        <div class="c-sum-btn">
            <h3>현재 총 구매 가격 : 148,700원</h3>
-           <h3><a href="#" style="color:white"><u>구매하기</u></a></h3>
+           <h3><a href="cart" style="color:white"><u>구매하기</u></a></h3>
        </div>
    </div>
    <script src="${contextPath}/resources/js/common/mcart.js"></script>
