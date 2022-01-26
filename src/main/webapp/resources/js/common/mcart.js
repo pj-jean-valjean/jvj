@@ -1,5 +1,4 @@
 
-let a = 1;
 var elements = document.querySelectorAll('.a>*');
 
 let am = anime({
@@ -9,12 +8,6 @@ let am = anime({
 
 });
 
-let am2 = anime({
-    targets: elements,
-    translateX: 0,
-    autoplay: false
-  
-  });
 
 function openc(){
    
@@ -23,14 +16,8 @@ function openc(){
       }, 3000);
 }
 document.querySelector('.open-c').addEventListener("click",()=>{
-    if(a == 1 ){
-        am.restart();
-        a= 0;
-    }else{
-      
-        am2.restart();
-
-        a = 1;
-    }
-    
+  am.play();
+  am.finished.then(() => {
+    am.reverse();
+  });    
 });
