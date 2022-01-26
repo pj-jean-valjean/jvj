@@ -28,7 +28,7 @@
 </head>
 <body>
     <header>
-        <img src="${contextPath}/resources/images/로고 최종.png">
+        <img src="${contextPath}/resources/images/common/jvj_logo.png">
     </header>
     <main>
         <aside id='showfunc'>
