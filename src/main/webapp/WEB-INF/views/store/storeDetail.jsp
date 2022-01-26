@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<jsp:include page="../common/mcart.jsp" />
 <jsp:include page="../common/header.jsp" />
  	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
  	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
