@@ -23,8 +23,7 @@
     <section>
         <article>
             <div id="pathline"><a href="">HOME</a>&gt;<a href="">원데이 클래스</a></div>
-            
-            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<h3 style="font-size: 15px; text-align: center;">[클래스 진행 지점] 부천점, 금천점, 남양주점, 창동점, 마포점</h3></h1>
+            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<span id="placespan">[클래스 진행 지점] 부천점, 금천점, 남양주점, 창동점, 마포점</span></h1>
             <div id="align-div">
                 <button onclick="calmodal()" class='opencal'><i class="far fa-calendar-alt"></i>날짜별 정렬</button>
                 <i class="fas fa-map-marker-alt"></i>
@@ -39,6 +38,7 @@
             </div>
             <div id="infinitebox">
             <div class="oneClassLine">
+            
                 <div class="dateLine">
                     <div class="oneCdate">
                         <span>Tue</span>
@@ -54,27 +54,52 @@
                     </div>
                 </div>
                 <hr>
-                <div class="classShowLine">
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/bread.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/macaron.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/greenteabread.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                </div>
+                <ul class="classShowLine">
+                    <li class="oneCInfo">
+                    	<a href="view">
+	                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+	                        <span class="infoLine">
+		                        <span class="review-ratings-real">★★★★★</span>
+		                        <span class="review-ratings-base">★★★★★</span>
+		                        <span> 4.5</span>
+	                        	<i class="fas fa-heart"></i><span>113</span>
+	                        </span>
+	                        <span>초보자를 위한 베이킹 클래스!</span>
+	                        <span>50,000원</span>
+	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                    <li class="oneCInfo">
+                    	<a href="view">
+                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+                        <span class="infoLine">
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
+	                        <span> 4.5</span>
+                        	<i class="fas fa-heart"></i><span>113</span>
+                        </span>
+                        <span>초보자를 위한 베이킹 클래스!</span>
+                        <span>50,000원</span>
+                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                    <li class="oneCInfo">
+                    	<a href="view">
+                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+                        <span class="infoLine">
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
+	                        <span> 4.5</span>
+                        	<i class="fas fa-heart"></i><span>113</span>
+                        </span>
+                        <span>초보자를 위한 베이킹 클래스!</span>
+                        <span>50,000원</span>
+	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+            
             <div class="oneClassLine">
                 <div class="dateLine">
                     <div class="oneCdate">
@@ -91,29 +116,52 @@
                     </div>
                 </div>
                 <hr>
-                <div class="classShowLine">
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/bread.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/macaron.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                    <div class="oneCInfo">
-                        <div class="classimg"><img src="${contextPath}/resources/images/onedayclassList/greenteabread.jpg"></div>
-                        <div>초보자를 위한 베이킹 클래스!</div>
-                        <div>50,000원</div>
-                        <div><i class="fas fa-map-marker-alt"></i>마포점</div>
-                    </div>
-                </div>
+                <ul class="classShowLine">
+                   <li class="oneCInfo">
+                    	<a href="view">
+                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+                        <span class="infoLine">
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
+	                        <span> 4.5</span>
+                        	<i class="fas fa-heart"></i><span>113</span>
+                        </span>
+                        <span>초보자를 위한 베이킹 클래스!</span>
+                        <span>50,000원</span>
+	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                   <li class="oneCInfo">
+                    	<a href="view">
+                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+                        <span class="infoLine">
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
+	                        <span> 4.5</span>
+                        	<i class="fas fa-heart"></i><span>113</span>
+                        </span>
+                        <span>초보자를 위한 베이킹 클래스!</span>
+                        <span>50,000원</span>
+	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                   <li class="oneCInfo">
+                    	<a href="view">
+                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+                        <span class="infoLine">
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
+	                        <span> 4.5</span>
+                        	<i class="fas fa-heart"></i><span>113</span>
+                        </span>
+                        <span>초보자를 위한 베이킹 클래스!</span>
+                        <span>50,000원</span>
+	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
             </div>
-            <div class="pagination">페이지네이션</div>
         </article>
         <article class="cal">
             <div class="calendar">
@@ -141,10 +189,16 @@
                 </table>
             </div>
             </article>
+			<article class="loadding">		
+	         	<div class="showloading">
+	         		<img src="${contextPath}/resources/images/onedayclassList/loadingIMG.gif">
+	         	</div>
+         	</article>
         </section>
     </main>
 	
 	<jsp:include page="../common/footer.jsp" />	
+	<script>const contextPath = "${contextPath}"</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classList.js"></script>
 </body>
 </html>

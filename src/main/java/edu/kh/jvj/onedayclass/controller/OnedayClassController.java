@@ -10,7 +10,11 @@ public class OnedayClassController {
 	
 	@GetMapping("list")
 	public String showOnedayClassList() {
-		
 		return "/onedayclass/onedayClassList";
+	}
+	
+	@GetMapping("view")
+	public String showOnedayClassDetail() {
+		return "/onedayclass/onedayClassDetail";
 	}
 }

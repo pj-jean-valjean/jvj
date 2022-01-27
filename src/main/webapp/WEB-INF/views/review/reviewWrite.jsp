@@ -15,7 +15,7 @@
  	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 </head>
 <body>
-       <main>
+      <main>
         <section>
             <article>
                 <h1 id="classpname">리뷰 작성</h1>

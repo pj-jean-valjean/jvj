@@ -88,8 +88,13 @@
   margin:auto;
   text-align: center;
 }
+
+.heart-btn{
+	float: right;
+	width:49px;
+	margin-top:-32px;
+}
 .content{
-  float: right;
   width: 40px;
   height: 40px;
    border: 2px solid #eae2e1;
@@ -115,7 +120,7 @@
  .text{
  
   float: right;
-  margin-right: 4px;
+  margin-right: 8px;
   clear: both;
    font-size: 13px;
    color: grey;

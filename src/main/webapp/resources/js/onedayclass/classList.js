@@ -1,24 +1,25 @@
     let selectMonth = 0;
+    let pagination = 1;
     const tempDate = new Date();
     window.onload = function(){
         calmodal();
     } 
-        //달력모달 동작
-        function calmodal(){
-            const closecal = document.querySelector('#closecal');
-            const btnOpenPopup = document.querySelector('.opencal'); 
-            const cal = document.querySelector('.cal'); 
-            btnOpenPopup.addEventListener('click', () => {
-                cal.style.display = 'block';
-                displaycal(); });
-            closecal.addEventListener('click', ()=>{
-                const monthday = document.getElementById("month-day");
-                monthday.innerHTML="";
-                cal.style.display = 'none';
-                selectMonth=0;
-            })
-           /*  $("#month-day > tr > td") */
-        }
+    //달력모달 동작
+    function calmodal(){
+        const closecal = document.querySelector('#closecal');
+        const btnOpenPopup = document.querySelector('.opencal'); 
+        const cal = document.querySelector('.cal'); 
+        btnOpenPopup.addEventListener('click', () => {
+            cal.style.display = 'block';
+            displaycal(); });
+        closecal.addEventListener('click', ()=>{
+            const monthday = document.getElementById("month-day");
+            monthday.innerHTML="";
+            cal.style.display = 'none';
+            selectMonth=0;
+        })
+        /*  $("#month-day > tr > td") */
+    }
 
         //날짜선택 달력 함수
         function displaycal(){
@@ -48,7 +49,7 @@
 
         var enMonthName = new Array('1','2','3','4','5','6',
             '7','8','9','10','11','12');
-
+        
         let count = 1;
         let week =1;
         let notLast= true; //마지막 날짜 검사 boolean;
@@ -126,11 +127,10 @@
         const infinitebox = document.getElementById("infinitebox");
         //스크롤함수 실행
         classScroll();
-        
         function classScroll(){
             const pagination = document.querySelector('.pagination');/* 페이지네이션 정보 */
             const screenHeight = screen.height;/* 화면크기 */
-            let oneTime = false; // 일회용 글로벌 변수
+            let oneTime = false; // 일회성 보장 변수
 
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
@@ -139,7 +139,7 @@
             const scrollPosition = scrollY; // 스크롤 위치
                 if (fullHeight-screenHeight*1/3 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이/2가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
                     oneTime = true; // oneTime 변수를 true로 변경해주고,
-                    addClassLine();//컨텐츠 추가 발동
+                    infinitebox.append(addClassLine());//컨텐츠 추가 발동
                     classScroll();
                 }
             }
@@ -147,10 +147,122 @@
 
         //컨텐츠 추가함수
         function addClassLine(){
-            const box = document.createElement("div");
-            box.className="oneClassLine";
-            box.innerText="스크롤로 추가됐습니다.";
-            box.setAttribute("value",1)
+            ++pagination;//페이지네이션 증가
+            //로딩 이미지 추가
+            //박스 추가
+
+            //1줄 박스 
+            const divOneClass = document.createElement("div");
+            divOneClass.className = "oneClassLine";
+
+            //날짜라인
+            const oneClassLine = document.createElement("div");
+            oneClassLine.className = "dateLine";
+
+            //-----------3번 날짜 반복
+            for(let i = 0 ; i<3 ; i++){
+            //1 date
+            const oneCdate = document.createElement("div");
+            oneCdate.className = "oneCdate";
+
+            //1date 1요일 1day
+            const yoil = document.createElement("span");
+            yoil.innerText = "Tue";
+            const cMonthDay = document.createElement("span");
+            cMonthDay.innerText = "12.1";
+            oneCdate.append(yoil, cMonthDay);
+            //-----------3번 반복 삽입
+            oneClassLine.append(oneCdate);
+            }
+
+            const hr = document.createElement("hr");
+            divOneClass.append(oneClassLine,hr);
+
+            //classShow
+            const ul = document.createElement("ul");
+            ul.className = "classShowLine";
+
+            //-----------3번 클래스정보 반복
+            for(let i = 0 ; i<3 ; i++){
+                //classShow 사진 평점 좋아요 
+                const oneCInfo = document.createElement("li");
+                oneCInfo.className = "oneCInfo";
+                const atag = document.createElement("a");
+                atag.setAttribute("href","view")
+                oneCInfo.append(atag);
+                //li + a 태그
+                //a태그 1
+                const img = document.createElement("img");
+                img.className = "classimg";
+                img.setAttribute("src",contextPath+"/resources/images/onedayclassList/bread.jpg");
+                //a태그 2
+                const ratingspan = document.createElement("span");
+                ratingspan.className= "infoLine";
+
+                const makestar1 = document.createElement("span");
+                makestar1.className= "review-ratings-real";
+                makestar1.innerText = "★★★★★";
+                const makestar2 = document.createElement("span");
+                makestar2.className= "review-ratings-base";
+                makestar2.innerText = "★★★★★";
+                ratingspan.append(makestar1,makestar2);
+
+                const rating = document.createElement("span");
+                rating.innerText = "4.5";
+                const itag = document.createElement("i");
+                itag.className = "fas fa-heart";
+                const likes = document.createElement("span");
+                likes.innerText = "113";
+                ratingspan.append(rating,itag,likes);
+
+                //a태그 3
+                const title = document.createElement("span");
+                title.innerText = "초보자를 위한 베이킹 클래스!";
+
+                //a태그 4
+                const price = document.createElement("span");
+                price.innerText = "50,000원";
+
+                //a태그 5
+                const place = document.createElement("span");
+                const mapitag = document.createElement("i");
+                mapitag.className = "fas fa-map-marker-alt";
+                place.append(mapitag);
+                place.innerText = "마포점";
+                
+                atag.append(img,ratingspan,title,price,place);
+                //-----------3번 반복 삽입
+                ul.append(oneCInfo);
+            }
+            divOneClass.append(ul);
+            return(divOneClass);
+            //로딩 이미지 삭제
+
+/*             $.ajax({
+                url : "morelist",
+                data: {"cp" : pagination},
+                type : "POST",
+                dataType : 'JSON',
+                success : function(classList){
+                    if(classList != null){
+                        ++pagination;//페이지네이션 증가
+                        //3개 * 2줄
+                        for(let i = 0 ; i<2 ; i++){
+                            const box = document.createElement("div");
+                            box.className="oneClassLine";
+                            box.setAttribute("value", pagination);
+
+                                const dateLine = document.createElement("div");
+                                dateLine.className="dateLine"; //날짜라인
+                                const hr = document.createElement("hr");
+                                const showLine = document.createElement("div");
+                                showLine.className="classShowLine"; //클래스정보라인
+                                box.append(dateLine, hr, showLine);
+                                
+                            }
+                        }
+                    }
+            }) */
             infinitebox.append(box);
             oneTime = false;
         }
