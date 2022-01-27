@@ -44,7 +44,7 @@ public class AdminBoardController {
 			) {
 		String path = "";
 		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
-			path =  "admin/adminMain";
+			path =  " admin/adminMain";
 		}
 		else{
 			path = "redirect:/admin/login";

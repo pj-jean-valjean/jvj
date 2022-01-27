@@ -38,6 +38,7 @@
             </div>
             <div id="infinitebox">
             <div class="oneClassLine">
+            
                 <div class="dateLine">
                     <div class="oneCdate">
                         <span>Tue</span>
@@ -56,15 +57,15 @@
                 <ul class="classShowLine">
                     <li class="oneCInfo">
                     	<a href="view">
-                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
-                        <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
-	                        <span> 4.5</span>
-                        	<i class="fas fa-heart"></i><span>113</span>
-                        </span>
-                        <span>초보자를 위한 베이킹 클래스!</span>
-                        <span>50,000원</span>
+	                        <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
+	                        <span class="infoLine">
+		                        <span class="review-ratings-real">★★★★★</span>
+		                        <span class="review-ratings-base">★★★★★</span>
+		                        <span> 4.5</span>
+	                        	<i class="fas fa-heart"></i><span>113</span>
+	                        </span>
+	                        <span>초보자를 위한 베이킹 클래스!</span>
+	                        <span>50,000원</span>
 	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
                         </a>
                     </li>
@@ -72,22 +73,22 @@
                     	<a href="view">
                         <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
                         <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
 	                        <span> 4.5</span>
                         	<i class="fas fa-heart"></i><span>113</span>
                         </span>
                         <span>초보자를 위한 베이킹 클래스!</span>
                         <span>50,000원</span>
-	                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
+                        <span><i class="fas fa-map-marker-alt"></i>마포점</span>
                         </a>
                     </li>
                     <li class="oneCInfo">
                     	<a href="view">
                         <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
                         <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
 	                        <span> 4.5</span>
                         	<i class="fas fa-heart"></i><span>113</span>
                         </span>
@@ -98,6 +99,7 @@
                     </li>
                 </ul>
             </div>
+            
             <div class="oneClassLine">
                 <div class="dateLine">
                     <div class="oneCdate">
@@ -119,8 +121,8 @@
                     	<a href="view">
                         <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
                         <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
 	                        <span> 4.5</span>
                         	<i class="fas fa-heart"></i><span>113</span>
                         </span>
@@ -133,8 +135,8 @@
                     	<a href="view">
                         <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
                         <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
 	                        <span> 4.5</span>
                         	<i class="fas fa-heart"></i><span>113</span>
                         </span>
@@ -147,8 +149,8 @@
                     	<a href="view">
                         <img class="classimg" src="${contextPath}/resources/images/onedayclassList/bread.jpg">
                         <span class="infoLine">
-	                        <span id="review-ratings-real">★★★★★</span>
-	                        <span id="review-ratings-base">★★★★★</span>
+	                        <span class="review-ratings-real">★★★★★</span>
+	                        <span class="review-ratings-base">★★★★★</span>
 	                        <span> 4.5</span>
                         	<i class="fas fa-heart"></i><span>113</span>
                         </span>
@@ -196,6 +198,7 @@
     </main>
 	
 	<jsp:include page="../common/footer.jsp" />	
+	<script>const contextPath = "${contextPath}"</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classList.js"></script>
 </body>
 </html>

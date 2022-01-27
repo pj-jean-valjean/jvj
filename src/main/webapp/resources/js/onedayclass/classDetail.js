@@ -3,14 +3,13 @@
 window.onload = function(){
     changeImg();
 }
+	const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
 function changeImg(){
     const subImgs = document.querySelectorAll(".img-margin");
     const thumb = document.querySelector(".main-thumbnail");
     for(let i = 0; i< subImgs.length ; i++){
-        subImgs[i].addEventListener("mouseover", function(){
-            const temp = thumb.getAttribute("src");
+        subImgs[i].addEventListener("click", function(){
             thumb.setAttribute("src",subImgs[i].getAttribute("src"))
-            subImgs[i].setAttribute("src", temp);
         })
     }
 }

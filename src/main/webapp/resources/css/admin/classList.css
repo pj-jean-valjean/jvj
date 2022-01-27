@@ -124,11 +124,11 @@
 		    color: red;
 		    margin: 0px 10px 0px 15px;
 		}
-		#review-ratings-real{
+		.review-ratings-real{
 		    position:absolute; 
 		    width:50px; overflow:hidden; white-space:nowrap; color:gold; z-index:1;
 		}
-		#review-ratings-base{
+		.review-ratings-base{
 		    position:absolute; 
 		    width:100px; overflow:hidden; color:#cdcdcd;
 		}
