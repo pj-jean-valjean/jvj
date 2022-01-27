@@ -166,7 +166,7 @@
                 <img class="exp-img" src="${contextPath}/resources/images/subscribe/sub_detail_bread.jpg" alt="sub_detail_bread">
             </article>   
 
-            
+            <!--  -->
             <!-- 리뷰 -->
             <article class="boundary-line" id="contents-review" >
                 <div class="header-title review-header ">
