@@ -17,11 +17,6 @@
         const classCheckObj = {
             "people" : false,
             "classdate" : false
-        }
-        function initialInputCheck(){
-            for(key in Object.assign(commonWriteCheckObj,nomalChekcObj,subsCheckObj,classCheckObj)){
-                commonWriteCheckObj[key] = false;
-            }
         } 
         //게시글 validation
         function validate(options){
@@ -300,11 +295,11 @@
             const div6 = document.createElement("div");
             div6.className= "oneLine";
             div6.innerHTML="<label class='labels'>빵 종류</label>"+
-            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType'>빵 종류 추가</button>";
+            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
             const div7 = document.createElement("div");
             div7.className= "oneLine";
             div7.innerHTML="<label class='labels'>맛 종류</label>"+
-            "<input type='text' class='input-taste'><button type='button' class='addBreadType'>맛 추가</button>";
+            "<input type='text' class='input-taste'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
@@ -317,19 +312,19 @@
             //이미지 함수 실행
             showImg();
             addE();
-
+            addTaste();
             filecheck = [0 , 0 , 0 , 0 , 0];
         }
         //-----------------------------------------------------------------//
         function addE(){
             $("input[name='breadCoffee']").on("change",function(){
                 if(this.value=='coffee'){
-                    console.log(1111);
                     const addcoffee = document.createElement("div");
                     addcoffee.setAttribute("class", "oneLine addCoffee");
                     addcoffee.innerHTML="<label class='labels'>커피 용량</label>"+
-                    "<input type='text' class='input-smallcate'><button type='button' class='addBreadType'>커피용량 추가</button>";
-                    $("#uppercate").after(addcoffee);
+                    "<input type='text' class='input-smallcate'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
+                    $("#uppercate").next().next().after(addcoffee);
+                    addTaste();
                 }
                 else{
                     $(".addCoffee").remove();
@@ -472,7 +467,7 @@
             return div5;
         }
         //-----------------------------------------------------------------//
-
+        
         //5. 후기 관리
         function reviewManage(){
             contentbox.innerHTML="";
@@ -573,7 +568,7 @@
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
         }
-        
+
         //9. 상품 관리
         function modifyProduct(){
             contentbox.innerHTML="";
@@ -813,3 +808,35 @@
             })
         }
         
+        //커피용량 빵종류 맛종류 추가 func
+        function addTaste(){
+            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
+            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
+                addSubsOptionBtn[i].addEventListener("click", function(){
+                    const input = addSubsOptionBtn[i].previousElementSibling;
+                    if(input.value.trim().length>0){
+                        const span = document.createElement("span");
+                        
+                        if(i==0)span.className="bread-type tagspan";
+                        else if(i==1) span.className = "taste-type tagspan";
+                        else span.className="coffee-type tagspan";
+                        span.innerText = "#"+input.value;
+                        span.style.cursor= "pointer";
+                        addSubsOptionBtn[i].parentElement.append(span);
+                        input.value="";
+                        const tags = document.querySelectorAll(".tagspan");
+                        for(let i =0 ; i<tags.length ; i++){
+                            tags[i].addEventListener("click", function(){
+                                if(confirm("삭제하시겠습니까?")){
+                                    this.remove();
+                                }
+                            })
+                        }
+                    }
+                    
+                })
+            }
+        }
+
+
+

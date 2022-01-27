@@ -4,7 +4,7 @@
             font-family: 'Noto Sans KR', sans-serif;
         }
         body{
-            width: 100vw;
+            width: 100%;
             margin: 0 auto;
         }
         section{
@@ -13,7 +13,7 @@
         }
         #classmainimg{
             width: 100%;
-            height: 450px;
+            height: 350px;
             text-align: center;
         }
         #classmainimg>img{
@@ -42,6 +42,13 @@
             width: 120px;
             text-align: center;
         }
+        #placespan{
+            display: block;
+            font-size: 15px;
+            text-align: center;
+            color: black;
+        }
+    
         #align-div>button{
             border: none;
             background: none;
@@ -56,7 +63,6 @@
         .oneClassLine{
             margin-top: 35px;
             width: 100%;
-            height: 525px;
             display: flex;
             flex-direction: column;
         }
@@ -68,7 +74,6 @@
             justify-content:space-between
         }
         .classShowLine{
-            height: 450px;
             display: flex;
             justify-content:space-between
         }
@@ -87,44 +92,64 @@
             color: #C1C1C1;
         }
 
-        .oneCInfo{
+        .oneCInfo>a{
+        	display:flex;
+        	flex-direction: column;
             width: 300px;
-            height: 450px;
+            height: 500px;
             text-align: center;
         }
-        .oneCInfo>div{
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        .oneCInfo>div:nth-of-type(2){
-            font-size: 20px;
+        .oneCInfo>a>span{
+            font-size: 16px;
+            margin-top : 10px;
+            height : 30px;
         }
         .classimg{
             border: none;
             border-radius: 10px;
-        }
-        .classimg>img{
             width: 300px;
             height: 300px;
         }
+		/* 평점 및 좋아요 리뷰 */
+		.infoLine{
+			text-align: left;
+			padding-left : 50px;
+		}
+
+		.infoLine>span:nth-of-type(3){
+			margin-left:90px;
+			background: yellow;
+		}
+		.fa-heart{
+		    color: red;
+		    margin: 0px 10px 0px 15px;
+		}
+		.review-ratings-real{
+		    position:absolute; 
+		    width:50px; overflow:hidden; white-space:nowrap; color:gold; z-index:1;
+		}
+		.review-ratings-base{
+		    position:absolute; 
+		    width:100px; overflow:hidden; color:#cdcdcd;
+		}
+		
         fa-calendar-alt{
             color: #A78A6C;
         }
         .fa-map-marker-alt{
             color: #A78A6C;
         }
-
         /* 달력 모달 */
         .cal ,.place{ 
             position: absolute; 
-            top: 600px; left: 0; 
-            width: 100%; height: 100%; 
+            top: 0; left: 0; 
+            width: 100%; height: 2000px; 
             display: none; 
             background-color: rgba(0, 0, 0, 0.6); 
         }
         .calendar{
             position: absolute; 
-            top: 100px; right: 30%; 
+            top: 20%; right: calc( 50% - 250px ); 
             background-color: white;
         }
         .calhead,.placehead{
@@ -205,4 +230,5 @@
                 font-size: 8px;
             }
         }
+
         

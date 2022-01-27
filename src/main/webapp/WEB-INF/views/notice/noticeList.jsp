@@ -15,15 +15,13 @@
  	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 </head>
 <body>
-	    <main>
+    <main>
         <section>
             <!-- 공지사항 리스트 -->
             <article>
                 <div id="pathline"><a href="">HOME</a>&gt;<a href="">공지사항</a></div>
-            
                 <h1 id="classpname" style="font-size: 40px;">공지사항</h1>
                 <div id="align-div">
-                    <i class="fas fa-map-marker-alt"></i>
                     <select id='selectcate'>
                         <option>전체</option>
                         <option>이벤트</option>
@@ -113,9 +111,19 @@
             </article>
             <!-- 페이지네이션 -->
             <article>
-
+           		<ul class="pagination">
+					<li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
+					<li><a class="page-link"
+						href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
+					<li><a class="page-link"
+						style="padding: 6px 11px; border-radius: 20px; background-color: #B9845A; color: white;">1</a></li>
+					<li><a class="page-link" style="" href="list?cp=${i}${s}">2</a></li>
+					<li><a class="page-link"
+						href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
+					<li><a class="page-link"
+						href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
+				</ul>
             </article>
-
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	

@@ -184,7 +184,6 @@
 		<li><a class="page-link"
 			href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
 	</ul>
-	</div>
 	<!-- main-wrapper end-->
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/store/store.js"></script>
