@@ -1,15 +1,17 @@
+/*
 :root{
     --text-color : #323232;
     --accent-color : #564334;
     --gray-color : #f7f7f7;
 }
 
-html{
-    scroll-behavior: smooth;
-}
-body{
+ body{
     font-family: 'Noto Sans Korean';
     font-weight: 500;
+}
+ */
+html{
+    scroll-behavior: smooth;
 }
 
 main{
@@ -44,17 +46,38 @@ main{
     float: left;
 }
 
-.main-thumbnail{
+/* 메인 썸네일 영역 */
+.main-img-area{
     width: 100%;
     height: 550px;
+    margin: auto;
+    overflow: hidden;
+    align-items: center;
+	justify-content : center;
     border-radius: 5px;
     margin: 0 0 15px 0;
 }
+
+/* 메인 썸네일 이미지 */
+.main-img-area > img{
+    width: 100%;
+    height:100%;
+    border-radius: 5px;
+    
+    object-fit: cover;
+}
+
+.main-img-area:hover img{
+    transform:scale(1.1);
+    transition-duration:0.4s;
+}
+
 
 .product-thumbnail div{    
     display: flex;
     width: 100%; 
 }
+
 .product-thumbnail div img{
     width: 22%;
     height: 140px;
@@ -72,8 +95,8 @@ main{
 
 /* 우측 세부내용 */
 .product_detail{  
-    width: 50%;
-    float: left;
+    width: 47%;
+    float: right;
     margin-left: 26px;
 }
 
@@ -155,11 +178,22 @@ main{
 .btn > span{
     font-size: 15px;
 }
-.btn:hover, .btn:active, .btn:focus {
+
+
+.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active{
     background-color: #A78A6C;
     color: white; 
     transition: 0.3s;
 }
+
+/* 선택 시 추가 */
+.clicked-btn{
+    background-color: #A78A6C;
+    color: white; 
+}
+
+
+
 
 /* 구매상품 확인 div */
 .buy-total{
@@ -184,6 +218,13 @@ main{
 .buy-count > span{
     margin: 0 10px 0 10px;
 }
+
+.add-btn:hover, .minus-btn:hover{
+    cursor: pointer;
+    filter: contrast(0.8);
+} 
+
+
 
 /* 총 구매 금액 */
 .total-price{
@@ -297,14 +338,25 @@ main{
     justify-content: space-between;
 }
 
+/* 리뷰 select option */
+#selectcate{
+    border: 1px solid #B7B7B7;
+    border-radius: 5px;
+    color: #B7B7B7;
+    font-size: 15px;
+    width: 115px;
+    height: 30px;
+    text-align: center;;
+}
+
 .review-header-right{
     display: inline-flex;
 }
 .reviewWrite{
-    font-size: 13px;
+    font-size: 14px;
     color: #A78A6C;
-    margin-left: 10px;
-    line-height: 23px;
+    margin-left: 20px;
+    line-height: 28px;
 }
 .reviewWrite:hover{
     text-decoration: underline;
@@ -357,24 +409,19 @@ main{
 
 /* 별점 */
 .star-ratings {
-    align-items: center;
-    color: #aaa9a9; 
     position: relative;
-    unicode-bidi: bidi-override;
     width: 10%;
-    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
 }
 
-.star-ratings-fill {
-    padding: 0;
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    -webkit-text-fill-color: gold;
-}
+ .star-ratings-fill {
+    font-size: 11px;
+    text-align: center;
+}  
+
+
+.gold{ color: gold;}
+.gray{ color: rgb(187, 187, 187);}
+
 
 .star-ratings-base {
     z-index: 0;
@@ -459,9 +506,3 @@ main{
 }
 
 
-
-
-/* 임시 */
-footer{
-    display: flex;
-}
