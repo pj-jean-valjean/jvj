@@ -12,7 +12,7 @@ $(".taste-btn").on("click", function() {
 });
 
 
-
+/**/
 /* 사진교체 */
 window.onload = function(){
     changeImg();
