@@ -1,4 +1,4 @@
-
+let cartOpenDefaultOne = 1;
 var elements = document.querySelectorAll('.a>*');
 
 let am = anime({
@@ -8,6 +8,12 @@ let am = anime({
 
 });
 
+let am2 = anime({
+    targets: elements,
+    translateX: 0,
+    autoplay: false
+  
+  });
 
 function openc(){
    
@@ -16,8 +22,11 @@ function openc(){
       }, 3000);
 }
 document.querySelector('.open-c').addEventListener("click",()=>{
-  am.play();
-  am.finished.then(() => {
-    am.reverse();
-  });    
+  if(cartOpenDefaultOne == 1 ){
+    am.restart();
+    cartOpenDefaultOne= 0;}
+    else{
+      am2.restart();
+      cartOpenDefaultOne= 1;
+    }
 });

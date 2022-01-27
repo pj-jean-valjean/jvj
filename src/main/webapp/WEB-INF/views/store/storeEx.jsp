@@ -17,8 +17,16 @@
 <body>
 	<div class="main-banner"></div>
 	<div class="main-wrapper">
-		<div class="category-set">
 
+		<div class="category-set">
+			<div class="select">
+				<select name="format" id="format">
+					<option selected disabled>카테고리 선택</option>
+					<option value="sick">식빵</option>
+					<option value="baget">바게트</option>
+					<option value="etc">기타</option>
+				</select>
+			</div>
 			<ul class="main-category">
 				<li style="color: #f58c8c;">신상품</li>
 				<li>|</li>
@@ -41,7 +49,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+		
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -58,7 +66,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+			
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -75,7 +83,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+				
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -92,7 +100,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+			
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -110,7 +118,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+				
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -127,7 +135,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+					
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -144,7 +152,7 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
+			
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -161,7 +169,6 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-					<div class="text">Like it</div>
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
@@ -186,6 +193,7 @@
 	</ul>
 	<!-- main-wrapper end-->
 </body>
-<script type="text/javascript" src="${contextPath}/resources/js/store/store.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/store/store.js"></script>
 <jsp:include page="../common/footer.jsp" />
 </html>
