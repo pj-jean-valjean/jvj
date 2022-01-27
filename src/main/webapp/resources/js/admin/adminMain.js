@@ -219,7 +219,7 @@
             const noticecate = document.createElement("div");
             noticecate.setAttribute("class", "oneLine");
             noticecate.innerHTML="<label class='labels'>카테고리</label>"+
-            "<select>"+
+            "<select name='noticecate'>"+
             "<option value='promotion'>프로모션</option>"+
             "<option value='notice'>공지사항</option>" +
             "<option value='event'>이벤트</option>" +
@@ -237,7 +237,7 @@
             $("#writerForm").append(funcName,title,noticecate,div4,subcanBTN());
             notesummer();
             //썸머노트 실행
-            $("#writerForm").attr("action","/noticeWrite");
+            $("#writerForm").attr("action","noticeWrite");
         }
         //-----------------------------------------------------------------//
 
@@ -414,12 +414,11 @@
             div3.innerHTML="<label class='labels'>썸네일</label><div class='images'><img></div>"+
             "<input type='file' name='images' class='imagesinput'>" ;
 
-            //일반이미지 4장
+            //일반이미지 3장
             const div33 = document.createElement("div")
             div33.setAttribute("class", "oneLine imgline");
             div33.innerHTML="<label class='labels'>일반이미지</label>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"
-            +"<div class='images'><img></div>"+"<div class='images'><img></div>"+
-            "<input type='file' name='images' class='imagesinput'>" +
+            +"<div class='images'><img></div>"+
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>";

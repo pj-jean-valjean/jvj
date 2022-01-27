@@ -36,6 +36,7 @@ public class AdminBoardController {
 	public AdminBoardController(AdminService service) {
 		this.service = service;
 	}
+	
 	//로그인시 관리자페이지 메인
 	@PostMapping("main")
 	public String AdmingLoginProcess(
@@ -44,7 +45,7 @@ public class AdminBoardController {
 			) {
 		String path = "";
 		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
-			path =  " admin/adminMain";
+			path =  "admin/adminMain";
 		}
 		else{
 			path = "redirect:/admin/login";
@@ -80,6 +81,7 @@ public class AdminBoardController {
 		}
 		return gson.toJson(map);
 	}
+	
 	//관리자 글작성 
 	@PostMapping("productWrite")
 	public String productWrite(
@@ -92,4 +94,17 @@ public class AdminBoardController {
 		
 		return "";
 	}
+	
+	//공지사항 작성
+	@PostMapping("noticeWrite")
+	public String noticeWrite(String title,	String noticecate,
+			String editordata
+			) {
+		int result = service.insertNotice(title, noticecate, editordata);
+		
+		
+		return "";
+	}
+	
+	
 }

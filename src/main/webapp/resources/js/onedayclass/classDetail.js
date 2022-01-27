@@ -3,6 +3,14 @@
 window.onload = function(){
     changeImg();
 }
+$(document).ready(function () {
+    $('.contentss').click(function () {
+      $(this).toggleClass("heart-active");
+      $(this).next().toggleClass("heart-active");
+      $(this).children().toggleClass("heart-active");
+    });
+  });
+
 	const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
 function changeImg(){
     const subImgs = document.querySelectorAll(".img-margin");

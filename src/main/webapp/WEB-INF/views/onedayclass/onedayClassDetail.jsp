@@ -103,7 +103,12 @@
                     <button class="submit-btn">
                         <span>원데이 클래스 신청</span>
                     </button>
-                    <button class="like-btn"><i class="far fa-heart like-heart" onmouseover="changeHeart1(this)" onmouseout="changeHeart2(this)"></i></button>
+                 	<div class="heart-btn">
+						<div class="contentss">
+							<div class="heart"></div>
+						</div>
+						<div class="text">Like it</div>
+					</div>
                 </div>
                 <!-- 상태코드 넘어가는 input -->
                 <input type="hidden" name="periodStatusCode">
