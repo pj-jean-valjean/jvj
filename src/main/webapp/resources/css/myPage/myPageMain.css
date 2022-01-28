@@ -1,0 +1,79 @@
+article{margin-left: 400px;}
+
+/* 타이틀 */
+.titleText{ 
+    text-align: center; 
+    margin-top: 60px; 
+    height: 55px; 
+    color: rgba(86, 67, 52, 1);
+    font-size: 27pt; 
+    font-weight: bold;
+    margin-left: 200px;
+}
+
+.mainImg{
+    margin-top: 80px;
+}
+.mainImg>p{
+    position: absolute;
+}
+.mainImg>img{margin-top:20px;}
+
+.mainText1{ 
+    font-size: 40px;
+    margin-top: 170px;
+    margin-left: 100px;
+    font-weight: bold;
+    color: #323232;
+}
+.mainText2{ 
+    font-size: 30px;
+    margin-top: 200px;
+    margin-left: 110px;
+    color: #323232;
+}
+.mainText3{ 
+    font-size: 18px;
+    margin-top: 270px;
+    margin-left: 110px;
+    font-weight: bold;
+    color: #323232;;
+}
+.mainText3>span{
+    color: white; 
+}
+
+#bottomCategory{margin: 0;}
+.category{
+    position: relative;
+    margin-top: 100px;
+    display: inline-block;
+    width: 380px;
+    height: 170px;
+    margin-right: 10px;
+    margin-bottom: 120px;
+}
+.category>span{
+    font-size: 23px;
+    font-weight: bold;
+}
+.category>a{
+    float: right;
+    padding-top: 15px;
+    color: rgba(167, 138, 108, 1); 
+}
+#hr2{
+    border: 0;
+    height: 1px;
+    background-color: rgba(167, 138, 108, 1); 
+}
+.td-sub{
+    padding-left: 200px;
+    font-size: 15px;
+}
+.more{
+    color: rgba(167, 138, 108, 1);
+    font-size: 15px;
+}
+
+
