@@ -11,6 +11,10 @@ $(".taste-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
 });
 
+$(".coffee-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+});
+
 
 
 /* 사진교체 */
