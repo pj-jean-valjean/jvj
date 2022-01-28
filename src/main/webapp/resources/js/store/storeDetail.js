@@ -1,17 +1,3 @@
-// 기간, 빵, 맛, 종류 버튼 선택  
-$(".period-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-$(".bread-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-$(".taste-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-
 
 /* 사진교체 */
 window.onload = function(){
@@ -41,13 +27,33 @@ function count(type) {
         resultNum = parseInt(resultNum) - 1;
     }
 
-    if (resultNum < 0) {
-        resultNum = 0;
+    if (resultNum < 1) {
+        resultNum = 1;
     }
 
     result.innerText = resultNum;
 }
  
+/* 추가 옵션 수량 증감 버튼*/
+function totalCount(type) {
+    const result = document.getElementById('total-result');
+
+    let resultNum = result.innerText;
+
+    if (type === "add") {
+        resultNum = parseInt(resultNum) + 1;
+    } else if (type === "minus") {
+        resultNum = parseInt(resultNum) - 1;
+    }
+
+    if (resultNum < 1) {
+        resultNum = 1;
+    }
+
+    result.innerText = resultNum;
+}
+
+
 
 /* 리뷰 */
 /* 상세리뷰 토글check */

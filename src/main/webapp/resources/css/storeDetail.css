@@ -1,6 +1,15 @@
+:root{
+    --text-color : #323232;
+    --accent-color : #564334;
+    --gray-color : #f7f7f7;
+}
 
 html{
     scroll-behavior: smooth;
+}
+body{
+    font-family: 'Noto Sans Korean';
+    font-weight: 500;
 }
 
 main{
@@ -35,6 +44,9 @@ main{
     float: left;
 }
 
+.product-thumbnail img:hover{
+    cursor: pointer;
+}
 /* 메인 썸네일 영역 */
 .main-img-area{
     width: 100%;
@@ -75,7 +87,6 @@ main{
 }
 .img-margin{
     margin-right: auto;
-
 }
 
 .img-margin:last-child{
@@ -95,7 +106,6 @@ main{
 .category_product{
     height: 140px;
 }
-
 
 /* 상품명 */
 .category-title{
@@ -120,20 +130,23 @@ main{
     font-weight: bold;
 }
 
-
-/* 상품명 */
-.category_product span:first-child{
-    font-size: 30px;
-    font-weight: bold;
-    display: block;
-}
 /* 가격 */
-.price{
+.sale{ 
     font-size: 20px;
+    color: rgb(230, 63, 63); 
+    margin-right: 5px;
+}
+.real-price{ 
+    color: #B7B7B7; 
+    margin-right: 15px;
+    text-decoration: line-through;
+}
+.price{
+    font-size: 25px;
     font-weight: bold;
 }
 
-/* 선  */
+/* 구분용 회색선  */
 .bottom-line{
     border-bottom: 1px solid #B7B7B7;
 }
@@ -147,7 +160,7 @@ main{
     padding: 15px 0 15px 0;
     font-weight: bold;
 }
-.delivery-detail span:last-child{
+.delievery-span{
     color: #D3AF8A;
 }
 
@@ -171,75 +184,123 @@ main{
     line-height: 40px;
     font-weight: bold;
 }
+
 /* 카테고리의 * (필요한 경우만 사용) */
-.sub-title > span:last-child{
+/* .sub-title > span:last-child{
     color: #D3AF8A;
 }
+ */
 
-/* 구독, 빵, 맛 선택 button */
-.btn{
-    width: 90px;
-    height: 35px;
-    font-weight: bold;
-    color: var(--accent-color);
-    margin-right: 20px;
-    
-    display: inline;
-    border: 0;
-    border-radius: 5px;
-
-    background-color: white;
-    cursor: pointer;
+/* 추가 옵션 선택영역 */
+.align-div{
+    text-align: right;
+    line-height: 78px;
 }
-.btn > span{
+
+#align-div>span{
+    display: inline-block;
+    width: 120px;
+    
+    text-align: center;
+}
+
+#align-div>button{
+    border: none;
+    background: none;
     font-size: 15px;
 }
 
-
-.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active{
-    background-color: #A78A6C;
-    color: white; 
-    transition: 0.3s;
-}
-
-/* 선택 시 추가 */
-.clicked-btn{
-    background-color: #A78A6C;
-    color: white; 
+#align-div>button:hover{
+    cursor: pointer;
 }
 
 
+#selectcate-option{
+    border: 1px solid #B7B7B7;
+    border-radius: 5px;
+    color: #B7B7B7;
+    font-size: 15px;
+    width: 420px;
+    height: 30px;
+    text-align: center;
+     margin: 25px 0 25px 0;
+}
+
+/* 금액 영역 */
+.buy-total{
+    margin: auto;
+}
+.buy-total span{
+    font-size: 20px;
+}
 
 
 /* 구매상품 확인 div */
-.buy-total{
-    height: 90px;
+.grayBox{
+    height: 80px;
     background-color: var(--gray-color);
     border-radius: 5px;
 }
 
-.total-area, .buy-count{
-    padding: 10px;
+.price{
+    margin-bottom: 10px;
 }
 
-.buy-total span{
+.choose-price{
+    margin-bottom: 10px;
+    font-weight: bold;
+    line-height: 78px;
+    
+}
+.choose-price span:last-child{
+    float: right;
+}
+
+
+.choose-price, .choose-option{
+    padding: 10px 20px 10px 20px ;
+}
+
+.choose-option span:first-child{
+        padding: 10px 10px 10px 0px;
     font-size: 15px;
+    font-weight: bold;
 }
 
+.clear-btn{
+    float: right;
+}
+
+/* 수량구매버튼 */
 .buy-count{
+    padding: 10px;
     display: flex;
     align-items: center; 
     font-size: 15px;
 }
-.buy-count > span{
+.buy-count > span, .totalCount > span{
+    font-size: 15px;
     margin: 0 10px 0 10px;
 }
+
+.totalCount{
+    padding: 20px 0px;
+    display: flex;
+    align-items: center; 
+    font-size: 15px;
+
+}
+
 
 .add-btn:hover, .minus-btn:hover{
     cursor: pointer;
     filter: contrast(0.8);
 } 
-
+.clear-btn:hover{
+    cursor: pointer;
+    background-color: rgb(209, 209, 209);
+    border-radius: 50px;
+}
 
 
 /* 총 구매 금액 */
@@ -264,31 +325,39 @@ main{
 }
 
 
+/* 결제 버튼 */
 
-/* 구독신청 버튼 */
 .submit-sub{
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
-.submit-btn{
-    width: 100%;
+.submit-sub button{
+    font-size: 20px;
+    width: 45%;
     height: 70px;
     font-weight: bold;
-    color: white;
-    margin-right: 20px;
-
-    display: inline;
+    display: inline; 
     border: 0;
     border-radius: 5px;
-
-    background-color: #A78A6C;;
     cursor: pointer;
 }
 
-.submit-btn > span{
-    font-size: 20px;
+.shopping-btn{
+    color : var(--text-color);
+    background-color: #f3f3f3;
 }
-.submit-btn:hover, .submit-btn:active, .submit-btn:focus {
+.shopping-btn:hover{
+    background-color: #cccccc;
+    transition: 0.3s;
+}
+
+.submit-btn{
+    color: white;
+    background-color: #A78A6C;
+}
+.submit-btn:hover {
     background-color: #ceb498;
     transition: 0.3s;
 }
@@ -305,15 +374,23 @@ main{
     width: 100%;
     z-index: 2;
 }
-.detail-contents ul li{
+.detail-contents ul > li{
     width: 33%;
     height: 60px;
+}
+
+
+.detail-contents ul li{
+   
+    
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     display: inline-block;
     line-height: 59px;
 }
+
+
 
 .contents-bottom-line{
     border-bottom: 3px solid #A78A6C;
@@ -364,7 +441,6 @@ main{
     height: 30px;
     text-align: center;;
 }
-
 .review-header-right{
     display: inline-flex;
 }
@@ -372,7 +448,7 @@ main{
     font-size: 14px;
     color: #A78A6C;
     margin-left: 20px;
-    line-height: 28px;
+    line-height: 78px;
 }
 .reviewWrite:hover{
     text-decoration: underline;
@@ -383,19 +459,6 @@ main{
 
 }
 
-#align-div>span{
-    display: inline-block;
-    width: 120px;
-    text-align: center;
-}
-#align-div>button{
-    border: none;
-    background: none;
-    font-size: 15px;
-}
-#align-div>button:hover{
-    cursor: pointer;
-}
 
 
 /* 리뷰 내용 */
@@ -523,3 +586,8 @@ main{
 
 
 
+
+/* 임시 */
+footer{
+    display: flex;
+}

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -7,10 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>subBread</title>
+<title>subCoffee</title>
 
-	<jsp:include page="../common/header.jsp" />
- 	<link rel="stylesheet" href="${contextPath}/resources/css/subBread.css">
+
+<jsp:include page="../common/header.jsp" />
+ 	<link rel="stylesheet" href="${contextPath}/resources/css/subCoffee.css">
  	
  	<!-- 별 -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -25,26 +27,25 @@
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="${contextPath}/subscribe/subMain">정기 구독</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="${contextPath}/subscribe/subBread">빵 세트</a>
+                <a href="${contextPath}/subscribe/subCoffee">빵 & 커피 세트</a>
             </section>     
-            
-            <section class="product-thumbnail">
+			<section class="product-thumbnail">
                 <article class="main-img-area">
-                    <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                    <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
                 </article>
             <div>
                 
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
             </div>
             </section>
 
             <section class="product_detail">
                 <article class="category_product">
-                    <div class="category-title">
-                        <span>빵 세트</span>
+                   <div class="category-title">
+                        <span>빵 & 커피 세트</span>
                         <div class="heart-btn">
 							<div class="contentss">
 								<div class="heart"></div>
@@ -99,7 +100,7 @@
                     </div>
                 </article>
                 <div class="bottom-line"></div>
-
+                
                 <article class="sub-detail">
                     <div class="sub-title">
                         <span>맛 종류</span>
@@ -117,9 +118,24 @@
                         </button>
                     </div>
                 </article>
+                <div class="bottom-line"></div>
+
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>커피 개수</span>
+                        <span></span>
+                    </div>
+                    <div class="taste btn-area"> 
+                        <button type="button" class="coffee-btn btn" onclick="">
+                            <span>6개입</span>
+                        </button>
+                        <button type="button" class="coffee-btn btn">
+                            <span>24개입</span>
+                        </button>
+                    </div>
+                </article>
                 
-                <!-- 상태코드 넘어가는 input -->
-                <input type="hidden" name="periodStatusCode">
+                
 
                 <article class="buy-total">
                     <!-- 선택한 상품 있을경우 -->
@@ -133,7 +149,7 @@
                     </div>
                     <div class="buy-count">
                         <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick='count("minus")'>
-                        <span id="result">0</span>
+                        <span id="result">1</span>
                         <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='count("add")'>
                     </div>
                 
@@ -169,7 +185,7 @@
         <section class="content">
             <!-- 상품 설명 -->
             <article id="contents-exp">
-                <img class="exp-img" src="${contextPath}/resources/images/subscribe/sub_detail_bread.jpg" alt="sub_detail_bread">
+                <img class="exp-img" src="${contextPath}/resources/images/subscribe/sub_detail_coffee.jpg" alt="sub_detail_coffee">
             </article>   
 
             
@@ -428,17 +444,10 @@ DELIVERY / 배송정보
 
 
     </main>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
+
 </body>
 </html>
-

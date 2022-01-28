@@ -1,7 +1,13 @@
+:root{
+    --text-color : #323232;
+    --accent-color : #564334;
+    --gray-color : #f7f7f7;
+}
 
 html{
     scroll-behavior: smooth;
 }
+
 
 main{
     width: 70%;
@@ -75,12 +81,12 @@ main{
 }
 .img-margin{
     margin-right: auto;
-
 }
 
 .img-margin:last-child{
     margin-right: 0;
 }
+
 
 
 
@@ -95,7 +101,6 @@ main{
 .category_product{
     height: 140px;
 }
-
 
 /* 상품명 */
 .category-title{
@@ -127,6 +132,10 @@ main{
     font-weight: bold;
     display: block;
 }
+
+
+
+
 /* 가격 */
 .price{
     font-size: 20px;
@@ -196,7 +205,7 @@ main{
 }
 
 
-.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active{
+.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active, .coffee-btn.active{
     background-color: #A78A6C;
     color: white; 
     transition: 0.3s;
