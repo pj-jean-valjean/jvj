@@ -18,5 +18,13 @@ public interface AdminService {
 	 */
 	int insertProduct(List<MultipartFile> images, ProductWrite product, String webPath,
 			String serverPath);
+
+	/** Notice Insert
+	 * @param title
+	 * @param noticecate
+	 * @param editordata
+	 * @return result
+	 */
+	int insertNotice(String title, String noticecate, String editordata);
 	
 }

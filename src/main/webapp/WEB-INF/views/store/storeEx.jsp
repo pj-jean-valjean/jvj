@@ -88,7 +88,6 @@
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sold">품절</div>
-
 			</div>
 			<div class="pdt-box">
 				<div class="outer ">
