@@ -48,7 +48,7 @@ body{
     margin-bottom: 150px;
 }
 .store{
-    display: inline-block;
+    
     margin-bottom:150px;
 }
 .store-pdt{
@@ -72,8 +72,9 @@ body{
 .store-ex{
     margin: 20px 0;
     width:382px;
-    height: 270px;
+   
     display: inline-block;
+    vertical-align:text-bottom;
 }
 .moreBtn{
     width:120px;
