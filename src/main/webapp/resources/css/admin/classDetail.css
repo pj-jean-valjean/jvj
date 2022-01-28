@@ -210,7 +210,9 @@ hr{
     margin: 15px 0 15px 0;
     padding-right: 30px;
 }
-
+.total-price>div>span:first-of-type{
+	font-size:15px;
+}
 /* 구독신청 버튼 */
 .submit-sub{
     width: 100%;
@@ -225,7 +227,6 @@ hr{
     display: inline;
     border: 0;
     border-radius: 5px;
-
     background-color: #A78A6C;;
     cursor: pointer;
 }
