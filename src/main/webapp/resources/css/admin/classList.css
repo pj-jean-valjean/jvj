@@ -93,8 +93,8 @@
         }
 
         .oneCInfo>a{
-        	display:flex;
-        	flex-direction: column;
+            display:flex;
+            flex-direction: column;
             width: 300px;
             height: 500px;
             text-align: center;
@@ -121,16 +121,16 @@
 			background: yellow;
 		}
 		.fa-heart{
-		    color: red;
-		    margin: 0px 10px 0px 15px;
+            color: red;
+            margin: 0px 10px 0px 15px;
 		}
 		.review-ratings-real{
-		    position:absolute; 
-		    width:50px; overflow:hidden; white-space:nowrap; color:gold; z-index:1;
+            position:absolute; 
+            width:50px; overflow:hidden; white-space:nowrap; color:gold; z-index:1;
 		}
 		.review-ratings-base{
-		    position:absolute; 
-		    width:100px; overflow:hidden; color:#cdcdcd;
+            position:absolute; 
+            width:100px; overflow:hidden; color:#cdcdcd;
 		}
 		
         fa-calendar-alt{
@@ -146,6 +146,7 @@
             width: 100%; height: 2000px; 
             display: none; 
             background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 2;
         }
         .calendar{
             position: absolute; 
@@ -188,7 +189,14 @@
         i{
             margin-right: 5px;
         }
-
+        .month-control,#allcal,#closecal{
+            background: none;
+            border: none;
+        }
+        .month-control:hover,#allcal:hover,#closecal:hover{
+            cursor: pointer;
+            color: white;
+        }
         /* 스크롤영역 */
         .nextButton{
             width: 100%;
@@ -197,8 +205,12 @@
             border: none;
             background-color: none;
         }
+        #allcal,#closecal{
+            font-size: 18px;
+        }
+
         
-                /* 반응형 */
+/*                 반응형 
         @media screen and (max-width:768px){
             #pathline{
                 display: none;
@@ -229,6 +241,6 @@
             .oneCInfo>div{
                 font-size: 8px;
             }
-        }
+        } */
 
         

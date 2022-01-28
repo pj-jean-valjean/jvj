@@ -28,16 +28,23 @@
 </head>
 <body>
     <header>
+        <div class="admin-info"><span>ㅇㅇㅇ</span> 관리자님 환영합니다! <a>로그아웃</a></div>
         <img src="${contextPath}/resources/images/common/jvj_logo.png">
     </header>
     <main>
         <aside id='showfunc'>
-            <div class="one-admin-func">회원 정보 조회</div>
-            <div class="one-admin-func">구독 회원 조회</div>
-            <div class="one-admin-func">주문 조회</div>
+            <div class="one-admin-func" id=querybox>조회 업무
+            	<div class="each-querybox">
+                    <ul class="eachW">
+                        <li class="querywork">회원 정보 조회</li>
+                        <li class="querywork">구독 회원 조회</li>
+                        <li class="querywork">주문 조회</li>
+                    </ul>
+                </div>
+            </div>
             <div class="one-admin-func" id="writerP">게시글 작성
                 <div class="eachWriter">
-                    <ul id="eachW">
+                    <ul class="eachW">
                         <li class="adminWriter">공지사항 작성</li>
                         <li class="adminWriter">일반 상품 등록</li>
                         <li class="adminWriter">구독 상품 등록</li>
@@ -45,11 +52,24 @@
                     </ul>
                 </div>
             </div>
-            <div class="one-admin-func">후기 관리</div>
+            <div class="one-admin-func" id="editArticle">글 관리
+                <div class="each-article">
+                    <ul class="eachW">
+                        <li class="modifyArticle">리뷰 관리</li>
+                        <li class="modifyArticle">공지사항 수정</li>
+                    </ul>
+                </div>
+            </div>
+			<div class="one-admin-func" id="manageP">상품 관리
+				<div class="modifyP">
+                    <ul class="eachW">
+                        <li class="manageP">상품 관리</li>
+                        <li class="manageP">상품 옵션 관리</li>
+                    </ul>
+                </div>
+			</div>
             <div class="one-admin-func">관리자계정 추가</div>
             <div class="one-admin-func">원데이클래스 회원정보</div>
-            <div class="one-admin-func">공지사항 관리</div>
-            <div class="one-admin-func">상품 관리</div>
         </aside>
         <section>
             <article id="adminPCont">

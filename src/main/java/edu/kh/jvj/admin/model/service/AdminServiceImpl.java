@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService{
 		//1 개행문자 처리
 		product.setTitle(XSS(product.getTitle()));
 		//2. 상품 메인+상세 등록
-		//2-1 일반스토러
+		//2-1 일반스토어
 		if(product.getWritecate()==1) {
 			
 		}
@@ -35,17 +35,28 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-3 클래스 페이지
 		else {
-			
+			/* 
+			 * 
+			 * result= dao.insertClassPage();
+			 * 
+			 *  */
 		}
 		
 		//3. 상품 이미지 등록
 		
 		//4. 이미지 파일화
 		
-		
-		
 		return result;
 	}
+	
+	@Override
+	public int insertNotice(String title, String noticecate, String editordata) {
+		
+		title = XSS(title);
+		
+		return 0;
+	}
+	
 	
 	
 	// 크로스 사이트 스크립트 방지 처리 메소드
@@ -78,7 +89,8 @@ public class AdminServiceImpl implements AdminService{
 	   // 개행 문자 변경 메소드
 	   public static String changeNewLine(String content) {
 	      return content.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-
+	      
 	      
 	   }
+
 }
