@@ -12,6 +12,33 @@ body{
     background-size :cover;
     margin-bottom:70px;
 }
+.main-banner2{
+    
+    width:100%;
+    height: 600px;
+    background-image: url("../images/main/mainbanner1.jpg");
+    background-repeat: no-repeat;
+    background-size :cover;
+    margin-bottom:70px;
+}
+.main-banner3{
+    
+    width:100%;
+    height: 600px;
+    background-image: url("../images/main/mainbanner2.png");
+    background-repeat: no-repeat;
+    background-size :cover;
+    margin-bottom:70px;
+}
+.main-banner4{
+    
+    width:100%;
+    height: 600px;
+    background-image: url("../images/main/mainbanner2.jpg");
+    background-repeat: no-repeat;
+    background-size :cover;
+    margin-bottom:70px;
+}
 
 .main-wrapper{
     width:1200px;
@@ -21,7 +48,7 @@ body{
     margin-bottom: 150px;
 }
 .store{
-    display: inline-block;
+    
     margin-bottom:150px;
 }
 .store-pdt{
@@ -45,8 +72,9 @@ body{
 .store-ex{
     margin: 20px 0;
     width:382px;
-    height: 270px;
+   
     display: inline-block;
+    vertical-align:text-bottom;
 }
 .moreBtn{
     width:120px;
