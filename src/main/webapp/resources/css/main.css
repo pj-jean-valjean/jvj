@@ -71,7 +71,7 @@ body{
 
 .store-ex{
     margin: 20px 0;
-    width:382px;
+    width:460px;
    
     display: inline-block;
     vertical-align:text-bottom;
@@ -203,4 +203,25 @@ body{
     width:566px;
     border: 1px solid #828282;
     margin:25px 0;
+}
+.m-notice{
+	margin-bottom:100px;
+	text-align:center;
+}
+.event{
+	padding-top:50px;
+	height:650px;
+	background-color:#f1f3f4;
+	text-align:center;
+}
+.event>img{
+	width:350px;
+	height:350px;
+	margin: 50px 10px 10px 10px;
+	border-radius:5px;
+}
+.e-textbox{
+	
+	display:inline-block;
+	width:370px;
 }

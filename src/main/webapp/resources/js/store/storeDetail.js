@@ -101,3 +101,10 @@ function returnReviewContent(글번호){
     /* ajax */
     return ajax;
 }
+  $(document).ready(function () {
+    $('.contentss').click(function () {
+      $(this).toggleClass("heart-active");
+      $(this).next().toggleClass("heart-active");
+      $(this).children().toggleClass("heart-active");
+    });
+  });
