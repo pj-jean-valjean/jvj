@@ -1,18 +1,4 @@
-// 기간, 빵, 맛, 종류 버튼 선택  
-$(".period-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
 
-$(".bread-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-$(".taste-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-
-/**/
 /* 사진교체 */
 window.onload = function(){
     changeImg();
