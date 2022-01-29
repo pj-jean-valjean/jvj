@@ -1,9 +1,7 @@
     let selectMonth = 0;
     let pagination = 1;
     const tempDate = new Date();
-    window.onload = function(){
-        calmodal();
-    } 
+    calmodal();
     //달력모달 동작
     function calmodal(){
         const closecal = document.querySelector('#closecal');
@@ -23,41 +21,39 @@
 
         //날짜선택 달력 함수
         function displaycal(){
-        
-        let temp = new Date()
-        let today = new Date(
-            temp.getFullYear(),temp.getMonth()+selectMonth ,temp.getDate(), 
-            temp.getHours() , temp.getMinutes() , temp.getSeconds());
+        const today = new Date();
+        const origindate = today.getDate();
+        //기존 일 저장
+        //1일로 초기화해야 다음달 오류 제거됨
+        today.setDate(1);
+
+        today.setMonth((today.getMonth()+selectMonth));
         let year = today.getFullYear();
-        let month = today.getMonth()+1;
-        let date = today.getDate();
+        let month=today.getMonth()+1;
         let firstDay = new Date(year, month-1 , 1).getDay();
+        
         let day = today.getDay();
-        var monthDay = Array(31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        const monthDays = Array(31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
         /* 2월의 마지막 날 설정 */
         if (year % 400 == 0)
-            monthDay[1] = 29;
+            monthDays[1] = 29;
         else if (year % 100 == 0)
-            monthDay[1] = 28;
+            monthDays[1] = 28;
         else if (year % 4 == 0)
-            monthDay[1] = 29;
+            monthDays[1] = 29;
         else
-            monthDay[1] = 28;
+            monthDays[1] = 28;
 
-        let lastDate =  monthDay[month-1];
-
-        var enMonthName = new Array('1','2','3','4','5','6',
-            '7','8','9','10','11','12');
+        let lastDate =  monthDays[month-1];
         
         let count = 1;
         let week =1;
         let notLast= true; //마지막 날짜 검사 boolean;
-
         const tmonth = document.getElementById("today-month");
         const monthday = document.getElementById("month-day");
         monthday.innerHTML="";
-        tmonth.innerText = year+"/" +enMonthName[month-1] 
+        tmonth.innerText = year+"/" +month;
         while(notLast){
             const tr = document.createElement("tr");
             for(let i = 0 ; i<7 ; i++){
@@ -107,19 +103,19 @@
                 console.log(ymonth+"/"+dday);
             })
         }
-        //다음달btn
+        //이전달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
             const monthday = document.getElementById("month-day");
             monthday.innerHTML = "";
             displaycal();
         }
-        //이전달btn
+        //다음달btn
         const next = function(){
             selectMonth=selectMonth +1;
             const monthday = document.getElementById("month-day");
             monthday.innerHTML = "";
-            displaycal();
+            displaycal(); 
         }
 
         /* 무한스크롤 구현 */
@@ -178,7 +174,7 @@
                             return;
                         }
                         else{
-                            makeList(classList);
+                            /* makeList(classList); */
                         }
                     }
                     else{
@@ -186,7 +182,6 @@
                     }
                 }
             }
-
             /* Post 방식으로 요청 */
             httpRequest.open("POST", "list" , true);
             /* Response Type 을 Json으로  */
@@ -194,127 +189,4 @@
             /* 요청 헤더에 컨텐츠 타입 json 명시 */
             httpRequest.setRequestHeader("Content-Type", "application/json");
             httpRequest.send(JSON.stringify(reqJson));
-}
-
-function makeList(classList){
-    //객체 꺼내서 
-    let firstdone = false ;
-    let lastdone = false;
-    let hrdone=  false;
-
-    let divOneClass = document.createElement("div");
-    divOneClass.className = "oneClassLine";
-    
-    //날짜라인 (3ea batch)
-    let  oneClassLine = document.createElement("div");
-    oneClassLine.className = "dateLine";
-    for(let i =0 ; i< classList.length ; i++){
-        //one line
-
-        if(!firstdone){
-            //날짜 박스 삽입
-            //date 1개
-            const oneCdate = document.createElement("div");
-            oneCdate.className = "oneCdate";
-            
-            /* 임시 날짜*/
-            /* let date = classList[i].createDt */
-            let date = "2022-01-28"
-
-            //1date 1요일 1day
-            const yoil = document.createElement("span");
-            yoil.innerText = "Tue";
-            const cMonthDay = document.createElement("span");
-            cMonthDay.innerText = date;
-            oneCdate.append(yoil, cMonthDay);
-            //-----------3번 반복 삽입
-            oneClassLine.append(oneCdate);
-        }
-
-        if((i==2 && !hrdone)||(i==5 && !hrdone)){
-            /* 중간선 */
-            const hr = document.createElement("hr");
-            divOneClass.append(oneClassLine,hr);
-
-            //classShow부분
-            let  ul = document.createElement("ul");
-            ul.className = "classShowLine";
-            firstdone = true;
-            lastdone = true;
-            hrdone= true;
-            if(i==2) i=0;
-            else i=3;
-        }
-
-        if(lastdone){
-            //classShow 사진 평점 좋아요 
-            const oneCInfo = document.createElement("li");
-            oneCInfo.className = "oneCInfo";
-            const atag = document.createElement("a");
-            atag.setAttribute("href","view")
-            oneCInfo.append(atag);
-            //li + a 태그
-            //a태그 1
-            const img = document.createElement("img");
-            img.className = "classimg";
-            img.setAttribute("src",contextPath+"/resources/images/onedayclassList/bread.jpg");
-            //a태그 2
-            const ratingspan = document.createElement("span");
-            ratingspan.className= "infoLine";
-
-            const makestar1 = document.createElement("span");
-            makestar1.className= "review-ratings-real";
-            makestar1.innerText = "★★★★★";
-            const makestar2 = document.createElement("span");
-            makestar2.className= "review-ratings-base";
-            makestar2.innerText = "★★★★★";
-            ratingspan.append(makestar1,makestar2);
-
-            const rating = document.createElement("span");
-            rating.innerText = "4.5";
-            const itag = document.createElement("i");
-            itag.className = "fas fa-heart";
-            const likes = document.createElement("span");
-            likes.innerText = "113";
-            ratingspan.append(rating,itag,likes);
-
-            //a태그 3
-            const title = document.createElement("span");
-            title.innerText = "초보자를 위한 베이킹 클래스!";
-
-            //a태그 4
-            const price = document.createElement("span");
-            price.innerText = "50,000원";
-
-            //a태그 5
-            const place = document.createElement("span");
-            const mapitag = document.createElement("i");
-            mapitag.className = "fas fa-map-marker-alt";
-            place.append(mapitag);
-            place.innerText = "마포점";
-            
-            atag.append(img,ratingspan,title,price,place);
-            //-----------3번 반복 삽입
-            ul.append(oneCInfo);
-        }
-        if((i==2 && hrdone )||(i==5 && hrdone)){
-            hrdone = false;
-            firstdone = false;
-            lastdone = false;
-            divOneClass.append(ul);
-            //인피니트에 divOneClass 추가 후 div 새로생성
-            infinitebox.append(divOneClass);
-            
-            if(i==5){
-                oneTime = false;
-            }
-            else{
-                divOneClass = document.createElement("div");
-                divOneClass.className = "oneClassLine";
-                //날짜라인 (3ea batch)
-                oneClassLine = document.createElement("div");
-                oneClassLine.className = "dateLine";
-            }
-        }
-    }
 }

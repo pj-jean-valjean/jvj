@@ -1,8 +1,5 @@
 package edu.kh.jvj.admin.model.vo;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class ProductWrite {
 	//공통 product
@@ -10,18 +7,20 @@ public class ProductWrite {
 	private String title;
 	private int price;
 	private String editordata;
-	
+	private int writecate;
 	
 	//클래스 
-	private int classNo; //
 	private String place; //지점
 	private int people; //최대인원
 	private String classdate; //일시
+	private String starthour; //시작시간
+	private String startminute;//시작 분
+	private String endhour;//끝 시간
+	private String endminute; //끝 분
 	
-	//상품
-	private int stock;
-	private List<MultipartFile> imgList;
-	private int writecate;
+	
+	
+	
 	public int getProductNo() {
 		return productNo;
 	}
@@ -46,11 +45,11 @@ public class ProductWrite {
 	public void setEditordata(String editordata) {
 		this.editordata = editordata;
 	}
-	public int getClassNo() {
-		return classNo;
+	public int getWritecate() {
+		return writecate;
 	}
-	public void setClassNo(int classNo) {
-		this.classNo = classNo;
+	public void setWritecate(int writecate) {
+		this.writecate = writecate;
 	}
 	public String getPlace() {
 		return place;
@@ -70,27 +69,38 @@ public class ProductWrite {
 	public void setClassdate(String classdate) {
 		this.classdate = classdate;
 	}
-	public int getStock() {
-		return stock;
+	public String getStarthour() {
+		return starthour;
 	}
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setStarthour(String starthour) {
+		this.starthour = starthour;
 	}
-	public List<MultipartFile> getImgList() {
-		return imgList;
+	public String getStartminute() {
+		return startminute;
 	}
-	public void setImgList(List<MultipartFile> imgList) {
-		this.imgList = imgList;
+	public void setStartminute(String startminute) {
+		this.startminute = startminute;
 	}
-	public int getWritecate() {
-		return writecate;
+	public String getEndhour() {
+		return endhour;
 	}
-	public void setWritecate(int writecate) {
-		this.writecate = writecate;
+	public void setEndhour(String endhour) {
+		this.endhour = endhour;
+	}
+	public String getEndminute() {
+		return endminute;
+	}
+	public void setEndminute(String endminute) {
+		this.endminute = endminute;
+	}
+	@Override
+	public String toString() {
+		return "ProductWrite [productNo=" + productNo + ", title=" + title + ", price=" + price + ", editordata="
+				+ editordata + ", writecate=" + writecate  + ", place=" + place + ", people="
+				+ people + ", classdate=" + classdate + ", starthour=" + starthour + ", startminute=" + startminute
+				+ ", endhour=" + endhour + ", endminute=" + endminute + "]";
 	}
 	
 	
-	
-
 	
 }

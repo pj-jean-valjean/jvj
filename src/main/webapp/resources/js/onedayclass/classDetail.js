@@ -4,12 +4,15 @@ window.onload = function(){
     changeImg();
     reviewDetail();
 }
+
+    //좋아요 함수
     $('.contentss').click(function () {
         $(this).toggleClass("heart-active");
         $(this).next().toggleClass("heart-active");
         $(this).children().toggleClass("heart-active");
     });
 
+    //사진 교체
 	const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
     function changeImg(){
     const subImgs = document.querySelectorAll(".img-margin");
@@ -20,43 +23,38 @@ window.onload = function(){
         })
     }
 }
-const totalNum = document.querySelector(".product_detail > article.total-price > div:nth-child(1) > input");
-const totalPrice = document.querySelector(".total-price > div:nth-child(2) > input");
-const onePrice = document.querySelector(".product_detail > article:nth-child(13) > div > span").innerText.replace(",","");
-function plusP(btn){
-    let people = btn.previousElementSibling;
-    const num = parseInt(people.innerText);
-    const nowAppl = document.querySelector(".product_detail > article:nth-child(9) > div > span:nth-child(1)").innerText;
-    const maxAppl = document.querySelector(".product_detail > article:nth-child(9) > div > span:nth-child(3)").innerText;
+
+    const possibleppl = document.querySelector(".product_detail > article:nth-child(11) > div.subdetail-content > span > span:nth-child(3)").innerText
+    - document.querySelector(".product_detail > article:nth-child(11) > div.subdetail-content > span > span:nth-child(1)").innerText;
+    const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
     
-    let possible = maxAppl-nowAppl;
+    let nownum = 0;
+    //인원 증감
+    function plusppl(){
+        if(possibleppl>nownum){
+            let pplpick = document.getElementById("result");
+            let totalprice= document.getElementById("totalprice");
+            const checkppl = document.getElementById("ppl");
+            pplpick.innerText = ++nownum;
+            totalprice.innerText = nownum*parseInt(price);
+            checkppl.innerText = nownum;
+        }
+        else{
+            alert("가능 인원을 초과했습니다!");
+        }
+    }
+    function minusppl(){
+        if(nownum!=0){
+            let pplpick = document.getElementById("result");
+            let totalprice= document.getElementById("totalprice");
+            const checkppl = document.getElementById("ppl");
+            pplpick.innerText = --nownum;
+            totalprice.innerText = nownum*parseInt(price);
+            checkppl.innerText = nownum;
+        }
+    }
 
-    if(possible > num){
-        people.innerText = num+1;
-        totalNum.value = num+1;
-        totalPrice.value = parseInt(onePrice)*(num+1);
-    }
-    else{
-        alert("가능 인원 초과");
-    }
-}
-function minusP(btn){
-    let people = btn.nextElementSibling;
-    const num = parseInt(people.innerText);
-    if(num >1){
-        people.innerText = num-1;
-        totalNum.value = num-1;
-        totalPrice.value = parseInt(onePrice)*(num-1);
-    }
-}
 
-//이미 좋아요 했을 시 함수 제거 function 추가 필요
-function changeHeart1(btn){
-    btn.className="fas fa-heart like-heart";
-}
-function changeHeart2(btn){
-    btn.className="far fa-heart like-heart";
-}
 
 function showMaps(){
 	

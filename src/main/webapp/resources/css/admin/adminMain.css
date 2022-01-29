@@ -205,6 +205,7 @@
         }
         /* 제출 취소 btn */
         .write-btns{
+            height: 50px;
             width: 100%;
             justify-content:center;
         }

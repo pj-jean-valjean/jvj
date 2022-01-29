@@ -20,8 +20,6 @@ public class AdminDAO {
 		return sqlSession.insert("adminMapper.insertClassProduct",product);
 	}
 
-	public int testinput(String id) {
-		return sqlSession.insert("adminMapper.insertTest",id);
-	}
+
 	
 }
