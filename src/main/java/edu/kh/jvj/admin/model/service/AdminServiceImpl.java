@@ -25,6 +25,9 @@ public class AdminServiceImpl implements AdminService{
 		//1 개행문자 처리
 		product.setTitle(XSS(product.getTitle()));
 		//2. 상품 메인+상세 등록
+		result= dao.insertProductCommon(product);
+		//메인등록 
+		
 		//2-1 일반스토어
 		if(product.getWritecate()==1) {
 			
@@ -35,11 +38,7 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-3 클래스 페이지
 		else {
-			/* 
-			 * 
-			 * result= dao.insertClassPage();
-			 * 
-			 *  */
+			result = dao.insertClassProduct(product);
 		}
 		
 		//3. 상품 이미지 등록
@@ -92,5 +91,11 @@ public class AdminServiceImpl implements AdminService{
 	      
 	      
 	   }
+
+	@Override
+	public int testinput(String id) {
+		int result  = dao.testinput(id);
+		return result;
+	}
 
 }

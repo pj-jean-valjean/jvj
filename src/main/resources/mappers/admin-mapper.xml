@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+	<insert id="insertProductCommon" >
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="productNo">
+  			SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO PRODUCT VALUES(
+			#{productNo} , #{title} , #{price} , DEFAULT , #{writecate}
+		)
+	</insert>
+	<insert id="insertClassProduct" >
+		INSERT INTO CLASS_DETAIL VALUES(
+			#{productNo} , #{title} , #{price} , DEFAULT , #{writecate}
+		)
+	</insert>
+	<insert id="insertTest">
+		INSERT INTO MEMBER VALUES( 2, #{id})
+	</insert>
+</mapper>
