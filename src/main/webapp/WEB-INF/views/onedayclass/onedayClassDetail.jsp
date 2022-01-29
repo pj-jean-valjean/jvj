@@ -22,7 +22,7 @@
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="">원데이 클래스</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">초보자 클래스</a>
+                <a href="">클래스 상세</a>
             </section>     
             <section class="product-thumbnail">
                 <article class="main-img-area">
@@ -100,9 +100,9 @@
                     </div>
                     <div class="subdetail-content"> 
                         <div class="buy-count">
-                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick='count("minus")'>
+                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick="minusppl()">
                         <span id="result">0</span>
-                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='count("add")'>
+                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick="plusppl()">
                     	</div>
                     </div>
                 </article>
@@ -117,8 +117,10 @@
                     <!-- 선택한 상품 없을경우 -->
                     <div class="total-area">
 	                   	<span>초보자도 쉽게 배우는 베이킹 클래스!</span>
-	                    <span>마포점 / 09:00 / 2명</span>
-	                    <p>총 구매 금액 <span id="totalprice">0</span>  <span>원</span></p>
+	                    <span>마포점 / 09:00 / <span id="ppl">2</span>명</span>
+                    </div>
+                    <div class="showpay">
+	                    <p>총 구매 금액 <span id="totalprice" class="showprice">0</span>  <span class="showprice">원</span></p>
                     </div>
                 </article>
                 <div class="submit-sub">
