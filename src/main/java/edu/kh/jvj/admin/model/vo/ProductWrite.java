@@ -5,15 +5,29 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductWrite {
+	//공통 product
+	private int productNo;
 	private String title;
 	private int price;
-	private String place;
-	private int people;
-	private int stock;
 	private String editordata;
-	private String classdate;
+	
+	
+	//클래스 
+	private int classNo; //
+	private String place; //지점
+	private int people; //최대인원
+	private String classdate; //일시
+	
+	//상품
+	private int stock;
 	private List<MultipartFile> imgList;
 	private int writecate;
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -25,6 +39,18 @@ public class ProductWrite {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getEditordata() {
+		return editordata;
+	}
+	public void setEditordata(String editordata) {
+		this.editordata = editordata;
+	}
+	public int getClassNo() {
+		return classNo;
+	}
+	public void setClassNo(int classNo) {
+		this.classNo = classNo;
 	}
 	public String getPlace() {
 		return place;
@@ -38,23 +64,17 @@ public class ProductWrite {
 	public void setPeople(int people) {
 		this.people = people;
 	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-	public String getEditordata() {
-		return editordata;
-	}
-	public void setEditordata(String editordata) {
-		this.editordata = editordata;
-	}
 	public String getClassdate() {
 		return classdate;
 	}
 	public void setClassdate(String classdate) {
 		this.classdate = classdate;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 	public List<MultipartFile> getImgList() {
 		return imgList;
@@ -68,14 +88,9 @@ public class ProductWrite {
 	public void setWritecate(int writecate) {
 		this.writecate = writecate;
 	}
-	@Override
-	public String toString() {
-		return "ProductWrite [title=" + title + ", price=" + price + ", place=" + place + ", people=" + people
-				+ ", stock=" + stock + ", editordata=" + editordata + ", classdate=" + classdate + ", imgList="
-				+ imgList + ", writecate=" + writecate + "]";
-	}
 	
 	
 	
+
 	
 }

@@ -20,14 +20,14 @@ window.onload = function(){
         })
     }
 }
-const totalNum = document.querySelector(".total-price > div:nth-child(1) > input");
+const totalNum = document.querySelector(".product_detail > article.total-price > div:nth-child(1) > input");
 const totalPrice = document.querySelector(".total-price > div:nth-child(2) > input");
-const onePrice = document.querySelector(".product_detail > article:nth-child(11) > div > span").innerText.replace(",","");
+const onePrice = document.querySelector(".product_detail > article:nth-child(13) > div > span").innerText.replace(",","");
 function plusP(btn){
     let people = btn.previousElementSibling;
     const num = parseInt(people.innerText);
-    const nowAppl = document.querySelector(".product_detail > article:nth-child(7) > div > span:nth-child(1)").innerText;
-    const maxAppl = document.querySelector(".product_detail > article:nth-child(7) > div > span:nth-child(3)").innerText;
+    const nowAppl = document.querySelector(".product_detail > article:nth-child(9) > div > span:nth-child(1)").innerText;
+    const maxAppl = document.querySelector(".product_detail > article:nth-child(9) > div > span:nth-child(3)").innerText;
     
     let possible = maxAppl-nowAppl;
 
