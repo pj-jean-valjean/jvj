@@ -2,9 +2,16 @@
 /* 사진교체 */
 window.onload = function(){
     changeImg();
+    reviewDetail();
 }
+    $('.contentss').click(function () {
+        $(this).toggleClass("heart-active");
+        $(this).next().toggleClass("heart-active");
+        $(this).children().toggleClass("heart-active");
+    });
+
 	const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
-function changeImg(){
+    function changeImg(){
     const subImgs = document.querySelectorAll(".img-margin");
     const thumb = document.querySelector(".main-thumbnail");
     for(let i = 0; i< subImgs.length ; i++){
@@ -13,11 +20,9 @@ function changeImg(){
         })
     }
 }
-
 const totalNum = document.querySelector(".total-price > div:nth-child(1) > input");
 const totalPrice = document.querySelector(".total-price > div:nth-child(2) > input");
 const onePrice = document.querySelector(".product_detail > article:nth-child(11) > div > span").innerText.replace(",","");
-
 function plusP(btn){
     let people = btn.previousElementSibling;
     const num = parseInt(people.innerText);
@@ -72,7 +77,7 @@ function showMaps(){
 	geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
 	
     // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+    if (status === kakao.maps.services.Status.OK) {
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
@@ -95,4 +100,51 @@ function showMaps(){
 function hideMaps(){
     document.getElementById("cal").style.display = "none";
     document.getElementById('map').innerHTML="";
+}
+
+/* 상세리뷰 토글check */
+let reviewtoggle = false;
+let temp = -1;
+/* 댓글보기 func */
+function reviewDetail(){
+    const reviewLines = document.querySelectorAll(".one-line-review>span:first-of-type");
+    for(let i =0 ; i<reviewLines.length ; i++){
+        reviewLines[i].addEventListener("click", function(){
+            const box = $(this).parent();
+            if(!reviewtoggle){
+                const reviewDetail = document.createElement("div");
+                reviewDetail.className = "reviewBox";
+                reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
+                /* reviewDetail.innerHTML = returnReviewContent(글번호); */
+                box.after(reviewDetail);
+                temp = i;
+                reviewtoggle = true;
+            }
+            else{
+                if(temp == i){
+                    temp = -1
+                    reviewtoggle = false;
+                    $(".reviewBox").remove();
+                }
+                else{
+                    $(".reviewBox").remove();
+                    const reviewDetail = document.createElement("div");
+                    reviewDetail.className = "reviewBox";
+                    reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
+                    /* reviewDetail.innerHTML = returnReviewContent(글번호); */
+                    temp= i;
+                    box.after(reviewDetail);
+                }
+            }
+        })
+    }
+}
+
+/* review  Contents ajax 
+    리뷰 list 시 constent span 에  value=글번호 넣어놓기
+    or display none으로 글번호 작성
+*/
+function returnReviewContent(글번호){
+    /* ajax */
+    return ajax;
 }

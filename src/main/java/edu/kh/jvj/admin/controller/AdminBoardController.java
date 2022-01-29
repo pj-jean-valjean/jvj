@@ -14,11 +14,13 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,37 +29,21 @@ import com.google.gson.Gson;
 import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 
-@Controller
 @RequestMapping("admin/board/*")
+@RestController
 public class AdminBoardController {
-	
 	private final AdminService service;
 	@Autowired
 	public AdminBoardController(AdminService service) {
 		this.service = service;
 	}
-	//로그인시 관리자페이지 메인
-	@PostMapping("main")
-	public String AdmingLoginProcess(
-			String adminId, String adminPw,
-			RedirectAttributes ra, Model model
-			) {
-		String path = "";
-		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
-			path =  " admin/adminMain";
-		}
-		else{
-			path = "redirect:/admin/login";
-			ra.addFlashAttribute("message", "아이디 비밀번호를 확인해주세요!");
-		}
-		return path;
-	}
 	//썸머노트 이미지처리 ajax
 	@PostMapping("summernoteImage")
 	//썸머노트 이미지 처리
-	public @ResponseBody String insertFormData2(
+	public String insertFormData2(
 			@RequestParam(value="file", required=false) MultipartFile file,HttpSession session
 			) {
+		System.out.println("됨?");
 		Gson gson = new Gson();
 		Map<String, String> map = new HashMap<String, String>();
 		// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
@@ -80,7 +66,8 @@ public class AdminBoardController {
 		}
 		return gson.toJson(map);
 	}
-	//관리자 글작성 
+	
+	//관리자 글작성 ajax
 	@PostMapping("productWrite")
 	public String productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
@@ -92,4 +79,15 @@ public class AdminBoardController {
 		
 		return "";
 	}
+	
+	//공지사항 작성 ajax
+	@PostMapping("noticeWrite")
+	public String noticeWrite(String title,	String noticecate,
+			String editordata
+			) {
+		int result = service.insertNotice(title, noticecate, editordata);
+		return "";
+	}
+	
+	
 }

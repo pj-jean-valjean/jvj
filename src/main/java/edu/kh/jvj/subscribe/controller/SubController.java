@@ -23,5 +23,12 @@ public class SubController {
 		return "/subscribe/subBread";
 	}
 	
+	// 빵, 커피 상세페이지
+	@GetMapping("subCoffee")
+	public String subCoffee() {
+		return "/subscribe/subCoffee";
+	}
+	
+	
 
 }

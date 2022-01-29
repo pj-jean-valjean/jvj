@@ -36,7 +36,7 @@
 			</div>
 			
 		</div>
-		<div class="swiper-pagination"></div>
+		<div class="swiper-pagination" style="bottom:100px"></div>
 		      <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       
@@ -78,16 +78,19 @@
 				<div class="store">
 					<div class="store-pdt pdt3-img"></div>
 					<div class="store-ex" style="margin-left: 126px">
-						<h1>매커롱</h1>
-						<p>매커롱을 누가 어디에서 처음 만들었는지 공식적인 기록은 1533년 이탈리아 메디치 가문의 카트린 드
+						<h1>마카롱</h1>
+						<p>마카롱을 누가 어디에서 처음 만들었는지 공식적인 기록은 1533년 이탈리아 메디치 가문의 카트린 드
 							메디시스가 프랑스의 앙리 2세와 결혼하게 되면서부터다. 그녀와 함께 프랑스로
-							갔던 이탈리아의 요리사들을 통해 매커롱뿐만 아니라 이탈리아의 식문화가 프랑스에 전파되었다고 한다.</p>
+							갔던 이탈리아의 요리사들을 통해 마카롱뿐만 아니라 이탈리아의 식문화가 프랑스에 전파되었다고 한다.</p>
 						<h1>35,000원</h1>
 						<div class="moreBtn">+ 더보기</div>
 					</div>
 
 				</div>
 			</div>
+		</div>
+		<div class="m-notice" data-aos="fade-up" data-aos-duration="400">
+		<img alt="" src="${contextPath}/resources/images/main/notice.png">
 		</div>
 	</div>
 
@@ -140,6 +143,28 @@
 					</div>
 				</div>
 
+			</div>
+		</div>
+	</div>
+	<div data-aos="fade-up" data-aos-duration="800">
+		<div class="event">
+			<h1 style="font-style: italic;">이벤트 소식</h1>
+			
+			<img src="${contextPath}/resources/images/main/mainevent1.png">
+			<img src="${contextPath}/resources/images/main/mainevent2.png">
+			<img src="${contextPath}/resources/images/main/mainevent3.png">
+			<br>
+			<div class="e-textbox">
+			
+			<h3>첫 구매 시 웰컴 패키지 90% 할인</h3> 식빵부터 버터나이프까지 알찬 구성
+			</div>
+			<div class="e-textbox">
+			<h3>장발장 식빵 3만원 이상 구매시</h3>무료배송 이벤트 
+			</div>
+			<div class="e-textbox">
+			<h3>
+			신규회원 쇼핑 지원금 감사쿠폰</h3>
+			회원가입시 3,000원 상당의 감사쿠폰 지급
 			</div>
 		</div>
 	</div>

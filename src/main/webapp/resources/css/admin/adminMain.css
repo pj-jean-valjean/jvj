@@ -22,26 +22,36 @@
             height: 100%;
             display: flex!important; 
             justify-content: center;
+            flex-direction:column;
         }
-        /* 사이드 네비게이션 */
+        /* 관리자 정보칸 */
+        .admin-info{
+            width: 100%;
+            text-align: right;
+            padding-right: 20px;
+        }
+        /* 네비게이션 */
         #showfunc{
-            width: 150px;
-            height: 1400px;
+            width: 100%;
+            height: 80px;
             background: #A78A6C;
             display: flex;
-            flex-direction : column;
+            justify-content: center;
         }
         .one-admin-func{
-            margin-top: 30px;
-            width: 150px;
-            height: 50px;
-            font-size: 15px;
+            line-height: 80px;
+            width: 180px;
+            height: 100%;
+            font-size: 18px;
             color: #FFFFFF;
             text-align: center;
             cursor: pointer;
         }
-
         /* 본문 */
+        section{
+            padding: 100px;
+            align-self: center;
+        }
         #adminPCont{
             width: 1250px;
         }
@@ -93,7 +103,7 @@
         }
         .oneLine> input[name='title']{
             display: inline-block;
-            width: 60%;
+            width: 30%;
             height: 30px;
         }
         .oneLine> input{
@@ -110,7 +120,7 @@
             width: 100%;
             font-size: 25px;
             text-align: center;
-            margin: 0px;
+            margin: 0px 0px 30px 0px;
         }
         .images{
             width: 120px;
@@ -122,26 +132,38 @@
             height: 100%;
             display: none;
         }
-        .eachWriter{
+        .eachWriter,.each-querybox,.each-article, .modifyP{
             position: relative;
-            top: -100px;
-            right: -142px;
+            width: 600px;
+            top: -1px;
+            left: -185px;
             display: none;
             z-index: 1;
         }
-        #writerP:hover > .eachWriter{
+        .each-querybox{
+            left: -70px;
+            width: 450px;
+        }
+        .each-article,.modifyP{
+            left : -40px;
+            width: 300px;
+        }
+        #writerP:hover > .eachWriter, #querybox:hover >.each-querybox ,#editArticle:hover > .each-article
+        ,#manageP:hover> .modifyP{
             display: block;
         }
-        #eachW{
+        .eachW{
             list-style: none;
+            width: 100%;
+            display: flex;
         }
-        .adminWriter{
-            width: 120px;
-            height: 50px;
-            font-size: 15px;
-            color: #A78A6C;
+        .adminWriter,.querywork,.modifyArticle,.manageP{
+            width: 150px;
+            height: 60px;
+            font-size: 18px;
+            color:  #A78A6C;
+            text-decoration: underline;
             cursor: pointer;
-            background-color: #eee;
             text-align: left;
             z-index: 1;
         }
@@ -216,13 +238,14 @@
         .cal { 
             position: absolute; 
             top: 0px; left: 0; 
-            width: 100%; height: 1300px; 
+            width: 100%; height: 1800px; 
             display: none; 
             background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 3;
         }
         .calendar{
             position: absolute; 
-            top: 400px; right: calc(50%  - 250px); 
+            top: 800px; right: calc(50%  - 250px); 
             background-color: white;
         }
         .calhead{
@@ -249,20 +272,9 @@
         td.impossible{
             color: #eee;
         }
-        /* 반응형 */
-        @media screen and (max-width:1250px){
-            main{
-                flex-direction:column;
-            }
-            #showfunc{
-                flex-direction:row;
-                width: 100%;
-                height: 100px;
-            }
-            .one-admin-func{
-                height: 30px;
-                border-right: 1px solid #FFFFFF;
-                line-height: 30px;
-            }
+        ::-webkit-scrollbar-thumb {
+            background: gray; 
+            border-radius: 8px;
         }
+
 

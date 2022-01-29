@@ -1,8 +1,10 @@
+const contentbox = document.getElementById("adminPCont");
+
      //네비게이션 함수
         let writingcheck = false;
         let selectMonth = 0;
         let filecheck = [0 , 0 , 0 , 0 , 0];
-
+        let discountset = false;
         //게시글 input check
         const commonWriteCheckObj = {
             "title" : false,
@@ -10,7 +12,8 @@
             "images" : false,
         }
         const nomalChekcObj = {
-            "stock" : false
+            "stock" : false,
+            "discountyn" : false
         } 
         const subsCheckObj = {
         }
@@ -40,11 +43,14 @@
                         let message;
                         switch(key){
                             case "stock" : message = "재고를 입력해주세요"; break;
+                            case "discountyn" : message = "할인여부를 입력해주세요"; break;
                         }
                         alert(message);
                         document.querySelector("input[name="+key+"]").focus();
                         return false;
-                }} break;
+                    }}
+                    if(discountset){
+                        return validatediscountnum();}break;
                 case "subs" : 
                 for( key  in subsCheckObj ){
                     if( !subsCheckObj[key] ){
@@ -71,40 +77,41 @@
                 }} break;
             }
         }
-
-        const contentbox = document.getElementById("adminPCont");
-        window.onload = function(){
-            memberInfo();
-        }
-        //1-회원 정보 조회
-        $(".one-admin-func")[0].addEventListener("click",memberInfo);
-        //2-구독 회원 조회
-        $(".one-admin-func")[1].addEventListener("click",subscribingInfo);
-        //3-주문 조회
-        $(".one-admin-func")[2].addEventListener("click",orderInfo);
-        //4-게시글 작성
+        
+        //조회업무1-회원 정보 조회
+        $(".querywork")[0].addEventListener("click",memberInfo);  
+        //조회업무2-구독 회원 조회
+        $(".querywork")[1].addEventListener("click",subscribingInfo); 
+        //조회업무3-주문 조회
+        $(".querywork")[2].addEventListener("click",orderInfo);
+        //게시글 작성1 -공지사항 등록
         $(".adminWriter")[0].addEventListener("click",function(){
             noticeboardWriter('공지사항 등록');
         });
+        //게시글 작성2 -일반 상품 등록
         $(".adminWriter")[1].addEventListener("click",function(){
             commonWriter('일반 상품 등록');
             makeNormalPWritePage();});
+        //게시글 작성3 -구독 상품 등록
         $(".adminWriter")[2].addEventListener("click",function(){
             commonWriter('구독 상품 등록');
             makeSubscribePWritePage();});
+        //게시글 작성4 -클래스 상품 등록
         $(".adminWriter")[3].addEventListener("click",function(){
             commonWriter('클래스 상품 등록');
             makeClassPWritePage();});
-        //5- 후기 관리
-        $(".one-admin-func")[4].addEventListener("click",reviewManage);
-        //6- 관리자계정 추가
-        $(".one-admin-func")[5].addEventListener("click",addManagerId);
+        //글관리1- 후기 관리
+        $(".modifyArticle")[0].addEventListener("click",reviewManage);
+        //글관리2- 공지사항 관리
+        $(".modifyArticle")[1].addEventListener("click",modifyWrite);
+        //상품 관리1 
+        $(".manageP")[0].addEventListener("click",modifyProduct);
+        //상품 관리2 상품 옵션 관리
+        /* $(".manageP")[1].addEventListener("click",modifyProduct); */
+        //관리자계정 추가
+        $(".one-admin-func")[4].addEventListener("click",addManagerId);
         //7- 원데이클래스 회원 정보
         //$(".one-admin-func")[6].addEventListener("click",onedayClassMember);
-        //8- 공지사항 관리
-        $(".one-admin-func")[7].addEventListener("click",modifyWrite);
-        //9- 상품 관리
-        $(".one-admin-func")[8].addEventListener("click",modifyProduct);
         //1. 회원정보 조회---------------------------------------------------
         function memberInfo(){
             contentbox.innerHTML="";
@@ -127,8 +134,7 @@
                 "<span class='oneMemberInfo'>누적구매금액</span>"+
                 "<span class='oneMemberInfo'>탈퇴여부</span>"+
             "</li>";
-            
-            contentbox.append(funcName,searchDiv,SearchResult)
+            contentbox.append(funcName,searchDiv,SearchResult);
         }
         //-----------------------------------------------------------------//
         //2. 구독 회원 조회---------------------------------------------------
@@ -144,7 +150,6 @@
             "<option>구독상품1</option>"+
             "<option>구독상품2</option>"+
             "</select>";
-            
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
@@ -166,7 +171,6 @@
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+"주문 내역 조회"+"</h2>"
-
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine order-search");
             searchDiv.innerHTML="<select>"+
@@ -179,7 +183,6 @@
             "<option>환불</option>"+
             "</select>"+
             "<input type='text'><button class='opencal'>검색</button>";
-            
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
@@ -191,12 +194,9 @@
                 "<span class='oneMemberInfo'>결제일</span>"+
                 "<span class='oneMemberInfo'>주문상태</span>"+
             "</li>";
-            
-
             contentbox.append(funcName,searchDiv,SearchResult);
         }
         //-----------------------------------------------------------------//
-
         //4-1. 공지사항 작성------------------------------------------
         //카테고리 / 제목 / 내용
         function noticeboardWriter(writename){
@@ -219,7 +219,7 @@
             const noticecate = document.createElement("div");
             noticecate.setAttribute("class", "oneLine");
             noticecate.innerHTML="<label class='labels'>카테고리</label>"+
-            "<select>"+
+            "<select name='noticecate'>"+
             "<option value='promotion'>프로모션</option>"+
             "<option value='notice'>공지사항</option>" +
             "<option value='event'>이벤트</option>" +
@@ -237,46 +237,105 @@
             $("#writerForm").append(funcName,title,noticecate,div4,subcanBTN());
             notesummer();
             //썸머노트 실행
-            $("#writerForm").attr("action","/noticeWrite");
+            $("#writerForm").attr("action","noticeWrite");
         }
         //-----------------------------------------------------------------//
 
         //4-2. 일반 상품 게시글 작성
-        //사진 5장 / 제목 / 가격  / 내용
+        //사진 4장 / 제목 / 가격  / 내용 / 카테고리 / 재고 / 할인정책
         function makeNormalPWritePage(){
-            //수강인원
+            //재고
             const stock = document.createElement("div");
             stock.setAttribute("class", "oneLine");
             stock.innerHTML="<label class='labels'>재고</label><input type='number' name='stock'><span class='won'>개</span>";
+            //카테고리
+            const storecate = document.createElement("div");
+            storecate.setAttribute("class", "oneLine");
+            storecate.innerHTML="<label class='labels'>카테고리</label>"+
+            "<select name='storecate'>"+
+            "<option value='빵1'>빵1</option>"+
+            "<option value='빵2'>빵2</option>"+
+            "<option value='빵3'>빵3</option>"+
+            "</select>";
             
+            //할인 프로모션
+            const discountPromotion = document.createElement("div");
+            discountPromotion.className= "oneLine discountLine";
+            discountPromotion.setAttribute("id", "discountYN");
+            discountPromotion.innerHTML="<label class='labels'>할인 Y/N</label>"+
+            "<label class='labels'>할인 없음<input type='radio' name='discountYN' value='none'></label>"+
+            "<label class='labels'>할인 추가<input type='radio' name='discountYN' value='yes'></label>";
+
             //썸머노트
             const div4 = document.createElement("div");
             div4.className= "oneLine contnote";
             div4.innerHTML="<label class='labels'>내용</label><br><textarea id='summernote' name='editordata'></textarea>";
             
+            //상품종류 히든인풋
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "1");
-            $("#writerForm").append(stock,div4,subcanBTN(),writecate);
+            $("#writerForm").append(stock,storecate,discountPromotion,div4,subcanBTN(),writecate);
             $("#writerForm").attr("action","productWrite");
             $("#writerForm").attr("onsubmit","return validate('normal')");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
-
+            //할인 선택함수 실행
+            discountPlus();
             nomalChekcObj.stock =false;
             filecheck = [0 , 0 , 0 , 0 , 0];
-
 
             document.querySelector("input[name='stock']").addEventListener("input", function(){
                 if(this.value.trim().length>0) nomalChekcObj.stock = true;
                 else  nomalChekcObj.stock = false;
             })
         }
+        //할인추가 function
+        function discountPlus(){
+            const discountcheck = document.querySelectorAll("input[name='discountYN']");
+                for(btn of discountcheck){
+                    btn.addEventListener("change", function(){
+                        if(this.value == 'yes'){
+                            const discountStart = document.createElement("div");
+                            discountStart.setAttribute("class", "oneLine disp");
+                            discountStart.innerHTML="<label class='labels'>할인 시작일</label><input type='text' readonly name='discountStart' ><button type='button' class='opencal selectdate'>날짜 선택</button><button type='button' class='opencal' onclick='todayshow()'>당일</button>";
+                            
+                            const discountEnd = document.createElement("div");
+                            discountEnd.setAttribute("class", "oneLine disp");
+                            discountEnd.innerHTML="<label class='labels'>할인 종료일</label><input type='text' readonly name='discountEnd'><button type='button' class='opencal selectdate'>날짜 선택</button>";
+                            const discountPer = document.createElement("div");
+                            discountPer.setAttribute("class", "oneLine disp");
+                            discountPer.innerHTML="<label class='labels'>할인율(%)</label><input type='number' name='discountPer'>";
+                            document.querySelector(".discountLine").after(discountStart, discountEnd,discountPer)
+                            //달력모달 함수
+                            calmodal();
+                            discountset = true;
+                        }
+                        else{
+                            discountset = false;
+                            $(".disp").remove();
+                        }
+                        nomalChekcObj.discountyn = true;
+                    })
+                }
+        }
         //-----------------------------------------------------------------//
+        function todayshow(){
+            const date= new Date();
+            const today = ""+date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate(); 
+            $("input[name='discountStart']").val(today);        
+        }
+        function validatediscountnum(){
+            const startday = document.querySelector("input[name='discountStart']");
 
+            const endday = document.querySelector("input[name='discountEnd']")
+
+            document.querySelector("input[name='discountPer']")
+            return false;
+        }
         //4-3. 구독 상품 게시글 작성
         //사진 1장 / 제목 / 빵 or 커피  / 가격 / 식빵 종류 
         function makeSubscribePWritePage(){
@@ -316,6 +375,7 @@
             filecheck = [0 , 0 , 0 , 0 , 0];
         }
         //-----------------------------------------------------------------//
+        //용량추가
         function addE(){
             $("input[name='breadCoffee']").on("change",function(){
                 if(this.value=='coffee'){
@@ -349,7 +409,7 @@
             classDate.setAttribute("class", "oneLine");
             classDate.innerHTML="<label class='labels'>클래스 날짜</label>"+
             "<input type='text' id='classdate' name='classdate' readonly placeholder='날짜를 선택해주세요'>"+
-            "<button type='button' class='opencal'>날짜 선택</button>";
+            "<button type='button' class='opencal selectdate'>날짜 선택</button>";
             
             //수강인원
             const people = document.createElement("div");
@@ -414,12 +474,11 @@
             div3.innerHTML="<label class='labels'>썸네일</label><div class='images'><img></div>"+
             "<input type='file' name='images' class='imagesinput'>" ;
 
-            //일반이미지 4장
+            //일반이미지 3장
             const div33 = document.createElement("div")
             div33.setAttribute("class", "oneLine imgline");
             div33.innerHTML="<label class='labels'>일반이미지</label>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"
-            +"<div class='images'><img></div>"+"<div class='images'><img></div>"+
-            "<input type='file' name='images' class='imagesinput'>" +
+            +"<div class='images'><img></div>"+
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>";
@@ -474,7 +533,7 @@
              //이름
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"후기 관리"+"</h2>"
+            funcName.innerHTML="<h2>"+"리뷰 관리"+"</h2>"
 
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine search-review");
@@ -609,11 +668,13 @@
         //달력모달 동작
         function calmodal(){
             const closecal = document.querySelector('#closecal');
-            const btnOpenPopup = document.querySelector('.opencal'); 
+            const btnOpenPopup = document.getElementsByClassName('selectdate'); 
             const cal = document.querySelector('.cal'); 
-            btnOpenPopup.addEventListener('click', () => {
-                cal.style.display = 'block';
-                displaycal(); });
+            for(let i = 0 ; i<btnOpenPopup.length ; i++){
+                btnOpenPopup[i].addEventListener('click', function() {
+                    cal.style.display = 'block';
+                    displaycal(this.parentElement.children[1]) });
+            }
             closecal.addEventListener('click', ()=>{
                 const monthday = document.getElementById("month-day");
                 monthday.innerHTML="";
@@ -674,7 +735,7 @@
             } 
         }
         //날짜선택 달력 함수
-        function displaycal(){
+        function displaycal(btn){
         
         let temp = new Date()
         let today = new Date(
@@ -751,7 +812,7 @@
             dateclick();
             function dateclick(){
                 $(".possible").on("click",function(){
-                    $("#classdate").val(tmonth.innerText+"/"+this.innerText);
+                    btn.value= (tmonth.innerText+"/"+this.innerText);
                     classCheckObj.classdate = true;
                     $("#closecal").click();
                 })

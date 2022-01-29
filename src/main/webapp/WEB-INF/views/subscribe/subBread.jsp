@@ -7,40 +7,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>subBread</title>
 
-<jsp:include page="../common/header.jsp" />
- 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
- 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
+	<jsp:include page="../common/header.jsp" />
  	<link rel="stylesheet" href="${contextPath}/resources/css/subBread.css">
- 	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
+ 	
+ 	<!-- 별 -->
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 	
 </head>
 <body>
 
 	<main>
         <section class="top">
             <section class="main-nav">
-                <a href="">HOME</a>
+                <a href="${contextPath}">HOME</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">정기 구독</a>
+                <a href="${contextPath}/subscribe/subMain">정기 구독</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">빵 세트</a>
+                <a href="${contextPath}/subscribe/subBread">빵 세트</a>
             </section>     
             
-            
             <section class="product-thumbnail">
-                <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                <article class="main-img-area">
+                    <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                </article>
             <div>
-                <img class="img-margin"src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
             </div>
             </section>
 
             <section class="product_detail">
                 <article class="category_product">
-                    <span>빵 세트</span>
+                    <div class="category-title">
+                        <span>빵 세트</span>
+                        <div class="heart-btn">
+							<div class="contentss">
+								<div class="heart"></div>
+							</div>
+							<div class="text">Like it</div>
+						</div>
+                    </div>
                     <span class="price">20,000원</span>
                 </article>
 
@@ -56,16 +67,16 @@
                 <article class="sub-detail">
                     <div class="sub-title">
                         <span>구독 옵션</span>
-                        <span>*</span>
+                        <span></span>
                     </div>
-                    <div class="btn-area"> 
-                        <button type="button" class="sub btn" onclick="">
+                    <div class="period-area btn-area"> 
+                        <button type="button" class="period-btn btn" value="1">
                             <span>1개월</span>
                         </button>
-                        <button type="button" class="sub btn">
+                        <button type="button" class="period-btn btn"  value="2">
                             <span>6개월</span>
                         </button>
-                        <button type="button" class="sub btn">
+                        <button type="button" class="period-btn btn" value="3">
                             <span>정기결제</span>
                         </button>
                     </div>
@@ -78,11 +89,11 @@
                         <span>빵 종류</span>
                         <span></span>
                     </div>
-                    <div class="btn-area"> 
-                        <button type="button" class="sub btn" onclick="">
+                    <div class="bread btn-area"> 
+                        <button type="button" class="bread-btn btn" onclick="">
                             <span>식빵</span>
                         </button>
-                        <button type="button" class="sub btn">
+                        <button type="button" class="bread-btn btn">
                             <span>바게트</span>
                         </button>
                     </div>
@@ -94,19 +105,22 @@
                         <span>맛 종류</span>
                         <span></span>
                     </div>
-                    <div class="btn-area"> 
-                        <button type="button" class="sub btn" onclick="">
+                    <div class="taste btn-area"> 
+                        <button type="button" class="taste-btn btn" onclick="">
                             <span>장발장</span>
                         </button>
-                        <button type="button" class="sub btn">
+                        <button type="button" class="taste-btn btn">
                             <span>녹차코코넛</span>
                         </button>
-                        <button type="button" class="sub btn">
+                        <button type="button" class="taste-btn btn">
                             <span>초코</span>
                         </button>
                     </div>
                 </article>
                 
+                <!-- 상태코드 넘어가는 input -->
+                <input type="hidden" name="periodStatusCode">
+
                 <article class="buy-total">
                     <!-- 선택한 상품 있을경우 -->
                     <!-- <div class="total-area">
@@ -115,12 +129,12 @@
 
                     <!-- 선택한 상품 없을경우 -->
                     <div class="total-area">
-                        <span>1개월 / 식빵 / 장발장 / 6개입</span>
+                        <span>1개월 / 식빵 / 장발장</span>
                     </div>
                     <div class="buy-count">
-                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add btn.png" alt="add btn">
-                        <span>1</span>
-                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus btn.png" alt="minus btn">
+                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick='count("minus")'>
+                        <span id="result">0</span>
+                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='count("add")'>
                     </div>
                 
                 </article>
@@ -177,13 +191,15 @@
             </article> 
                 
             <article id="reviewbox">
+
                 <div class="one-line-review">
                     <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
                         </div>
                     </div>
                     <span>장발장 바게트 3개월 째 구독중이에요.</span>
@@ -193,25 +209,12 @@
 
                 <div class="one-line-review">
                     <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
                         </div>
                     </div>
                     <span>장발장 바게트 3개월 째 구독중이에요.</span>
@@ -221,105 +224,126 @@
 
                 <div class="one-line-review">
                     <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
                         </div>
                     </div>
                     <span>장발장 바게트 3개월 째 구독중이에요.</span>
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
+                <div class="one-line-review">
+                    <div class="star-ratings">
+                        <div class="star-ratings-fill" >
+                            <i class="fas fa-star gold"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                            <i class="fas fa-star gray"></i>
+                        </div>
+                    </div>
+                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
+                    <span>닉네임</span>
+                    <span>2022-01-24</span>
+                </div>
+
                 
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill " >
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base ">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
             </article><!-- 리뷰내용  -->
-            
-            
-            
             <!-- 페이지네이션 -->
             <article class="pagination-area">
                 <ul class="pagination">
@@ -417,3 +441,4 @@ DELIVERY / 배송정보
 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
 </body>
 </html>
+
