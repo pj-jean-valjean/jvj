@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/header.jsp" />
-<link rel="stylesheet" href="${contextPath}/resources/css/login.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/member/login.css">
 
 <content>
   <div class="login-title">
         <p class="text-center">로그인</p>
     </div> 
     
-    <form>
+    <form>  
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>Email</p></div>
@@ -29,8 +29,8 @@
 
 
                 <ul>
-                    <li><a href="#"><span>아이디 찾기</span></a><div class="updown"></div></li>
-                    <li><a href="#"><span>비밀번호 찾기</span></a></li>
+                    <li><a href="${contextPath}/member/searchId"><span>아이디 찾기</span></a><div class="updown"></div></li>
+                    <li><a href="${contextPath}/member/searchPw"><span>비밀번호 찾기</span></a></li>
                 </ul>
             </div>
         </div>
@@ -60,7 +60,7 @@
     </div>
 
     <ul class="goSignUp">
-        <li><a href="#"><span>아직 회원이 아니신가요?</span></a></li> 
+        <li><a href="${contextPath}/member/signUp"><span>아직 회원이 아니신가요?</span></a></li> 
     </ul>
 </content>
 

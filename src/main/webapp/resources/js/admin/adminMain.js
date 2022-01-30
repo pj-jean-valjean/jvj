@@ -232,7 +232,7 @@ const contentbox = document.getElementById("adminPCont");
         //-----------------------------------------------------------------//
         function todayshow(){
             const date= new Date();
-            const today = ""+date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate(); 
+            const today = ""+date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); 
             $("input[name='discountStart']").val(today);        
         }
         function validatediscountnum(){
@@ -686,7 +686,7 @@ const contentbox = document.getElementById("adminPCont");
         const tmonth = document.getElementById("today-month");
         const monthday = document.getElementById("month-day");
         monthday.innerHTML="";
-        tmonth.innerText = year+"/" +enMonthName[month-1] 
+        tmonth.innerText = year+"-" +enMonthName[month-1] 
         let tempDate = new Date();
         while(notLast){
             const tr = document.createElement("tr");
@@ -726,7 +726,7 @@ const contentbox = document.getElementById("adminPCont");
             dateclick();
             function dateclick(){
                 $(".possible").on("click",function(){
-                    saveDateBtnthis.value = tmonth.innerText+"/"+this.innerText ;
+                    saveDateBtnthis.value = tmonth.innerText+"-"+this.innerText ;
                     classCheckObj.classdate = true;
                     $("#closecal").click();
                 })
@@ -844,6 +844,10 @@ const contentbox = document.getElementById("adminPCont");
                 cache: false,
                 success : function(result){
                     alert(result);
+
+
+                    commonWriter('클래스 상품 등록');
+                    makeClassPWritePage();
                 },
                 error: function(result){
                     alert(result);
