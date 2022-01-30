@@ -19,7 +19,7 @@ public class AdminDAO {
 	public int insertClassProduct(ProductWrite product) {
 		return sqlSession.insert("adminMapper.insertClassProduct",product);
 	}
-
+	
 
 	
 }
