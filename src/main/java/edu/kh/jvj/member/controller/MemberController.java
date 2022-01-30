@@ -23,4 +23,28 @@ public class MemberController {
 	public String signUp() {
 		return "member/signUp";
 	}
+	
+	
+	@RequestMapping(value = "searchId", method = RequestMethod.GET)
+	public String searchId() {
+		return "member/searchId";
+	}
+	
+	@RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
+	public String searchIdResult() {
+		return "member/searchIdResult";
+	}
+	
+	@RequestMapping(value = "searchPw", method = RequestMethod.GET)
+	public String searchPw() {
+		return "member/searchPw";
+	}
+	
+	@RequestMapping(value = "searchPwResult", method = RequestMethod.POST)
+	public String searchPwResult() {
+		return "member/searchPwResult";
+	}
+	
+	
+	
 }
