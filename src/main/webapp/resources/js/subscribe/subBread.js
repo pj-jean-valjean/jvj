@@ -1,18 +1,3 @@
-// 기간, 빵, 맛, 종류 버튼 선택  
-$(".period-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-$(".bread-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-$(".taste-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-
-
 /* 사진교체 */
 window.onload = function(){
     changeImg();
@@ -29,24 +14,82 @@ function changeImg(){
     }
 }
 
-/* 수량 증감 버튼*/
-function count(type) {
-    const result = document.getElementById('result');
+//좋아요 함수
+$(document).ready(function() {
+	$('.heart-content').click(function() {
+		$(this).toggleClass("heart-active");
+		$(this).next().toggleClass("heart-active");
+		$(this).children().toggleClass("heart-active");
+	});
+});
 
-    let resultNum = result.innerText;
 
-    if (type === "add") {
-        resultNum = parseInt(resultNum) + 1;
-    } else if (type === "minus") {
-        resultNum = parseInt(resultNum) - 1;
-    }
+/*----------------------- 버튼 이름 받아오기 ------------------------*/
+// 기간, 빵, 맛, 종류 버튼 선택  
+$(".period-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+     document.getElementById("period").innerText 
+     	= $(".period-btn.active").find('span').text();
+});
 
-    if (resultNum < 0) {
-        resultNum = 0;
-    }
+$(".bread-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("bread").innerText 
+    	= $(".bread-btn.active").find('span').text();
+});
 
-    result.innerText = resultNum;
+$(".taste-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("taste").innerText 
+    	= $(".taste-btn.active").find('span').text();
+});
+
+
+// 버튼 3개가 선택 시 div 변경
+$('.period-btn.active, .bread-btn.active, .taste-btn.active').on('click', function () {
+	alert("dfsf");
+});
+
+
+
+
+
+
+
+
+/*----------------------- 수량 증감 버튼 -----------------------*/
+/* 수량 / 기본 금액 */
+let resultNum = document.getElementById('result').innerText;
+const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
+
+
+/* 수량 증가 */
+function plusCount(){
+	let pplpick = document.getElementById("result");
+    let totalprice= document.getElementById("totalprice");
+    
+    pplpick.innerText = ++resultNum;
+    /* 원화 단위 콤마포함한 값 대입*/					 
+    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
 }
+
+/* 수량 감소 */
+function minusCount(){
+	if(resultNum!=0){
+		let pplpick = document.getElementById("result");
+	    let totalprice= document.getElementById("totalprice");
+	    
+	    pplpick.innerText = --resultNum;				 
+	    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
+    }
+}
+
+
+ 
+ 
  
 
 /* 리뷰 */
@@ -87,6 +130,7 @@ function reviewDetail(){
         })
     }
 }
+
 /* review  Contents ajax 
     리뷰 list 시 constent span 에  value=글번호 넣어놓기
     or display none으로 글번호 작성

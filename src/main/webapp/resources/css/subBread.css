@@ -203,6 +203,9 @@ main{
     transition: 0.3s;
 }
 
+
+
+
 /* 선택 시 추가 */
 .clicked-btn{
     background-color: #A78A6C;
@@ -216,7 +219,7 @@ main{
     border-radius: 5px;
 }
 
-.total-area, .buy-count{
+.total-area, .total-area-none, .buy-count{
     padding: 10px;
 }
 
@@ -414,10 +417,14 @@ main{
     width: 15%;
     text-align: center;
 }
-.one-line-review>span:nth-of-type(3){ width: 15%;
+.one-line-review>span:nth-of-type(3){ 
+	width: 15%;
     text-align: center;
 }
 
+.one-line-review>span:hover{
+	cursor: pointer;
+}
 
 /* 별점 */
 .star-ratings {
@@ -517,5 +524,46 @@ main{
     font-size: 13px;
 }
 
+/* heart */
+.heart-btn {
+	float: right;
+	width: 49px;
+	margin-top: -32px;
+}
 
+.heart-content {
+	width: 40px;
+	height: 40px;
+	border: 2px solid #eae2e1;
+	border-radius: 50%;
+	cursor: pointer;
+}
 
+.heart-content.heart-active {
+	border-color: #f9b9c4;
+	background: #fbd0d8;
+	position: relative;
+	z-index: 1;
+}
+
+.heart {
+	background: url("../images/store/heart.png") no-repeat;
+	background-position: left;
+	background-size: 2900%;
+	height: 71px;
+	width: 73px;
+	position: relative;
+	z-index: -1;
+	transform: translate(-22%, -19%);
+}
+
+.text.heart-active {
+	color: #000;
+}
+
+.heart.heart-active {
+	animation: animate .8s steps(28) 1;
+	background-position: right;
+	position: relative;
+	z-index: -1;
+}
