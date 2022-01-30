@@ -43,7 +43,6 @@ public class AdminBoardController {
 	public String insertFormData2(
 			@RequestParam(value="file", required=false) MultipartFile file,HttpSession session
 			) {
-		System.out.println("됨?");
 		Gson gson = new Gson();
 		Map<String, String> map = new HashMap<String, String>();
 		// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
@@ -73,6 +72,7 @@ public class AdminBoardController {
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
 			ProductWrite Product, HttpSession session
 			) {
+		System.out.println(Product);
 		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath);
@@ -86,8 +86,16 @@ public class AdminBoardController {
 			String editordata
 			) {
 		int result = service.insertNotice(title, noticecate, editordata);
+		
 		return "";
 	}
 	
+	//test
+	@PostMapping("testbatis")
+	public int tesetbatis(String id) {
+		System.out.println(id);
+		int result = service.testinput(id);
+		return result;
+	}
 	
 }

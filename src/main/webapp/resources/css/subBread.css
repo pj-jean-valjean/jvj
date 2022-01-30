@@ -73,6 +73,7 @@ main{
     border-radius: 5px;
     
 }
+
 .img-margin{
     margin-right: auto;
 
@@ -208,9 +209,6 @@ main{
     color: white; 
 }
 
-
-
-
 /* 구매상품 확인 div */
 .buy-total{
     height: 90px;
@@ -262,8 +260,6 @@ main{
     font-size: 25px;
     font-weight: bold;
 }
-
-
 
 /* 구독신청 버튼 */
 .submit-sub{
