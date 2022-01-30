@@ -11,10 +11,10 @@
 	</insert>
 	<insert id="insertClassProduct" >
 		INSERT INTO CLASS_DETAIL VALUES(
-			#{productNo} , #{title} , #{price} , DEFAULT , #{writecate}
+			#{productNo} , #{people} , #{editordata} , #{classdate} , #{place} ,#{place} , #{startEndTime}
 		)
 	</insert>
-	<insert id="insertTest">
-		INSERT INTO MEMBER VALUES( 2, #{id})
-	</insert>
+	
+	
+	
 </mapper>

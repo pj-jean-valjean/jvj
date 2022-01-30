@@ -40,7 +40,17 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-3 클래스 페이지
 		else {
-			/* result = dao.insertClassProduct(product); */
+			String plustime="";
+			plustime += (product.getStarthour()==9? "0"+product.getStarthour():product.getStarthour())+": "
+					  + product.getStartminute()+ " ~ " 
+					 + (product.getEndhour()==9? "0"+product.getEndhour():product.getEndhour())+": "
+					  + product.getEndminute();
+			product.setStartEndTime(plustime);
+			//수업시간 설정
+			product.setClassdate(product.getClassdate());
+			//일시 성정
+			
+			 result = dao.insertClassProduct(product); 
 		}
 		
 		//3. 상품 이미지 등록
