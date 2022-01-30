@@ -3,7 +3,7 @@
 <mapper namespace="adminMapper">
 	<insert id="insertProductCommon" >
   		<selectKey order="BEFORE" resultType="_int" keyProperty="productNo">
-  			SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
+  			SELECT SEQ_PRODUCT_NO.NEXTVAL FROM DUAL
   		</selectKey>
 		INSERT INTO PRODUCT VALUES(
 			#{productNo} , #{title} , #{price} , DEFAULT , #{writecate}

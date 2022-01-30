@@ -27,6 +27,5 @@ public interface AdminService {
 	 */
 	int insertNotice(String title, String noticecate, String editordata);
 
-	int testinput(String id);
 	
 }

@@ -72,10 +72,14 @@ public class AdminBoardController {
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
 			ProductWrite Product, HttpSession session
 			) {
+		System.out.println("연결!");
 		System.out.println(Product);
 		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
-		int result = service.insertProduct(images, Product, WebPath , serverPath);
+		int result = service.insertProduct(images, Product, WebPath , serverPath); 
+		
+		
+		
 		
 		return "";
 	}
@@ -90,12 +94,5 @@ public class AdminBoardController {
 		return "";
 	}
 	
-	//test
-	@PostMapping("testbatis")
-	public int tesetbatis(String id) {
-		System.out.println(id);
-		int result = service.testinput(id);
-		return result;
-	}
-	
+
 }
