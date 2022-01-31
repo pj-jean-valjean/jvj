@@ -5,6 +5,7 @@ const contentbox = document.getElementById("adminPCont");
         let selectMonth = 0;
         let filecheck = [0 , 0 , 0 , 0 , 0];
         let discountset = false;
+
         //게시글 input check
         const commonWriteCheckObj = {
             "title" : false,
@@ -19,6 +20,7 @@ const contentbox = document.getElementById("adminPCont");
         }
         const classCheckObj = {
             "people" : false,
+            "classtime":false,
             "classdate" : false
         } 
         //게시글 validation
@@ -37,7 +39,7 @@ const contentbox = document.getElementById("adminPCont");
                 }
             }
             switch(options){
-                case "normal" : 
+                case 1 : 
                 for( key  in nomalChekcObj ){
                     if( !nomalChekcObj[key] ){
                         let message;
@@ -51,7 +53,7 @@ const contentbox = document.getElementById("adminPCont");
                     }}
                     if(discountset){
                         return validatediscountnum();}break;
-                case "subs" : 
+                case 2 : 
                 for( key  in subsCheckObj ){
                     if( !subsCheckObj[key] ){
                         let message;
@@ -63,19 +65,26 @@ const contentbox = document.getElementById("adminPCont");
                         return false;
                 }} break;
 
-                case "class" : 
+                case 3 : 
                 for( key  in classCheckObj ){
                     if( !classCheckObj[key] ){
                         let message;
                         switch(key){
                             case "people" : message = "인원을 입력해주세요"; break;
+                            case "classtime" : message = "시작과 종료 시간을 올바르게 입력해주세요"; break;
                             case "classdate" : message = "수강일을 입력해주세요"; break;
                         }
                         alert(message);
-                        document.querySelector("input[name="+key+"]").focus();
+                        if(key=='classtime'){
+                            document.querySelector("select[name='starthour']").focus();
+                        }
+                        else{
+                            document.querySelector("input[name="+key+"]").focus();
+                        }
                         return false;
                 }} break;
             }
+            return true;
         }
 
         //게시글 작성1 -공지사항 등록
@@ -130,9 +139,9 @@ const contentbox = document.getElementById("adminPCont");
             noticecate.setAttribute("class", "oneLine");
             noticecate.innerHTML="<label class='labels'>카테고리</label>"+
             "<select name='noticecate'>"+
-            "<option value='promotion'>프로모션</option>"+
-            "<option value='notice'>공지사항</option>" +
-            "<option value='event'>이벤트</option>" +
+            "<option value='1'>프로모션</option>"+
+            "<option value='2'>공지사항</option>" +
+            "<option value='3'>이벤트</option>" +
             "</select>";
             //제목
             const title = document.createElement("div");
@@ -147,6 +156,9 @@ const contentbox = document.getElementById("adminPCont");
             $("#writerForm").append(funcName,title,noticecate,div4,subcanBTN());
             notesummer();
             //썸머노트 실행
+            const submit = document.querySelector(".admin-write-btn");
+            submit.removeAttribute("onclick")
+            submit.setAttribute("onclick", "submitNotice()");
         }
         //-----------------------------------------------------------------//
 
@@ -325,12 +337,12 @@ const contentbox = document.getElementById("adminPCont");
             const starthour = document.createElement("div");
             starthour.setAttribute("class", "oneLine");
             starthour.innerHTML="<label class='labels'>시작 시간</label>"+
-            "<select name='starthour'></select><select name='startminute'></select>";
+            "<select name='starthour' class='timeinput'></select><select name='startminute' class='timeinput'></select>";
             //종료 시간
             const endhour = document.createElement("div");
             endhour.setAttribute("class", "oneLine");
             endhour.innerHTML="<label class='labels'>종료 시간</label>"+
-            "<select name='endhour'></select><select name='endminute'></select>";
+            "<select name='endhour' class='timeinput'></select><select name='endminute' class='timeinput'></select>";
 
             //썸머노트
             const div4 = document.createElement("div");
@@ -360,6 +372,21 @@ const contentbox = document.getElementById("adminPCont");
                 if(this.value.trim().length>0) classCheckObj.classdate = true;
                 else  classCheckObj.classdate = false;
             })
+            const timeinput= document.getElementsByClassName("timeinput");
+            for(TI of timeinput){
+                TI.addEventListener("change",function(){
+                    const starthour = parseInt(document.querySelector("select[name='starthour']").value);
+                    const endhour = parseInt(document.querySelector("select[name='endhour']").value);
+                    const startminute = parseInt(document.querySelector("select[name='startminute']").value);
+                    const endminute = parseInt(document.querySelector("select[name='endminute']").value);
+                    if(starthour < endhour) {classCheckObj.classtime = true; }
+                    else if(starthour===endhour) {
+                        if(startminute<endminute) classCheckObj.classtime = true;
+                        else classCheckObj.classtime = false;
+                    }
+                    else classCheckObj.classtime = false;
+                })
+            }
         }
         //-----------------------------------------------------------------//
 
@@ -620,7 +647,6 @@ const contentbox = document.getElementById("adminPCont");
                 onImageUpload : function(files, editor, welEditable) {
             // 파일 업로드(다중업로드를 위해 반복문 사용)
                 for (var i = files.length - 1; i >= 0; i--) {
-                    console.log("이미지 업로드");
                         uploadSummernoteImageFile(files[i],
                         this);
                         }
@@ -631,7 +657,6 @@ const contentbox = document.getElementById("adminPCont");
             function uploadSummernoteImageFile(file, editor) {
             data = new FormData();
             data.append("file", file);
-            console.log(data);
             $.ajax({
                 url : "summernoteImage",
                 data : data,
@@ -641,8 +666,6 @@ const contentbox = document.getElementById("adminPCont");
                 processData : false,
                 success : function(data) {
                     //항상 업로드된 파일의 url이 있어야 한다.
-                    console.log(data);
-                    console.log(data.url);
                     $(editor).summernote('insertImage', contextPath+data.url);
                 }
             });
@@ -834,7 +857,10 @@ const contentbox = document.getElementById("adminPCont");
         function submitProduct(){
             const form = $("#writerForm");
             const formData = new FormData(form[0]);
-
+            const cate = document.querySelector("input[name='writecate']").value;
+            if(!validate(parseInt(cate))){
+                return;
+            };
             $.ajax({
                 url : "productWrite",
                 type : "POST",
@@ -855,4 +881,29 @@ const contentbox = document.getElementById("adminPCont");
             })
         }
 
+        function submitNotice(){
+            if(document.querySelector("input[name='title']").value.trim().length==0){
+                alert("제목을 입력해주세요!");
+                document.querySelector("input[name='title']").focus();
+                return;
+            }
+            const form = $("#writerForm"); 
+            const formData = new FormData(form[0]);
+            $.ajax({
+                url : "noticeWrite",
+                type : "POST",
+                data : formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success : function(result){
+                    alert("등록 성공!");
+
+                    noticeboardWriter('공지사항 등록');
+                },
+                error: function(result){
+                    alert("오류 발생");
+                }
+            })
+        }
         

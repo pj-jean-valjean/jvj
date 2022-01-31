@@ -87,9 +87,12 @@ public class AdminBoardController {
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
 	public String noticeWrite(String title,	String noticecate,
-			String editordata
+			String editordata, @RequestParam(value="loginMember" ,required =false , defaultValue="1") int loginMember
 			) {
-		int result = service.insertNotice(title, noticecate, editordata);
+		int result = service.insertNotice(title, noticecate, editordata, loginMember);
+		
+		
+		
 		
 		return "";
 	}
