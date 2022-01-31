@@ -45,13 +45,12 @@
                 <article class="category_product">
                     <div class="category-title">
                         <span>빵 세트</span>
-                        <div class="heart-btn">
-							<div class="contentss">
+						<div class="heart-btn">
+							<div class="heart-content">
 								<div class="heart"></div>
 							</div>
-							<div class="text">Like it</div>
 						</div>
-                    </div>
+					</div>
                     <span class="price">20,000원</span>
                 </article>
 
@@ -70,16 +69,18 @@
                         <span></span>
                     </div>
                     <div class="period-area btn-area"> 
-                        <button type="button" class="period-btn btn" value="1">
-                            <span>1개월</span>
+                        <button type="button" class="period-btn btn" name="period" value="1">
+                            <span>1주</span>
                         </button>
-                        <button type="button" class="period-btn btn"  value="2">
-                            <span>6개월</span>
+                        <button type="button" class="period-btn btn" name="period" value="2">
+                            <span>2주</span>
                         </button>
-                        <button type="button" class="period-btn btn" value="3">
-                            <span>정기결제</span>
+                        <button type="button" class="period-btn btn" name="period" value="3">
+                            <span>3주</span>
                         </button>
                     </div>
+                    <!-- 상태코드 넘어가는 input -->
+                	<input type="hidden" name="periodStatusCode">
                 </article>
 
                 <div class="bottom-line"></div>
@@ -90,12 +91,14 @@
                         <span></span>
                     </div>
                     <div class="bread btn-area"> 
-                        <button type="button" class="bread-btn btn" onclick="">
+                        <button type="button" class="bread-btn btn" name="bread" value="1">
                             <span>식빵</span>
                         </button>
-                        <button type="button" class="bread-btn btn">
+                        <button type="button" class="bread-btn btn" name="bread" value="2">
                             <span>바게트</span>
                         </button>
+                        <!-- 상태코드 넘어가는 input -->
+                		<input type="hidden" name="breadStatusCode">
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -106,7 +109,7 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="taste-btn btn" onclick="">
+                        <button type="button" class="taste-btn btn" >
                             <span>장발장</span>
                         </button>
                         <button type="button" class="taste-btn btn">
@@ -118,35 +121,38 @@
                     </div>
                 </article>
                 
-                <!-- 상태코드 넘어가는 input -->
-                <input type="hidden" name="periodStatusCode">
+                
 
                 <article class="buy-total">
-                    <!-- 선택한 상품 있을경우 -->
-                    <!-- <div class="total-area">
-                        <span>구독 상품을 선택해주세요.</span>
-                    </div> -->
-
                     <!-- 선택한 상품 없을경우 -->
+            <!--         <div class="total-area-none">
+                        <span>구독 상품을 선택해주세요.</span>
+                    </div> --> 
+
+                    <!-- 선택한 상품 있을경우 -->
                     <div class="total-area">
-                        <span>1개월 / 식빵 / 장발장</span>
+                        <span id="period">1개월</span>+
+                        <span id="bread">식빵</span>+
+                        <span id="taste">장발장</span>
                     </div>
                     <div class="buy-count">
-                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick='count("minus")'>
-                        <span id="result">0</span>
-                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='count("add")'>
+                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
+                        <span id="result" >1</span>
+                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
                     </div>
                 
                 </article>
-
+				<!-- 상태코드 넘어가는 input -->
+                <input type="hidden" name="periodStatusCode">
                 <article class="total-price">
-                    <p>총 구매 금액</p>
-                    <span>0</span>
-                    <span>원</span>
+                    <p>총 구매 금액
+	                    <span id="totalprice" class="showprice">20,000</span>
+	                    <span class="showprice">원</span>
+                    </p>
                 </article>
 
                 <div class="submit-sub">
-                    <button class="submit-btn">
+                    <button class="submit-btn" >
                         <span>바로 구독 신청</span>
                     </button>
                 </div>
@@ -173,7 +179,6 @@
             </article>   
 
             
-            <!-- 리뷰 -->
             <article class="boundary-line" id="contents-review" >
                 <div class="header-title review-header ">
                     <p>리뷰</p>
@@ -185,13 +190,11 @@
                                 <option>최신순</option>
                             </select>
                         </div>
-                        <a class="reviewWrite" href="">리뷰쓰기</a>
+                        <a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
                     </div>
                 </div>
             </article> 
-                
             <article id="reviewbox">
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -206,7 +209,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -221,7 +223,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -236,7 +237,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -251,7 +251,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -266,7 +265,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -281,7 +279,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -296,7 +293,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -311,7 +307,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -326,7 +321,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -341,9 +335,8 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
-                
             </article><!-- 리뷰내용  -->
+            
             <!-- 페이지네이션 -->
             <article class="pagination-area">
                 <ul class="pagination">

@@ -47,7 +47,7 @@
                    <div class="category-title">
                         <span>빵 & 커피 세트</span>
                         <div class="heart-btn">
-							<div class="contentss">
+							<div class="heart-contents">
 								<div class="heart"></div>
 							</div>
 							<div class="text">Like it</div>
