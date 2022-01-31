@@ -25,6 +25,8 @@ public class OnedayClass {
 	private int classMaxPpl;
 	//CLASS_STATUS_CD
 	private int classStatusCd;
+	//CLASS_TIME
+	private String classtime;
 	//PLACE_CODE
 	private int placeCd;
 	//CLASS_EXP
@@ -40,9 +42,7 @@ public class OnedayClass {
 	private int likecount;
 	
 	//PRODUCT_IMG_PATH
-	private String imgPath;
-	//PRODUCT_IMG_NAME
-	private String imgName;
+	private String imgPathName;
 	
 	//RATING_AVG
 	private double ratingAgv;
@@ -105,6 +105,14 @@ public class OnedayClass {
 		this.classStatusCd = classStatusCd;
 	}
 
+	public String getClasstime() {
+		return classtime;
+	}
+
+	public void setClasstime(String classtime) {
+		this.classtime = classtime;
+	}
+
 	public int getPlaceCd() {
 		return placeCd;
 	}
@@ -153,20 +161,12 @@ public class OnedayClass {
 		this.likecount = likecount;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getImgPathName() {
+		return imgPathName;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-
-	public String getImgName() {
-		return imgName;
-	}
-
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
+	public void setImgPathName(String imgPathName) {
+		this.imgPathName = imgPathName;
 	}
 
 	public double getRatingAgv() {
@@ -193,10 +193,10 @@ public class OnedayClass {
 	public String toString() {
 		return "OnedayClass [classNo=" + classNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
 				+ ", productCd=" + productCd + ", classDt=" + classDt + ", classMaxPpl=" + classMaxPpl
-				+ ", classStatusCd=" + classStatusCd + ", placeCd=" + placeCd + ", contents=" + contents
-				+ ", classStatusName=" + classStatusName + ", placeName=" + placeName + ", placeAddr=" + placeAddr
-				+ ", likecount=" + likecount + ", imgPath=" + imgPath + ", imgName=" + imgName + ", ratingAgv="
-				+ ratingAgv + ", classImgList=" + classImgList + "]";
+				+ ", classStatusCd=" + classStatusCd + ", classtime=" + classtime + ", placeCd=" + placeCd
+				+ ", contents=" + contents + ", classStatusName=" + classStatusName + ", placeName=" + placeName
+				+ ", placeAddr=" + placeAddr + ", likecount=" + likecount + ", imgPathName=" + imgPathName
+				+ ", ratingAgv=" + ratingAgv + ", classImgList=" + classImgList + "]";
 	}
 	
 }

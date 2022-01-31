@@ -169,14 +169,15 @@ const contentbox = document.getElementById("adminPCont");
             const stock = document.createElement("div");
             stock.setAttribute("class", "oneLine");
             stock.innerHTML="<label class='labels'>재고</label><input type='number' name='stock'><span class='won'>개</span>";
+
             //카테고리
             const storecate = document.createElement("div");
             storecate.setAttribute("class", "oneLine");
             storecate.innerHTML="<label class='labels'>카테고리</label>"+
             "<select name='storecate'>"+
-            "<option value='빵1'>빵1</option>"+
-            "<option value='빵2'>빵2</option>"+
-            "<option value='빵3'>빵3</option>"+
+            "<option value='1'>식빵</option>"+
+            "<option value='2'>바게트</option>"+
+            "<option value='3'>기타</option>"+
             "</select>";
             
             //할인 프로모션
@@ -198,6 +199,12 @@ const contentbox = document.getElementById("adminPCont");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "1");
             $("#writerForm").append(stock,storecate,discountPromotion,div4,subcanBTN(),writecate);
+
+            //상세설명
+            const detailcontents = document.createElement("div");
+            detailcontents.setAttribute("class", "oneLine");
+            detailcontents.innerHTML="<label class='labels'>상세설명</label><input type='text' name='detailcontents' >";
+            document.querySelector("input[name='title']").parentElement.after(detailcontents);
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -253,7 +260,7 @@ const contentbox = document.getElementById("adminPCont");
             const endday = document.querySelector("input[name='discountEnd']")
 
             document.querySelector("input[name='discountPer']")
-            return false;
+            return true;
         }
         //4-3. 구독 상품 게시글 작성
         //사진 1장 / 제목 / 빵 or 커피  / 가격 / 식빵 종류 
@@ -699,9 +706,6 @@ const contentbox = document.getElementById("adminPCont");
 
         let lastDate =  monthDay[month-1];
 
-        var enMonthName = new Array('1','2','3','4','5','6',
-            '7','8','9','10','11','12');
-
         let count = 1;
         let week =1;
         let notLast= true; //마지막 날짜 검사 boolean;
@@ -709,7 +713,11 @@ const contentbox = document.getElementById("adminPCont");
         const tmonth = document.getElementById("today-month");
         const monthday = document.getElementById("month-day");
         monthday.innerHTML="";
-        tmonth.innerText = year+"-" +enMonthName[month-1] 
+        let showmonth = ""+month;
+        if(month<10) {
+            showmonth = "0"+showmonth;
+        }
+        tmonth.innerText = year+"-" +showmonth; 
         let tempDate = new Date();
         while(notLast){
             const tr = document.createElement("tr");
@@ -749,7 +757,10 @@ const contentbox = document.getElementById("adminPCont");
             dateclick();
             function dateclick(){
                 $(".possible").on("click",function(){
-                    saveDateBtnthis.value = tmonth.innerText+"-"+this.innerText ;
+                    const count = this.innerText ;
+                    let showday = ""+count;
+                    if(count<10){showday = '0'+showday}
+                    saveDateBtnthis.value = tmonth.innerText+"-"+showday;
                     classCheckObj.classdate = true;
                     $("#closecal").click();
                 })
@@ -858,9 +869,11 @@ const contentbox = document.getElementById("adminPCont");
             const form = $("#writerForm");
             const formData = new FormData(form[0]);
             const cate = document.querySelector("input[name='writecate']").value;
+            console.log(111);
             if(!validate(parseInt(cate))){
                 return;
             };
+            console.log(111);
             $.ajax({
                 url : "productWrite",
                 type : "POST",
