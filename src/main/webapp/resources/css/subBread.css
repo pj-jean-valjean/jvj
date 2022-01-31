@@ -16,7 +16,7 @@ main{
     height: 60px;
     display: flex;
     align-items: center; 
-    
+  
     font-size: 13px;
 }
 
@@ -179,16 +179,15 @@ main{
 
 /* 구독, 빵, 맛 선택 button */
 .btn{
-    width: 90px;
+    width: 95px;
     height: 35px;
     font-weight: bold;
     color: var(--accent-color);
     margin-right: 20px;
     
     display: inline;
-    border: 0;
+    border: 1px solid var(--accent-color);
     border-radius: 5px;
-
     background-color: white;
     cursor: pointer;
 }
@@ -197,8 +196,9 @@ main{
 }
 
 
-.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active{
-    background-color: #A78A6C;
+.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active, .coffee-btn.active{
+    background-color: var(--back-color);
+    border: 1px solid var(--back-color);
     color: white; 
     transition: 0.3s;
 }
@@ -300,10 +300,6 @@ main{
 }
 
 
-.detail-contents{
-    width: 100%;
-    z-index: 2;
-}
 .detail-contents ul li{
     width: 33%;
     height: 60px;
@@ -314,15 +310,24 @@ main{
     line-height: 59px;
 }
 
+.detail-contents ul li:hover{
+	cursor:pointer;
+	background-color : #C1B09F;
+	transition-duration:0.4s;
+}
+
 .contents-bottom-line{
     border-bottom: 3px solid #A78A6C;
 }
 
 /* 상품설명/ 리뷰 / 배송환불 */
 .detail-contents{
+	width: 100%;
+    z-index: 2; 
     position: sticky;
     top: 0;
     background-color: white;
+   
 }
 
 /* 상품 설명 */
@@ -528,7 +533,6 @@ main{
 .heart-btn {
 	float: right;
 	width: 49px;
-	margin-top: -32px;
 }
 
 .heart-content {

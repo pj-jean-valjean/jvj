@@ -1,13 +1,3 @@
-:root{
-    --text-color : #323232;
-    --accent-color : #564334;
-    --gray-color : #f7f7f7;
-}
-
-html{
-    scroll-behavior: smooth;
-}
-
 
 main{
     width: 70%;
