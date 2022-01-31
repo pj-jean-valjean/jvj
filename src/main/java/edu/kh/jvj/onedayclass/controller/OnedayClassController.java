@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
@@ -47,13 +48,20 @@ public class OnedayClassController {
 		return "/onedayclass/onedayClassDetail";
 	}
 	
-	@PostMapping("list")
+	@PostMapping(value="list",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String scrollListAdd(
 			@RequestBody Map<String, String> pagination  ) {
+			System.out.println(pagination.get("pagination")+" / "+pagination.get("getType") + " / "+pagination.get("selectdate"));
 			
 		List<OnedayClass> oneLineList = service.scrollListAdd(pagination);	
+		if(oneLineList.isEmpty()) {
+			System.out.println("list null");
+		}
+		for(OnedayClass oc : oneLineList) {
+			System.out.println(oc);
+		}
 		
-		return "";
+		return new Gson().toJson(oneLineList);
 	}
 }

@@ -2,4 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="classListMapper">
 	
+	<resultMap type="onedayclass" id="onedayclass_id">
+		<id property="classNo" column="PRODUCT_NO"></id>
+		<result property="title" column="PRODUCT_NM"></result>
+		<result property="price" column="PRODUCT_PRICE"></result>
+		<result property="createDt" column="CREATE_DT"></result>
+		<result property="classDt" column="CLASS_DT"></result>
+		<result property="classMaxPpl" column="CLASS_MAX_PPL"></result>
+		<result property="classStatusCd" column="CLASS_STATUS_CD"></result>
+		<result property="placeCd" column="PLACE_CODE"></result>
+		<result property="contents" column="CLASS_EXP"></result>
+		<result property="classStatusName" column="CLASS_STATUS_NM"></result>
+		<result property="classtime" column="CLASS_TIME"></result>
+		<result property="placeName" column="PLACE_NM"></result>
+		<result property="placeAddr" column="PLACE_ADDR"></result>
+		<result property="likecount" column="LIKECOUNT"></result>
+		<result property="imgPathName" column="PRODUCT_IMG_PATH"></result>
+	</resultMap>
+	<select id="scrollListAdd" resultMap="onedayclass_id">
+		SELECT (SELECT COUNT (*) FROM "LIKE" WHERE PRODUCT_NO = RSSET.PRODUCT_NO) LIKECOUNT,
+		RSSET.*
+		FROM(
+		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE, 
+		CLASS_MAX_PPL ,CLASS_EXP , TO_CHAR(CLASS_DT, 'YYYY-MM-DD') CLASS_DT , CLASS_TIME,
+		CLASS_STATUS_CD, CLASS_STATUS_NM,
+		PLACE_CODE, PLACE_NM,
+		PRODUCT_IMG_PATH||PRODUCT_IMG_NAME PRODUCT_IMG_PATH
+		FROM PRODUCT PRO
+		JOIN CLASS_DETAIL CDE USING (PRODUCT_NO)
+		JOIN CLASS_STATUS CST USING (CLASS_STATUS_CD)
+		JOIN CLASS_PLACE CPL USING (PLACE_CODE)
+		JOIN PRODUCT_IMG USING (PRODUCT_NO)
+		WHERE CLASS_DT &gt;= SYSDATE
+		  <if test="getType == 'date'">
+			AND TO_CHAR(CDE.CLASS_DT, 'YYYY-MM-DD') =  #{selectdate}
+			AND PRODUCT_IMG_LEVEL =0) RSSET 
+		  </if>
+		  <if test="getType == 'total'">
+			AND PRODUCT_IMG_LEVEL =0) RSSET 
+		  </if>
+		  <if test="getType == 'place'">
+			AND PRODUCT_IMG_LEVEL =0) RSSET 
+		  </if>
+	</select>	
+	
 </mapper>
