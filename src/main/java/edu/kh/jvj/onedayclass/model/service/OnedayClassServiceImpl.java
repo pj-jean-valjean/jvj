@@ -1,6 +1,7 @@
 package edu.kh.jvj.onedayclass.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,18 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 		
 		List<OnedayClass> list = dao.selsectClassList();
 		
-		
-		
 		return null;
 	}
+
+	@Override
+	public List<OnedayClass> scrollListAdd(Map<String, String> pagination) {
+		
+		//1추가당 추가 개수
+		pagination.put("offset", "8");
+		
+		List<OnedayClass> list = dao.scrollListAdd(pagination);
+		return null;
+	}
+	
 	
 }
