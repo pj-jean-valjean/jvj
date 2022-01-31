@@ -69,9 +69,19 @@
     color: #FFFFFF;
 }
 
-#display-none{
+/* 유효성 검사 */
+#checkEmail{
+	font-size: initial;
+	color: rgb(249, 156, 156);
+	font-weight: normal;
+	/* padding: 10px; */
+}
+
+/* 이메일 인증번호 */
+#email-checkNum{
     display: none;
 }
+
 
 .addr{
     width: 200px;
