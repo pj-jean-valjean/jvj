@@ -12,8 +12,8 @@
 
 
 <jsp:include page="../common/header.jsp" />
- 	<link rel="stylesheet" href="${contextPath}/resources/css/subCoffee.css">
- 	
+ 	<link rel="stylesheet" href="${contextPath}/resources/css/subBread.css">
+
  	<!-- 별 -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  	
@@ -44,13 +44,12 @@
 
             <section class="product_detail">
                 <article class="category_product">
-                   <div class="category-title">
+                    <div class="category-title">
                         <span>빵 & 커피 세트</span>
                         <div class="heart-btn">
-							<div class="contentss">
+							<div class="heart-content">
 								<div class="heart"></div>
 							</div>
-							<div class="text">Like it</div>
 						</div>
                     </div>
                     <span class="price">20,000원</span>
@@ -71,16 +70,18 @@
                         <span></span>
                     </div>
                     <div class="period-area btn-area"> 
-                        <button type="button" class="period-btn btn" value="1">
-                            <span>1개월</span>
+                        <button type="button" class="period-btn btn" name="period" value="1">
+                            <span>1주</span>
                         </button>
-                        <button type="button" class="period-btn btn"  value="2">
-                            <span>6개월</span>
+                        <button type="button" class="period-btn btn" name="period" value="2">
+                            <span>2주</span>
                         </button>
-                        <button type="button" class="period-btn btn" value="3">
-                            <span>정기결제</span>
+                        <button type="button" class="period-btn btn" name="period" value="3">
+                            <span>3주</span>
                         </button>
                     </div>
+                    <!-- 상태코드 넘어가는 input -->
+                	<input type="hidden" name="periodStatusCode">
                 </article>
 
                 <div class="bottom-line"></div>
@@ -91,13 +92,15 @@
                         <span></span>
                     </div>
                     <div class="bread btn-area"> 
-                        <button type="button" class="bread-btn btn" onclick="">
+                        <button type="button" class="bread-btn btn" name="bread" value="1">
                             <span>식빵</span>
                         </button>
-                        <button type="button" class="bread-btn btn">
+                        <button type="button" class="bread-btn btn" name="bread" value="2">
                             <span>바게트</span>
                         </button>
-                    </div>
+                	</div>
+                    <!-- 상태코드 넘어가는 input -->
+            		<input type="hidden" name="breadStatusCode">
                 </article>
                 <div class="bottom-line"></div>
                 
@@ -107,16 +110,18 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="taste-btn btn" onclick="">
+                        <button type="button" class="taste-btn btn" name="taste" value="1">
                             <span>장발장</span>
                         </button>
-                        <button type="button" class="taste-btn btn">
+                        <button type="button" class="taste-btn btn" name="taste" value="2">
                             <span>녹차코코넛</span>
                         </button>
-                        <button type="button" class="taste-btn btn">
+                        <button type="button" class="taste-btn btn" name="taste" value="3">
                             <span>초코</span>
                         </button>
                     </div>
+                    <!-- 상태코드 넘어가는 input -->
+               		<input type="hidden" name="tasteStatusCode">
                 </article>
                 <div class="bottom-line"></div>
 
@@ -126,10 +131,10 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="coffee-btn btn" onclick="">
+                        <button type="button" class="coffee-btn btn" name="coffee" value="1">
                             <span>6개입</span>
                         </button>
-                        <button type="button" class="coffee-btn btn">
+                        <button type="button" class="coffee-btn btn" name="coffee" value="2">
                             <span>24개입</span>
                         </button>
                     </div>
@@ -138,31 +143,34 @@
                 
 
                 <article class="buy-total">
-                    <!-- 선택한 상품 있을경우 -->
-                    <!-- <div class="total-area">
+                 <!-- 선택한 상품 없을경우 -->
+            <!--         <div class="total-area-none">
                         <span>구독 상품을 선택해주세요.</span>
-                    </div> -->
-
-                    <!-- 선택한 상품 없을경우 -->
-                    <div class="total-area">
-                        <span>1개월 / 식빵 / 장발장</span>
+                    </div> --> 
+                    <!-- 선택한 상품 있을경우 -->
+                	<div class="total-area">
+                        <span id="period">1주</span>+
+                        <span id="bread">식빵</span>+
+                        <span id="taste">장발장</span>+
+                        <span id="coffee">6개입</span>
                     </div>
                     <div class="buy-count">
-                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick='count("minus")'>
-                        <span id="result">1</span>
-                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='count("add")'>
+                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
+                        <span id="result" >1</span>
+                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
                     </div>
                 
                 </article>
-
+				
                 <article class="total-price">
-                    <p>총 구매 금액</p>
-                    <span>0</span>
-                    <span>원</span>
+                    <p>총 구매 금액
+	                    <span id="totalprice" class="showprice">20,000</span>
+	                    <span class="showprice">원</span>
+                    </p>
                 </article>
 
                 <div class="submit-sub">
-                    <button class="submit-btn">
+                    <button class="submit-btn" >
                         <span>바로 구독 신청</span>
                     </button>
                 </div>
@@ -174,9 +182,9 @@
         <div class="contents-top-line"></div>        
         <section class="detail-contents">
             <ul >
-                <li><a href="#contents-exp">상품설명</a></li>
-                <li><a href="#contents-review">리뷰</a></li>
-                <li><a href="#contents-delievery">배송/교환/환불</a></li>
+                <li onclick="scrollExp()">상품설명</li>
+                <li onclick="scrollReview()">리뷰</li>
+                <li onclick="scrollDelievery()">배송/교환/환불</li>
 
                 <div class="contents-bottom-line"></div>        
             </ul>
@@ -447,7 +455,8 @@ DELIVERY / 배송정보
 
 
 	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
-
+	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
+<%-- 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
+ --%>
 </body>
 </html>
