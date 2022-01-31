@@ -400,55 +400,9 @@ main{
 }
 
 
-/* 별점 */
-.star-ratings {
-    position: relative;
-    width: 10%;
-}
-
- .star-ratings-fill {
-    font-size: 11px;
-    text-align: center;
-}  
-
-
+/* 별점 */ 
 .gold{ color: gold;}
 .gray{ color: rgb(187, 187, 187);}
-
-
-.star-ratings-base {
-    z-index: 0;
-    padding: 0;
-}
-
-
-/* 페이지네이션 */
-.pagination-area{
-    height: 100px;
-}
-.pagination{
-    text-align: center;
-    color:#787878;
-    font-weight: bold;
-    line-height: 98px;
-}
-
-.pagination > li{
-    display: inline-block;
-    margin:0 10px 0 10px;
-    text-align: center;
-    line-height: 24px;
-}
-
-
-/* 페이지네이션 선택 효과 css */
-.page-effect{
-    width: 25px;
-    height: 25px;
-    border-radius: 20px; 
-    background-color: #B9845A; 
-    color: white;
-}
 
 
 /* 배송/교환/환불 */
@@ -504,49 +458,44 @@ main{
 .heart-btn{
 	width:10%;
 	height:70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .contentss{
-   display:inline-block;
-   width: 40px;
-   height: 40px;
-   border: 2px solid #eae2e1;
-   border-radius: 50%;
-   cursor: pointer;
- }
- .contentss.heart-active{
-   border-color: #f9b9c4;
-   background: #fbd0d8;
-   position:relative; z-index:1;
- }
- .heart{
+    display:inline-block;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #eae2e1;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+.contentss.heart-active{
+    border-color: #f9b9c4;
+    background: #fbd0d8;
+    position:relative; z-index:1;
+    }
+.heart{
+    background: url("../../images/store/heart.png") no-repeat;
+    background-position: left;
+    background-size: 2900%;
+    height: 71px;
+    width: 73px;
+    position:relative; z-index:-1;
+    transform: translate(-22%,-19%);
+    }
+.text{
+    clear: both;
+    font-size: 13px;
+    color: grey;
+    font-weight: bold;
+    padding-left: 3px;
+    }
 
-   background: url("../../images/store/heart.png") no-repeat;
-   background-position: left;
-   background-size: 2900%;
-   height: 71px;
-   width: 73px;
-   position:relative; z-index:-1;
-   transform: translate(-22%,-19%);
- }
- .text{
-   clear: both;
-   font-size: 13px;
-   color: grey;
-   font-weight: bold;
-   padding-left: 3px;
- }
- 
- .text.heart-active{
-   color: #000;
- }
- .heart.heart-active{
-   animation: animate .8s steps(28) 1;
-   background-position: right;
- position:relative; z-index:-1;
-   
-    
- }
+.text.heart-active{
+    color: #000;
+    }
+.heart-active{
+    animation: animate 0.8s steps(28) 1;
+    background-position: right;
+    position:relative; 
+    z-index:-1;
+    }
