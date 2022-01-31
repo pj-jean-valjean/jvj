@@ -6,9 +6,11 @@
 	</settings>
 	<typeAliases>
 			<typeAlias alias="onedayclass" type="edu.kh.jvj.onedayclass.model.vo.OnedayClass" />
+			<typeAlias alias="store" type="edu.kh.jvj.store.model.vo.Store" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mappers/classlist-mapper.xml" />
 		<mapper resource="/mappers/admin-mapper.xml" />
+		<mapper resource="/mappers/store-mapper.xml" />
 	</mappers>
 </configuration>
