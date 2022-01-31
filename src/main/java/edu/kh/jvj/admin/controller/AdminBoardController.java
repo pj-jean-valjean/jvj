@@ -72,9 +72,7 @@ public class AdminBoardController {
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
 			ProductWrite Product, HttpSession session
 			) {
-		System.out.println("연결!");
-		System.out.println(Product);
-		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
+		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath); 
 		
@@ -87,9 +85,12 @@ public class AdminBoardController {
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
 	public String noticeWrite(String title,	String noticecate,
-			String editordata
+			String editordata, @RequestParam(value="loginMember" ,required =false , defaultValue="1") int loginMember
 			) {
-		int result = service.insertNotice(title, noticecate, editordata);
+		int result = service.insertNotice(title, noticecate, editordata, loginMember);
+		
+		
+		
 		
 		return "";
 	}

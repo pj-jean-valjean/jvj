@@ -36,7 +36,7 @@ window.onload = function(){
             let totalprice= document.getElementById("totalprice");
             const checkppl = document.getElementById("ppl");
             pplpick.innerText = ++nownum;
-            totalprice.innerText = nownum*parseInt(price);
+            totalprice.innerText = (nownum*parseInt(price)).toLocaleString('ko-KR');
             checkppl.innerText = nownum;
         }
         else{
@@ -49,7 +49,7 @@ window.onload = function(){
             let totalprice= document.getElementById("totalprice");
             const checkppl = document.getElementById("ppl");
             pplpick.innerText = --nownum;
-            totalprice.innerText = nownum*parseInt(price);
+            totalprice.innerText = (nownum*parseInt(price)).toLocaleString('ko-KR');
             checkppl.innerText = nownum;
         }
     }
@@ -145,4 +145,15 @@ function reviewDetail(){
 function returnReviewContent(글번호){
     /* ajax */
     return ajax;
+}
+
+/* 스크롤 - 페이지 내 이동 */
+function scrollExp(){
+	document.querySelector('#contents-exp').scrollIntoView();	
+}
+function scrollReview(){
+	document.querySelector('#contents-review').scrollIntoView();
+}
+function scrollDelievery(){
+	document.querySelector('#contents-delievery').scrollIntoView();
 }
