@@ -77,7 +77,7 @@
             <div class="input-info-div">
                 <div class="p-div"><p>휴대전화<span> *</span></p></div>
                 <div class="input-div">
-                    <select  class="member-info-select phone-input" id="phone1" name="phone" required>
+                    <select  class="member-info-select phone-input phone" id="phone1" name="phone" required>
                         <option>010</option>
                         <option>011</option>
                         <option>016</option>
@@ -86,9 +86,9 @@
                     </select>
                 </div> 
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input" id="phone2" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" required></div>
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input" id="phone3" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" required></div>
             	
             	<!-- 전화번호 유효성 검사 -->
             	<span id="checkPhone"></span>
