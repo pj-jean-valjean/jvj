@@ -2,6 +2,7 @@
     --text-color : #323232;
     --accent-color : #564334;
     --gray-color : #F6F6F6;
+    --back-color : #A78A6C;
 }
 body{
     font-family: 'Noto Sans Korean';
@@ -32,6 +33,7 @@ header{
     width: 40%;
     display: flex;
     padding: 100px 0 0 0 ; 
+    justify-content: inherit;
 }
 
 /* 검색창 */

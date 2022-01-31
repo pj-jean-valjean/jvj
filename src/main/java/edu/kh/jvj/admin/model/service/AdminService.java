@@ -26,5 +26,6 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertNotice(String title, String noticecate, String editordata);
+
 	
 }

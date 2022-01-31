@@ -9,7 +9,7 @@ const contentbox = document.getElementById("adminPCont");
         const commonWriteCheckObj = {
             "title" : false,
             "price" : false,
-            "images" : false,
+            "images" : false
         }
         const nomalChekcObj = {
             "stock" : false,
@@ -77,13 +77,7 @@ const contentbox = document.getElementById("adminPCont");
                 }} break;
             }
         }
-        
-        //조회업무1-회원 정보 조회
-        $(".querywork")[0].addEventListener("click",memberInfo);  
-        //조회업무2-구독 회원 조회
-        $(".querywork")[1].addEventListener("click",subscribingInfo); 
-        //조회업무3-주문 조회
-        $(".querywork")[2].addEventListener("click",orderInfo);
+
         //게시글 작성1 -공지사항 등록
         $(".adminWriter")[0].addEventListener("click",function(){
             noticeboardWriter('공지사항 등록');
@@ -107,97 +101,13 @@ const contentbox = document.getElementById("adminPCont");
         //상품 관리1 
         $(".manageP")[0].addEventListener("click",modifyProduct);
         //상품 관리2 상품 옵션 관리
-        /* $(".manageP")[1].addEventListener("click",modifyProduct); */
+        /* $(".manageP")[1].addEventListener("click",);  */
         //관리자계정 추가
         $(".one-admin-func")[4].addEventListener("click",addManagerId);
         //7- 원데이클래스 회원 정보
         //$(".one-admin-func")[6].addEventListener("click",onedayClassMember);
-        //1. 회원정보 조회---------------------------------------------------
-        function memberInfo(){
-            contentbox.innerHTML="";
-             //이름
-            const funcName = document.createElement("div");
-            funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"회원정보 조회"+"</h2>"
 
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine search-member");
-            searchDiv.innerHTML="<select><option>회원아이디</option><option>회원명</option></select><input type='text'><button class='opencal'>회원검색</button>";
-
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo'>닉네임</span>"+
-                "<span class='oneMemberInfo'>가입일</span>"+
-                "<span class='oneMemberInfo'>누적구매금액</span>"+
-                "<span class='oneMemberInfo'>탈퇴여부</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
-        }
-        //-----------------------------------------------------------------//
-        //2. 구독 회원 조회---------------------------------------------------
-        function subscribingInfo(){
-            contentbox.innerHTML="";
-             //이름
-            const funcName = document.createElement("div");
-            funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"구독회원 조회"+"</h2>"
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine subscribe-search");
-            searchDiv.innerHTML="<select>"+
-            "<option>구독상품1</option>"+
-            "<option>구독상품2</option>"+
-            "</select>";
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo notice-title'>구독상품명</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo'>닉네임</span>"+
-                "<span class='oneMemberInfo'>구독시작일</span>"+
-                "<span class='oneMemberInfo'>구독회차</span>"+
-                "<span class='oneMemberInfo'>구독중 여부</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
-        }
-        //-----------------------------------------------------------------//
-        //3. 주문 조회--------------------------------------------------------
-        function orderInfo(){
-            contentbox.innerHTML="";
-             //이름
-            const funcName = document.createElement("div");
-            funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"주문 내역 조회"+"</h2>"
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine order-search");
-            searchDiv.innerHTML="<select>"+
-            "<option>회원ID로 검색</option>"+
-            "<option>주문번호로 검색</option>"+
-            "</select>"+
-            "<select>"+
-            "<option>결제완료+환불</option>"+
-            "<option>결제완료</option>"+
-            "<option>환불</option>"+
-            "</select>"+
-            "<input type='text'><button class='opencal'>검색</button>";
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>주문 번호</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo notice-title'>배송지</span>"+
-                "<span class='oneMemberInfo'>구매금액</span>"+
-                "<span class='oneMemberInfo'>결제일</span>"+
-                "<span class='oneMemberInfo'>주문상태</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
-        }
-        //-----------------------------------------------------------------//
-        //4-1. 공지사항 작성------------------------------------------
+        //1. 공지사항 작성------------------------------------------
         //카테고리 / 제목 / 내용
         function noticeboardWriter(writename){
             //초기화
@@ -237,7 +147,6 @@ const contentbox = document.getElementById("adminPCont");
             $("#writerForm").append(funcName,title,noticecate,div4,subcanBTN());
             notesummer();
             //썸머노트 실행
-            $("#writerForm").attr("action","noticeWrite");
         }
         //-----------------------------------------------------------------//
 
@@ -277,8 +186,6 @@ const contentbox = document.getElementById("adminPCont");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "1");
             $("#writerForm").append(stock,storecate,discountPromotion,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","productWrite");
-            $("#writerForm").attr("onsubmit","return validate('normal')");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -325,7 +232,7 @@ const contentbox = document.getElementById("adminPCont");
         //-----------------------------------------------------------------//
         function todayshow(){
             const date= new Date();
-            const today = ""+date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate(); 
+            const today = ""+date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); 
             $("input[name='discountStart']").val(today);        
         }
         function validatediscountnum(){
@@ -364,8 +271,6 @@ const contentbox = document.getElementById("adminPCont");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "2");
             $("#writerForm").append(div5,div6,div7,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","productWrite");
-            $("#writerForm").attr("onsubmit","return validate('subs')");
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -398,11 +303,11 @@ const contentbox = document.getElementById("adminPCont");
             place.setAttribute("class", "oneLine");
             place.innerHTML="<label class='labels'>클래스 지점</label>"+
             "<select name='place'>"+
-            "<option value='bucheon'>부천점</option>"+
-            "<option value='geumcheon'>금천점</option>" +
-            "<option value='namyangju'>남양주점</option>" +
-            "<option value='changdong'>창동점</option>" +
-            "<option value='mapo'>마포점</option>" +
+            "<option value='1'>마포점</option>" +
+            "<option value='2'>부천점</option>"+
+            "<option value='3'>금천점</option>" +
+            "<option value='4'>남양주점</option>" +
+            "<option value='5'>창동점</option>" +
             "</select>";
             
             const classDate = document.createElement("div");
@@ -414,7 +319,18 @@ const contentbox = document.getElementById("adminPCont");
             //수강인원
             const people = document.createElement("div");
             people.setAttribute("class", "oneLine");
-            people.innerHTML="<label class='labels'>수강 인원</label><input type='number' name='people'><span class='won'>명</span>";
+            people.innerHTML="<label class='labels'>수강 인원</label><input type='number' name='people'><span class='won'>명</span>" ;
+            
+            //시작 시간
+            const starthour = document.createElement("div");
+            starthour.setAttribute("class", "oneLine");
+            starthour.innerHTML="<label class='labels'>시작 시간</label>"+
+            "<select name='starthour'></select><select name='startminute'></select>";
+            //종료 시간
+            const endhour = document.createElement("div");
+            endhour.setAttribute("class", "oneLine");
+            endhour.innerHTML="<label class='labels'>종료 시간</label>"+
+            "<select name='endhour'></select><select name='endminute'></select>";
 
             //썸머노트
             const div4 = document.createElement("div");
@@ -424,15 +340,15 @@ const contentbox = document.getElementById("adminPCont");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "3");
-            $("#writerForm").append(place,people,classDate,div4,subcanBTN(),writecate);
-            $("#writerForm").attr("action","productWrite");
-            $("#writerForm").attr("onsubmit","return validate('class')");    
+            $("#writerForm").append(place,people,starthour,endhour,classDate,div4,subcanBTN(),writecate);
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
             //달력모달 함수
             calmodal();
+            //시작시간 make
+            makehourminute();
             classCheckObj.people = false;
             classCheckObj.classdate = false;
             filecheck = [0 , 0 , 0 , 0 , 0];
@@ -469,21 +385,18 @@ const contentbox = document.getElementById("adminPCont");
             const price = document.createElement("div");
             price.setAttribute("class", "oneLine");
             price.innerHTML="<label class='labels'>가격</label><input type='number' name='price'><span class='won'>원</span>";
+
+
             const div3 = document.createElement("div");
             div3.setAttribute("class", "oneLine imgline");
-            div3.innerHTML="<label class='labels'>썸네일</label><div class='images'><img></div>"+
-            "<input type='file' name='images' class='imagesinput'>" ;
-
-            //일반이미지 3장
-            const div33 = document.createElement("div")
-            div33.setAttribute("class", "oneLine imgline");
-            div33.innerHTML="<label class='labels'>일반이미지</label>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"
-            +"<div class='images'><img></div>"+
+            div3.innerHTML="<label class='labels'>썸네일<br> & 이미지</label><div class='images'><img></div>"+ "<div class='thumbdivider'></div>"+
+            "<div class='images'><img></div>"+"<div class='images'><img></div>"+"<div class='images'><img></div>"+
+            "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>" +
             "<input type='file' name='images' class='imagesinput'>";
 
-            adminwriteform.append(funcName,title,price,div3,div33);
+            adminwriteform.append(funcName,title,price,div3);
             contentbox.append(adminwriteform);
             //게시글 input check
 
@@ -510,11 +423,12 @@ const contentbox = document.getElementById("adminPCont");
         function subcanBTN(){
              //제출 취소 버튼
             const div5 = document.createElement("div");
-            div5.innerHTML="<label class='labels'>&nbsp;</label>";
             div5.setAttribute("class", "oneLine write-btns");
             const span = document.createElement("span");
             div5.setAttribute("id", "btns");
             const btn1 = document.createElement("button");
+            btn1.setAttribute("type", "button");
+            btn1.setAttribute("onclick", "submitProduct()")
             btn1.setAttribute("class", "admin-write-btn opencal");
             btn1.innerText = "제출";
             const btn2 = document.createElement("button");
@@ -534,7 +448,6 @@ const contentbox = document.getElementById("adminPCont");
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+"리뷰 관리"+"</h2>"
-
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine search-review");
             searchDiv.innerHTML="<select>"+
@@ -544,7 +457,6 @@ const contentbox = document.getElementById("adminPCont");
             "<option>클래스 상품 별</option>"+
             "<option>아이디 별</option>"+
             "<input type='text'><button class='opencal'>검색</button>";
-            
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
@@ -665,6 +577,7 @@ const contentbox = document.getElementById("adminPCont");
             contentbox.append(funcName,searchDiv,SearchResult);
         }
         
+        let saveDateBtnthis;
         //달력모달 동작
         function calmodal(){
             const closecal = document.querySelector('#closecal');
@@ -673,7 +586,8 @@ const contentbox = document.getElementById("adminPCont");
             for(let i = 0 ; i<btnOpenPopup.length ; i++){
                 btnOpenPopup[i].addEventListener('click', function() {
                     cal.style.display = 'block';
-                    displaycal(this.parentElement.children[1]) });
+                    saveDateBtnthis= this.parentElement.children[1];
+                    displaycal() });
             }
             closecal.addEventListener('click', ()=>{
                 const monthday = document.getElementById("month-day");
@@ -735,12 +649,14 @@ const contentbox = document.getElementById("adminPCont");
             } 
         }
         //날짜선택 달력 함수
-        function displaycal(btn){
-        
-        let temp = new Date()
-        let today = new Date(
-            temp.getFullYear(),temp.getMonth()+selectMonth ,temp.getDate(), 
-            temp.getHours() , temp.getMinutes() , temp.getSeconds());
+        function displaycal(){
+        const today = new Date();
+        const origindate = today.getDate();
+        //기존 일 저장
+        //1일로 초기화해야 다음달 오류 제거됨
+        today.setDate(1);
+
+        today.setMonth((today.getMonth()+selectMonth));
         let year = today.getFullYear();
         let month = today.getMonth()+1;
         let date = today.getDate();
@@ -770,7 +686,7 @@ const contentbox = document.getElementById("adminPCont");
         const tmonth = document.getElementById("today-month");
         const monthday = document.getElementById("month-day");
         monthday.innerHTML="";
-        tmonth.innerText = year+"/" +enMonthName[month-1] 
+        tmonth.innerText = year+"-" +enMonthName[month-1] 
         let tempDate = new Date();
         while(notLast){
             const tr = document.createElement("tr");
@@ -782,8 +698,6 @@ const contentbox = document.getElementById("adminPCont");
                     }
                     else{
                         td.innerText = count;
-
-                        
                         let checkPossibleDay = false;
                         if(year>tempDate.getFullYear()){
                             checkPossibleDay = true;
@@ -812,13 +726,12 @@ const contentbox = document.getElementById("adminPCont");
             dateclick();
             function dateclick(){
                 $(".possible").on("click",function(){
-                    btn.value= (tmonth.innerText+"/"+this.innerText);
+                    saveDateBtnthis.value = tmonth.innerText+"-"+this.innerText ;
                     classCheckObj.classdate = true;
                     $("#closecal").click();
                 })
             };
     }
-
         //다음달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
@@ -837,7 +750,6 @@ const contentbox = document.getElementById("adminPCont");
         function showImg(){
             $(".images").on("click", function(){
                 var index = $(".images").index(this);
-                console.log(index);
                 if(filecheck[index]==0){
                     $("input[name=images]").eq(index).click()
                 }
@@ -856,9 +768,7 @@ const contentbox = document.getElementById("adminPCont");
                 var index = $("input[name=images]").index(this);
                 
                 if(this.files[0]){
-                    console.log("done"+index);
                     filecheck[index]=1;
-                    console.log(filecheck[index]);
                     var reader = new FileReader();
                     reader.readAsDataURL(this.files[0]);
                     reader.onload = function(e){
@@ -868,7 +778,6 @@ const contentbox = document.getElementById("adminPCont");
                 }
             })
         }
-        
         //커피용량 빵종류 맛종류 추가 func
         function addTaste(){
             const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
@@ -877,7 +786,6 @@ const contentbox = document.getElementById("adminPCont");
                     const input = addSubsOptionBtn[i].previousElementSibling;
                     if(input.value.trim().length>0){
                         const span = document.createElement("span");
-                        
                         if(i==0)span.className="bread-type tagspan";
                         else if(i==1) span.className = "taste-type tagspan";
                         else span.className="coffee-type tagspan";
@@ -898,6 +806,53 @@ const contentbox = document.getElementById("adminPCont");
                 })
             }
         }
+        function makehourminute(){
+            for(let i = 9 ; i< 21 ; i++){
+                const option = document.createElement("option")
+                const option2 = document.createElement("option")
+                option.value= i;
+                option.innerText = i+"시";
+                option2.value= i;
+                option2.innerText = i+"시";
+                $("select[name='starthour']").append(option);
+                $("select[name='endhour']").append(option2);
+            }
+            for(let i = 0 ; i< 60 ; i=i+10){
+                const option = document.createElement("option")
+                const option2 = document.createElement("option")
+                option.value= i;
+                option.innerText = i+"분";
+                option2.value= i;
+                option2.innerText = i+"분";
+                $("select[name='startminute']").append(option);
+                $("select[name='endminute']").append(option2);
+            }
+
+        }
 
 
+        function submitProduct(){
+            const form = $("#writerForm");
+            const formData = new FormData(form[0]);
 
+            $.ajax({
+                url : "productWrite",
+                type : "POST",
+                data : formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success : function(result){
+                    alert(result);
+
+
+                    commonWriter('클래스 상품 등록');
+                    makeClassPWritePage();
+                },
+                error: function(result){
+                    alert(result);
+                }
+            })
+        }
+
+        

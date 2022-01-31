@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +22,7 @@
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="">원데이 클래스</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">초보자 클래스</a>
+                <a href="">클래스 상세</a>
             </section>     
             <section class="product-thumbnail">
                 <article class="main-img-area">
@@ -38,83 +37,99 @@
             </section>
             <section class="product_detail">
                 <article class="category_product">
-                    <span>초보자를 위한 원데이 클래스! </span>
-                    <span>
-                        <span id="review-ratings-real" >
-                            ★★★★★
-                        </span>
-                        <span id="review-ratings-base ">
-                            ★★★★★
-                        </span>
-                        <span>4.6 </span>
-                        <i class="fas fa-heart"></i><span>3</span><i class="far fa-comment-dots"></i><span>3</span>
-                    </span>
+                    <div class="category-title">
+                        <span>초보자도 쉽게 배우는 베이킹 클래스!</span>
+                        <div class="heart-btn">
+							<div class="contentss">
+								<div class="heart"></div>
+							</div>
+							<div class="text">Like it</div>
+						</div>
+                    </div>
                 </article>
-                <hr>
-                <article class="delivery-detail">
-                    <span>지점 선택</span>
-                    <select>
-                        <option>마포점</option>
-                        <option>마포점</option>
-                        <option>마포점</option>
-                        <option>마포점</option>
-                        <option>마포점</option>
-                    </select>
-                    <!-- <button onclick="window.open('https://map.kakao.com/link/roadview/37.402056,127.108212','window_name','width=1000,height=900,location=no,status=no,scrollbars=yes');"><i class="fas fa-map-marker-alt"></i> 위치</button>
-                    --> 
-                    <button onclick="showMaps()"><i class="fas fa-map-marker-alt"></i> 위치</button>
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>가격</span>
+                    </div>
+                    <div class="period-area btn-area"> 
+ 						 <span class="price">20,000원</span>
+                    </div>
                 </article>
-                <hr>
-                <article class="delivery-detail">
-                    <span>수강일</span>
-                    <div class="buy-count">
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>지점명</span>
+                    </div>
+                    <div class="subdetail-content"> 
+                          <input type="text" name="place" readonly value="마포점"><button onclick="showMaps()"><i class="fas fa-map-marker-alt"></i> 위치</button>
+                    </div>
+                </article>
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>수강일</span>
+                        <span></span>
+                    </div>
+                    <div class="subdetail-content"> 
                         <input type="text" readonly value="2022-02-01">
                     </div>
                 </article>
-                <hr>
-                <article class="delivery-detail">
-                    <span>신청 현황</span>
-                    <div class="buy-count">
-                        <span>3</span><span> / </span><span>10</span>
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>수업 시간</span>
+                    </div>
+                    <div class="subdetail-content"> 
+                      	<input type="text" readonly value="09:00 ~ 11:00">
                     </div>
                 </article>
-                <hr>
-	                <article class="delivery-detail">
-	                    <span>수강 인원</span>
-	                    <div class="buy-count">
-	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick="minusP(this)">
-	                        <span>1</span>
-	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick="plusP(this)">
-	                    </div>
-	                </article>
-                <hr>
-                <article class="delivery-detail">
-                    <span>가격</span>
-                    <div class="buy-count">
-                        <span>50,000</span> 원
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>신청 현황</span>
+                    </div>
+                    <div class="subdetail-content"> 
+                        <span class="nowsubmit"><span>3</span><span> / </span><span>10</span></span>
                     </div>
                 </article>
-                <hr>
+                <div class="bottom-line"></div>
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>신청 인원</span>
+                    </div>
+                    <div class="subdetail-content"> 
+                        <div class="buy-count">
+                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn" onclick="minusppl()">
+                        <span id="result">0</span>
+                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick="plusppl()">
+                    	</div>
+                    </div>
+                </article>
+                <div class="bottom-line"></div>
+                <!-- 상태코드 넘어가는 input -->
+                <input type="hidden" name="periodStatusCode">
                 <article class="total-price">
-                    <div><span>수강 인원  </span><input value="1" type="number" readonly><span> 명 </span> </div>
-                    <div><span>총 결제 가격  </span><input value="50000" readonly type="number" step="any" ><span> 원 </span> </div>
+                    <!-- 선택한 상품 있을경우 -->
+                    <!-- <div class="total-area">
+                        <span>구독 상품을 선택해주세요.</span>
+                    </div> -->
+                    <!-- 선택한 상품 없을경우 -->
+                    <div class="total-area">
+	                   	<span>초보자도 쉽게 배우는 베이킹 클래스!</span>
+	                    <span>마포점 / 09:00 / <span id="ppl">2</span>명</span>
+                    </div>
+                    <div class="showpay">
+	                    <p>총 구매 금액 <span id="totalprice" class="showprice">0</span>  <span class="showprice">원</span></p>
+                    </div>
                 </article>
                 <div class="submit-sub">
                     <button class="submit-btn">
-                        <span>원데이 클래스 신청</span>
+                        <span>클래스 신청</span>
                     </button>
-                 	<div class="heart-btn">
-						<div class="contentss">
-							<div class="heart"></div>
-						</div>
-						<div class="text">Like it</div>
-					</div>
                 </div>
-                <!-- 상태코드 넘어가는 input -->
-                <input type="hidden" name="periodStatusCode">
+            </section>
         </section>
-    </section>
-    
         <!-- contents -->
         <div class="contents-top-line"></div>        
         <section class="detail-contents"> 
@@ -130,8 +145,6 @@
             <article id="contents-exp">
                 <img class="exp-img" src="${contextPath}/resources/images/onedayclassList/macaron.jpg" alt="sub_detail_bread">
             </article>   
-
-            
             <!-- 리뷰 -->
             <article class="boundary-line" id="contents-review" >
                 <div class="header-title review-header ">
@@ -148,9 +161,7 @@
                     </div>
                 </div>
             </article> 
-                
             <article id="reviewbox">
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -165,7 +176,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -180,7 +190,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -195,7 +204,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -210,7 +218,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -225,7 +232,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -240,7 +246,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -255,7 +260,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -270,7 +274,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -285,7 +288,6 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
                 <div class="one-line-review">
                     <div class="star-ratings">
                         <div class="star-ratings-fill" >
@@ -300,13 +302,10 @@
                     <span>닉네임</span>
                     <span>2022-01-24</span>
                 </div>
-
-                
             </article><!-- 리뷰내용  -->
             <!-- 페이지네이션 -->
             <article class="pagination-area">
                 <ul class="pagination">
-
                     <li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
                     <li><a class="page-link"
                         href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>

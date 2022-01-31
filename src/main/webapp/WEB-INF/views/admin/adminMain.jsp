@@ -105,5 +105,6 @@
 		const contextPath = "${contextPath}"
 	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMain.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainMethod.js"></script>
 </body>
 </html>
