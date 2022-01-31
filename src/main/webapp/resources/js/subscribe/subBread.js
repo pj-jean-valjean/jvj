@@ -1,6 +1,7 @@
 /* 사진교체 */
 window.onload = function(){
     changeImg();
+    reviewDetail();
 }
 
 const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
@@ -77,10 +78,10 @@ const price = document.querySelector(".price").innerText.replace(",","").replace
 
 /* 수량 증가 */
 function plusCount(){
-	let pplpick = document.getElementById("result");
+	let resultCount = document.getElementById("result");
     let totalprice= document.getElementById("totalprice");
     
-    pplpick.innerText = ++resultNum;
+    resultCount.innerText = ++resultNum;
     /* 원화 단위 콤마포함한 값 대입*/					 
     totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
 }
@@ -88,10 +89,10 @@ function plusCount(){
 /* 수량 감소 */
 function minusCount(){
 	if(resultNum!=0){
-		let pplpick = document.getElementById("result");
+		let resultCount = document.getElementById("result");
 	    let totalprice= document.getElementById("totalprice");
 	    
-	    pplpick.innerText = --resultNum;				 
+	    resultCount.innerText = --resultNum;				 
 	    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
     }
 }
@@ -99,7 +100,7 @@ function minusCount(){
 
 /* 스크롤 - 페이지 내 이동 */
 function scrollExp(){
-	document.querySelector('#contents-det').scrollIntoView();	
+	document.querySelector('#contents-exp').scrollIntoView();	
 	
 	
 	/*
@@ -122,6 +123,8 @@ function scrollDelievery(){
 
 
 /* 리뷰 */
+
+
 /* 상세리뷰 토글check */
 let reviewtoggle = false;
 let temp = -1;
