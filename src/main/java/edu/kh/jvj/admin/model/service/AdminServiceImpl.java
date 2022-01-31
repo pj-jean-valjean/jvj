@@ -79,15 +79,12 @@ public class AdminServiceImpl implements AdminService{
 					img.setProductNo(product.getProductNo());
 					
 					imgList.add(img);
-					System.out.println("이미지추가 : "+img.getImgName());
 				}
 			}
 			
 			//imgList에 업로드된 이미지가 있다면 DAO 호출
 			if(!imgList.isEmpty()){
 				result = dao.insertImgList(imgList);
-				
-				System.out.println("성공한 이미지 개수 : " + result);
 			      
 //			      5) 삽입 성공한 행의 개수와 imgList 개수가 같을 때
 //			      파일을 서버에 저장
