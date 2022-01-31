@@ -1,7 +1,13 @@
     let selectMonth = 0;
-    let pagination = 1;
+    let pagination = 0;
     const tempDate = new Date();
-    calmodal();
+    let getType = 'total';
+    let selectdate ='';
+    let lastpage = false;
+    window.onload = function(){
+        addClassLine();
+        calmodal();
+    }
     //달력모달 동작
     function calmodal(){
         const closecal = document.querySelector('#closecal');
@@ -53,7 +59,11 @@
         const tmonth = document.getElementById("today-month");
         const monthday = document.getElementById("month-day");
         monthday.innerHTML="";
-        tmonth.innerText = year+"/" +month;
+        let showmonth = ""+month;
+        if(month<10) {
+            showmonth = "0"+showmonth;
+        }
+        tmonth.innerText = year+"-" +showmonth;
         while(notLast){
             const tr = document.createElement("tr");
             for(let i = 0 ; i<7 ; i++){
@@ -63,6 +73,7 @@
                         td.innerText = " ";
                     }
                     else{
+
                         td.innerText = count;
                         let checkPossibleDay = false;
                         if(year>tempDate.getFullYear()){
@@ -98,9 +109,18 @@
         }
         function addDaySelector(day){
             day.addEventListener("click", function(){
-                const ymonth = document.querySelector("#today-month").innerText;
-                const dday = day.innerText;
-                console.log(ymonth+"/"+dday);
+                const count = day.innerText;
+                let showday = ""+count;
+                if(count<10){showday = '0'+showday}
+                const yymmdd = document.querySelector("#today-month").innerText +"-" +showday;
+                console.log(yymmdd);
+                selectdate=yymmdd;
+                getType='date';
+                document.querySelector(".cal").style.display = "none";
+                infinitebox.innerHTML ="";
+                pagination = 0;
+                lastpage = false;
+                addClassLine();
             })
         }
         //이전달btn
@@ -117,7 +137,14 @@
             monthday.innerHTML = "";
             displaycal(); 
         }
-
+        function showAllDay(){
+            getType = 'total';
+            pagination = 0;
+            document.querySelector('#closecal').click();
+            infinitebox.innerHTML ="";
+            lastpage = false;
+            addClassLine();
+        }
         /* 무한스크롤 구현 */
         //모든 내용을 감싼 공간 = infinitebox
         const infinitebox = document.getElementById("infinitebox");
@@ -134,23 +161,27 @@
             function OnScroll () { //스크롤 이벤트 함수
             const fullHeight = infinitebox.clientHeight; // infinite 클래스의 높이   , 스크롤 이벤트 안에서 정의해야 추가된 높이가 다시 계산된다
             const scrollPosition = scrollY; // 스크롤 위치
-                if (fullHeight-screenHeight*1/2 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이/2가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
+                if (fullHeight-screenHeight*1/4 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이1/4가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
                     oneTime = true; // oneTime 변수를 true로 변경해주고,
-                    addClassLine();//컨텐츠 추가 발동
-                    classScroll();
+                    if(!lastpage){
+                        addClassLine();//컨텐츠 추가 발동
+                    }
+                    setTimeout(function() {
+                        classScroll();
+                    }, 500);
                 }
             }
         }
-
+        const KoreanDay = ['일','월', '화','수','목','금','토'];
         //컨텐츠 추가함수
         function addClassLine(){
             ++pagination;//페이지네이션 증가
-            //로딩 이미지 추가
             
             //**자바스크립트방식 ajax**
             const reqJson = {
+                "getType" : getType,
                 "pagination" : pagination,
-                "datas" : 5
+                "selectdate" :selectdate
             }
             const url = "list";
             let httpRequest = new XMLHttpRequest();
@@ -163,17 +194,76 @@
                     if(httpRequest.status ===200){
                         console.log("추가 정보 불러오기 성공")
                         var classList = httpRequest.response;
-
-                        const onebox = document.createElement("div");
-                        onebox.className = "newOneLine";
-                        infinitebox.append(onebox);
-                        if(classList==null){
-                            console.log("null!!");
-                            checknull = true;
+                        console.log(classList);
+                        if(classList.length ==0){
+                            if(!lastpage){
+                                alert("더이상 수강 가능한 클래스가 없습니다!");
+                                lastpage = true;
+                            }
                             return;
                         }
                         else{
-                            /* makeList(classList); */
+                            //ONEBOX = 8EA
+                            const onebox = document.createElement("div");
+                            onebox.className = "newOneLine";
+
+                            for(oneclass of classList){
+                                const oneNewClass =  document.createElement("div");
+                                oneNewClass.className = "newOneclassInfo";
+                                const newDate =  document.createElement("div");
+                                newDate.className = "newDate";
+                                const newClassInfo =  document.createElement("div");
+                                newClassInfo.className = "newClassInfo";
+                                
+
+                                /* 날짜 info */
+                                const date = document.createElement("span");
+                                date.innerText = oneclass.classDt.substr(2) + "("+KoreanDay[new Date(oneclass.classDt).getDay()]+")";
+                                const time = document.createElement("span");
+                                time.innerText=oneclass.classtime;
+                                newDate.append(date,time);
+
+                                /* 클래스 info */
+                                const atag = document.createElement("a");
+                                atag.href = "view"; 
+                                
+                                    const thumb = document.createElement("img");
+                                    thumb.src = contextPath+ oneclass.imgPathName;
+                                    thumb.className = "classimg";
+
+                                    const title = document.createElement("span");
+                                    title.innerText = oneclass.title;
+
+                                    const newinfoLine = document.createElement("span");
+                                    newinfoLine.className = "newinfoLine";
+                                        const basesta = document.createElement("span");
+                                        basesta.className = "review-ratings-reals";
+                                        basesta.innerText="★★★★★";
+                                        const realstar = document.createElement("span");
+                                        realstar.className = "review-ratings-reals";
+                                        realstar.innerText="★★★★★";
+                                        const rating = document.createElement("span")
+                                        rating.innerText = " (" + oneclass.ratingAgv +")";
+                                        const heartshape = document.createElement("i");
+                                        heartshape.className="fas fa-heart";
+                                        const likecount = document.createElement("span")
+                                        likecount.innerText = oneclass.likecount;
+                                        const mapshape = document.createElement("i");
+                                        mapshape.className="fas fa-map-marker-alt";
+                                        const place = document.createElement("span")
+                                        place.innerText = oneclass.placeName;
+                                    newinfoLine.append(basesta,realstar,rating,heartshape,likecount,mapshape,place);
+
+                                    const price = document.createElement("span");
+                                    price.innerText = oneclass.price.toLocaleString('ko-KR')+" 원";
+
+                                atag.append(thumb,title,newinfoLine,price)
+                                newClassInfo.append(atag);
+                                oneNewClass.append(newDate,newClassInfo);
+                                onebox.append(oneNewClass);
+                            }
+
+                            infinitebox.append(onebox);
                         }
                     }
                     else{

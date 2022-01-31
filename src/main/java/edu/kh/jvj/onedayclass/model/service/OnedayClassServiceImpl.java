@@ -20,20 +20,15 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 	
 	@Override
 	public List<OnedayClass> selectClassList() {
-		
-		List<OnedayClass> list = dao.selsectClassList();
-		
-		return null;
+		return dao.selsectClassList();
 	}
 
 	@Override
 	public List<OnedayClass> scrollListAdd(Map<String, String> pagination) {
-		
 		//1추가당 추가 개수
 		pagination.put("offset", "8");
 		
-		List<OnedayClass> list = dao.scrollListAdd(pagination);
-		return null;
+		return dao.scrollListAdd(pagination);
 	}
 	
 	
