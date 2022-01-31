@@ -47,6 +47,22 @@ public class AdminDAO {
 	public int insertNotice(Map<String, String> noticeMap) {
 		return sqlSession.insert("adminMapper.insertNotice",noticeMap);
 	}
+
+	/** 스토어 삽입
+	 * @param product
+	 * @return
+	 */
+	public int insertStoreProduct(ProductWrite product) {
+		return sqlSession.insert("adminMapper.insertStoreProduct",product);
+	}
+
+	/** 할인정보 삽입
+	 * @param product
+	 * @return
+	 */
+	public int insertStoreDiscount(ProductWrite product) {
+		return sqlSession.insert("adminMapper.insertStoreDiscount",product);
+	}
 	
 
 	

@@ -39,7 +39,8 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-1 일반스토어 
 		if(product.getWritecate()==1) {
-			
+			result = dao.insertStoreProduct(product); 
+			result = dao.insertStoreDiscount(product); 
 		}
 		//2-2 구독스토어
 		else if(product.getWritecate()==2) {
