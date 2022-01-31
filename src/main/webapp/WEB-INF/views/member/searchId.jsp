@@ -9,19 +9,16 @@
         <p class="text-center">아이디 찾기</p>
     </div> 
     
-    <%-- action="${contextPath}/member/searchIdResult"> --%>
-    <form method="POST" action="${contextPath}/member/searchIdResult" name="searchIdForm" onsubmit="return validate();">
+    <form method="post" action="${contextPath}/member/searchIdResult">
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이름</p></div>
-                <div class="input-div name-div"><input type="text" class="search-info"  id="name" name="memberName" maxlength="5" required></div>
+                <div class="input-div name-div"><input type="text" class="search-info"></div>
             </div>
-            	
-            	
             <div class="input-info-div">
                 <div class="p-div"><p>휴대폰번호</p></div>
                         <div class="input-div">
-                            <select class="search-info-select phone-input phone" id="phone1" name="phone" required>
+                            <select type="text" class="search-info-select phone-input">
                                 <option>010</option>
                                 <option>011</option>
                                 <option>016</option>
@@ -30,10 +27,11 @@
                             </select>
                         </div> 
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone2" name="phone" required></div>
+                        <div class="input-div"><input type="text" class="search-info phone-input"></div>
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone3" name="phone" required></div>
+                        <div class="input-div"><input type="text" class="search-info phone-input"></div>
             </div>
+
         </div>
 
 
@@ -53,5 +51,3 @@
 </content>
 
 <jsp:include page="../common/footer.jsp" />
-
- <script src="${contextPath}/resources/js/member/searchId.js"></script>
