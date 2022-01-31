@@ -109,16 +109,18 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="taste-btn btn" >
+                        <button type="button" class="taste-btn btn" name="taste" value="1">
                             <span>장발장</span>
                         </button>
-                        <button type="button" class="taste-btn btn">
+                        <button type="button" class="taste-btn btn" name="taste" value="2">
                             <span>녹차코코넛</span>
                         </button>
-                        <button type="button" class="taste-btn btn">
+                        <button type="button" class="taste-btn btn" name="taste" value="3">
                             <span>초코</span>
                         </button>
                     </div>
+                    <!-- 상태코드 넘어가는 input -->
+               		<input type="hidden" name="tasteStatusCode">
                 </article>
                 
                 
@@ -131,7 +133,7 @@
 
                     <!-- 선택한 상품 있을경우 -->
                     <div class="total-area">
-                        <span id="period">1개월</span>+
+                        <span id="period">1주</span>+
                         <span id="bread">식빵</span>+
                         <span id="taste">장발장</span>
                     </div>
@@ -142,8 +144,7 @@
                     </div>
                 
                 </article>
-				<!-- 상태코드 넘어가는 input -->
-                <input type="hidden" name="periodStatusCode">
+				
                 <article class="total-price">
                     <p>총 구매 금액
 	                    <span id="totalprice" class="showprice">20,000</span>
@@ -164,9 +165,9 @@
         <div class="contents-top-line"></div>        
         <section class="detail-contents">
             <ul >
-                <li><a href="#contents-exp">상품설명</a></li>
-                <li><a href="#contents-review">리뷰</a></li>
-                <li><a href="#contents-delievery">배송/교환/환불</a></li>
+                <li onclick="scrollExp()">상품설명</li>
+                <li onclick="scrollReview()">리뷰</li>
+                <li onclick="scrollDelievery()">배송/교환/환불</li>
 
                 <div class="contents-bottom-line"></div>        
             </ul>
@@ -365,7 +366,7 @@
 
         <!-- 배송/교환/환불 -->
         <article class=" contents-delievery boundary-line " id="contents-delievery">
-            <div class="header-title ">
+            <div class="header-title delivery-title">
                 <p>배송/교환/환불</p>
             </div>
            

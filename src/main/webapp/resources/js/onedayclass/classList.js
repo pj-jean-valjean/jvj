@@ -122,18 +122,13 @@
         //모든 내용을 감싼 공간 = infinitebox
         const infinitebox = document.getElementById("infinitebox");
 
-        let checknull = false;
         //스크롤함수 실행
         classScroll();
         function classScroll(){
-            const pagination = document.querySelector('.pagination');/* 페이지네이션 정보 */
             const screenHeight = screen.height;/* 화면크기 */
 
             let oneTime = false; // 일회성 보장 변수
 
-            if(checknull){
-                oneTime = true
-            }
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
             function OnScroll () { //스크롤 이벤트 함수
@@ -151,14 +146,14 @@
         function addClassLine(){
             ++pagination;//페이지네이션 증가
             //로딩 이미지 추가
-            const infinitebox = document.getElementById("infinitebox");
-
-            //자바스크립트방식 ajax
-            var reqJson = new Object();
-            reqJson.pagination = pagination;
-            //Json 형식으로 변환
-
-            httpRequest = new XMLHttpRequest();
+            
+            //**자바스크립트방식 ajax**
+            const reqJson = {
+                "pagination" : pagination,
+                "datas" : 5
+            }
+            const url = "list";
+            let httpRequest = new XMLHttpRequest();
             //통신에 사용될 XMLHttpRequest 객체 정의
 
             httpRequest.onreadystatechange = ()=>{
@@ -166,8 +161,12 @@
                 if(httpRequest.readyState === XMLHttpRequest.DONE){
                     //readyState가 Done이고 응답값이 200이면
                     if(httpRequest.status ===200){
-                        console.log("dddddddddddddddoonnnneeeeeeeeee!")
+                        console.log("추가 정보 불러오기 성공")
                         var classList = httpRequest.response;
+
+                        const onebox = document.createElement("div");
+                        onebox.className = "newOneLine";
+                        infinitebox.append(onebox);
                         if(classList==null){
                             console.log("null!!");
                             checknull = true;

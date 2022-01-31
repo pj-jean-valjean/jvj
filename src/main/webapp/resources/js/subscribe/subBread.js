@@ -47,11 +47,20 @@ $(".taste-btn").on("click", function() {
     	= $(".taste-btn.active").find('span').text();
 });
 
+/* subCoffee btn*/
+$(".coffee-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("coffee").innerText 
+    	= $(".coffee-btn.active").find('span').text();
+});
+
 
 // 버튼 3개가 선택 시 div 변경
 $('.period-btn.active, .bread-btn.active, .taste-btn.active').on('click', function () {
 	alert("dfsf");
 });
+
 
 
 
@@ -88,9 +97,29 @@ function minusCount(){
 }
 
 
- 
- 
- 
+/* 스크롤 - 페이지 내 이동 */
+function scrollExp(){
+	document.querySelector('#contents-det').scrollIntoView();	
+	
+	
+	/*
+	
+	var location = document.querySelector('#contents-exp').offsetTop;
+	var menuHeight = document.querySelector(".detail-contents").offsetHeight;
+	window.scrollTo({top:location - menuHeight, behavior:'smooth'});*/
+}
+function scrollReview(){
+	document.querySelector('#contents-review').scrollIntoView();
+	
+}
+function scrollDelievery(){
+	document.querySelector('#contents-delievery').scrollIntoView();
+}
+
+
+
+
+
 
 /* 리뷰 */
 /* 상세리뷰 토글check */

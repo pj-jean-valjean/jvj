@@ -133,10 +133,10 @@
         <!-- contents -->
         <div class="contents-top-line"></div>        
         <section class="detail-contents"> 
-            <ul > 
-                <li><a href="#contents-exp">상품설명</a></li> 
-                <li><a href="#contents-review">리뷰</a></li>
-                <li><a href="#contents-delievery">배송/교환/환불</a></li>
+			<ul>
+                <li onclick="scrollExp()">상품설명</li>
+                <li onclick="scrollReview()">리뷰</li>
+                <li onclick="scrollDelievery()">배송/교환/환불</li>
                 <div class="contents-bottom-line"></div>        
             </ul>
         </section>
