@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="storeMapper">
+
+	<!-- 좋아요 컬럼 없음 -->
+	<resultMap type="Store" id="store_rm">
+		<id property="storeNo" column="PRODUCT_NO" />
+		<result property="storeName" column="PRODUCT_NM" />
+		<result property="price" column="PRODUCT_PRICE" />
+		<result property="memo" column="STORE_MEMO" />
+		<result property="storeExp" column="STORE_EXP" />
+		<result property="stock" column="STORE_AMOUNT" />
+		<result property="storecate" column="STORE_TYPE" />
+		<result property="discountStart" column="DISCOUNT_START_DT" />
+		<result property="discountEnd" column="DISCOUNT_END_DT" />
+		<result property="discountPer" column="DISCOUNT_PER" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="createDate" column="CREATE_DT" />
+		<result property="likeit" column="LIKEIT"/>
+		<result property="imgPath" column="STORE_IMG"/>
+	</resultMap>
+
+
+	<!-- 전체 스토어상품 카운트 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		PRODUCT
+		WHERE PRODUCT_CD = 1
+	</select>
+
+	<!-- 상품조회 -->
+	<select id="selectStoreList" resultMap="store_rm">
+		SELECT
+		A.PRODUCT_NO,A.PRODUCT_NM,A.PRODUCT_PRICE,B.STORE_AMOUNT,B.STORE_MEMO,C.DISCOUNT_PER,B.STORE_TYPE,
+		(E.PRODUCT_IMG_PATH || E.PRODUCT_IMG_NAME) STORE_IMG ,
+		(SELECT COUNT(*)
+		FROM "LIKE"
+		WHERE D.MEMBER_NO = 123456789 ) LIKEIT
+		FROM PRODUCT A
+		LEFT
+		JOIN STORE_DETAIL B ON A.PRODUCT_NO = B.PRODUCT_NO
+		LEFT JOIN DISCOUNT C
+		ON A.PRODUCT_NO = C.PRODUCT_NO
+		LEFT JOIN "LIKE" D ON A.PRODUCT_NO =
+		D.PRODUCT_NO
+		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
+		WHERE PRODUCT_CD= 1
+		AND PRODUCT_IMG_LEVEL = 0
+		AND A.PRODUCT_NO =
+		D.PRODUCT_NO
+
+	</select>
+
+</mapper>
