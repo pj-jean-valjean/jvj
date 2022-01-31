@@ -37,7 +37,7 @@ for( key  in signUpCheckObj ){
             return false;
 
         }
-        }
+	}
 }
 
 
