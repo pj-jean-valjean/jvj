@@ -96,12 +96,12 @@
 
             <div class="input-info-div">
                 <div class="p-div"><p>주소</p></div>
-                <div class="input-div"><input type="text"class="member-info addr"></div>
-                <div class="input-div"><button class="input-btn" type="button">주소검색</button></div>
+                <div class="input-div"><input type="text" class="member-info addr" id="addr1"></div>
+                <div class="input-div"><button class="input-btn" type="button" id="searchAddr">주소검색</button></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
-                <div class="input-div"><input type="text" class="member-info"></div>
+                <div class="input-div"><input type="text" class="member-info" id="addr2"></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
@@ -125,14 +125,7 @@
  
 <jsp:include page="../common/footer.jsp" />
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
- <script> 
-
-
- </script>
-   
-   
-   
-   
 <script src="${contextPath}/resources/js/member/signUp.js"></script>
 	
