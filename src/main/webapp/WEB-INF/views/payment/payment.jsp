@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/header.jsp" />
 
-<link rel="stylesheet" href="${contextPath}/resources/css/payment.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/payment/payment.css">
 
  <main>
 
         <section class="title-section">
-            <p>주문 | 결제 </p>
+            <p>주문 | 결제 </p>  
         </section>
 
 

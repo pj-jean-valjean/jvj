@@ -112,7 +112,6 @@
     display: flex;
     justify-content: space-between;
     text-align: center;
-    font-weight: bold;
 }
 .saveContent ul {
     display: inline-block;
@@ -123,12 +122,13 @@
 }
 
 .updown {
-display: inline;
-border: 0.5px solid black;
-width: 0.1px;
-height: 15px;
-margin-left: 5px;
-margin-right: 5px;
+	display: inline;
+	border: 0.5px solid black;
+	width: 0.1px;
+	height: 15px;
+	margin-left: 5px;
+	margin-right: 5px;
+	opacity: 20%;
 }
 
 #login{
@@ -188,6 +188,7 @@ margin-right: 5px;
     position: absolute;
     display: inline-block;
     line-height: 40px;
+    font-weight: bold;
 }
 
 .goSignUp{
