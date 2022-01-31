@@ -1,4 +1,4 @@
-/*const signUpCheckObj = {
+const signUpCheckObj = {
     "email" : false,
     "pwd1" : false,
     "pwd2" : false,
@@ -39,7 +39,7 @@ for( key  in signUpCheckObj ){
         }
         }
 }
-*/
+
 
 
 
@@ -203,10 +203,11 @@ $("#name").on("input", function(){
 // 전화번호 유효성 검사
 // 전화번호 글자수 제한 + 유효성 검사
 $(".phone").on("input", function(){
-
+	
+    	console.log($(this).val());
     if(  $(this).val().length > 4  ){
         const num = $(this).val().slice(0,4); // 4자리만 남음
-
+	
         $(this).val(num);
     }
 
