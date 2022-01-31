@@ -34,4 +34,16 @@
 			SEQ_NOTICE_NO.NEXTVAL , #{title}, #{editordata}, DEFAULT , #{loginMember} , #{noticecate}
 		)
 	</insert>
+	<!-- 일반상품 인서트 -->
+	<insert id="insertStoreProduct">
+		INSERT INTO STORE_DETAIL VALUES(
+			#{productNo} ,  #{editordata}, #{stock} , #{detailcontents},#{storecate}
+		)
+	</insert>
+	<!-- 할인정보 인서트 -->
+		<insert id="insertStoreDiscount">
+		INSERT INTO DISCOUNT VALUES(
+			#{productNo} , #{discountStart}, #{discountEnd}, #{discountPer}
+		)
+	</insert>
 </mapper>

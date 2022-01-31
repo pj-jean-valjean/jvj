@@ -30,11 +30,11 @@ public class OnedayClassDAO {
 		//offset : 몇 행을 건너 뛸 것인지 지정 
 		//limit : 건너 뛴 위치부터 몇 행을 조회할지 지정
 		
-		int offset = (Integer.parseInt(pagination.get("pagination")) -1 )* Integer.parseInt(pagination.get("pagination"));
-		int limit =Integer.parseInt(pagination.get("pagination"));
-		
+		int limit =Integer.parseInt(pagination.get("offset"));
+		int offset = (Integer.parseInt(pagination.get("pagination")) -1 )* limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return null;
+		
+		return sqlSession.selectList("classListMapper.scrollListAdd",pagination,rowBounds);
 	}
 	
 	

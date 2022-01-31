@@ -76,9 +76,6 @@ public class AdminBoardController {
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath); 
 		
-		
-		
-		
 		return "";
 	}
 	
