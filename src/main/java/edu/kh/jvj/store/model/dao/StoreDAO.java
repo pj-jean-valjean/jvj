@@ -27,6 +27,9 @@ public class StoreDAO {
 		
 		return mybatis.selectList("storeMapper.selectStoreList",null,rowBounds);
 	}
+	
+	
+	
 	public int getListCount() {
 		
 		return mybatis.selectOne("storeMapper.getListCount");
