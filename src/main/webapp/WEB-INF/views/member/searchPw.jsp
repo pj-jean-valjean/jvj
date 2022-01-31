@@ -11,7 +11,7 @@
 
         <div class="member-form-info">
         
-        <form method="post" action="${contextPath}/member/searchPwResult">
+        <form method="post" action="${contextPath}/member/searchPwResult" name="searchPwForm" onsubmit="return validate();">
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이메일</p></div>
