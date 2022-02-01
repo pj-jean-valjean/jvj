@@ -3,6 +3,7 @@
     const tempDate = new Date();
     let getType = 'total';
     let place ='0';
+    let dateplace = false;
     let selectdate ='';
     let lastpage = false;
     addClassLine(); 
@@ -125,6 +126,7 @@
                 infinitebox.innerHTML ="";
                 pagination = 0;
                 lastpage = false;
+                document.querySelector(".opencal").innerText=yymmdd;
                 addClassLine();
             })
         }
@@ -144,25 +146,41 @@
         }
         //전체날짜 보기
         function showAllDay(){
-            getType = 'total';
+            if(place=='0') getType = 'total';
+            else getType = 'place';
+            selectdate ='';
             pagination = 0;
             document.querySelector('#closecal').click();
             infinitebox.innerHTML ="";
             lastpage = false;
+            document.querySelector(".opencal").innerText="날짜별 정렬";
             addClassLine();
         }
 
         //지점별 보기
         document.querySelector("select[name='selectplace']").addEventListener("change",function(){
             place= this.value;
-            if(place=='0')getType='total';
+            if(place=='0'&&selectdate=='')getType='total';
+            else if(place=='0') getType='date';
             else getType='place';
             pagination =0;
             infinitebox.innerHTML ="";
             lastpage = false;
             addClassLine();
         })
-        
+        //초기화
+        document.getElementById("resetsearch").addEventListener("click",function(){
+            console.log("done");
+            getType='total';
+            document.querySelector(".opencal").innerText="날짜별 정렬";
+            document.querySelector("#selectplace").value="0";
+            selectdate ='';
+            place='0'
+            pagination = 0;
+            lastpage=false;
+            infinitebox.innerHTML ="";
+            addClassLine();
+        })
 
         /* 무한스크롤 구현 */
         //모든 내용을 감싼 공간 = infinitebox
@@ -200,7 +218,9 @@
         //컨텐츠 추가함수
         function addClassLine(){
             ++pagination;//페이지네이션 증가
-            
+            if(selectdate!='' && place!='0'){
+                getType = 'dateAndplace';
+            }
             //**자바스크립트방식 ajax**
             const reqJson = {
                 "getType" : getType,
@@ -219,13 +239,15 @@
                         console.log("호출됨");
                         var classList = httpRequest.response;
                             if(classList.length==0 ){
-                                if(lastpage){
+                                if(document.querySelector(".noclass") ==null){
                                     checkzero();
                                 }
-                                lastpage = true;
                                 return;
                             }
                             else if(classList.length<8){
+                                if(document.querySelector(".noclass") !=null){
+                                    document.querySelector(".noclass").remove();
+                                }
                                 lastpage = true;
                             }
                             //ONEBOX = 8EA
@@ -249,7 +271,7 @@
 
                                 /* 클래스 info */
                                 const atag = document.createElement("a");
-                                atag.href = "view?productNo="+(""+oneclass.productNo); 
+                                atag.href = "view/"+(""+oneclass.productNo); 
                                 
                                     const thumb = document.createElement("img");
                                     thumb.src = contextPath+ oneclass.imgPathName;

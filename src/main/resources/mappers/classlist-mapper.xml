@@ -68,6 +68,10 @@
 				AND PLACE_CODE = #{place}
 			</if>
 		  </if>
+  		  <if test="getType == 'dateAndplace'">
+				AND TO_CHAR(CDE.CLASS_DT, 'YYYY-MM-DD') =  #{selectdate}
+				AND PLACE_CODE = #{place}
+		  </if>
 		  AND PRODUCT_IMG_LEVEL =0) RSSET 
 		  ORDER BY CLASS_DT
 	</select>	

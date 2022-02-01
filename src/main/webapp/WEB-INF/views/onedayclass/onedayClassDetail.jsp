@@ -146,7 +146,7 @@
         <section class="content">
             <!-- 상품 설명 -->
             <article id="contents-exp">
-                <img class="exp-img" src="${contextPath}/resources/images/onedayclassList/macaron.jpg" alt="sub_detail_bread">
+                ${Oneclass.contents}
             </article>   
             <!-- 리뷰 -->
             <article class="boundary-line" id="contents-review" >
@@ -391,14 +391,6 @@ DELIVERY / 배송정보
         </div>
     	</div>
 	<jsp:include page="../common/footer.jsp" />	
-<!--     <script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
-		var map = new kakao.maps.Map(container, options);
-	</script> -->
 	<script> 
 	let mapAddress = "${Oneclass.placeAddr}" ;
 	const contextPath = "${contextPath}";
