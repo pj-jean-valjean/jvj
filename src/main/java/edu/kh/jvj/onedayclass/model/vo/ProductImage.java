@@ -2,10 +2,10 @@ package edu.kh.jvj.onedayclass.model.vo;
 
 public class ProductImage {
 	
-	//CLASS_IMG_NO
-	private int classImgNo;
+	//PRODUCT_IMG_NO
+	private int productImgNo;
 	
-	//CLASS_IMG_PATH
+	//PRODUCT_IMG_PATH
 	private String productImgPath;
 	
 	//PRODUCT_IMG_NAME
@@ -17,12 +17,14 @@ public class ProductImage {
 	//PRODUCT_NO
 	private int productNo;
 
-	public int getClassImgNo() {
-		return classImgNo;
+
+
+	public int getProductImgNo() {
+		return productImgNo;
 	}
 
-	public void setClassImgNo(int classImgNo) {
-		this.classImgNo = classImgNo;
+	public void setProductImgNo(int productImgNo) {
+		this.productImgNo = productImgNo;
 	}
 
 	public String getProductImgPath() {
@@ -49,6 +51,7 @@ public class ProductImage {
 		this.productImgLevel = productImgLevel;
 	}
 
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -59,7 +62,7 @@ public class ProductImage {
 
 	@Override
 	public String toString() {
-		return "ProductImage [classImgNo=" + classImgNo + ", productImgPath=" + productImgPath + ", productImgName="
+		return "ProductImage [productImgNo=" + productImgNo + ", productImgPath=" + productImgPath + ", productImgName="
 				+ productImgName + ", productImgLevel=" + productImgLevel + ", productNo=" + productNo + "]";
 	}
 	

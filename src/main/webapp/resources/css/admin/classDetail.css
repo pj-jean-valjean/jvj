@@ -59,6 +59,7 @@ main{
 
 .product-thumbnail div{    
     display: flex;
+    justify-content: left;
     width: 100%; 
 }
 
@@ -69,8 +70,7 @@ main{
     
 }
 .img-margin{
-    margin-right: auto;
-
+    margin-right: calc(100% - 88% - 40px);  
 }
 .img-margin:last-child{
     margin-right: 0;
