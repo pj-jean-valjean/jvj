@@ -86,16 +86,6 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
     }
 });
 
-// 이메일 인증번호 검사
-document.querySelector("#email-Authentication").addEventListener("input", function() {
-	
-	// 인증번호 작성했는가
-	
-	// 인증번호가 맞다면
-	
-	// 인증번호가 틀렸다면	
-
-});
 
 
 // 비밀번호 유효성 검사
@@ -239,7 +229,7 @@ $(".phone").on("input", function(){
 
 });
 
-
+// 주소
 document.querySelector("#searchAddr").addEventListener("click", function(){
     new daum.Postcode({
         oncomplete: function(data) {
@@ -251,4 +241,63 @@ document.querySelector("#searchAddr").addEventListener("click", function(){
         }
     }).open();
 });
+
+
+// 이메일
+let flag = true;
+
+// 이메일 인증
+document.querySelector("#email-Authentication").addEventListener("input", () => {
+    
+    let timeCount = document.querySelector("#timeCount");
+    
+    if (flag) {
+
+        flag = false;
+
+        if (signUpCheckObj.signUpEmail) {
+            document.querySelector("#signUpEmailCheck").removeAttribute("disabled");
+            $.ajax({
+                url: "sendEmail",
+                type: "GET",
+                data: { "signUpEmail": document.querySelector("#email-input").value }, // 파라미터
+
+                success(result){
+                    let timeCount = document.querySelector("#timeCount");
+
+                    let time = 600; // 10분
+                    let min = "";
+                    let sec = "";
+        
+                    let x = setInterval(() => {
+                        min = addZero(parseInt(time / 60));
+                        sec = addZero(time % 60);
+        
+                        timeCount.innerHTML = min + ":" + sec;
+                        time--;
+        
+                        if (time < 0) {
+                            clearInterval(x);
+                        }
+                    }, 1000);
+                }
+            });
+        } else {
+            const signUpEmailResult = document.querySelector("#signUpEmailResult");
+            /*document.getElementById("signUpEmail").focus();*/
+            signUpEmailResult.innerHTML = "이메일을 입력해주세요";
+            signUpEmailResult.style.color = "red";
+        }
+    }
+});
+
+
+// 00:00 
+function addZero(time) {
+    if (Number(time) < 10) { // 한 자리인 경우
+        return "0" + time;
+    } else {
+        return time;
+    }
+}
 

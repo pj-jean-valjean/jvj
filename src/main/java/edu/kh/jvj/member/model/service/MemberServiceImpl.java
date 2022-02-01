@@ -10,4 +10,10 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	private MemberDAO dao;
+
+	@Override
+	public String authCodeMaker(String inputEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

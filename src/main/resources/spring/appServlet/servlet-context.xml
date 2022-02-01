@@ -24,5 +24,4 @@
 	<context:component-scan base-package="edu.kh.jvj" />
 	
 	
-	
-</beans:beans>
+</beans:beans> 
