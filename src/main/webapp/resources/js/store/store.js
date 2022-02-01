@@ -1,3 +1,5 @@
+
+// 조아요
   $(document).ready(function () {
     $('.content').click(function () {
       $(this).toggleClass("heart-active");
@@ -6,17 +8,19 @@
     });
   });
   
-   $(".pdt-img").click(function(){
   
+  // 우리팀 1등을 위한 도약 1
+   $(".pdt-img").click(function(){
     $(this).addClass("outer");
     $(this).addClass("bingel").toggleClass("emphasized");
-    $(this).css({ "position": "fixed", "top": "41%", "left":"43%"}).css("z-index","999");
-    
-    
+    $(this).css({ "position": "fixed", "top": "41%", "left":"43%"}).css("z-index","999");    
     setTimeout(() => {location.href ="store/info"}, 1500);
-    
-  
-
   });
 
-  
+
+  // 가격에 콤마표시
+ let prices = $('.pricewon');
+ for(let i = 0; i<prices.length; i++){
+	prices[i].textContent = parseInt(prices[i].textContent).toLocaleString('ko-KR')+"원";
+};
+ 

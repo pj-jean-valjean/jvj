@@ -26,7 +26,7 @@
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="${contextPath}/store">스토어</a>
+                <a href="${contextPath}/store?cp=1">스토어</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
               초코식빵
             </section>     
