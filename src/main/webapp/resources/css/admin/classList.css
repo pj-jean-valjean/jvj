@@ -36,12 +36,10 @@
         }
         #align-div{
             text-align: right;
+            margin-top: 60px;
+            margin-bottom: 30px;
         }
-        #align-div>span{
-            display: inline-block;
-            width: 120px;
-            text-align: center;
-        }
+
         #placespan{
             display: block;
             font-size: 15px;
@@ -57,12 +55,20 @@
         #align-div>button:hover{
             cursor: pointer;
         }
-        #align-div>button:first-of-type{
+        #align-div>button:first-of-type,#align-div>select{
             border-right: 1px solid black;
         }
-
-        
-
+        #align-div>select{
+            padding-right: 15px;
+        }
+        .fa-undo-alt{
+            padding-left: 15px;
+            font-size: 20px;
+        }
+        #align-div>button:first-of-type:hover,#align-div>select:hover, .fa-undo-alt:hover{
+            color: #A78A6C;
+            cursor: pointer;
+        }
         /* 클래스정보 라인 */
         .newOneLine{
             width: 100%;

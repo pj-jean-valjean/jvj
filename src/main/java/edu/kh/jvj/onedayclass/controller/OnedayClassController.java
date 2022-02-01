@@ -1,14 +1,5 @@
 package edu.kh.jvj.onedayclass.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +33,9 @@ public class OnedayClassController {
 		return "/onedayclass/onedayClassList";
 	}
 	
-	@GetMapping("view")
+	@GetMapping("view/{productNo}")
 	public String showOnedayClassDetail(
-			int productNo, Model model
+			@PathVariable int productNo, Model model
 			) {
 		OnedayClass Oneclass = service.selectOneClass(productNo);
 		if(Oneclass!=null) {
@@ -68,50 +60,33 @@ public class OnedayClassController {
 		}
 		return new Gson().toJson(oneLineList);
 	}
-	
-	@PostMapping("getPlace")
-	@ResponseBody
-	public String getPlace(String mapAddress) {
-		System.out.println("mapAddress=" + mapAddress);
-		try {
-			
-			String urldata = "http://dapi.kakao.com/v2/local/search/address.json?query=";
-			//인코딩한 String을 넘겨야 원하는 데이터를 받을 수 있다. 
-			String address = URLEncoder.encode(mapAddress, "UTF-8");
-			
-			URL addr =new URL(urldata+address);
-			
-			HttpURLConnection getaddress= (HttpURLConnection)addr.openConnection();
-			//요청하는 클라이언트 <-> 카카오페이 연결해주는 줄
-			getaddress.setRequestMethod("GET");
-			getaddress.setRequestProperty("X-Requested-With", "curl");
-			getaddress.setRequestProperty("Authorization", "KakaoAK e96f24a02e71efe8bd0070389f452c0f");
-			getaddress.setRequestProperty("Content-type", "application/json;charset=utf-8");
-			getaddress.setDoOutput(true);
-			getaddress.setUseCaches(false); getaddress.setDefaultUseCaches(false);
-
-			
-			
-			int result = getaddress.getResponseCode();
-			//통신 결과 반환받음
-			InputStream instream;
-			//결과 200=성공
-			if(result == 200) {
-				instream= getaddress.getInputStream();
-			}else {
-				instream= getaddress.getErrorStream();
-			}
-			//받아온 결과를 읽어야 한다
-			InputStreamReader reader = new InputStreamReader(instream);
-			//읽는 스트림 선언
-			BufferedReader bufferR = new BufferedReader(reader);
-			String resultJSON = bufferR.readLine();
-			System.out.println(resultJSON);
-			return resultJSON;
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-	}
+	/*
+	 * @PostMapping("getPlace")
+	 * 
+	 * @ResponseBody public String getPlace(String mapAddress) {
+	 * System.out.println("mapAddress=" + mapAddress); try {
+	 * 
+	 * String urldata = "http://dapi.kakao.com/v2/local/search/address.json?query=";
+	 * //인코딩한 String을 넘겨야 원하는 데이터를 받을 수 있다. String address =
+	 * URLEncoder.encode(mapAddress, "UTF-8");
+	 * 
+	 * URL addr =new URL(urldata+address);
+	 * 
+	 * HttpURLConnection getaddress= (HttpURLConnection)addr.openConnection();
+	 * 
+	 * getaddress.setRequestProperty("X-Requested-With", "curl");
+	 * getaddress.setRequestProperty("Authorization",
+	 * "KakaoAK e96f24a02e71efe8bd0070389f452c0f");
+	 * getaddress.setRequestProperty("Content-type",
+	 * "application/json;charset=utf-8"); getaddress.setDoOutput(true);
+	 * getaddress.setUseCaches(false); getaddress.setDefaultUseCaches(false);
+	 * 
+	 * int result = getaddress.getResponseCode(); //통신 결과 반환받음 InputStream instream;
+	 * //결과 200=성공 if(result == 200) { instream= getaddress.getInputStream(); }else
+	 * { instream= getaddress.getErrorStream(); } //받아온 결과를 읽어야 한다 InputStreamReader
+	 * reader = new InputStreamReader(instream); //읽는 스트림 선언 BufferedReader bufferR
+	 * = new BufferedReader(reader); String resultJSON = bufferR.readLine();
+	 * System.out.println(resultJSON); return resultJSON; } catch(Exception e) {
+	 * e.printStackTrace(); } return null; }
+	 */
 }
