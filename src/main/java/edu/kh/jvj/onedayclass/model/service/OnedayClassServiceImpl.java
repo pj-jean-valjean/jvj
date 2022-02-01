@@ -17,11 +17,6 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 	public OnedayClassServiceImpl(OnedayClassDAO dao) {
 		this.dao  = dao;
 	}
-	
-	@Override
-	public List<OnedayClass> selectClassList() {
-		return dao.selsectClassList();
-	}
 
 	@Override
 	public List<OnedayClass> scrollListAdd(Map<String, String> pagination) {
@@ -29,6 +24,12 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 		pagination.put("offset", "8");
 		
 		return dao.scrollListAdd(pagination);
+	}
+
+	@Override
+	public OnedayClass selectOneClass(int productNo) {
+		
+		return dao.selectOneClass(productNo);
 	}
 	
 	

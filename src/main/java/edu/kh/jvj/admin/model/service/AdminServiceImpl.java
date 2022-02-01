@@ -49,10 +49,10 @@ public class AdminServiceImpl implements AdminService{
 		//2-3 클래스 페이지
 		else {
 			String plustime="";
-			plustime += (product.getStarthour()==9? "0"+product.getStarthour():product.getStarthour())+": "
-					  + product.getStartminute()+ " ~ " 
-					 + (product.getEndhour()==9? "0"+product.getEndhour():product.getEndhour())+": "
-					  + product.getEndminute();
+			plustime += (product.getStarthour()<=9? "0"+product.getStarthour():product.getStarthour())+": "
+					+(product.getStartminute()==0? "0"+product.getStartminute():product.getStartminute())+ " ~ " 
+					 + (product.getEndhour()<=9? "0"+product.getEndhour():product.getEndhour())+": "
+					 +(product.getEndminute()==0? "0"+product.getEndminute():product.getEndminute());
 			product.setStartEndTime(plustime);
 			//수업시간 설정
 			product.setClassdate(product.getClassdate());

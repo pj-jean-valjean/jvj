@@ -4,7 +4,7 @@ import java.util.List;
 
 public class OnedayClass {
 	//PROCUT_NO
-	private int classNo;
+	private int productNo;
 	
 	//PRODUCT_NM
 	private String title;
@@ -47,14 +47,15 @@ public class OnedayClass {
 	//RATING_AVG
 	private double ratingAgv;
 	
+	//이미지
 	private List<ProductImage> classImgList;
-
-	public int getClassNo() {
-		return classNo;
+	
+	public int getProductNo() {
+		return productNo;
 	}
 
-	public void setClassNo(int classNo) {
-		this.classNo = classNo;
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 
 	public String getTitle() {
@@ -191,7 +192,7 @@ public class OnedayClass {
 
 	@Override
 	public String toString() {
-		return "OnedayClass [classNo=" + classNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
+		return "OnedayClass [productNo=" + productNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
 				+ ", productCd=" + productCd + ", classDt=" + classDt + ", classMaxPpl=" + classMaxPpl
 				+ ", classStatusCd=" + classStatusCd + ", classtime=" + classtime + ", placeCd=" + placeCd
 				+ ", contents=" + contents + ", classStatusName=" + classStatusName + ", placeName=" + placeName

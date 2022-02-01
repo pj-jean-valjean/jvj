@@ -13,7 +13,7 @@
 	<!-- 클래스 detail 인서트 -->
 	<insert id="insertClassProduct" >
 		INSERT INTO CLASS_DETAIL VALUES(
-			#{productNo} , #{people} , #{editordata} , #{classdate} , #{place} ,#{place} , #{startEndTime}
+			#{productNo} , #{people} , #{editordata} , #{classdate} , 1 ,#{place} , #{startEndTime}
 		)
 	</insert>
 	<insert id="insertProductImg">

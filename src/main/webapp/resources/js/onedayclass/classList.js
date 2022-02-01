@@ -2,13 +2,17 @@
     let pagination = 0;
     const tempDate = new Date();
     let getType = 'total';
+    let place ='0';
     let selectdate ='';
     let lastpage = false;
-    window.onload = function(){
-        calmodal();
-        //스크롤함수 실행
-        addClassLine();
-        classScroll();
+    addClassLine(); 
+    classScroll();
+    calmodal();
+    function loading(){
+        document.querySelector(".loadingshow").style.display = "block";
+    }
+    function loadingEnd(){
+        document.querySelector(".loadingshow").style.display = "none";
     }
     //달력모달 동작
     function calmodal(){
@@ -115,7 +119,6 @@
                 let showday = ""+count;
                 if(count<10){showday = '0'+showday}
                 const yymmdd = document.querySelector("#today-month").innerText +"-" +showday;
-                console.log(yymmdd);
                 selectdate=yymmdd;
                 getType='date';
                 document.querySelector(".cal").style.display = "none";
@@ -139,6 +142,7 @@
             monthday.innerHTML = "";
             displaycal(); 
         }
+        //전체날짜 보기
         function showAllDay(){
             getType = 'total';
             pagination = 0;
@@ -147,16 +151,27 @@
             lastpage = false;
             addClassLine();
         }
+
+        //지점별 보기
+        document.querySelector("select[name='selectplace']").addEventListener("change",function(){
+            place= this.value;
+            if(place=='0')getType='total';
+            else getType='place';
+            pagination =0;
+            infinitebox.innerHTML ="";
+            lastpage = false;
+            addClassLine();
+        })
+        
+
         /* 무한스크롤 구현 */
         //모든 내용을 감싼 공간 = infinitebox
         const infinitebox = document.getElementById("infinitebox");
+        let oneTime = false; // 일회성 보장 변수
 
 
         function classScroll(){
             const screenHeight = screen.height;/* 화면크기 */
-
-            let oneTime = false; // 일회성 보장 변수
-
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
             function OnScroll () { //스크롤 이벤트 함수
@@ -173,6 +188,14 @@
                 }
             }
         }
+        function checkzero(){
+            if(document.getElementsByClassName("newOneclassInfo").length==0){
+                const info = document.createElement("h1");
+                info.className = "noclass";
+                info.innerText="현재 수강 가능한 클래스가 존재하지 않습니다."
+                infinitebox.append(info);
+            }
+        }
         const KoreanDay = ['일','월', '화','수','목','금','토'];
         //컨텐츠 추가함수
         function addClassLine(){
@@ -181,10 +204,10 @@
             //**자바스크립트방식 ajax**
             const reqJson = {
                 "getType" : getType,
+                "place" : place,
                 "pagination" : pagination,
                 "selectdate" :selectdate
             }
-            const url = "list";
             let httpRequest = new XMLHttpRequest();
             //통신에 사용될 XMLHttpRequest 객체 정의
 
@@ -193,21 +216,21 @@
                 if(httpRequest.readyState === XMLHttpRequest.DONE){
                     //readyState가 Done이고 응답값이 200이면
                     if(httpRequest.status ===200){
-                        console.log("추가 정보 불러오기 성공")
+                        console.log("호출됨");
                         var classList = httpRequest.response;
-                        console.log(classList);
-                        if(classList.length ==0){
-                            if(!lastpage){
-                                console.log("더이상 수강 가능한 클래스가 없습니다!");
+                            if(classList.length==0 ){
+                                if(lastpage){
+                                    checkzero();
+                                }
+                                lastpage = true;
+                                return;
+                            }
+                            else if(classList.length<8){
                                 lastpage = true;
                             }
-                            return;
-                        }
-                        else{
                             //ONEBOX = 8EA
                             const onebox = document.createElement("div");
                             onebox.className = "newOneLine";
-
                             for(oneclass of classList){
                                 const oneNewClass =  document.createElement("div");
                                 oneNewClass.className = "newOneclassInfo";
@@ -226,7 +249,7 @@
 
                                 /* 클래스 info */
                                 const atag = document.createElement("a");
-                                atag.href = "view"; 
+                                atag.href = "view?productNo="+(""+oneclass.productNo); 
                                 
                                     const thumb = document.createElement("img");
                                     thumb.src = contextPath+ oneclass.imgPathName;
@@ -263,9 +286,9 @@
                                 oneNewClass.append(newDate,newClassInfo);
                                 onebox.append(oneNewClass);
                             }
-
                             infinitebox.append(onebox);
-                        }
+                            oneTime = false;
+                            loadingEnd();
                     }
                     else{
                         alert("문제 발생!");

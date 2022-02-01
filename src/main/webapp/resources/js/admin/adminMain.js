@@ -854,7 +854,6 @@ const contentbox = document.getElementById("adminPCont");
             for(let i = 0 ; i< 60 ; i=i+10){
                 const option = document.createElement("option")
                 const option2 = document.createElement("option")
-                option.value= i;
                 option.innerText = i+"분";
                 option2.value= i;
                 option2.innerText = i+"분";

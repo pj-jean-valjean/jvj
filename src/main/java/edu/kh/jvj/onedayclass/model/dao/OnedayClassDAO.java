@@ -36,6 +36,11 @@ public class OnedayClassDAO {
 		
 		return sqlSession.selectList("classListMapper.scrollListAdd",pagination,rowBounds);
 	}
+
+	public OnedayClass selectOneClass(int productNo) {
+		
+		return sqlSession.selectOne("classListMapper.selectOneClass", productNo);
+	}
 	
 	
 	
