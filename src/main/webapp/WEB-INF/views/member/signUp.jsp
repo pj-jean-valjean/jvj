@@ -33,7 +33,7 @@
                 </div>
             </div>
             <!-- 버튼 클릭 유효성 검사 확인 -->
-					<p id="checkEmail"></p>
+			<p id="checkEmail"></p>
 			
 			
             <div class="input-info-div" id="email-checkNum">
@@ -77,7 +77,7 @@
             <div class="input-info-div">
                 <div class="p-div"><p>휴대전화<span> *</span></p></div>
                 <div class="input-div">
-                    <select type="text" class="member-info-select phone-input" id="phone1" name="phone" required>
+                    <select  class="member-info-select phone-input phone" id="phone1" name="phone" required>
                         <option>010</option>
                         <option>011</option>
                         <option>016</option>
@@ -86,9 +86,9 @@
                     </select>
                 </div> 
                 <span>-</span>
-                <div class="input-div"><input type="text" class="member-info phone-input" id="phone2" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" required></div>
                 <span>-</span>
-                <div class="input-div"><input type="text" class="member-info phone-input" id="phone3" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" required></div>
             	
             	<!-- 전화번호 유효성 검사 -->
             	<span id="checkPhone"></span>
@@ -96,12 +96,12 @@
 
             <div class="input-info-div">
                 <div class="p-div"><p>주소</p></div>
-                <div class="input-div"><input type="text"class="member-info addr"></div>
-                <div class="input-div"><button class="input-btn" type="button">주소검색</button></div>
+                <div class="input-div"><input type="text" class="member-info addr" id="addr1"></div>
+                <div class="input-div"><button class="input-btn" type="button" id="searchAddr">주소검색</button></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
-                <div class="input-div"><input type="text" class="member-info"></div>
+                <div class="input-div"><input type="text" class="member-info" id="addr2"></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
@@ -125,14 +125,7 @@
  
 <jsp:include page="../common/footer.jsp" />
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
- <script> 
-
-
- </script>
-   
-   
-   
-   
-<script src="${contextPath}/resources/js/signUp.js"></script>
+<script src="${contextPath}/resources/js/member/signUp.js"></script>
 	

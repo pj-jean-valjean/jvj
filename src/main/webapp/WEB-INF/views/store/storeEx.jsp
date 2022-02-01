@@ -39,108 +39,43 @@
 		</div>
 		<div class="main-content">
 
-			<div class="pdt-box">
-				<div class="outer brand-new">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-		
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-new">NEW</div>
 
-			</div>
-			<div class="pdt-box">
-				<div class="outer">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
+			<%-- 
+			<c:forEach var="pdt" items="product">
+				<div class="pdt-box">
+					<div class="outer brand-new">
+						<div class="pdt-img"></div>
 					</div>
-			
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-best">BEST</div>
+					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.title}</div>
+					<div class="heart-btn">
+						<div class="content">
+							<div class="heart"></div>
+						</div>
 
-			</div>
-			<div class="pdt-box">
-				<div class="outer">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-				
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-sold">품절</div>
-			</div>
-			<div class="pdt-box">
-				<div class="outer ">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-			
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-sale">SALE</div>
-
-			</div>
-
-			<div class="pdt-box">
-				<div class="outer brand-new">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-				
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-new">NEW</div>
-
-			</div>
-			<div class="pdt-box">
-				<div class="outer ">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
 					</div>
 					
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-				<div class="pdt-label label-best">BEST</div>
+					<div style="font-size: 20px; margin-top: 5px;">${pdt.price}원</div>
+					<div style="font-size: 16px; margin-top: 15px;">${pdt.memo}</div>
+		
+						<c:if test="${ pdt.amount  eq 0}">
+							<div class="pdt-label label-sold">품절</div>
+						</c:if>
+						
+						<c:if test="">
+							<div class="pdt-label label-new">NEW</div>
+						</c:if>
+						
+						<c:if test="">
+							<div class="pdt-label label-best">BEST</div>
+						</c:if>
 
-			</div>
+						<c:if test="${ pdt.discount ne 0}">
+							<div class="pdt-label label-sale">SALE</div>
+						</c:if>
+					</div>
+			</c:forEach>
+--%>
+
 			<div class="pdt-box">
 				<div class="outer">
 					<div class="pdt-img"></div>
@@ -151,29 +86,17 @@
 					<div class="content">
 						<div class="heart"></div>
 					</div>
-			
+
 				</div>
 				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
 				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
+
 				<div class="pdt-label label-sold">품절</div>
-
-			</div>
-			<div class="pdt-box">
-				<div class="outer ">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
 				<div class="pdt-label label-sale">SALE</div>
-
+				<div class="pdt-label label-new">NEW</div>
+				<div class="pdt-label label-best">BEST</div>
 			</div>
+
 
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-/*const signUpCheckObj = {
+const signUpCheckObj = {
     "email" : false,
     "pwd1" : false,
     "pwd2" : false,
@@ -37,9 +37,9 @@ for( key  in signUpCheckObj ){
             return false;
 
         }
-        }
+	}
 }
-*/
+
 
 
 
@@ -68,17 +68,18 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
 	
 	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘다 빈칸일 경우
-		checkEmail.style.display = "inline";
+    	document.querySelector("#email-checkNum").style.display = "none";
 		checkEmail.innerText ="이메일을 입력해주세요.";
 		checkEmail.style.color = "#F99C9C";
         signUpCheckObj.email = false;
-   		
+   	
     }else if(regExp1.test(inputEmail) && regExp2.test(selectEmail) ){ 
 		checkEmail.innerText ="";
 	    document.querySelector("#email-checkNum").style.display = "block";
         signUpCheckObj.email = true;
 
     }else{ // 둘 중 하나라도 유효 X
+    	document.querySelector("#email-checkNum").style.display = "none";
 		checkEmail.innerText ="이메일을 확인해주세요.";
 		checkEmail.style.color = "#F99C9C";
         signUpCheckObj.email = false;
@@ -155,7 +156,7 @@ $("#pwd2, #pwd1").on("input", function(){
 $("#nickname").on("input", function(){
 
     const inputNickname = $(this).val(); // 입력 받은 이름
-    const regExp = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{2,}$/;
+    const regExp = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{2,5}$/;
 
     if( inputNickname.length == 0 ){ // 빈칸
         $("#checkName").text("");
@@ -202,10 +203,11 @@ $("#name").on("input", function(){
 // 전화번호 유효성 검사
 // 전화번호 글자수 제한 + 유효성 검사
 $(".phone").on("input", function(){
-
+	
+    	console.log($(this).val());
     if(  $(this).val().length > 4  ){
         const num = $(this).val().slice(0,4); // 4자리만 남음
-
+	
         $(this).val(num);
     }
 
@@ -235,5 +237,18 @@ $(".phone").on("input", function(){
 
     }
 
+});
+
+
+document.querySelector("#searchAddr").addEventListener("click", function(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+ 
+ 			document.querySelector("#addr1").value = data.zonecode;
+ 			document.querySelector("#addr2").value = data.address;
+        }
+    }).open();
 });
 

@@ -31,6 +31,7 @@
   width:1200px;
 }
 .pdt-label{
+float:left;
   width:78px;
   height:25px;
   border-radius: 5px;
@@ -39,6 +40,7 @@
   margin-top:5px;
   font-weight: bold;
   line-height: 1.5;
+  margin-right:4px;
   
 }
 

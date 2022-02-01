@@ -5,8 +5,10 @@
     let selectdate ='';
     let lastpage = false;
     window.onload = function(){
-        addClassLine();
         calmodal();
+        //스크롤함수 실행
+        addClassLine();
+        classScroll();
     }
     //달력모달 동작
     function calmodal(){
@@ -149,8 +151,7 @@
         //모든 내용을 감싼 공간 = infinitebox
         const infinitebox = document.getElementById("infinitebox");
 
-        //스크롤함수 실행
-        classScroll();
+
         function classScroll(){
             const screenHeight = screen.height;/* 화면크기 */
 
@@ -197,7 +198,7 @@
                         console.log(classList);
                         if(classList.length ==0){
                             if(!lastpage){
-                                alert("더이상 수강 가능한 클래스가 없습니다!");
+                                console.log("더이상 수강 가능한 클래스가 없습니다!");
                                 lastpage = true;
                             }
                             return;

@@ -1,5 +1,6 @@
 package edu.kh.jvj.onedayclass.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +32,16 @@ public class OnedayClassController {
 	public String showOnedayClassList(
 			Model model
 			) {
-		//1. 헤더 클릭 시 원데이클래스 리스트 6개 반환
-		List<OnedayClass> firstList = service.selectClassList();
-		if(firstList ==null) {
+		//1. 헤더 클릭 시 원데이클래스 리스트 8개 반환
+		Map<String, String> pagination = new HashMap<String, String>();
+		pagination.put("pagination", "1");
+		pagination.put("getType", "total");
+		List<OnedayClass> oneLineList = service.scrollListAdd(pagination);	
+		if(oneLineList.isEmpty()) {
 			model.addAttribute("message", "진행 중 클래스가 없습니다");
 		}
 		else {
-			model.addAttribute("classList", firstList);
+			model.addAttribute("oneLineList", oneLineList);
 		}
 		//
 		return "/onedayclass/onedayClassList";
