@@ -23,7 +23,7 @@
             <ul class="nav-menu">
                 <li><a href="${contextPath}/subscribe/subMain">정기 구독</a></li>
                 <li>|</li>
-                <li><a href="${contextPath}/store">스토어</a></li>
+                <li><a href="${contextPath}/store?cp=1">스토어</a></li>
                 <li>|</li>
                 <li><a href="${contextPath}/onedayclass/list">원데이 클래스</a></li>
                 <li>|</li>

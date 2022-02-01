@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="storeMapper">
 
-	<!-- 좋아요 컬럼 없음 -->
+
 	<resultMap type="Store" id="store_rm">
 		<id property="storeNo" column="PRODUCT_NO" />
 		<result property="storeName" column="PRODUCT_NM" />
@@ -16,8 +16,8 @@
 		<result property="discountPer" column="DISCOUNT_PER" />
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="createDate" column="CREATE_DT" />
-		<result property="likeit" column="LIKEIT"/>
-		<result property="imgPath" column="STORE_IMG"/>
+		<result property="likeit" column="LIKEIT" />
+		<result property="imgPath" column="STORE_IMG" />
 	</resultMap>
 
 
@@ -46,9 +46,7 @@
 		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
 		WHERE PRODUCT_CD= 1
 		AND PRODUCT_IMG_LEVEL = 0
-		AND A.PRODUCT_NO =
-		D.PRODUCT_NO
-
+		ORDER BY 1 DESC
 	</select>
 
 </mapper>

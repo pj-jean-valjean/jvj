@@ -40,78 +40,72 @@
 		<div class="main-content">
 
 
-			<%-- 
-			<c:forEach var="pdt" items="product">
+
+			<c:forEach var="pdt" items="${store}" varStatus="i">
+		
 				<div class="pdt-box">
 					<div class="outer brand-new">
 						<div class="pdt-img"></div>
 					</div>
-					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.title}</div>
+					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
 					<div class="heart-btn">
-						<div class="content">
-							<div class="heart"></div>
+						<div
+							class="content <c:if test="${pdt.likeit eq 1}">heart-active</c:if>">
+							<div
+								class="heart <c:if test="${pdt.likeit eq 1}">heart-active</c:if>"></div>
 						</div>
 
 					</div>
-					
-					<div style="font-size: 20px; margin-top: 5px;">${pdt.price}원</div>
+
+					<div class="pricewon" style="font-size: 20px; margin-top: 5px;">${pdt.price}</div>
 					<div style="font-size: 16px; margin-top: 15px;">${pdt.memo}</div>
-		
-						<c:if test="${ pdt.amount  eq 0}">
-							<div class="pdt-label label-sold">품절</div>
-						</c:if>
-						
-						<c:if test="">
-							<div class="pdt-label label-new">NEW</div>
-						</c:if>
-						
-						<c:if test="">
-							<div class="pdt-label label-best">BEST</div>
-						</c:if>
 
-						<c:if test="${ pdt.discount ne 0}">
-							<div class="pdt-label label-sale">SALE</div>
-						</c:if>
-					</div>
+					<c:if test="${ pdt.stock  eq 0}">
+						<div class="pdt-label label-sold">품절</div>
+					</c:if>
+
+					<c:if test="${param.cp eq 1 && i.first}">
+						
+						<div class="pdt-label label-new">NEW</div>
+						
+					</c:if>
+
+					<c:if test="">
+						<div class="pdt-label label-best">BEST</div>
+					</c:if>
+
+					<c:if test="${ pdt.discountPer ne 0}">
+						<div class="pdt-label label-sale">SALE</div>
+					</c:if>
+				</div>
 			</c:forEach>
---%>
-
-			<div class="pdt-box">
-				<div class="outer">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-
-				<div class="pdt-label label-sold">품절</div>
-				<div class="pdt-label label-sale">SALE</div>
-				<div class="pdt-label label-new">NEW</div>
-				<div class="pdt-label label-best">BEST</div>
-			</div>
 
 
 		</div>
 	</div>
 	<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link" href="store?cp=1">&lt;&lt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.prevPage}">&lt;</a></li>
+		</c:if>
 
-		<li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
-		<li><a class="page-link"
-			style="padding: 6px 11px; border-radius: 20px; background-color: #B9845A; color: white;">1</a></li>
-		<li><a class="page-link" style="" href="list?cp=${i}${s}">2</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin:5px" href="store?cp=${i}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link" href="store?cp=${pagination.nextPage}">&gt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.maxPage }">&gt;&gt;</a></li>
+		</c:if>
 	</ul>
 	<!-- main-wrapper end-->
 </body>

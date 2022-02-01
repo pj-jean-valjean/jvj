@@ -27,7 +27,8 @@ public class StoreController {
 		
 		Pagination pagination = service.getPagination(cp);
 		List<Store> storeList = service.selectStoreList(pagination);
-		System.out.println(storeList);
+		model.addAttribute("store",storeList);
+		model.addAttribute("pagination",pagination);
 		return "store/storeEx";
 	}
 	@GetMapping("info")
