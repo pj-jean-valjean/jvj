@@ -42,12 +42,13 @@
                     <input type="text" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
                 </div>   
                 	<span id="check-email-Authentication"></span>
+                	<span id="timeCount"></span>
             </div>
 
 
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호<span> *</span></p></div>
-                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder="영어 대/소문자, 숫자, 특수문자(!,@,#,-,_) 포함 6~20글자" required></div>
+                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요" required></div>
             	
             	<!-- 비밀번호 유효성 검사1 -->
             	<span id="checkPwd1"></span>
