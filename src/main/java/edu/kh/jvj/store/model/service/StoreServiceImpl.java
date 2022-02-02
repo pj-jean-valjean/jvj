@@ -22,13 +22,9 @@ public class StoreServiceImpl implements StoreService {
 	public Pagination getPagination(int cp,Search search) {
 		// 전체 게시글 수 카운트
 		int listCount = 0;
-		if(search.getCt()>0) {
+	
 			 listCount = dao.getListCount(search);
-			
-		}else {
-			listCount = dao.getListCountAll();
-		}
-		
+	
 		return new Pagination(listCount,cp);
 	}
 

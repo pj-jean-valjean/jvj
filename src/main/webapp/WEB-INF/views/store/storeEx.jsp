@@ -22,19 +22,20 @@
 			<div class="select">
 				<select name="format" id="format">
 					<option selected disabled>카테고리 선택</option>
+					<option value="0">세상 모든 빵</option>
 					<option value="1">식빵</option>
 					<option value="2">바게트</option>
 					<option value="3">기타</option>
 				</select>
 			</div>
 			<ul class="main-category">
-				<li style="color: #f58c8c;">신상품</li>
+				<li style="color: #f58c8c;"><a href="store?cp=1&ct=${param.ct}&op=0">신상품</a></li>
 				<li>|</li>
-				<li>낮은가격</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=1">낮은가격</a></li>
 				<li>|</li>
-				<li>높은가격</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=2">높은가격</a></li>
 				<li>|</li>
-				<li>인기상품</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=3">인기상품</a></li>
 			</ul>
 		</div>
 		<div class="main-content">
@@ -88,8 +89,8 @@
 	</div>
 	<ul class="pagination">
 		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link" href="store?cp=1&ct=${search.ct}">&lt;&lt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.prevPage}&ct=${search.ct}">&lt;</a></li>
+			<li><a class="page-link" href="store?cp=1&ct=${search.ct}&op=${param.op}">&lt;&lt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.prevPage}&ct=${search.ct}&op=${param.op}">&lt;</a></li>
 		</c:if>
 
 		<%-- 페이지 네이션 번호 목록 --%>
@@ -101,13 +102,13 @@
 						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a class="page-link" style="margin:5px" href="store?cp=${i}&ct=${search.ct}">${i}</a></li>
+					<li><a class="page-link" style="margin:5px" href="store?cp=${i}&ct=${search.ct}&op=${param.op}">${i}</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link" href="store?cp=${pagination.nextPage}&ct=${search.ct}">&gt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.maxPage }&ct=${search.ct}">&gt;&gt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.nextPage}&ct=${search.ct}&op=${param.op}">&gt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.maxPage }&ct=${search.ct}&op=${param.op}">&gt;&gt;</a></li>
 		</c:if>
 	</ul>
 	<!-- main-wrapper end-->
