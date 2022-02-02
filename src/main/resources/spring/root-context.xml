@@ -54,7 +54,7 @@
 	
 	
 	<!-- 이메일 인증 mailSender Bean 등록  gmail에서 전송-->
-   <!--   <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+    <!-- <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
         <property name="defaultEncoding" value="utf-8"/>
@@ -63,13 +63,13 @@
        
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
             </props>
         </property>
        
-    </bean>
+    </bean> -->
     
-    <bean id="email" class="com.mycom.test.vo.Email"></bean>
-    <bean id="emailSender" class="com.mycom.test.service.EmailSender"></bean> -->
 </beans>

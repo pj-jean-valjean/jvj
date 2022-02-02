@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	
+	<!-- swalalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
@@ -63,4 +65,13 @@
             </ul>
         </section>
     </header>
-	
+
+	<c:if test="${!empty requestScope.title}">
+		<script>
+      swal({
+         title : "${title}",
+         text : "${text}",
+         icon : "${icon}"
+      });
+   </script>
+	</c:if>
