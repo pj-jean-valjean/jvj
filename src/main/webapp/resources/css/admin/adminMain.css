@@ -28,7 +28,8 @@
         .admin-info{
             width: 100%;
             text-align: right;
-            padding-right: 20px;
+            padding-right: 200px;
+            font-size: 20px;
         }
         /* 네비게이션 */
         #showfunc{
@@ -101,7 +102,7 @@
             height: 50px;
             width: calc( 12% - 30px ); 
         }
-        .oneLine> input[name='title']{
+        .oneLine> input[name='title'],.oneLine> input[name='detailcontents']{
             display: inline-block;
             width: 30%;
             height: 30px;
@@ -243,6 +244,7 @@
             font-weight: bold;
             border-bottom: 1px solid #A78A6C;
         }
+
         /* 달력 모달 */
         .cal { 
             position: absolute; 

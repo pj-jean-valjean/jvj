@@ -3,6 +3,8 @@ package edu.kh.jvj.onedayclass.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 @Controller
 @RequestMapping("onedayclass/*")
 public class OnedayClassController {
+	
+	 private Logger log = LoggerFactory.getLogger(getClass());  
 	
 	private final OnedayClassService service;
 	@Autowired
@@ -53,13 +57,29 @@ public class OnedayClassController {
 	@ResponseBody
 	public String scrollListAdd(
 			@RequestBody Map<String, String> pagination  , Model model) {
-			
+
+		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
+		  
 		List<OnedayClass> oneLineList = service.scrollListAdd(pagination);	
+		
+		long endMs = System.currentTimeMillis(); // 서비스 종료 시의 ms 값
+		
+		long takeTime = (endMs - startMs);
+		
 		if(oneLineList.isEmpty()) {
+			log.info("검색기준 : {}" , pagination.get("getType"));
+			log.info("결과 : {}" , "결과 클래스가 없습니다");
 			model.addAttribute("message", "진행 중 클래스가 없습니다");
 		}
+		else {
+			log.info("검색기준 : {}" , pagination.get("getType"));
+			log.info("반환 ondDayClass 개수: {}" , oneLineList.size());
+		}
+			log.info("원데이클래스 로딩 소요시간 : {} ms" , takeTime);
+			
 		return new Gson().toJson(oneLineList);
 	}
+	 
 	/*
 	 * @PostMapping("getPlace")
 	 * 
