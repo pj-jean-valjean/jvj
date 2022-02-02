@@ -21,10 +21,17 @@
 	</resultMap>
 
 
-	<!-- 전체 스토어상품 카운트 -->
+	<!-- 카테고리 스토어상품 카운트 -->
 	<select id="getListCount" resultType="_int">
-		SELECT COUNT(*) FROM
-		PRODUCT
+		SELECT COUNT(*) FROM PRODUCT
+        LEFT JOIN STORE_DETAIL USING(PRODUCT_NO)
+		WHERE PRODUCT_CD = 1
+        	AND  STORE_TYPE=#{ct}
+	</select>
+	
+	<!-- 전체 스토어상품 카운트 -->
+	<select id="getListCountAll" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT
 		WHERE PRODUCT_CD = 1
 	</select>
 
@@ -46,7 +53,28 @@
 		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
 		WHERE PRODUCT_CD= 1
 		AND PRODUCT_IMG_LEVEL = 0
+		AND STORE_TYPE=#{ct}
 		ORDER BY 1 DESC
 	</select>
-
+	
+	
+	<select id="selectStoreListAll" resultMap="store_rm">
+		SELECT
+		A.PRODUCT_NO,A.PRODUCT_NM,A.PRODUCT_PRICE,B.STORE_AMOUNT,B.STORE_MEMO,C.DISCOUNT_PER,B.STORE_TYPE,
+		(E.PRODUCT_IMG_PATH || E.PRODUCT_IMG_NAME) STORE_IMG ,
+		(SELECT COUNT(*)
+		FROM "LIKE"
+		WHERE D.MEMBER_NO = 123456789 ) LIKEIT
+		FROM PRODUCT A
+		LEFT
+		JOIN STORE_DETAIL B ON A.PRODUCT_NO = B.PRODUCT_NO
+		LEFT JOIN DISCOUNT C
+		ON A.PRODUCT_NO = C.PRODUCT_NO
+		LEFT JOIN "LIKE" D ON A.PRODUCT_NO =
+		D.PRODUCT_NO
+		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
+		WHERE PRODUCT_CD= 1
+		AND PRODUCT_IMG_LEVEL = 0
+		ORDER BY 1 DESC
+	</select>
 </mapper>
