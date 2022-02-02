@@ -12,7 +12,7 @@ public class ProductWrite {
 	//일반스토어
 	private int stock;
 	private int storecate;
-	private String discountYN;
+	private String discountyn;
 	private String discountStart;
 	private String discountEnd;
 	private double discountPer;
@@ -142,17 +142,17 @@ public class ProductWrite {
 	public void setDetailcontents(String detailcontents) {
 		this.detailcontents = detailcontents;
 	}
-	public String getDiscountYN() {
-		return discountYN;
+	public String getDiscountyn() {
+		return discountyn;
 	}
-	public void setDiscountYN(String discountYN) {
-		this.discountYN = discountYN;
+	public void setDiscountyn(String discountYN) {
+		this.discountyn = discountYN;
 	}
 	@Override
 	public String toString() {
 		return "ProductWrite [productNo=" + productNo + ", title=" + title + ", price=" + price + ", editordata="
 				+ editordata + ", writecate=" + writecate + ", stock=" + stock + ", storecate=" + storecate
-				+ ", discountYN=" + discountYN + ", discountStart=" + discountStart + ", discountEnd=" + discountEnd
+				+ ", discountYN=" + discountyn + ", discountStart=" + discountStart + ", discountEnd=" + discountEnd
 				+ ", discountPer=" + discountPer + ", detailcontents=" + detailcontents + ", place=" + place
 				+ ", people=" + people + ", classdate=" + classdate + ", starthour=" + starthour + ", startminute="
 				+ startminute + ", endhour=" + endhour + ", endminute=" + endminute + ", startEndTime=" + startEndTime

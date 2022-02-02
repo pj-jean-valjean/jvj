@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
+
+	<resultMap type="edu.kh.jvj.admin.model.vo.Admin" id="admin_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="adminId" column="MEMBER_EMAIL" />
+		<result property="adminPw" column="MEMBER_PW" />
+		<result property="nickName" column="MEMBER_NICKNAME" />
+		<result property="adminName" column="MEMBER_NAME" />
+		<result property="matchYn" column="MATCH_YN" />
+	</resultMap>
+	
 	<!-- 상품 공통 인서트 -->
 	<insert id="insertProductCommon" >
   		<selectKey order="BEFORE" resultType="_int" keyProperty="productNo">
@@ -46,4 +56,18 @@
 			#{productNo} , #{discountStart}, #{discountEnd}, #{discountPer}
 		)
 	</insert>
+	<!-- 관리자 로그인 확인 -->
+	<select id="findMatchAdmin" resultMap="admin_rm">
+		SELECT MATCHRESULT.* , MR.MEMBER_NICKNAME, MR.MEMBER_NAME
+		FROM(
+		SELECT MEMBER_NO, COUNT(MEMBER_NO) MATCH_YN FROM MEMBER
+		WHERE MEMBER_EMAIL = #{adminId}
+		AND MEMBER_PW = #{adminPw}
+		AND STATUS_CD = 1
+		AND GRADE_CD = 101
+		AND E_STATUS_CD =1
+		GROUP BY MEMBER_NO
+		) MATCHRESULT
+		JOIN MEMBER MR ON (MATCHRESULT.MEMBER_NO= MR.MEMBER_NO)
+	</select>
 </mapper>
