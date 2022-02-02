@@ -90,7 +90,7 @@
 			</div>
 		</div>
 		<div class="m-notice" data-aos="fade-up" data-aos-duration="400">
-		<img alt="" src="${contextPath}/resources/images/main/notice.png">
+		<img alt="" src="${contextPath}/resources/images/main/notice.png" style="width:1200px">
 		</div>
 	</div>
 

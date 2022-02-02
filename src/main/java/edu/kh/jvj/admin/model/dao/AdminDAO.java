@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 
@@ -62,6 +63,10 @@ public class AdminDAO {
 	 */
 	public int insertStoreDiscount(ProductWrite product) {
 		return sqlSession.insert("adminMapper.insertStoreDiscount",product);
+	}
+
+	public Admin findMatchAdmin(Admin admin) {
+		return sqlSession.selectOne("adminMapper.findMatchAdmin",admin);
 	}
 	
 

@@ -1,31 +1,44 @@
 const contentbox = document.getElementById("adminPCont");
 
-     //네비게이션 함수
+        //check 변수
         let writingcheck = false;
         let selectMonth = 0;
-        let filecheck = [0 , 0 , 0 , 0 , 0];
-        let discountset = false;
+        let commonWriteCheckObj={};
+        let nomalChekcObj={};
+        let subsCheckObj={};
+        let filecheck=[0 , 0 , 0 , 0 , 0];
+        let discountset=false;
+        let classCheckObj={};
 
-        //게시글 input check
-        const commonWriteCheckObj = {
-            "title" : false,
-            "price" : false,
-            "images" : false
+        //게시글 input check 변수 initial
+        function validateVarInitail(){
+            commonWriteCheckObj = {
+                "title" : false,
+                "price" : false,
+                "images" : false
+            }
+            nomalChekcObj = {
+                "stock" : false,
+                "detailcontents" : false,
+                "discountyn" : false
+            } 
+            subsCheckObj = {
+            }
+            classCheckObj = {
+                "people" : false,
+                "classtime":false,
+                "classdate" : false
+            } 
+            filecheck = [0 , 0 , 0 , 0 , 0];
+            discountset = false;
+            selectMonth = 0;
+            writingcheck = false;
         }
-        const nomalChekcObj = {
-            "stock" : false,
-            "discountyn" : false
-        } 
-        const subsCheckObj = {
-        }
-        const classCheckObj = {
-            "people" : false,
-            "classtime":false,
-            "classdate" : false
-        } 
+
+
         //게시글 validation
         function validate(options){
-            for( key  in commonWriteCheckObj ){
+            for( key  in commonWriteCheckObj){
                 if( !commonWriteCheckObj[key] ){
                     let message;
                     switch(key){
@@ -45,6 +58,7 @@ const contentbox = document.getElementById("adminPCont");
                         let message;
                         switch(key){
                             case "stock" : message = "재고를 입력해주세요"; break;
+                            case "detailcontents" : message = "상세설명을 입력해주세요"; break;
                             case "discountyn" : message = "할인여부를 입력해주세요"; break;
                         }
                         alert(message);
@@ -52,7 +66,7 @@ const contentbox = document.getElementById("adminPCont");
                         return false;
                     }}
                     if(discountset){
-                        return validatediscountnum();}break;
+                        return validatediscountnum();} break;
                 case 2 : 
                 for( key  in subsCheckObj ){
                     if( !subsCheckObj[key] ){
@@ -183,10 +197,10 @@ const contentbox = document.getElementById("adminPCont");
             //할인 프로모션
             const discountPromotion = document.createElement("div");
             discountPromotion.className= "oneLine discountLine";
-            discountPromotion.setAttribute("id", "discountYN");
+            discountPromotion.setAttribute("id", "discountyn");
             discountPromotion.innerHTML="<label class='labels'>할인 Y/N</label>"+
-            "<label class='labels'>할인 없음<input type='radio' name='discountYN' value='none'></label>"+
-            "<label class='labels'>할인 추가<input type='radio' name='discountYN' value='yes'></label>";
+            "<label class='labels'>할인 없음<input type='radio' name='discountyn' value='none'></label>"+
+            "<label class='labels'>할인 추가<input type='radio' name='discountyn' value='yes'></label>";
 
             //썸머노트
             const div4 = document.createElement("div");
@@ -211,17 +225,20 @@ const contentbox = document.getElementById("adminPCont");
             showImg();
             //할인 선택함수 실행
             discountPlus();
-            nomalChekcObj.stock =false;
-            filecheck = [0 , 0 , 0 , 0 , 0];
 
             document.querySelector("input[name='stock']").addEventListener("input", function(){
                 if(this.value.trim().length>0) nomalChekcObj.stock = true;
                 else  nomalChekcObj.stock = false;
             })
+            document.querySelector("input[name='detailcontents']").addEventListener("input", function(){
+                if(this.value.trim().length>0) nomalChekcObj.detailcontents = true;
+                else  nomalChekcObj.detailcontents = false;
+            })
+
         }
         //할인추가 function
         function discountPlus(){
-            const discountcheck = document.querySelectorAll("input[name='discountYN']");
+            const discountcheck = document.querySelectorAll("input[name='discountyn']");
                 for(btn of discountcheck){
                     btn.addEventListener("change", function(){
                         if(this.value == 'yes'){
@@ -249,18 +266,32 @@ const contentbox = document.getElementById("adminPCont");
                 }
         }
         //-----------------------------------------------------------------//
+        //당일선택
         function todayshow(){
             const date= new Date();
-            const today = ""+date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); 
+            let month = (date.getMonth()+1)>10?  (date.getMonth()+1) : '0'+(date.getMonth()+1);
+            let day = date.getDate()>10?  date.getDate() : '0'+date.getDate();
+            const today = ""+date.getFullYear() + "-" + month + "-" + day; 
             $("input[name='discountStart']").val(today);        
         }
+
+
         function validatediscountnum(){
-            const startday = document.querySelector("input[name='discountStart']");
+            const startday = document.querySelector("input[name='discountStart']").value;
 
-            const endday = document.querySelector("input[name='discountEnd']")
+            const endday = document.querySelector("input[name='discountEnd']").value;
 
-            document.querySelector("input[name='discountPer']")
-            return true;
+            const percent =document.querySelector("input[name='discountPer']").value;
+            console.log(new Date(startday));
+            console.log(new Date(endday));
+            console.log(new Date(startday)>new Date(endday));
+            
+            if(startday.length!=0 && endday.length!=0 && percent.length!=0) {
+                if(new Date(startday)>new Date(endday)){ alert("할인 기간을 확인해주세요!"); return false;}
+                else return true;
+            }
+            else { alert("할인 정보를 입력해주세요! ");return false;}
+            
         }
         //4-3. 구독 상품 게시글 작성
         //사진 1장 / 제목 / 빵 or 커피  / 가격 / 식빵 종류 
@@ -296,7 +327,6 @@ const contentbox = document.getElementById("adminPCont");
             showImg();
             addE();
             addTaste();
-            filecheck = [0 , 0 , 0 , 0 , 0];
         }
         //-----------------------------------------------------------------//
         //용량추가
@@ -471,6 +501,7 @@ const contentbox = document.getElementById("adminPCont");
             btn2.innerText = "취소";
             span.append(btn1,btn2)
             div5.append(span)
+            validateVarInitail();
             return div5;
         }
         //-----------------------------------------------------------------//
@@ -765,7 +796,7 @@ const contentbox = document.getElementById("adminPCont");
                     $("#closecal").click();
                 })
             };
-    }
+        }
         //다음달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
@@ -868,11 +899,9 @@ const contentbox = document.getElementById("adminPCont");
             const form = $("#writerForm");
             const formData = new FormData(form[0]);
             const cate = document.querySelector("input[name='writecate']").value;
-            console.log(111);
             if(!validate(parseInt(cate))){
                 return;
             };
-            console.log(111);
             $.ajax({
                 url : "productWrite",
                 type : "POST",
@@ -883,9 +912,19 @@ const contentbox = document.getElementById("adminPCont");
                 success : function(result){
                     alert(result);
 
-
-                    commonWriter('클래스 상품 등록');
-                    makeClassPWritePage();
+                    switch(cate){
+                        case '1' : 
+                        commonWriter('일반 상품 등록');
+                        makeNormalPWritePage(); break;
+                        case '2' : 
+                        commonWriter('구독 상품 등록');
+                        makeSubscribePWritePage(); break;
+                        case '3' : 
+                        commonWriter('클래스 상품 등록');
+                        makeClassPWritePage(); break;
+                    }
+                    
+                    
                 },
                 error: function(result){
                     alert(result);

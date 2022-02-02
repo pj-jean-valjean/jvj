@@ -24,3 +24,8 @@
 	prices[i].textContent = parseInt(prices[i].textContent).toLocaleString('ko-KR')+"원";
 };
  
+
+$("#format").change(function(){
+  let selectedValue = $(this).val();
+  location.href=contextPath+"/store?cp=1&ct="+selectedValue;
+})

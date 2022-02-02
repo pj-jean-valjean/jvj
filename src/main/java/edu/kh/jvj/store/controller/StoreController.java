@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.kh.jvj.store.model.service.StoreService;
 import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Search;
 import edu.kh.jvj.store.model.vo.Store;
 
 
@@ -23,12 +24,15 @@ public class StoreController {
 	private StoreService service;
 	@GetMapping("")
 	public String storeForward(@RequestParam(value="cp",required=false,defaultValue ="1")
-	int cp, Model model){
+	int cp, Model model,Search search){
 		
-		Pagination pagination = service.getPagination(cp);
-		List<Store> storeList = service.selectStoreList(pagination);
+		Pagination pagination = service.getPagination(cp,search);
+		List<Store> storeList = service.selectStoreList(pagination,search);
+		
+		System.out.println(storeList);
 		model.addAttribute("store",storeList);
 		model.addAttribute("pagination",pagination);
+		model.addAttribute("search",search);
 		return "store/storeEx";
 	}
 	@GetMapping("info")

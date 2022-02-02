@@ -5,9 +5,14 @@
     let place ='0';
     let dateplace = false;
     let selectdate ='';
+    //스크롤 추가 공간 = infinitebox
+    const infinitebox = document.getElementById("infinitebox");
     let lastpage = false;
-    addClassLine(); 
-    classScroll();
+    let oneTime = false; // 일회성 보장 변수
+    let first = true;
+    window.onload = function(){
+        classScroll();
+    }
     calmodal();
     function loading(){
         document.querySelector(".loadingshow").style.display = "block";
@@ -127,7 +132,8 @@
                 pagination = 0;
                 lastpage = false;
                 document.querySelector(".opencal").innerText=yymmdd;
-                addClassLine();
+                first = true;
+                classScroll()
             })
         }
         //이전달btn
@@ -154,7 +160,8 @@
             infinitebox.innerHTML ="";
             lastpage = false;
             document.querySelector(".opencal").innerText="날짜별 정렬";
-            addClassLine();
+            first = true;
+            classScroll();
         }
 
         //지점별 보기
@@ -166,7 +173,8 @@
             pagination =0;
             infinitebox.innerHTML ="";
             lastpage = false;
-            addClassLine();
+            first = true;
+            classScroll();
         })
         //초기화
         document.getElementById("resetsearch").addEventListener("click",function(){
@@ -179,32 +187,35 @@
             pagination = 0;
             lastpage=false;
             infinitebox.innerHTML ="";
-            addClassLine();
+            first = true;
+            classScroll();
         })
 
         /* 무한스크롤 구현 */
-        //모든 내용을 감싼 공간 = infinitebox
-        const infinitebox = document.getElementById("infinitebox");
-        let oneTime = false; // 일회성 보장 변수
 
 
         function classScroll(){
             const screenHeight = screen.height;/* 화면크기 */
+
+            if(first&& !oneTime){
+                oneTime = true;
+                first =false;
+                addClassLine();//컨텐츠 추가 발동
+            }//맨처음 실행
+
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
             function OnScroll () { //스크롤 이벤트 함수
+            
             const fullHeight = infinitebox.clientHeight; // infinite 클래스의 높이   , 스크롤 이벤트 안에서 정의해야 추가된 높이가 다시 계산된다
             const scrollPosition = scrollY; // 스크롤 위치
-                if (fullHeight-screenHeight*1/4 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이1/4가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
-                    oneTime = true; // oneTime 변수를 true로 변경해주고,
-                    if(!lastpage){
+                    if (fullHeight-screenHeight*1/4 <= scrollPosition && !oneTime && !lastpage && !first) { // 만약 전체높이-화면높이1/4가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
+                        oneTime = true; // oneTime 변수를 true로 변경해주고,
                         addClassLine();//컨텐츠 추가 발동
                     }
-                    setTimeout(function() {
-                        classScroll();
-                    }, 500);
-                }
+
             }
+
         }
         function checkzero(){
             if(document.getElementsByClassName("newOneclassInfo").length==0){
@@ -239,15 +250,12 @@
                         console.log("호출됨");
                         var classList = httpRequest.response;
                             if(classList.length==0 ){
-                                if(document.querySelector(".noclass") ==null){
-                                    checkzero();
-                                }
+                                lastpage = true;
+                                oneTime = false;
+                                checkzero();
                                 return;
                             }
                             else if(classList.length<8){
-                                if(document.querySelector(".noclass") !=null){
-                                    document.querySelector(".noclass").remove();
-                                }
                                 lastpage = true;
                             }
                             //ONEBOX = 8EA
@@ -268,7 +276,7 @@
                                 const time = document.createElement("span");
                                 time.innerText=oneclass.classtime;
                                 newDate.append(date,time);
-
+                                
                                 /* 클래스 info */
                                 const atag = document.createElement("a");
                                 atag.href = "view/"+(""+oneclass.productNo); 
@@ -309,6 +317,7 @@
                                 onebox.append(oneNewClass);
                             }
                             infinitebox.append(onebox);
+                            classScroll();
                             oneTime = false;
                             loadingEnd();
                     }

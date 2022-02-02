@@ -5,6 +5,10 @@ const checkOption = {
 }
 
 function validate(){
+    if(document.querySelector("#adminId").value.trim().length>0){
+        checkOption.id=true;
+    }
+
     for(key in checkOption){
 
         if(!checkOption[key]){

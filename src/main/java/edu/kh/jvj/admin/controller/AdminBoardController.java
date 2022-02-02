@@ -15,22 +15,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
 import edu.kh.jvj.admin.model.service.AdminService;
+import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 
 @RequestMapping("admin/board/*")
 @RestController
+@SessionAttributes({"Admin"})
 public class AdminBoardController {
 	private final AdminService service;
 	@Autowired
@@ -68,23 +72,24 @@ public class AdminBoardController {
 	
 	//관리자 글작성 ajax
 	@PostMapping("productWrite")
-	public String productWrite(
+	public int productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
 			ProductWrite Product, HttpSession session
 			) {
+		
 		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath); 
 		
-		return "";
+		return result;
 	}
 	
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
 	public String noticeWrite(String title,	String noticecate,
-			String editordata, @RequestParam(value="loginMember" ,required =false , defaultValue="1") int loginMember
+			String editordata, @ModelAttribute(value="Admin") Admin loginAdmin
 			) {
-		int result = service.insertNotice(title, noticecate, editordata, loginMember);
+		int result = service.insertNotice(title, noticecate, editordata, loginAdmin.getMemberNo());
 		
 		
 		

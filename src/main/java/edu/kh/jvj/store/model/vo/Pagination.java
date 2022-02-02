@@ -127,7 +127,7 @@ public class Pagination {
 		// 전체 상품수 / 한 페이지에 보여지는 상품수 -> 올림처리
 		// 78/8 = 7.8 = 9.75 -> 10
 		
-		maxPage = (int)Math.ceil((double)listCount/limit)-1;
+		maxPage = (int)Math.ceil((double)listCount/limit);
 		
 		// 페이지네이션 목록에서 제일 앞에 보여지는 번호
 		// 현재 페이지 1-5 인경우 : 1페이지
