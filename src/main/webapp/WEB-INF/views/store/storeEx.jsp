@@ -22,9 +22,9 @@
 			<div class="select">
 				<select name="format" id="format">
 					<option selected disabled>카테고리 선택</option>
-					<option value="sick">식빵</option>
-					<option value="baget">바게트</option>
-					<option value="etc">기타</option>
+					<option value="1">식빵</option>
+					<option value="2">바게트</option>
+					<option value="3">기타</option>
 				</select>
 			</div>
 			<ul class="main-category">
@@ -45,7 +45,7 @@
 		
 				<div class="pdt-box">
 					<div class="outer brand-new">
-						<div class="pdt-img"></div>
+						<div class="pdt-img" style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
 					</div>
 					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
 					<div class="heart-btn">
@@ -57,7 +57,10 @@
 
 					</div>
 
-					<div class="pricewon" style="font-size: 20px; margin-top: 5px;">${pdt.price}</div>
+					<span class="pricewon" style="font-size: 20px; margin-top: 5px;<c:if test="${pdt.discountPer ne 0}">text-decoration:line-through;</c:if>">
+					${pdt.price}
+					</span>
+					<c:if test="${pdt.discountPer ne 0}"><span class="pricewon" style="font-size: 24px; margin: 5px 0 0 10px;  color:#00b992;">${pdt.price * (100-pdt.discountPer)/100}원</span></c:if>
 					<div style="font-size: 16px; margin-top: 15px;">${pdt.memo}</div>
 
 					<c:if test="${ pdt.stock  eq 0}">
@@ -85,8 +88,8 @@
 	</div>
 	<ul class="pagination">
 		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link" href="store?cp=1">&lt;&lt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.prevPage}">&lt;</a></li>
+			<li><a class="page-link" href="store?cp=1&ct=${search.ct}">&lt;&lt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.prevPage}&ct=${search.ct}">&lt;</a></li>
 		</c:if>
 
 		<%-- 페이지 네이션 번호 목록 --%>
@@ -98,17 +101,20 @@
 						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a class="page-link" style="margin:5px" href="store?cp=${i}">${i}</a></li>
+					<li><a class="page-link" style="margin:5px" href="store?cp=${i}&ct=${search.ct}">${i}</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link" href="store?cp=${pagination.nextPage}">&gt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.maxPage }">&gt;&gt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.nextPage}&ct=${search.ct}">&gt;</a></li>
+			<li><a class="page-link" href="store?cp=${pagination.maxPage }&ct=${search.ct}">&gt;&gt;</a></li>
 		</c:if>
 	</ul>
 	<!-- main-wrapper end-->
 </body>
+<script>
+const contextPath = '${contextPath}';
+</script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/store/store.js"></script>
 <jsp:include page="../common/footer.jsp" />

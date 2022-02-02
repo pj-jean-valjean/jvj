@@ -60,7 +60,7 @@ float:left;
   cursor:pointer;
   width:280px;
   height:280px;
-   background-image: url("../images/dog.jpg");
+  
   background-repeat: no-repeat;
   background-size :cover;
   border-radius: 20px;
