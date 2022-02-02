@@ -7,10 +7,14 @@
 	<typeAliases>
 			<typeAlias alias="onedayclass" type="edu.kh.jvj.onedayclass.model.vo.OnedayClass" />
 			<typeAlias alias="store" type="edu.kh.jvj.store.model.vo.Store" />
+			<typeAlias alias="Member" type="edu.kh.jvj.member.model.vo.Member" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mappers/classlist-mapper.xml" />
 		<mapper resource="/mappers/admin-mapper.xml" />
 		<mapper resource="/mappers/store-mapper.xml" />
+		<mapper resource="/mappers/member-mapper.xml" />
 	</mappers>
+	
+	
 </configuration>

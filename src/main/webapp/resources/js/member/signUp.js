@@ -2,7 +2,6 @@ const signUpCheckObj = {
     "email" : false,
     "pwd1" : false,
     "pwd2" : false,
-	   
     "nickname" : false,
     "name" : false,
     "phone3" : false
@@ -11,17 +10,15 @@ const signUpCheckObj = {
  // 회원 가입 버튼 클릭 시 유효성검사 판단 
 function validate(){
 	
-for( key  in signUpCheckObj ){
+	for( key  in signUpCheckObj ){
 
-        // signUpCheckObj 객체의 속성 중 키가 key인 속성의 value를 얻어와
-        // !를 붙여서 조건이 참인지 확인
         if( !signUpCheckObj[key] ){
             
             let message;
 
             switch(key){
-            case "id" : message = "아이디가 유효하지 않습니다."; break;
             case "name" : message = "이름이 유효하지 않습니다."; break;
+            case "nickname" : message = "이름이 유효하지 않습니다."; break;
             case "email" : message = "이메일이 유효하지 않습니다."; break;
             case "pwd1" : message = "비밀번호가 유효하지 않습니다."; break;
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
@@ -31,13 +28,46 @@ for( key  in signUpCheckObj ){
             alert(message);
 
             // 유효하지 않은 input 요소로 포커스 이동
-            document.getElementById(key).focus(); 
+            //document.getElementById(key).focus(); 
 
             // form태그 submit 기본 이벤트 제거
             return false;
 
         }
 	}
+	
+	
+	// input type="hidden" 태그 생성 및 추가 
+    const email = document.getElementsByName("email");
+    const phone = document.getElementsByName("phone");
+    const address = document.getElementsByName("address");
+
+    // input태그 생성
+    // email 진행
+	const input1 = document.createElement("input");
+    input1.setAttribute("type", "hidden");
+    input1.setAttribute("name", "memberEmail");
+    input1.value = email[0].value + "@" + email[1].value;
+    document.signUpForm.append(input1);
+	
+	
+    // phone 번호 있을때만 진행
+	if(phone[0].value.trim().length > 0){
+		const input2 = document.createElement("input");
+	    input2.setAttribute("type", "hidden");
+	    input2.setAttribute("name", "memberPhone");
+	    input2.value = phone[0].value + "-" + phone[1].value + "-" + phone[2].value;
+	    document.signUpForm.append(input2);
+	}
+	
+    // 우편번호가 작성되어 있을 땜에만 주소 데이터 input 진행
+    if(address[0].value.trim().length > 0){
+        const input3 = document.createElement("input");
+        input3.setAttribute("type", "hidden");    
+        input3.setAttribute("name", "memberAddress");
+        input3.value = address[0].value + ",," + address[1].value + ",," + address[2].value;
+        document.signUpForm.append(input3);
+    }       
 }
 
 
@@ -58,7 +88,8 @@ $('#email-select').change(function() {
 
 
 // 이메일 인증 버튼 인증번호 input 태그 보여줌 
-document.querySelector("#sendEmail").addEventListener("click", function() {
+//document.querySelector("#sendEmail").addEventListener("click", function() {
+document.querySelector(".email-input").addEventListener("input", function() {
 	
 	const inputEmail = document.getElementById("email-input").value;
     const selectEmail = document.getElementById("email-input-select").value;
@@ -68,22 +99,25 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
 	
 	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘다 빈칸일 경우
-    	document.querySelector("#email-checkNum").style.display = "none";
-		checkEmail.innerText ="이메일을 입력해주세요.";
-		checkEmail.style.color = "#F99C9C";
+		
+    	//document.querySelector("#email-checkNum").style.display = "none";
+		checkEmail.innerText ="";
         signUpCheckObj.email = false;
    	
     }else if(regExp1.test(inputEmail) && regExp2.test(selectEmail) ){ 
-		checkEmail.innerText ="";
-	    document.querySelector("#email-checkNum").style.display = "block";
+		checkEmail.innerText ="유효한 이메일 입니다";
+		checkPwd1.style.color = "#9CC7F9";
+	   // document.querySelector("#email-checkNum").style.display = "block";
         signUpCheckObj.email = true;
 
-    }else{ // 둘 중 하나라도 유효 X
-    	document.querySelector("#email-checkNum").style.display = "none";
+    }
+  else{ // 둘 중 하나라도 유효 X
+    	//document.querySelector("#email-checkNum").style.display = "none";
 		checkEmail.innerText ="이메일을 확인해주세요.";
 		checkEmail.style.color = "#F99C9C";
         signUpCheckObj.email = false;
     }
+    
 });
 
 
@@ -92,7 +126,7 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 // - 영어 대/소문자, 숫자, 특수문자(!,@,#,-,_), 6~20글자
 document.getElementById("pwd1").addEventListener("input", (e) => {
 
-    const inputPw = e.target.value; // 입력 받은 이메일
+    const inputPw = e.target.value; 
 
     const regExp = /^[a-zA-Z\d\!\@\#\-\_]{6,20}$/; // 정규식
 
@@ -151,17 +185,17 @@ $("#nickname").on("input", function(){
     if( inputNickname.length == 0 ){ // 빈칸
         $("#checkName").text("");
 
-        signUpCheckObj.name = false;
+        signUpCheckObj.nickname = false;
 
     }else if(regExp.test(inputNickname)){ // 유효한 경우
         $("#checkNickname").text("유효한 이름 입니다.").css("color", "#9CC7F9");
         
-        signUpCheckObj.name = true;
+        signUpCheckObj.nickname = true;
 
     }else{ // 유효하지 않은 경우
         $("#checkNickname").text("유효하지 않은 이름 입니다.").css("color", "#F99C9C");
 
-        signUpCheckObj.name = false;
+        signUpCheckObj.nickname = false;
     }
 });
 
@@ -247,7 +281,7 @@ document.querySelector("#searchAddr").addEventListener("click", function(){
 let flag = true;
 
 // 이메일 인증
-document.querySelector("#email-Authentication").addEventListener("input", () => {
+/*document.querySelector("#email-Authentication").addEventListener("input", () => {
     
     let timeCount = document.querySelector("#timeCount");
     
@@ -284,7 +318,7 @@ document.querySelector("#email-Authentication").addEventListener("input", () => 
             });
         } else {
             const signUpEmailResult = document.querySelector("#signUpEmailResult");
-            /*document.getElementById("signUpEmail").focus();*/
+            //document.getElementById("signUpEmail").focus();
             signUpEmailResult.innerHTML = "이메일을 입력해주세요";
             signUpEmailResult.style.color = "red";
         }
@@ -300,4 +334,4 @@ function addZero(time) {
         return time;
     }
 }
-
+*/
