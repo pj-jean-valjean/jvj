@@ -54,4 +54,18 @@ public class StoreDAO {
 	}
 
 
+
+	public int likeit(Store store) {
+	
+		return mybatis.insert("storeMapper.likeit",store);
+	}
+
+
+
+	public int doesntLikeit(Store store) {
+		// TODO Auto-generated method stub
+		return mybatis.delete("storeMapper.doesntLikeit",store);
+	}
+
+
 }
