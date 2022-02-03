@@ -5,7 +5,7 @@ const signUpCheckObj = {
     "nickname" : false,
     "name" : false,
     "phone3" : false,
-    "checkEmailNum" : false
+    "checkEmail" : false
 }
 
  // 회원 가입 버튼 클릭 시 유효성검사 판단 
@@ -24,7 +24,6 @@ function validate(){
             case "pwd1" : message = "비밀번호가 유효하지 않습니다."; break;
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
             case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
-            case "checkEmailNum" : message = "인증번호가 유효하지 않습니다."; break;
             }
 
             alert(message);
@@ -113,8 +112,8 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
         signUpCheckObj.email = false;
     
     } else { 
-		checkEmail.innerText ="유효한 이메일 입니다";
-		checkPwd1.style.color = "#9CC7F9";
+		//checkEmail.innerText ="유효한 이메일 입니다";
+		//checkPwd1.style.color = "#9CC7F9";
 	    document.querySelector("#email-checkNum").style.display = "block";
         signUpCheckObj.email = true;
         
@@ -156,18 +155,19 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 		success : function(result){
 			console.log(result);
 			if(result == true){
-				alert('인증 완료');
+				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
 				
 				document.getElementById("certificationYN").value = "true";
-				signUpCheckObj.checkEmailNum = true;
+				signUpCheckObj.checkEmail= true;
 				
 				memberEmail.onchange = function(){
 					document.getElementById("certificationYN").value = "false";
-					signUpCheckObj.checkEmailNum = true;
+					signUpCheckObj.checkEmail = true;
 				}
 			} else{
-				alert("츄라이 어게인");
-				signUpCheckObj.checkEmailNum = false;
+				$("#email-Authentication").css("background-color", "#F99C9C");
+				
+				signUpCheckObj.checkEmail = false;
 			}
 			
 		}, error : function(request, status, error){
