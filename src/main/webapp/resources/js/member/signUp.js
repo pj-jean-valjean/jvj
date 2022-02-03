@@ -88,51 +88,28 @@ $('#email-select').change(function() {
 });
 
 // 이메일 중복검사 //셀렉트에 change에 안먹음 
-$(".email-input").on({
-	select: function(){
-	    const inputEmail = document.getElementById("email-input").value;
-	    const selectEmail = document.getElementById("email-input-select").value;
-	    const memberEmail = inputEmail + '@' + selectEmail;
-	
-	    $.ajax({
-	        url: "emailDupCheck",
-	        type: "post",
-	        dataType: "json",
-	        data: { "memberEmail": memberEmail },
-	        success: function (result) {
-	            if (result > 0) {
-	                signUpCheckObj.email = false;
-	                console.log("중복");
-	            } else {
-	                signUpCheckObj.email = true;
-	                console.log("가능");
-	            }
-	        }
-	    })
-	},
-	blur: function(){
-	    const inputEmail = document.getElementById("email-input").value;
-	    const selectEmail = document.getElementById("email-input-select").value;
-	    const memberEmail = inputEmail + '@' + selectEmail;
-	
-	    $.ajax({
-	        url: "emailDupCheck",
-	        type: "post",
-	        dataType: "json",
-	        data: { "memberEmail": memberEmail },
-	        success: function (result) {
-	            if (result > 0) {
-	                alert("사용가능한 이메일입니다.");
-	                signUpCheckObj.email = true;
-	            } else {
-	                alert("중복된 이메일입니다.");
-	                signUpCheckObj.email = false;
-	            }
-	        }
-	    })
-	}
-	
+$(".email-input").on("propertychange change keyup paste input", function(){
+    const inputEmail = document.getElementById("email-input").value;
+    const selectEmail = document.getElementById("email-input-select").value;
+    const memberEmail = inputEmail + '@' + selectEmail;
+
+    $.ajax({
+        url: "emailDupCheck",
+        type: "post",
+        dataType: "json",
+        data: { "memberEmail": memberEmail },
+        success: function (result) {
+            if (result > 0) {
+                signUpCheckObj.email = false;
+                console.log("중복");
+            } else {
+                signUpCheckObj.email = true;
+                console.log("가능");
+            }
+        }
+	})
 });
+
 
 // 이메일 인증 버튼 클릭 시  
 // 인증번호 input 태그 보여줌 
@@ -241,6 +218,8 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 /*let flag = true;
 
 // 이메일 인증
+// 이메일 인증하기 버튼을 클릭했을때 db에 저장해서 
+// 인증 시간 -sysdate
 document.querySelector("#email-Authentication").addEventListener("input", () => {
     let timeCount = document.querySelector("#timeCount");
     

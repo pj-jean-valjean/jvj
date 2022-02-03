@@ -155,9 +155,18 @@ public class MemberController {
    
    // 이메일 찾기
    @RequestMapping(value = "searchId", method = RequestMethod.POST)
-   public String searchId(String memberName, String memberPhone, Model model, RedirectAttributes ra ) {
+   public String searchId(String memberName, String[] phone, Model model) {
       
       Map<String, String> map = new HashMap<String, String>();
+      String memberPhone = "";
+      
+      for(int i = 0; i < phone.length; i++) {
+    	  if(i == 2) {
+    		  memberPhone += phone[i];
+    	  } else {
+    		  memberPhone += phone[i] + "-";
+    	  }
+      }
       
       map.put("memberName", memberName);
       map.put("memberPhone", memberPhone);
@@ -177,14 +186,7 @@ public class MemberController {
       }
       return  path;
    }
-   
-   // 이메일 찾기 결과
-   @RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
-   public String searchIdResult() {
-      return "member/searchIdResult";
-   }
 
-   
    // 비밀번호 찾기
    @RequestMapping(value = "searchPw", method = RequestMethod.GET)
    public String searchPw() {
@@ -193,19 +195,23 @@ public class MemberController {
    
    
    @RequestMapping(value = "searchPw", method = RequestMethod.POST)
-   public String searchPw(Member member) {
+   public String searchPw(String memberEmail,  Model model) {
+	  
+	  model.addAttribute("memberEmail", memberEmail);
       return "member/searchPwResult";
    }
    
    // 이메일과 변경할 비밀번호 두개의 값을 어떻게 가져가는가?
    @RequestMapping(value = "searchPwResult", method = RequestMethod.POST)
-   public String searchPwResult(Member member , Model model) {
+   public String searchPwResult(String memberEmail , Model model) {
       
       // 비밀번호 업데이트
-      
-      
-      
-      return "member/searchPwResult";
+	  // js로 값 넘어오는지 memberEmail에서 아이디만 넘어감
+	  
+	  // 쿠키 설정 카운트는 쿠키에 설정해서 카운트다운
+	  System.out.println(memberEmail);
+	  
+      return "member/login";
    }
 
    
