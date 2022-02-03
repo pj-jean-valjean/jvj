@@ -81,21 +81,23 @@ public class AdminBoardController {
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath); 
 		
+		if(result>0) {
+			result = Product.getProductNo();
+		}
 		return result;
 	}
 	
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
-	public String noticeWrite(String title,	String noticecate,
-			String editordata, @ModelAttribute(value="Admin") Admin loginAdmin
+	public int noticeWrite(String title,	String noticecate,
+			String editordata, @ModelAttribute(value="Admin") Admin loginAdmin,
+			Model model
 			) {
-		int result = service.insertNotice(title, noticecate, editordata, loginAdmin.getMemberNo());
+		int result =0;
 		
+		result = service.insertNotice(title, noticecate, editordata, loginAdmin.getMemberNo());
 		
-		
-		
-		return "";
+		return result;
 	}
-	
 
 }
