@@ -54,9 +54,9 @@
 					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
 					<div class="heart-btn">
 						<div
-							class="content <c:if test="${pdt.likeit eq 1}">heart-active</c:if>">
+							class="content <c:if test="${pdt.likeit  > 0}">heart-active</c:if>">
 							<div
-								class="heart <c:if test="${pdt.likeit eq 1}">heart-active</c:if>"></div>
+								class="heart <c:if test="${pdt.likeit > 0}">heart-active</c:if>"></div>
 						</div>
 
 					</div>

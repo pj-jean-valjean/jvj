@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.jvj.store.model.dao.StoreDAO;
 import edu.kh.jvj.store.model.vo.Pagination;
@@ -50,6 +51,23 @@ public class StoreServiceImpl implements StoreService {
 	public List<Store> storeImgSelect(int no) {
 		// TODO Auto-generated method stub
 		return dao.storeImgSelect(no);
+	}
+
+
+
+	@Override
+	@Transactional
+	public int likeit(Store store) {
+		
+		return dao.likeit(store);
+	}
+
+
+	@Transactional
+	@Override
+	public int doesntLikeit(Store store) {
+		// TODO Auto-generated method stub
+		return dao.doesntLikeit(store);
 	}
 
 

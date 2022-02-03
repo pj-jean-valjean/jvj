@@ -16,4 +16,8 @@ public interface StoreService {
 
 	List<Store> storeImgSelect(int no);
 
+	int likeit(Store store);
+
+	int doesntLikeit(Store store);
+
 }
