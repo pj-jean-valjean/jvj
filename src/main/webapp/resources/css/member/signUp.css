@@ -59,7 +59,7 @@
 }
 
 
-#sendEmail{
+.email-check-btn{
     cursor: pointer;
     background-color: #A78A6C;
     width: 100px;

@@ -87,7 +87,12 @@ public class MemberController {
 			path = "redirect:/";
 		} else {
 			path = "member/login";
-			Util.swalSetMessage("로그인 실패", "아이디 또는 비밀번호를 확인해주세요.", "error", ra);
+	         String title = "로그인 실패";
+	         String text = "아이디 또는 비밀번호를 확인해주세요.";
+	         String icon = "error";
+	         model.addAttribute("title", title);
+	         model.addAttribute("text", text);
+	         model.addAttribute("icon", icon);
 		}
 		return path;
 	}
@@ -104,17 +109,44 @@ public class MemberController {
 	public String signUp() {
 		return "member/signUp";
 	}
-
+	
+	
+	// 이메일 찾기 화면 전환
 	@RequestMapping(value = "searchId", method = RequestMethod.GET)
 	public String searchId() {
 		return "member/searchId";
 	}
-
+	
+	// 이메일 찾기
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public String searchId(Member member, String memberName, String memberPhone, RedirectAttributes ra ) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("memberName", memberName);
+		map.put("memberPhone", memberPhone);
+		
+		
+		// 동일 아이디 조회
+		if(service.checkEmail(map) == 0) {
+			
+		} else if(service.searchEmail(map) == 0){
+			
+		}
+		
+		
+		
+		return "member/searchIdResult";
+	}
+	
+	// 이메일 찾기 결과
 	@RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
 	public String searchIdResult() {
 		return "member/searchIdResult";
 	}
 
+	
+	
 	@RequestMapping(value = "searchPw", method = RequestMethod.GET)
 	public String searchPw() {
 		return "member/searchPw";
@@ -178,13 +210,5 @@ public class MemberController {
 	
 
 	
-	// 이메일 찾기
-	@RequestMapping(value = "searchId", method = RequestMethod.POST)
-	public String searchId(Member member, String memberName, String memberPhone) {
-		
-		int result = service.searchId(memberName, memberPhone);
-		
-		
-		return "member/searchIdResult";
-	}
+	
 }

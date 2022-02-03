@@ -43,14 +43,25 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
+	// 같은 정보의 이메일 찾기
+	@Override
+	public int checkEmail(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+		
+	
 	// 이메일 찾기
 	@Override
-	public int searchId(String memberName, String memberPhone) {
-		
-		return dao.searchId(memberName, memberPhone);
+	public int searchEmail(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
+	
+
+
 	// 로그인
 	@Override
 	public Member login(Member member) {
@@ -66,7 +77,6 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return loginMember;
 	}
-	
 
 	
 	
