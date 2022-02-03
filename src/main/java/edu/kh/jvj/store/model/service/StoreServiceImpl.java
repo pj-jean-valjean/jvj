@@ -35,4 +35,20 @@ public class StoreServiceImpl implements StoreService {
 
 		return dao.selectStoreList(pagination,search);
 	}
+
+
+
+	@Override
+	public Store selectStoreDetail(int no) {
+		
+		return dao.selectStoreDetail(no);
+	}
+
+
+
+	@Override
+	public List<Store> storeImgSelect(int no) {
+		// TODO Auto-generated method stub
+		return dao.storeImgSelect(no);
+	}
 }

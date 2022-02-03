@@ -37,4 +37,21 @@ public class StoreDAO {
 	}
 
 
+
+	public Store selectStoreDetail(int no) {
+		
+		
+		return mybatis.selectOne("storeMapper.selectStoreDetail",no);
+		
+		
+	}
+
+
+
+	public List<Store> storeImgSelect(int no) {
+		
+		return mybatis.selectList("storeMapper.storeImgSelect",no);
+	}
+
+
 }
