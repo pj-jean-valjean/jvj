@@ -18,6 +18,16 @@ public interface OnedayClassService {
 	 * @param productNo
 	 * @return OnedayClass
 	 */
-	OnedayClass selectOneClass(int productNo);
+	/** 클래스 좋아요
+	 * @param map
+	 * @return
+	 */
+	OnedayClass selectOneClass(Map<String, Integer> map);
+
+	int likeclass(Map<String, Integer> map);
+
+	int undolike(Map<String, Integer> map);
+
+	int likecheck(Map<String, Integer> map);
 	
 }

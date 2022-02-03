@@ -71,4 +71,12 @@ public class AdminMemberController {
 			/* path = "redirect:/admin/login"; */
 		return path;
 	}
+	// router 새로고침 처리 
+	@GetMapping("admin/board/route/*")
+	public String refresh(@ModelAttribute Admin admin) {
+		if(admin==null) {
+			return "redirect:/admin/login";
+		}
+		else return "admin/adminMain";
+	}
 }

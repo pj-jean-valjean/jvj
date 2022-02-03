@@ -38,7 +38,7 @@
                 <span id="resetsearch"><i class="fas fa-undo-alt"></i></span>
             </div>
             <div id="infinitebox">
-			
+				
             </div><!-- infinite -->
         </article>
         <article class="cal">
@@ -76,7 +76,10 @@
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
-	<script>const contextPath = "${contextPath}"</script>
+	<script>
+		const contextPath = "${contextPath}"
+		const loginNo = "${loginMember.memberNo}"
+	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classList.js"></script>
 </body>
 </html>

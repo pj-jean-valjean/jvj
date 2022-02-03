@@ -16,6 +16,7 @@ import edu.kh.jvj.admin.model.dao.AdminDAO;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.SearchedMember;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -40,6 +41,7 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-1 일반스토어 
 		if(product.getWritecate()==1) {
+			product.setDetailcontents(XSS(product.getDetailcontents()));
 			result = dao.insertStoreProduct(product); 
 			if(product.getDiscountyn().equals("yes")) {
 				result = dao.insertStoreDiscount(product); 
@@ -141,6 +143,20 @@ public class AdminServiceImpl implements AdminService{
 	public Admin findMatchAdmin(Admin admin) {
 		return dao.findMatchAdmin(admin); 
 	}
+	
+	//멤버 서치
+	@Override
+	public List<SearchedMember> searchMember(Map<String, String> dataMap) {
+		
+		return dao.searchMember(dataMap); 
+	}
+
+	//옵션 상품
+	@Override
+	public int insertOptionP(Map<String, String> map) {
+		return dao.insertOptionP(map); 
+	}
+
 	
 	
 	

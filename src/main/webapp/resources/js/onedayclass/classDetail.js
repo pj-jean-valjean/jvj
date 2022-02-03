@@ -1,17 +1,96 @@
 
 /* 사진교체 */
+let likedone=0;
 window.onload = function(){
     changeImg();
     reviewDetail();
+    likecheck();
 }
+function likecheck(){
+    if(loginNo=="") return;
+    $.ajax({
+        url: contextPath+'/onedayclass/likecheck',
+        method: 'post',
+        data : {
+            "loginNo" : loginNo,
+            "productNo" : productNo
+        },
+        success: function(result){
+            console.log(result);
+            if(result>0){
+                hearttoggle()
+                likedone = 1;
+            }
+        },
+        error : function(){
+
+        }
+    })
+}
+    function hearttoggle(){
+        const hearts = $('.heart-btn');
+        hearts.children().toggleClass("heart-active");
+        hearts.children().next().toggleClass("heart-active");
+        hearts.children().children().toggleClass("heart-active");
+    }
 
     //좋아요 함수
-    $('.contentss').click(function () {
-        $(this).toggleClass("heart-active");
-        $(this).next().toggleClass("heart-active");
-        $(this).children().toggleClass("heart-active");
+    $('.heart-btn').click(function () {
+        if(loginNo==""){
+            alert("로그인 후 이용해주세요!");
+            return;
+        }
+        if(likedone==1){
+            if(confirm("좋아요를 취소하시겠어요?")){
+                likeCancle();
+            }
+            else return;
+        }
+        else{
+            doLike();
+        }
     });
+    function doLike(){
+        $.ajax({
+            url: contextPath+'/onedayclass/likeclass',
+            method: 'post',
+            data : {
+                "loginNo" : loginNo,
+                "productNo" : productNo
+            },
+            success: function(result){
+                if(result>0){
+                    hearttoggle()
+                    likedone = 1;
+                }
+                else{
+                    alert("이미 좋아요를 누르셨어요!");
+                }
+            },
+            error : function(){
 
+            }
+        }) 
+    }
+    function likeCancle(){
+        $.ajax({
+            url: contextPath+'/onedayclass/undolike',
+            method: 'post',
+            data : {
+                "loginNo" : loginNo,
+                "productNo" : productNo
+            },
+            success: function(result){
+                if(result>0){
+                    hearttoggle()
+                    likedone = 0;
+                }
+            },
+            error : function(){
+                alert("취소실패");
+            }
+        })
+    }
     //사진 교체
 	const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
     function changeImg(){

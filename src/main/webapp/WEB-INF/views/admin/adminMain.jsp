@@ -36,34 +36,35 @@
             <div class="one-admin-func" id=querybox>조회 업무
             	<div class="each-querybox">
                     <ul class="eachW">
-                        <li class="querywork">회원 정보 조회</li>
-                        <li class="querywork">구독 회원 조회</li>
-                        <li class="querywork">주문 조회</li>
+                        <li class="querywork"><a href="/jvj/admin/board/route/searchMember">회원 정보 조회</a></li>
+                        <li class="querywork"><a href="/jvj/admin/board/route/subsMember">구독 회원 조회</a></li>
+                        <li class="querywork"><a href="/jvj/admin/board/route/searchOrder">주문 조회</a></li>
                     </ul>
                 </div>
             </div>
             <div class="one-admin-func" id="writerP">게시글 작성
                 <div class="eachWriter">
                     <ul class="eachW">
-                        <li class="adminWriter">공지사항 작성</li>
-                        <li class="adminWriter">일반 상품 등록</li>
-                        <li class="adminWriter">구독 상품 등록</li>
-                        <li class="adminWriter">클래스 상품 등록</li>
+                        <li class="adminWriter"><a href="/jvj/admin/board/route/noticeWriter">공지사항 작성</a></li>
+                        <li class="adminWriter"><a href="/jvj/admin/board/route/storeSubmit">일반 상품 등록</a></li>
+                        <li class="adminWriter"><a href="/jvj/admin/board/route/subsSubmit">구독 상품 등록</a></li>
+                        <li class="adminWriter"><a href="/jvj/admin/board/route/classSubmit">클래스 상품 등록</a></li>
+                        <li class="adminWriter"><a href="/jvj/admin/board/route/optionSubmit">추가옵션상품 등록</a></li>
                     </ul>
                 </div>
             </div>
             <div class="one-admin-func" id="editArticle">글 관리
                 <div class="each-article">
                     <ul class="eachW">
-                        <li class="modifyArticle">리뷰 관리</li>
-                        <li class="modifyArticle">공지사항 수정</li>
+                        <li class="modifyArticle"><a href="/jvj/admin/board/route/reviewManage">리뷰 관리</a></li>
+                        <li class="modifyArticle"><a href="/jvj/admin/board/route/noticeManage">공지사항 수정</a></li>
                     </ul>
                 </div>
             </div>
 			<div class="one-admin-func" id="manageP">상품 관리
 				<div class="modifyP">
                     <ul class="eachW">
-                        <li class="manageP">상품 관리</li>
+                        <li class="manageP"><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
                         <li class="manageP">상품 옵션 관리</li>
                     </ul>
                 </div>

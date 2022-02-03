@@ -27,9 +27,24 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 	}
 
 	@Override
-	public OnedayClass selectOneClass(int productNo) {
-		
-		return dao.selectOneClass(productNo);
+	public OnedayClass selectOneClass(Map<String, Integer> map) {
+		return dao.selectOneClass(map);
+	}
+
+	@Override
+	public int likeclass(Map<String, Integer> map) {
+		return dao.likeclass(map);
+	}
+
+	@Override
+	public int undolike(Map<String, Integer> map) {
+		return dao.undolike(map);
+	}
+
+	@Override
+	public int likecheck(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return dao.likecheck(map);
 	}
 	
 	
