@@ -60,7 +60,6 @@ $(".phone").on("input", function(){
 
     }else{ 
 		searchIdResult.phone3 = true;
-
     }
 
 });

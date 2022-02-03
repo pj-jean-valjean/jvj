@@ -6,9 +6,27 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-
+import javax.activation.CommandMap;
+import javax.activation.MailcapCommandMap;
+import javax.inject.Inject;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.jvj.member.model.service.MailService;
 import edu.kh.jvj.member.model.service.MemberService;
 import edu.kh.jvj.member.model.vo.Member;
 
@@ -29,6 +48,11 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired 
+	JavaMailSender mailSender;
 
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -61,13 +85,6 @@ public class MemberController {
 		return "member/searchPwResult";
 	}
 
-	// email 중복 검사
-//	@RequestMapping("emailDupCheck")
-//	@ResponseBody
-//	public int emailDupCheck(String inputEmail, String selectEmail) {
-//		return service.emailDupCheck(inputEmail,selectEmail);
-//	}
-	
 	
 	// 회원 가입
 	@RequestMapping(value="signUp", method = RequestMethod.POST)
@@ -75,14 +92,13 @@ public class MemberController {
 		
 		int result = service.signUp(member);
 		
-		
 		String title;
 		String text;
 		String icon;
 		
 		if(result > 0) { // 성공
 			title = "회원 가입 성공!";
-			text = member.getMemberName() + "님! 이메일 인증을 완료하여 회원가입을 해주세요.";
+			text = member.getMemberName() + "님! 회원가입 완료.";
 			icon = "success"; // 총 4개 가능  "error"/ "success" /"warning"/ "info"
 		} else { // 실패
 			title = "회원 가입 실패!";
@@ -97,29 +113,38 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 인증번호 전송
+	@ResponseBody
+	@RequestMapping("email")
+	private int sendEmail(HttpServletRequest request, String memberEmail) {
+		HttpSession session = request.getSession();
+		mailService.mailSend(session, memberEmail);
+		
+		return 0;
+	}
 	
-	// 이메일 인증 완료시 진행
-//	@RequestMapping(value="signUp", method=RequestMethod.POST)
-//	public String signUp(Member member){
-//		try {
-//			service.signUp(member);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "member/signUp";
-//	}
-//	
-//	
-//	@RequestMapping(value="signUpConfirm", method=RequestMethod.GET)
-//	public String emailConfirm(Member member, Model model) throws Exception {
-//		member.setAuthStatus(1);	// authstatus를 1로,, 권한 업데이트
-//		service.updateAuthstatus(member);
-//		
-//		model.addAttribute("auth_check", 1);
-//		
-//		return "member/signUp";
-//	}
+	// 인증번호 확인
+	@ResponseBody
+	@RequestMapping("certification")
+	private boolean emailCertification(HttpServletRequest request, String memberEmail, int inputCode) {
+		
+		HttpSession session = request.getSession();
+		boolean result = mailService.emailCertification(session, memberEmail, inputCode);
+		return result;
+		
+	}
 	
 	
+	
+
+	
+	// 이메일 찾기
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public String searchId(Member member, String memberName, String memberPhone) {
+		
+		int result = service.searchId(memberName, memberPhone);
+		
+		
+		return "member/searchIdResult";
+	}
 }

@@ -14,14 +14,13 @@
 	 	<result property="enrollDate" 			column="ENROLL_DT"/>
 	 	<result property="statusCode" 			column="STATUS_CD"/>
 	 	<result property="gradeCode" 			column="GRADE_CD"/>
-	 	<result property="emailStatusCode" 		column="E_STATUS_CD"/>
 	 </resultMap>
 
 	<!-- 회원가입 -->
 	<insert id="signUp" parameterType="Member">	
 		INSERT INTO MEMBER 
 		VALUES( SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberName},
-		#{memberPhone}, #{memberAddress}, DEFAULT, 1, DEFAULT, 2)
+		#{memberPhone}, #{memberAddress}, DEFAULT, 1, DEFAULT)
 	</insert>
 	
 	

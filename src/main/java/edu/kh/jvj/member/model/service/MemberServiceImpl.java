@@ -34,13 +34,22 @@ public class MemberServiceImpl implements MemberService{
 		
 		return dao.signUp(member);
 	}
+
+	// 인증번호
+	@Override
+	public String authCodeMaker(String inputEmail) {
+		
+		return null;
+	}
+
 	
-//	// 이메일 중복검사
-//	@Override
-//	public int emailDupCheck(String inputEmail, String selectEmail) {
-//		return dao.emailDupCheck(inputEmail, selectEmail);
-//	}
-//	
+	// 이메일 찾기
+	@Override
+	public int searchId(String memberName, String memberPhone) {
+		
+		return dao.searchId(memberName, memberPhone);
+	}
+	
 
 	
 	

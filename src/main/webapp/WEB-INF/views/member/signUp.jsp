@@ -36,14 +36,19 @@
 			<p id="checkEmail"></p>
 			
 			
-           <!-- <div class="input-info-div" id="email-checkNum">
+           <div class="input-info-div" id="email-checkNum">
                 <div class="p-div"><p>인증번호<span> *</span></p></div>
                 <div class="input-div">
-                    <input type="text" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
+                    <input type="number" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
+                </div> 
+                <div class="input-div">
+                    <button type="button" id="check-email-Authentication" >확인</button>
+               		<input type="hidden" id="certificationYN" value="false">
                 </div>   
                 	<span id="check-email-Authentication"></span>
                 	<span id="timeCount"></span>
-            </div> -->
+                	<span id="signUpEmailCheck"></span>
+            </div>
           
 
 
@@ -71,17 +76,17 @@
             	<span id="checkNickname"></span>
             </div>
             <div class="input-info-div">
-                <div class="p-div"><p>이름</p></div>
-                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" ></div>
+                <div class="p-div"><p>이름<span> *</span></p></div>
+                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" required></div>
             	<!-- 이름 유효성 검사 -->
             	<span id="checkName"></span>
             </div>
            
 
             <div class="input-info-div">
-                <div class="p-div"><p>휴대전화</p></div>
+                <div class="p-div"><p>휴대전화<span> *</span></p></div>
                 <div class="input-div">
-                    <select  class="member-info-select phone-input phone" id="phone1" name="phone" >
+                    <select  class="member-info-select phone-input phone" id="phone1" name="phone" required>
                         <option>010</option>
                         <option>011</option>
                         <option>016</option>
@@ -90,9 +95,9 @@
                     </select>
                 </div> 
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" ></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" required></div>
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" ></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" required></div>
             	
             	<!-- 전화번호 유효성 검사 -->
             	<span id="checkPhone"></span>
