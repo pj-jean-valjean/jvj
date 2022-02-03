@@ -308,19 +308,23 @@ const contentbox = document.getElementById("adminPCont");
             "<label class='labels'>식빵세트 <input type='radio' name='breadCoffee' value='bread'></label>"+
             "<label class='labels'>식빵&커피 세트 <input type='radio' name='breadCoffee' value='coffee'></label>";
 
+            const subsoption = document.createElement("div");
+            subsoption.className= "oneLine";
+            subsoption.innerHTML="<label class='labels'>구독 옵션</label>"+
+            "<input type='text' name='inputsubsoption' class='options'><button type='button' class='addBreadType subsN'>구독 옵션 추가</button>";
             const div6 = document.createElement("div");
             div6.className= "oneLine";
             div6.innerHTML="<label class='labels'>빵 종류</label>"+
-            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
+            "<input type='text' name='inputbread' class='options'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
             const div7 = document.createElement("div");
             div7.className= "oneLine";
             div7.innerHTML="<label class='labels'>맛 종류</label>"+
-            "<input type='text' class='input-taste'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
+            "<input type='text' name='inputtaste' class='options'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "2");
-            $("#writerForm").append(div5,div6,div7,div4,subcanBTN(),writecate);
+            $("#writerForm").append(div5,subsoption,div6,div7,div4,subcanBTN(),writecate);
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -336,14 +340,64 @@ const contentbox = document.getElementById("adminPCont");
                     const addcoffee = document.createElement("div");
                     addcoffee.setAttribute("class", "oneLine addCoffee");
                     addcoffee.innerHTML="<label class='labels'>커피 용량</label>"+
-                    "<input type='text' class='input-smallcate'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
-                    $("#uppercate").next().next().after(addcoffee);
-                    addTaste();
+                    "<input type='text' name='inputcoffeeoption' class='options'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
+                    $("#uppercate").next().next().next().after(addcoffee);
+
+                    document.querySelector(".coffeeN").addEventListener("click",function(){
+                        const input = this.previousElementSibling;
+                        if(input.value.trim().length>0){
+                            const optiontags = document.createElement("span");
+                            optiontags.className="coffee-type tagspan";
+                            optiontags.innerText = input.value;
+                            optiontags.style.cursor= "pointer";
+                            optiontags.addEventListener("click", function(){
+                                if(confirm("삭제하시겠습니까?")){
+                                    this.remove();
+                                }
+                            })
+                            this.parentElement.append(optiontags);
+                            input.value="";
+                        }
+                    });
+
+                    const addtags = document.querySelectorAll(".addCoffee > .tagspan");
+                    for(let i =0 ; i<addtags.length ; i++){
+                        addtags[i].addEventListener("click", function(){
+                            if(confirm("삭제하시겠습니까?")){
+                                this.remove();
+                            }
+                        })
+                    }
                 }
                 else{
                     $(".addCoffee").remove();
                 }
             })
+        }
+        //커피용량 빵종류 맛종류 추가 func
+        function addTaste(){
+            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
+            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
+                addSubsOptionBtn[i].addEventListener("click", function(){
+                    const input = addSubsOptionBtn[i].previousElementSibling;
+                    if(input.value.trim().length>0){
+                        const optiontags = document.createElement("span");
+                        if(i==0)  optiontags.className="subs-type tagspan";
+                        else if(i==1) optiontags.className = "bread-type tagspan";
+                        else if(i==2) optiontags.className = "taste-type tagspan";
+                        optiontags.innerText = input.value;
+                        optiontags.style.cursor= "pointer";
+                        optiontags.addEventListener("click", function(){
+                            if(confirm("삭제하시겠습니까?")){
+                                this.remove();
+                            }
+                        })
+                        addSubsOptionBtn[i].parentElement.append(optiontags);
+                        input.value="";
+                        const addtags = document.querySelectorAll(".tagspan");
+                    }
+                })
+            }
         }
         //4-4.클래스 상품 
         //사진 1장 / 제목 / 가격 / 지점 / 가능수강일 /  
@@ -843,34 +897,7 @@ const contentbox = document.getElementById("adminPCont");
                 }
             })
         }
-        //커피용량 빵종류 맛종류 추가 func
-        function addTaste(){
-            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
-            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
-                addSubsOptionBtn[i].addEventListener("click", function(){
-                    const input = addSubsOptionBtn[i].previousElementSibling;
-                    if(input.value.trim().length>0){
-                        const span = document.createElement("span");
-                        if(i==0)span.className="bread-type tagspan";
-                        else if(i==1) span.className = "taste-type tagspan";
-                        else span.className="coffee-type tagspan";
-                        span.innerText = "#"+input.value;
-                        span.style.cursor= "pointer";
-                        addSubsOptionBtn[i].parentElement.append(span);
-                        input.value="";
-                        const tags = document.querySelectorAll(".tagspan");
-                        for(let i =0 ; i<tags.length ; i++){
-                            tags[i].addEventListener("click", function(){
-                                if(confirm("삭제하시겠습니까?")){
-                                    this.remove();
-                                }
-                            })
-                        }
-                    }
-                    
-                })
-            }
-        }
+        
         function makehourminute(){
             for(let i = 9 ; i< 21 ; i++){
                 const option = document.createElement("option")
@@ -885,6 +912,7 @@ const contentbox = document.getElementById("adminPCont");
             for(let i = 0 ; i< 60 ; i=i+10){
                 const option = document.createElement("option")
                 const option2 = document.createElement("option")
+                option.value= i;
                 option.innerText = i+"분";
                 option2.value= i;
                 option2.innerText = i+"분";
@@ -896,12 +924,13 @@ const contentbox = document.getElementById("adminPCont");
 
 
         function submitProduct(){
-            const form = $("#writerForm");
-            const formData = new FormData(form[0]);
             const cate = document.querySelector("input[name='writecate']").value;
             if(!validate(parseInt(cate))){
                 return;
             };
+
+            const form = $("#writerForm");
+            const formData = new FormData(form[0]);
             $.ajax({
                 url : "productWrite",
                 type : "POST",
@@ -910,18 +939,25 @@ const contentbox = document.getElementById("adminPCont");
                 processData: false,
                 cache: false,
                 success : function(result){
-                    alert(result);
-
+                    alert("등록 성공!");
+                    
+                    let url = "";
                     switch(cate){
                         case '1' : 
                         commonWriter('일반 상품 등록');
-                        makeNormalPWritePage(); break;
+                        makeNormalPWritePage(); 
+/*                      url = contextPath + '/onedayclass/view/' + result;
+                        window.open(url, '등록일반상품', ''+result); */
+                        break;
                         case '2' : 
                         commonWriter('구독 상품 등록');
                         makeSubscribePWritePage(); break;
                         case '3' : 
                         commonWriter('클래스 상품 등록');
-                        makeClassPWritePage(); break;
+                        makeClassPWritePage(); 
+                        url = contextPath + '/onedayclass/view/' + result;
+                        window.open(url, '등록클래스상품', ''+result);
+                        break;
                     }
                     
                     

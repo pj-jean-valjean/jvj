@@ -19,14 +19,15 @@
         <section>
             <!-- 공지사항 리스트 -->
             <article>
-                <div id="pathline"><a href="">HOME</a>&gt;<a href="">공지사항</a></div>
+            <%-- <div>${pagination }</div> --%>
+                <div id="pathline"><a href="${contextPath}">HOME</a>&gt;<a href="${contextPath}/notice/list">공지사항</a></div>
                 <h1 id="classpname" style="font-size: 40px;">공지사항</h1>
                 <div id="align-div">
                     <select id='selectcate'>
-                        <option>전체</option>
-                        <option>이벤트</option>
-                        <option>프로모션</option>
-                        <option>공지사항</option>
+                        <option value="0"  <c:if test="${cate == '0'}"> selected</c:if>>전체</option>
+                        <option value="1"  <c:if test="${cate == '1'}"> selected</c:if>>프로모션</option>
+                        <option value="2"  <c:if test="${cate == '2'}"> selected</c:if>>공지사항</option>
+                        <option value="3"  <c:if test="${cate == '3'}"> selected</c:if>>이벤트</option>
                     </select>
                 </div>
                 <div id="noticebox">
@@ -37,95 +38,55 @@
                         <span>작성자</span>
                         <span>작성일</span>
                     </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
-                    <div class="one-line-notice">
-                        <span>1</span>
-                        <span>이벤트</span>
-                        <span>설 연휴 배송 안내</span>
-                        <span>장발장식빵</span>
-                        <span>2022-01-12 11:27:22</span>
-                    </div>
+                    <c:if test="${empty noticeList}">
+                    	<div>공지사항이 없습니다!</div>
+                    </c:if>
+                    <c:forEach items="${noticeList}"  var="notice">
+	                    <div class="one-line-notice">
+	                        <span>${notice.noticeNo}</span>
+	                        <span>${notice.noticeCateName}</span>
+	                        <span><a href="view?noticeNo=${notice.noticeNo}&cate=${cate}&cp=${cp}">${notice.noticeTitle}</a></span>
+	                        <span>장발장식빵</span>
+	                        <span>${notice.createDt}</span>
+	                    </div>
+                    </c:forEach>
                 </div>
             </article>
             <!-- 페이지네이션 -->
+            
             <article>
            		<ul class="pagination">
-					<li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
-					<li><a class="page-link"
-						href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
-					<li><a class="page-link"
-						style="padding: 6px 11px; border-radius: 20px; background-color: #B9845A; color: white;">1</a></li>
-					<li><a class="page-link" style="" href="list?cp=${i}${s}">2</a></li>
-					<li><a class="page-link"
-						href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
-					<li><a class="page-link"
-						href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
+					<c:if test="${pagination.startPage !=1 }">
+						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&lt;&lt;</a></li>
+						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&lt;</a></li>
+					</c:if>
+					<%-- 페이지 네이션 번호 목록 --%>
+					<c:forEach begin="${pagination.startPage }"
+						end="${pagination.endPage}" step="1" var="i">
+						<c:choose>
+							<c:when test="${i==pagination.currentPage}">
+								<li><a class="page-link"
+									style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a class="page-link" style="margin:5px" href="list?cp=${i}&cate=${cate}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${pagination.endPage != pagination.maxPage }">
+						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&gt;</a></li>
+						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&gt;&gt;</a></li>
+					</c:if>
 				</ul>
             </article>
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
+	
+	<script>
+		document.getElementById("selectcate").addEventListener("change",function(){
+			location.href="list?cate="+this.value;
+		})
+	</script>
 </body>
 </html>

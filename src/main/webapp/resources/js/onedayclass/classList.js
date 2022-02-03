@@ -202,7 +202,7 @@
                 first =false;
                 addClassLine();//컨텐츠 추가 발동
             }//맨처음 실행
-
+            
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
             function OnScroll () { //스크롤 이벤트 함수

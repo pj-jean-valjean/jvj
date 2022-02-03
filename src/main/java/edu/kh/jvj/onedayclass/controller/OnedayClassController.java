@@ -6,6 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
@@ -52,10 +52,10 @@ public class OnedayClassController {
 		
 		return "/onedayclass/onedayClassDetail";
 	}
-	
-	@PostMapping(value="list",produces="text/plain;charset=UTF-8")
+	//produces="application/json;charset=UTF-8"
+	@PostMapping(value="list")
 	@ResponseBody
-	public String scrollListAdd(
+	public ResponseEntity<List<OnedayClass>>  scrollListAdd(
 			@RequestBody Map<String, String> pagination  , Model model) {
 
 		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
@@ -77,7 +77,7 @@ public class OnedayClassController {
 		}
 			log.info("원데이클래스 로딩 소요시간 : {} ms" , takeTime);
 			
-		return new Gson().toJson(oneLineList);
+		return new ResponseEntity<>(oneLineList, HttpStatus.OK);
 	}
 	 
 	/*

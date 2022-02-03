@@ -32,10 +32,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.jvj.common.Util;
 import edu.kh.jvj.member.model.service.MailService;
 import edu.kh.jvj.member.model.service.MemberService;
 import edu.kh.jvj.member.model.vo.Member;
@@ -59,7 +62,44 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(Member member, @RequestParam(value="save", required = false) String save,
+						Model model, HttpServletRequest req, HttpServletResponse resp, RedirectAttributes ra) {
+		
+		Member loginMember = service.login(member);
+		String path = "";
+		
+		if(loginMember != null) {
+			model.addAttribute("loginMember", loginMember);
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
+			
+			if(save != null) {
+				cookie.setMaxAge(60 * 60 * 24 * 30);
+			} else {
+				cookie.setMaxAge(0);
+			}
+			
+			cookie.setPath(req.getContextPath());
+			
+			resp.addCookie(cookie);
+			
+			path = "redirect:/";
+		} else {
+			path = "member/login";
+			Util.swalSetMessage("로그인 실패", "아이디 또는 비밀번호를 확인해주세요.", "error", ra);
+		}
+		return path;
+	}
 
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:/";
+	}
+	
+	
 	@RequestMapping(value = "signUp", method = RequestMethod.GET)
 	public String signUp() {
 		return "member/signUp";

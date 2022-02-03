@@ -47,6 +47,7 @@
 				<div class="pdt-box">
 					<div class="outer brand-new">
 						<div class="pdt-img" style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
+						<input type="hidden" value="${pdt.storeNo}" name="storeNo">
 					</div>
 					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
 					<div class="heart-btn">

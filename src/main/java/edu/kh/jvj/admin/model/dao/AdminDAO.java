@@ -56,7 +56,7 @@ public class AdminDAO {
 	public int insertStoreProduct(ProductWrite product) {
 		return sqlSession.insert("adminMapper.insertStoreProduct",product);
 	}
-
+	
 	/** 할인정보 삽입
 	 * @param product
 	 * @return
@@ -65,9 +65,14 @@ public class AdminDAO {
 		return sqlSession.insert("adminMapper.insertStoreDiscount",product);
 	}
 
+	/** 로그인정보 일치 여부
+	 * @param admin
+	 * @return
+	 */
 	public Admin findMatchAdmin(Admin admin) {
 		return sqlSession.selectOne("adminMapper.findMatchAdmin",admin);
 	}
+	
 	
 
 	

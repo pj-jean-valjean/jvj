@@ -13,7 +13,7 @@ public class Store {
 	private String storecate; // 빵종류
 	private  String imgPath; // 이미지경로 
 	private int discountPer; // 할인율
-	
+	private int imgLevel; // 사진 번호
 	// 상품 상세
 	private String storeExp; // 상품상세설명	
 	private String createDate; // 등록일
@@ -137,6 +137,14 @@ public class Store {
 
 	public void setDiscountEnd(String discountEnd) {
 		this.discountEnd = discountEnd;
+	}
+
+	public int getImgLevel() {
+		return imgLevel;
+	}
+
+	public void setImgLevel(int imgLevel) {
+		this.imgLevel = imgLevel;
 	}
 
 	@Override
