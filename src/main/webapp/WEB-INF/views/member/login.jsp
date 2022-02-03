@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="../common/header.jsp" />
 <link rel="stylesheet" href="${contextPath}/resources/css/member/login.css">
 
@@ -26,8 +28,7 @@
                 <label class="container">아이디 저장
                 
                 <c:if test="${!empty cookie.saveId.value}">
-                	<c:set var="chk" value="뭐야..."/>
-              		checked :  ${chk}
+                	<c:set var="chk" value="checked"  />
                 </c:if>
                 
                     <input type="checkbox" id="save" name="save" ${chk}>

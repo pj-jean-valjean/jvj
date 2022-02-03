@@ -18,16 +18,6 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	
-	<c:if test="${!empty requestScope.title}">
-	<script>
-      swal({
-         title : "${title}",
-         text : "${text}",
-         icon : "${icon}"
-      });
-   </script>
-	</c:if>
 
 </head>
 
