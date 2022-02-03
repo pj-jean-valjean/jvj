@@ -179,17 +179,9 @@ public class MemberController {
 	}
 	
 	// 이메일 찾기 결과
-	// 두 개가 넘어가는 과정에서 안된다,,,
 	@RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
-	public String searchIdResult(Model model) {
-		
-		if(model.getAttribute("memberEmail") != null) {
-			System.out.println("값 있음");
-		} else { 
-			System.out.println("비어있다");
-		}
+	public String searchIdResult() {
 		return "member/searchIdResult";
-		
 	}
 
 	
