@@ -25,7 +25,9 @@
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM PRODUCT
         LEFT JOIN STORE_DETAIL USING(PRODUCT_NO)
+        LEFT JOIN PRODUCT_IMG USING(PRODUCT_NO)
 		WHERE PRODUCT_CD = 1
+		AND PRODUCT_IMG_LEVEL = 0
 		<if test="ct>0">
         	AND  STORE_TYPE=#{ct}
 		
