@@ -392,8 +392,10 @@ DELIVERY / 배송정보
     	</div>
 	<jsp:include page="../common/footer.jsp" />	
 	<script> 
-	let mapAddress = "${Oneclass.placeAddr}" ;
-	const contextPath = "${contextPath}";
+		let mapAddress = "${Oneclass.placeAddr}" ;
+		const contextPath = "${contextPath}";
+		const loginNo = "${loginMember.memberNo}"
+		const productNo = "${productNo}"
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=551a4828db4bdc904ebb55328c53c9ae&libraries=services,clusterer,drawing"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classDetail.js"></script>

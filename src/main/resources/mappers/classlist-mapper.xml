@@ -84,4 +84,19 @@
 		JOIN CLASS_PLACE USING (PLACE_CODE)
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
+	<insert id="likeclass">
+		INSERT INTO "LIKE" VALUES(
+			#{productNo}, #{loginNo}
+		)
+	</insert>
+	<delete id="undolike">
+		DELETE FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginNo}
+	</delete>
+	<select id="likecheck" resultType="_int">
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginNo}
+	</select>
 </mapper>

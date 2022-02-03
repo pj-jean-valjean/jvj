@@ -57,8 +57,8 @@
             <article>
            		<ul class="pagination">
 					<c:if test="${pagination.startPage !=1 }">
-						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&lt;&lt;</a></li>
-						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&lt;</a></li>
+						<li><a class="page-link" href="list?cp=1&cate=${cate}">&lt;&lt;</a></li>
+						<li><a class="page-link" href="list?cp=${pagination.prevPage}&cate=${cate}">&lt;</a></li>
 					</c:if>
 					<%-- 페이지 네이션 번호 목록 --%>
 					<c:forEach begin="${pagination.startPage }"
@@ -74,8 +74,8 @@
 						</c:choose>
 					</c:forEach>
 					<c:if test="${pagination.endPage != pagination.maxPage }">
-						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&gt;</a></li>
-						<li><a class="page-link" href="list?cp=${i}&cate=${cate}">&gt;&gt;</a></li>
+						<li><a class="page-link" href="list?cp=${pagination.nextPage}&cate=${cate}">&gt;</a></li>
+						<li><a class="page-link" href="list?cp=${pagination.maxPage }&cate=${cate}">&gt;&gt;</a></li>
 					</c:if>
 				</ul>
             </article>

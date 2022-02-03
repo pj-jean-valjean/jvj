@@ -18,6 +18,14 @@
 		<result property="noticeCd" column="NOTICE_CD" />
 		<result property="noticeCateName" column="NOTICE_TYPE_NM" />
 	</resultMap>
+	<resultMap type="edu.kh.jvj.admin.model.vo.SearchedMember" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberNickName" column="MEMBER_NICKNAME" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="enrollDt" column="ENROLL_DT" />
+		<result property="statusCode" column="STATUS_CD" />
+	</resultMap>
 	
 	<!-- 상품 공통 인서트 -->
 	<insert id="insertProductCommon" >
@@ -93,6 +101,7 @@
 		<if test="cate != 0">
 			WHERE  NOTICE_CD = #{cate}
 		  </if>
+		ORDER BY NOTICE_CREATE_DT DESC
 	</select>
 	<!-- 공지사항 상세 -->
 	<select id="oneNotice" resultMap="notice_rm">
@@ -102,4 +111,26 @@
 		JOIN NOTICE_CATEGORY USING (NOTICE_CD)
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
+	
+	<select id="searchMember" resultMap="member_rm">
+		SELECT 
+		MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_NAME ,
+		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER 
+		WHERE GRADE_CD = 100
+		<if test="searchBy == 'searchById'">
+			AND MEMBER_EMAIL LIKE '%'||#{data}||'%'
+		</if>
+		<if test="searchBy == 'searchByName'">
+			AND MEMBER_NAME LIKE '%'||#{data}||'%'
+		</if>
+		<if test="searchBy == 'searchByNickName'">
+			AND MEMBER_NICKNAME LIKE '%'||#{data}||'%'
+		</if>
+	</select>
+	
+	<insert id="insertOptionP">
+		INSERT INTO PRODUCT VALUES(
+		SEQ_PRODUCT_NO.NEXTVAL , #{title} , #{price} , DEFAULT , #{writecate}
+		)
+	</insert>
 </mapper>

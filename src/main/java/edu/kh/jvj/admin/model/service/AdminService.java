@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.SearchedMember;
 
 public interface AdminService {
 
@@ -34,6 +35,10 @@ public interface AdminService {
 	 * @return count(*)
 	 */
 	Admin findMatchAdmin(Admin admin);
+
+	List<SearchedMember> searchMember(Map<String, String> dataMap);
+
+	int insertOptionP(Map<String, String> map);
 
 	
 }

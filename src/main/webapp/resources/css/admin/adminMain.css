@@ -149,6 +149,9 @@
             display: none;
             z-index: 1;
         }
+        .eachWriter{
+            width : 700px;
+        }
         .each-querybox{
             left: -70px;
             width: 450px;
@@ -244,7 +247,13 @@
             font-weight: bold;
             border-bottom: 1px solid #A78A6C;
         }
-
+        .oneMemberResult  > span{
+            width: 15%;
+            text-align: center;
+        }
+        .oneMemberResult  > span:first-of-type{
+            width: 25%;
+        }
         /* 달력 모달 */
         .cal { 
             position: absolute; 
