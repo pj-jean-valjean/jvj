@@ -18,7 +18,20 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	<c:if test="${!empty requestScope.title}">
+	<script>
+      swal({
+         title : "${title}",
+         text : "${text}",
+         icon : "${icon}"
+      });
+   </script>
+	</c:if>
+
 </head>
+
+
 <body>
 	<header>
         <section class="nav">
@@ -40,18 +53,27 @@
             <ul class="nav-login">
                 
 
-                <!-- 비로그인 -->
-                <li><a href="${contextPath}/member/login">로그인</a></li>
-
+				<c:choose>
+				<c:when test="${empty loginMember}">
+	                <!-- 비로그인 -->
+	                <li><a href="${contextPath}/member/login">로그인</a></li>
+				</c:when>
+				<c:otherwise>
                 <!-- 로그인 -->
-                <%-- <li>
-                    <a href="">
-                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
-                    </a>
-                    <a href="">
-                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
-                    </a>
-                </li> --%>
+	                <li>
+	                    <a href="">
+	                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
+	                    </a>
+	                    <a href="">
+	                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
+	                    </a>
+						<a href="${contextPath}/member/logout" title="logout-icon">
+							<img class="logout-img" src="${contextPath}/resources/images/common/icon-logout.png">
+						</a>	                    
+	                </li>
+	             </c:otherwise>
+				</c:choose>
+
                 
                 <li>
                     <input class="nav-search" type="text" list="search-options" maxlength="20">
@@ -66,12 +88,4 @@
         </section>
     </header>
 
-	<c:if test="${!empty requestScope.title}">
-		<script>
-      swal({
-         title : "${title}",
-         text : "${text}",
-         icon : "${icon}"
-      });
-   </script>
-	</c:if>
+	

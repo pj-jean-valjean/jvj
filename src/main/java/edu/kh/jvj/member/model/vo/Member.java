@@ -12,6 +12,8 @@ public class Member {
 	private String memberPhone;
 	private String memberAddress;
 	private Date enrollDate;
+	private int statusCode;
+	private int gradeCode;
 	
 	
 	
@@ -98,7 +100,23 @@ public class Member {
 		this.enrollDate = enrollDate;
 	}
 
+	public int getStatusCode() {
+		return statusCode;
+	}
 
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
+	public int getGradeCode() {
+		return gradeCode;
+	}
+
+	public void setGradeCode(int gradeCode) {
+		this.gradeCode = gradeCode;
+	}
+
+	
 	
 	
 	
