@@ -110,12 +110,42 @@ function returnReviewContent(글번호){
   });
   
    // 가격에 콤마표시
- let prices = $('.real-price');
- let price = $('.price');
+ let prices = $('.prices');
  for(let i = 0; i<prices.length; i++){
 	prices[i].textContent = parseInt(prices[i].textContent).toLocaleString('ko-KR')+"원";
 };
- for(let i = 0; i<price.length; i++){
-	price[i].textContent = parseInt(price[i].textContent).toLocaleString('ko-KR')+"원";
-};
+
+
+/* 스크롤 - 페이지 내 이동 */
+function scrollExp(){
+	document.querySelector('#contents-exp').scrollIntoView();	
+}
+function scrollReview(){
+	document.querySelector('#contents-review').scrollIntoView();
+}
+function scrollDelievery(){
+	document.querySelector('#contents-delievery').scrollIntoView();
+}
+/* 수량 증가 */
+function plusCount(){
+	let resultCount = document.getElementById("result");
+    let totalprice= document.getElementById("totalprice");
+    
+    resultCount.innerText = ++resultNum;
+    /* 원화 단위 콤마포함한 값 대입*/					 
+    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
+}
+
+/* 수량 감소 */
+function minusCount(){
+	if(resultNum!=0){
+		let resultCount = document.getElementById("result");
+	    let totalprice= document.getElementById("totalprice");
+	    
+	    resultCount.innerText = --resultNum;				 
+	    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
+    }
+}
+
+
  

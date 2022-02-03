@@ -21,3 +21,13 @@
             </div>
         </div>
     </footer>
+    
+    <c:if test="${!empty requestScope.title}">
+	<script>
+      swal({
+         title : "${title}",
+         text : "${text}",
+         icon : "${icon}"
+      });
+   </script>
+	</c:if>
