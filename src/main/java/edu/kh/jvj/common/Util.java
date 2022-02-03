@@ -2,6 +2,7 @@ package edu.kh.jvj.common;
 
 import java.text.SimpleDateFormat;
 
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class Util {
@@ -12,6 +13,12 @@ public class Util {
 		ra.addFlashAttribute("title", title);
 		ra.addFlashAttribute("text", text);
 		ra.addFlashAttribute("icon", icon);
+	}
+	
+	public static void swalSetMessage(String title, String text, String icon, Model model) {
+		model.addAttribute("title", title);
+		model.addAttribute("text", text);
+		model.addAttribute("icon", icon);
 	}
 	
 	
