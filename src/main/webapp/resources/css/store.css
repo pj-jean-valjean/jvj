@@ -26,6 +26,12 @@
   
   
 }
+.main-category>li:hover{
+
+  border-bottom:1px solid;
+}
+
+
 .main-content{
   margin:auto;
   width:1200px;
