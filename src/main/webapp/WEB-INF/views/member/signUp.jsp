@@ -36,14 +36,14 @@
 			<p id="checkEmail"></p>
 			
 			
-           <!-- <div class="input-info-div" id="email-checkNum">
+           <div class="input-info-div" id="email-checkNum">
                 <div class="p-div"><p>인증번호<span> *</span></p></div>
                 <div class="input-div">
                     <input type="text" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
                 </div>   
                 	<span id="check-email-Authentication"></span>
                 	<span id="timeCount"></span>
-            </div> -->
+            </div>
           
 
 

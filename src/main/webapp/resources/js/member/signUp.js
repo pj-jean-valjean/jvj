@@ -67,8 +67,34 @@ function validate(){
         input3.setAttribute("name", "memberAddress");
         input3.value = address[0].value + ",," + address[1].value + ",," + address[2].value;
         document.signUpForm.append(input3);
-    }       
+    }   
+    
+    
+    /*$.ajax({
+            url: "signUpEmailCodeCheck", // 필수속성
+            type: "GET",
+            data: { "signUpEmailCode": document.querySelector("#signUpEmailCheck").value, 
+                    "inputEmail" : document.querySelector("#signUpEmail").value }, // 파라미터
+            success(result){
+                if(result != 0){
+                    alert("회원가입이 완료 되었습니다");
+                    emailCodeCheck = true;
+                    document.getElementById("signUpForm").submit();
+                } else {
+                    alert("이메일 인증에 실패하였습니다");
+                    document.getElementById("signUpEmailCheck").focus();
+                }
+            }
+        });
+
+        if(emailCodeCheck){
+            return;
+        }
+
+        return false;*/
 }
+    
+
 
 
 
@@ -88,8 +114,8 @@ $('#email-select').change(function() {
 
 
 // 이메일 인증 버튼 인증번호 input 태그 보여줌 
-//document.querySelector("#sendEmail").addEventListener("click", function() {
-document.querySelector(".email-input").addEventListener("input", function() {
+document.querySelector("#sendEmail").addEventListener("click", function() {
+//document.querySelector(".email-input").addEventListener("input", function() {
 	
 	const inputEmail = document.getElementById("email-input").value;
     const selectEmail = document.getElementById("email-input-select").value;
@@ -98,27 +124,44 @@ document.querySelector(".email-input").addEventListener("input", function() {
 	const regExp1 = /^[\w]{4,}$/;
 	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
 	
-	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘다 빈칸일 경우
+	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘 다 빈칸일 경우
 		
-    	//document.querySelector("#email-checkNum").style.display = "none";
+    	document.querySelector("#email-checkNum").style.display = "none";
 		checkEmail.innerText ="";
         signUpCheckObj.email = false;
    	
-    }else if(regExp1.test(inputEmail) && regExp2.test(selectEmail) ){ 
-		checkEmail.innerText ="유효한 이메일 입니다";
-		checkPwd1.style.color = "#9CC7F9";
-	   // document.querySelector("#email-checkNum").style.display = "block";
-        signUpCheckObj.email = true;
-
-    }
-  else{ // 둘 중 하나라도 유효 X
-    	//document.querySelector("#email-checkNum").style.display = "none";
+    }else if(!regExp1.test(inputEmail) || !regExp2.test(selectEmail) ){ // 둘 중 하나라도 유효 X
+    	document.querySelector("#email-checkNum").style.display = "none";
 		checkEmail.innerText ="이메일을 확인해주세요.";
 		checkEmail.style.color = "#F99C9C";
         signUpCheckObj.email = false;
+    
+    } else { 
+		checkEmail.innerText ="유효한 이메일 입니다";
+		checkPwd1.style.color = "#9CC7F9";
+	    document.querySelector("#email-checkNum").style.display = "block";
+        signUpCheckObj.email = true;
+        
+        const memberEmail = inputEmail + '@' + selectEmail;
+    
+    	$.ajax({
+			type:"POST",
+			url :"email",
+			data :{"memberEmail":memberEmail},
+			success : function(data){
+				console.log(data);
+			}, error : function(request, status, error){
+				alert("오류입니다.");
+			}
+		});
+		
     }
     
 });
+
+
+
+
 
 
 
@@ -146,6 +189,8 @@ document.getElementById("pwd1").addEventListener("input", (e) => {
         checkPwd1.style.color = "#F99C9C";
         signUpCheckObj.pwd1 = false;
     }
+
+
 
 });
 

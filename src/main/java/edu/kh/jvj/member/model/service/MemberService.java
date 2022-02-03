@@ -17,6 +17,14 @@ public interface MemberService {
 //	 * @param member
 //	 */
 //	void updateAuthstatus(Member member);
+
+	
+	
+	/** 인증번호 생성기
+	 * @param inputEmail
+	 * @return
+	 */
+	String authCodeMaker(String inputEmail);
 	
 	// 이메일 중복검사
 	//int emailDupCheck(String inputEmail, String selectEmail);

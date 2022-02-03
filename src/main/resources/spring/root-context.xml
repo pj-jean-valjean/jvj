@@ -54,12 +54,12 @@
 	
 	
 	<!-- 이메일 인증 mailSender Bean 등록  gmail에서 전송-->
-    <!-- <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+    <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
         <property name="defaultEncoding" value="utf-8"/>
-        <property name="username" value="bongguking08@gmail.com" />
-        <property name="password" value="bbang24601" />
+        <property name="username" value="bongguking08@" />
+        <property name="password" value="bbang24601!" />
        
         <property name="javaMailProperties">
             <props>
@@ -70,6 +70,6 @@
             </props>
         </property>
        
-    </bean> -->
+    </bean>
     
 </beans>
