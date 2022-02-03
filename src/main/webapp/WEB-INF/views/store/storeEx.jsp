@@ -24,12 +24,13 @@
 					<option selected disabled>카테고리 선택</option>
 					<option value="0">세상 모든 빵</option>
 					<option <c:if test="${param.ct eq '1'}">selected</c:if> value="1">식빵</option>
-					<option <c:if test="${param.ct eq '2'}">selected</c:if>  value="2">바게트</option>
-					<option <c:if test="${param.ct eq '3'}">selected</c:if>  value="3">기타</option>
+					<option <c:if test="${param.ct eq '2'}">selected</c:if> value="2">바게트</option>
+					<option <c:if test="${param.ct eq '3'}">selected</c:if> value="3">기타</option>
 				</select>
 			</div>
 			<ul class="main-category">
-				<li style="color: #f58c8c;"><a href="store?cp=1&ct=${param.ct}&op=0">신상품</a></li>
+				<li style="color: #f58c8c;"><a
+					href="store?cp=1&ct=${param.ct}&op=0">신상품</a></li>
 				<li>|</li>
 				<li><a href="store?cp=1&ct=${param.ct}&op=1">낮은가격</a></li>
 				<li>|</li>
@@ -43,10 +44,11 @@
 
 
 			<c:forEach var="pdt" items="${store}" varStatus="i">
-		
+
 				<div class="pdt-box">
 					<div class="outer brand-new">
-						<div class="pdt-img" style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
+						<div class="pdt-img"
+							style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
 						<input type="hidden" value="${pdt.storeNo}" name="storeNo">
 					</div>
 					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
@@ -59,10 +61,13 @@
 
 					</div>
 
-					<span class="pricewon" style="font-size: 20px; margin-top: 5px;<c:if test="${pdt.discountPer ne 0}">text-decoration:line-through;</c:if>">
-					${pdt.price}
-					</span>
-					<c:if test="${pdt.discountPer ne 0}"><span class="pricewon" style="font-size: 24px; margin: 5px 0 0 10px;  color:#00b992;">${pdt.price * (100-pdt.discountPer)/100}원</span></c:if>
+					<span class="pricewon"
+						style="font-size: 20px; margin-top: 5px;<c:if test="${pdt.discountPer ne 0}">text-decoration:line-through;</c:if>">
+						${pdt.price} </span>
+					<c:if test="${pdt.discountPer ne 0}">
+						<span class="pricewon"
+							style="font-size: 24px; margin: 5px 0 0 10px; color: #00b992;">${pdt.price * (100-pdt.discountPer)/100}원</span>
+					</c:if>
 					<div style="font-size: 16px; margin-top: 15px;">${pdt.memo}</div>
 
 					<c:if test="${ pdt.stock  eq 0}">
@@ -70,9 +75,9 @@
 					</c:if>
 
 					<c:if test="${param.cp eq 1 && i.first && param.op eq 0}">
-						
+
 						<div class="pdt-label label-new">NEW</div>
-						
+
 					</c:if>
 
 					<c:if test="">
@@ -90,8 +95,10 @@
 	</div>
 	<ul class="pagination">
 		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link" href="store?cp=1&ct=${search.ct}&op=${param.op}">&lt;&lt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.prevPage}&ct=${search.ct}&op=${param.op}">&lt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=1&ct=${search.ct}&op=${param.op}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=${pagination.prevPage}&ct=${search.ct}&op=${param.op}">&lt;</a></li>
 		</c:if>
 
 		<%-- 페이지 네이션 번호 목록 --%>
@@ -103,19 +110,23 @@
 						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a class="page-link" style="margin:5px" href="store?cp=${i}&ct=${search.ct}&op=${param.op}">${i}</a></li>
+					<li><a class="page-link" style="margin: 5px"
+						href="store?cp=${i}&ct=${search.ct}&op=${param.op}">${i}</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link" href="store?cp=${pagination.nextPage}&ct=${search.ct}&op=${param.op}">&gt;</a></li>
-			<li><a class="page-link" href="store?cp=${pagination.maxPage }&ct=${search.ct}&op=${param.op}">&gt;&gt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=${pagination.nextPage}&ct=${search.ct}&op=${param.op}">&gt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=${pagination.maxPage }&ct=${search.ct}&op=${param.op}">&gt;&gt;</a></li>
 		</c:if>
 	</ul>
 	<!-- main-wrapper end-->
 </body>
 <script>
-const contextPath = '${contextPath}';
+	const contextPath = '${contextPath}';
+	const loginMember = '${loginMember.memberNo}';
 </script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/store/store.js"></script>

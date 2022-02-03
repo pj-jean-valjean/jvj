@@ -40,7 +40,7 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public Store selectStoreDetail(int no) {
-		
+		// TODO Auto-generated method stub
 		return dao.selectStoreDetail(no);
 	}
 
@@ -51,4 +51,6 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return dao.storeImgSelect(no);
 	}
+
+
 }
