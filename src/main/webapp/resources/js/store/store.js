@@ -27,5 +27,5 @@
 
 $("#format").change(function(){
   let selectedValue = $(this).val();
-  location.href=contextPath+"/store?cp=1&ct="+selectedValue;
+  location.href=contextPath+"/store?cp=1&op=0&ct="+selectedValue;
 })

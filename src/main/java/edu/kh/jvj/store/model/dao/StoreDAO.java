@@ -25,13 +25,8 @@ public class StoreDAO {
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset,limit);
 		
-		if(search.getCt()>0) {
-			
 			return mybatis.selectList("storeMapper.selectStoreList",search,rowBounds);			
-		}else {
-			return mybatis.selectList("storeMapper.selectStoreListAll",null,rowBounds);			
-			
-		}
+	
 	}
 	
 	
@@ -41,11 +36,5 @@ public class StoreDAO {
 		return mybatis.selectOne("storeMapper.getListCount",search);
 	}
 
-
-
-	public int getListCountAll() {
-		// TODO Auto-generated method stub
-		return mybatis.selectOne("storeMapper.getListCountAll");
-	}
 
 }

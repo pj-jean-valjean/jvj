@@ -25,15 +25,15 @@
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM PRODUCT
         LEFT JOIN STORE_DETAIL USING(PRODUCT_NO)
+        LEFT JOIN PRODUCT_IMG USING(PRODUCT_NO)
 		WHERE PRODUCT_CD = 1
+		AND PRODUCT_IMG_LEVEL = 0
+		<if test="ct>0">
         	AND  STORE_TYPE=#{ct}
+		
+		</if>
 	</select>
 	
-	<!-- 전체 스토어상품 카운트 -->
-	<select id="getListCountAll" resultType="_int">
-		SELECT COUNT(*) FROM PRODUCT
-		WHERE PRODUCT_CD = 1
-	</select>
 
 	<!-- 상품조회 -->
 	<select id="selectStoreList" resultMap="store_rm">
@@ -53,28 +53,19 @@
 		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
 		WHERE PRODUCT_CD= 1
 		AND PRODUCT_IMG_LEVEL = 0
-		AND STORE_TYPE=#{ct}
-		ORDER BY 1 DESC
+		<if test="ct>0">
+		AND STORE_TYPE=#{ct}		
+		</if>
+		
+		<choose>
+			
+			<when test="op==0">ORDER BY 1 DESC</when>
+			<when test="op==1">ORDER BY PRODUCT_PRICE*(100-DISCOUNT_PER)/100</when>
+			<when test="op==2">ORDER BY PRODUCT_PRICE*(100-DISCOUNT_PER)/100 DESC</when>
+			<when test="op==3"></when>
+			
+		</choose>
 	</select>
 	
-	
-	<select id="selectStoreListAll" resultMap="store_rm">
-		SELECT
-		A.PRODUCT_NO,A.PRODUCT_NM,A.PRODUCT_PRICE,B.STORE_AMOUNT,B.STORE_MEMO,C.DISCOUNT_PER,B.STORE_TYPE,
-		(E.PRODUCT_IMG_PATH || E.PRODUCT_IMG_NAME) STORE_IMG ,
-		(SELECT COUNT(*)
-		FROM "LIKE"
-		WHERE D.MEMBER_NO = 123456789 ) LIKEIT
-		FROM PRODUCT A
-		LEFT
-		JOIN STORE_DETAIL B ON A.PRODUCT_NO = B.PRODUCT_NO
-		LEFT JOIN DISCOUNT C
-		ON A.PRODUCT_NO = C.PRODUCT_NO
-		LEFT JOIN "LIKE" D ON A.PRODUCT_NO =
-		D.PRODUCT_NO
-		LEFT JOIN PRODUCT_IMG E ON A.PRODUCT_NO = E.PRODUCT_NO
-		WHERE PRODUCT_CD= 1
-		AND PRODUCT_IMG_LEVEL = 0
-		ORDER BY 1 DESC
-	</select>
+
 </mapper>

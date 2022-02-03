@@ -2,7 +2,7 @@ package edu.kh.jvj.store.model.vo;
 
 public class Search {
 	private int ct;
-	private int opt;
+	private int op;
 	
 	public Search() {
 		// TODO Auto-generated constructor stub
@@ -13,11 +13,11 @@ public class Search {
 	public void setCt(int ct) {
 		this.ct = ct;
 	}
-	public int getOpt() {
-		return opt;
+	public int getOp() {
+		return op;
 	}
-	public void setOpt(int opt) {
-		this.opt = opt;
+	public void setOp(int op) {
+		this.op = op;
 	}
 	
 }
