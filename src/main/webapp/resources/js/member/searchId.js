@@ -27,6 +27,15 @@ function validate(){
 
 		}
 	}
+	const phone = document.getElementsByName("phone");
+	// phone 번호 있을때만 진행
+	if(phone[0].value.trim().length > 0){
+		const input2 = document.createElement("input");
+	    input2.setAttribute("type", "hidden");
+	    input2.setAttribute("name", "memberPhone");
+	    input2.value = phone[0].value + "-" + phone[1].value + "-" + phone[2].value;
+	    document.signUpForm.append(input2);
+	}
 }
 
 

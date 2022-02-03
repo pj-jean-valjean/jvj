@@ -105,58 +105,11 @@ public class MemberController {
 	}
 	
 	
+	
 	@RequestMapping(value = "signUp", method = RequestMethod.GET)
 	public String signUp() {
 		return "member/signUp";
 	}
-	
-	
-	// 이메일 찾기 화면 전환
-	@RequestMapping(value = "searchId", method = RequestMethod.GET)
-	public String searchId() {
-		return "member/searchId";
-	}
-	
-	// 이메일 찾기
-	@RequestMapping(value = "searchId", method = RequestMethod.POST)
-	public String searchId(Member member, String memberName, String memberPhone, RedirectAttributes ra ) {
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("memberName", memberName);
-		map.put("memberPhone", memberPhone);
-		
-		
-		// 동일 아이디 조회
-		if(service.checkEmail(map) == 0) {
-			
-		} else if(service.searchEmail(map) == 0){
-			
-		}
-		
-		
-		
-		return "member/searchIdResult";
-	}
-	
-	// 이메일 찾기 결과
-	@RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
-	public String searchIdResult() {
-		return "member/searchIdResult";
-	}
-
-	
-	
-	@RequestMapping(value = "searchPw", method = RequestMethod.GET)
-	public String searchPw() {
-		return "member/searchPw";
-	}
-
-	@RequestMapping(value = "searchPwResult", method = RequestMethod.POST)
-	public String searchPwResult() {
-		return "member/searchPwResult";
-	}
-
 	
 	// 회원 가입
 	@RequestMapping(value="signUp", method = RequestMethod.POST)
@@ -184,6 +137,87 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	// 이메일 중복 검사(ajax)
+	@RequestMapping(value="emailDupCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int emailDupCheck(String memberEmail) {		
+		int result = service.emailDupCheck(memberEmail);
+		return result;
+	}
+
+	
+	// 이메일 찾기 화면 전환
+	@RequestMapping(value = "searchId", method = RequestMethod.GET)
+	public String searchId() {
+		return "member/searchId";
+	}
+	
+	// 이메일 찾기
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public String searchId(String memberName, String memberPhone, Model model, RedirectAttributes ra ) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("memberName", memberName);
+		map.put("memberPhone", memberPhone);
+		
+		String memberEmail = service.searchId(map);
+		
+		String path = null;
+		
+		// 동일 아이디 조회
+		if(memberEmail != null) { // 조회 시 값이 있다면
+			model.addAttribute("memberEmail", memberEmail);
+			path =  "member/searchIdResult";
+		
+		} else {
+			Util.swalSetMessage("존재하지 않는 회원입니다", null, "error", model);
+			path =  "member/searchId";
+		}
+		return  path;
+	}
+	
+	// 이메일 찾기 결과
+	// 두 개가 넘어가는 과정에서 안된다,,,
+	@RequestMapping(value = "searchIdResult", method = RequestMethod.POST)
+	public String searchIdResult(Model model) {
+		
+		if(model.getAttribute("memberEmail") != null) {
+			System.out.println("값 있음");
+		} else { 
+			System.out.println("비어있다");
+		}
+		return "member/searchIdResult";
+		
+	}
+
+	
+	// 비밀번호 찾기
+	@RequestMapping(value = "searchPw", method = RequestMethod.GET)
+	public String searchPw() {
+		return "member/searchPw";
+	}
+	
+	
+	@RequestMapping(value = "searchPw", method = RequestMethod.POST)
+	public String searchPw(Member member) {
+		return "member/searchPwResult";
+	}
+	
+	// 이메일과 변경할 비밀번호 두개의 값을 어떻게 가져가는가?
+	@RequestMapping(value = "searchPwResult", method = RequestMethod.POST)
+	public String searchPwResult(Member member , Model model) {
+		
+		// 비밀번호 업데이트
+		
+		
+		
+		return "member/searchPwResult";
+	}
+
+	
+	
 	
 	// 인증번호 전송
 	@ResponseBody

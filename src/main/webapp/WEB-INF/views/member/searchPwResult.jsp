@@ -9,6 +9,8 @@
             <p>비밀번호 변경</p>
         </section>
 
+${member}
+
         <div class="member-form-info">
         
         <form>

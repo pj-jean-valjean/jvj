@@ -36,34 +36,24 @@
 					<div class="input-div">
 						<button type="button" id="sendEmail">이메일인증</button>
 					</div>
-				</div>
-
-
-
-				<div class="input-info-div" id="email-checkNum">
-					<div class="p-div">
-						<p>인증번호</p>
-					</div>
-					<div class="input-div">
-						<input type="text" class="member-info" id="email-Authentication">
-					</div>
+					<p id="checkEmail"></p>
 				</div>
 
 
 				<div class="input-info-div" id="email-checkNum">
 					<div class="p-div">
 						<p>
-							인증번호<span> *</span>
+							인증번호
 						</p>
 					</div>
 					<div class="input-div">
 						<input type="number" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요." maxlength="12" required>
 					</div>
 					<div class="input-div">
-						<button type="button" id="check-email-Authentication">확인</button>
-						<input type="hidden" id="certificationYN" value="false">
-					</div>
-					<span id="check-email-Authentication"></span> <span id="timeCount"></span>
+	                    <button type="button" class="email-check-btn"  id="check-email-Authentication" >확인</button>
+	               		<input type="hidden" id="certificationYN" value="false">
+	                </div>   
+					<span id="timeCount"></span>
 					<span id="signUpEmailCheck"></span>
 				</div>
 
