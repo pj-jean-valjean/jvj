@@ -13,7 +13,7 @@
     </div> 
     
     <%-- action="${contextPath}/member/searchIdResult"> --%>
-    <form method="POST" action="${contextPath}/member/searchIdResult" name="searchIdForm" onsubmit="return validate();">
+    <form method="POST" action="${contextPath}/member/searchId" name="searchIdForm" onsubmit="return validate();">
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이름</p></div>
