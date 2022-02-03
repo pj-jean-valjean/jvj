@@ -25,142 +25,129 @@ function validate(){
 			return false;
 		}
 	}
+	// input type="hidden" 태그 생성 및 추가 
+    const email = document.getElementsByName("email");
+
+    // input태그 생성
+    // email 진행
+	const input1 = document.createElement("input");
+    input1.setAttribute("type", "hidden");
+    input1.setAttribute("name", "memberEmail");
+    input1.value = email[0].value + "@" + email[1].value;
+    document.signUpForm.append(input1);
+	
+	
 }
 
 
-
-//이메일 입력방식 선택 
-$('#email-select').change(function() {
-	$("#email-select option:selected").each(function() {
-		if ($(this).val() == '0') { //직접입력일 경우 
-			$("#email-input-select").val(''); //값 초기화 
-			$("#email-input-select").attr("disabled", false); //활성화 
-		} else { //직접입력이 아닐경우 
-			$("#email-input-select").val($(this).text()); //선택값 입력 
-			$("#email-input-select").attr("disabled", true); //비활성화 
-		}
-	});
-});
-
+  //이메일 입력방식 선택 
+  $('#email-select').change(function() {
+  	$("#email-select option:selected").each(function() {
+  		if ($(this).val() == '0') { //직접입력일 경우 
+  			$("#email-input-select").val(''); //값 초기화 
+  			$("#email-input-select").attr("disabled", false); //활성화 
+  		} else { //직접입력이 아닐경우 
+  			$("#email-input-select").val($(this).text()); //선택값 입력 
+  			$("#email-input-select").attr("disabled", true); //비활성화 
+  		}
+  	});
+  });
 
 
-// 이메일 인증 버튼 인증번호 input 태그 보여줌 
-document.querySelector("#sendEmail").addEventListener("click", function() {
-	
-	const inputEmail = document.getElementById("email-input").value;
-    const selectEmail = document.getElementById("email-input-select").value;
-	const checkEmail = document.getElementById("checkEmail");
-	const memberEmail = inputEmail + '@' + selectEmail;
-	
-	
-	const regExp1 = /^[\w]{4,}$/;
-	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
-	
-	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘 다 빈칸일 경우
-		
-    	document.querySelector("#email-checkNum").style.display = "none";
-		checkEmail.innerText ="";
-        searchPwResult.email = false;
-   	
-    }else if(!regExp1.test(inputEmail) || !regExp2.test(selectEmail) ){ // 둘 중 하나라도 유효 X
-    	document.querySelector("#email-checkNum").style.display = "none";
-		checkEmail.innerText ="이메일을 확인해주세요.";
-		checkEmail.style.color = "#F99C9C";
-        searchPwResult.email = false;
-    
-    } else { 
-		//checkEmail.innerText ="유효한 이메일 입니다";
-		//checkPwd1.style.color = "#9CC7F9";
-	    document.querySelector("#email-checkNum").style.display = "block";
-        searchPwResult.email = true;
-        
-        
-    
-    	$.ajax({
-			type:"POST",
-			url :"email",
-			data :{"memberEmail":memberEmail},
-			success : function(data){
-			}, error : function(request, status, error){
-				alert("오류입니다.");
-			}
-		});
-		
-    }
-    
-    
-    
-    
-});
 
-// 인증번호 확인
-document.querySelector("#check-email-Authentication").addEventListener("click", function() {
+  // 이메일 인증 버튼 인증번호 input 태그 보여줌 
+  document.querySelector("#sendEmail").addEventListener("click", function() {
+  	
+  	const inputEmail = document.getElementById("email-input").value;
+      const selectEmail = document.getElementById("email-input-select").value;
+  	const checkEmail = document.getElementById("checkEmail");
+  	const memberEmail = inputEmail + '@' + selectEmail;
+  	
+  	
+  	const regExp1 = /^[\w]{4,}$/;
+  	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
+  	
+  	if( inputEmail.length == 0  && selectEmail.length == 0){ // 둘 다 빈칸일 경우
+  		
+      	document.querySelector("#email-checkNum").style.display = "none";
+  		checkEmail.innerText ="";
+          searchPwResult.email = false;
+     	
+      }else if(!regExp1.test(inputEmail) || !regExp2.test(selectEmail) ){ // 둘 중 하나라도 유효 X
+      	document.querySelector("#email-checkNum").style.display = "none";
+  		checkEmail.innerText ="이메일을 확인해주세요.";
+  		checkEmail.style.color = "#F99C9C";
+          searchPwResult.email = false;
+      
+      } else { 
+  		//checkEmail.innerText ="유효한 이메일 입니다";
+  		//checkPwd1.style.color = "#9CC7F9";
+  	    document.querySelector("#email-checkNum").style.display = "block";
+          searchPwResult.email = true;
+          
+          
+      
+      	$.ajax({
+  			type:"POST",
+  			url :"email",
+  			data :{"memberEmail":memberEmail},
+  			success : function(data){
+  			}, error : function(request, status, error){
+  				alert("오류입니다.");
+  			}
+  		});
+  		
+      }
+      
+      
+      
+      
+  });
 
-	let inputEmail = document.getElementById("email-input").value;
-    let selectEmail = document.getElementById("email-input-select").value;
-    
-    let memberEmail = inputEmail + '@' + selectEmail;
-    
-    let inputCode= document.getElementById("email-Authentication").value;
-    
-    
-    
-    $.ajax({
-		type:"POST",
-		url :"certification",
-		data :{"memberEmail":memberEmail, "inputCode":inputCode},
-		success : function(result){
-			console.log(result);
-			if(result == true){
-				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
-				
-				document.getElementById("certificationYN").value = "true";
-				searchPwResult.checkEmail= true;
-				
-				memberEmail.onchange = function(){
-					document.getElementById("certificationYN").value = "false";
-					searchPwResult.checkEmail = true;
-				}
-			} else{
-				$("#email-Authentication").css("background-color", "#F99C9C");
-				
-				searchPwResult.checkEmail = false;
-			}
-			
-		}, error : function(request, status, error){
-			alert("인증 확인 중 오류입니다.");
-		}
-	
-	
-	
-	});
-    
-    
-});
+  // 인증번호 확인
+  document.querySelector("#check-email-Authentication").addEventListener("click", function() {
 
-// 새 비밀번호 유효성 검사
-// - 영어 대/소문자, 숫자, 특수문자(!,@,#,-,_), 6~20글자
-/*document.getElementById("pwd1").addEventListener("input", (e) => {
+  	let inputEmail = document.getElementById("email-input").value;
+      let selectEmail = document.getElementById("email-input-select").value;
+      
+      let memberEmail = inputEmail + '@' + selectEmail;
+      
+      let inputCode= document.getElementById("email-Authentication").value;
+      
+      
+      
+      $.ajax({
+  		type:"POST",
+  		url :"certification",
+  		data :{"memberEmail":memberEmail, "inputCode":inputCode},
+  		success : function(result){
+  			console.log(result);
+  			if(result == true){
+  				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
+  				
+  				document.getElementById("certificationYN").value = "true";
+  				searchPwResult.checkEmail= true;
+  				
+  				memberEmail.onchange = function(){
+  					document.getElementById("certificationYN").value = "false";
+  					searchPwResult.checkEmail = true;
+  				}
+  			} else{
+  				$("#email-Authentication").css("background-color", "#F99C9C");
+  				
+  				searchPwResult.checkEmail = false;
+  			}
+  			
+  		}, error : function(request, status, error){
+  			alert("인증 확인 중 오류입니다.");
+  		}
+  	
+  	
+  	
+  	});
+      
+      
+  });
 
-    const inputPw = e.target.value; 
 
-    const regExp = /^[a-zA-Z\d\!\@\#\-\_]{6,20}$/; // 정규식
 
-    const checkPwd1 = document.getElementById("checkPwd1"); // 출력용
-
-    if(inputPw.length == 0){ // 빈칸
-        checkPwd1.innerText = "";
-        signUpCheckObj.pwd1 = false;
-    
-    }else if(regExp.test(inputPw)){ // 유효할 때
-        checkPwd1.innerText = "유효한 비밀번호 입니다.";
-        checkPwd1.style.color = "#9CC7F9";
-        signUpCheckObj.pwd1 = true;
-
-    }else{
-        checkPwd1.innerText = "유효하지 않은 비밀번호 입니다.";
-        checkPwd1.style.color = "#F99C9C";
-        signUpCheckObj.pwd1 = false;
-    }
-    
-});	*/

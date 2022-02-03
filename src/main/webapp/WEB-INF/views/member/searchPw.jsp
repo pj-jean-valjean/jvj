@@ -11,7 +11,7 @@
 
         <div class="member-form-info">
         
-	        <form method="post" action="${contextPath}/member/searchPwResult" name="searchPwForm" onsubmit="return validate();">
+	        <form method="post" action="${contextPath}/member/searchPw" name="searchPwForm" onsubmit="return validate();">
 			<div class="input-info">
 				<div class="input-info-div">
 					<div class="p-div">
@@ -23,7 +23,7 @@
 
 					<span>@</span>
 					<div class="input-div">
-						<input type="text" class="member-info email-input" id="email-input-select"> 
+						<input type="text" class="member-info email-input" id="email-input-select" name="memberEmail"> 
 						<select class="member-info" id="email-select">
 							<option value="0">직접입력</option>
 							<option value="1">naver.com</option>
@@ -85,7 +85,7 @@
 
 
     <script> 
-    
+
     </script>
     
     <script src="${contextPath}/resources/js/member/searchPw.js"></script>

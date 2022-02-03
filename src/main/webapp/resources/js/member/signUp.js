@@ -218,6 +218,8 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 /*let flag = true;
 
 // 이메일 인증
+// 이메일 인증하기 버튼을 클릭했을때 db에 저장해서 
+// 인증 시간 -sysdate
 document.querySelector("#email-Authentication").addEventListener("input", () => {
     let timeCount = document.querySelector("#timeCount");
     
