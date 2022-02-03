@@ -45,10 +45,6 @@ public class AdminServiceImpl implements AdminService{
 				result = dao.insertStoreDiscount(product); 
 			}
 		}
-		//2-2 구독스토어
-		else if(product.getWritecate()==2) {
-			
-		}
 		//2-3 클래스 페이지
 		else {
 			String plustime="";
