@@ -1,6 +1,7 @@
 package edu.kh.jvj.member.model.service;
 
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,7 +49,6 @@ public class MailServiceImpl implements MailService {
 		
 		
 	}
-	
 	//인증번호 확인
 	@Override
 	public boolean emailCertification(HttpSession session, String memberEmail, int inputCode) {
@@ -61,8 +61,11 @@ public class MailServiceImpl implements MailService {
 		} catch (Exception e) {
 			throw e;
 		}
-		
-	
 	}
+	
+	
+	
+	
+	
 
 }

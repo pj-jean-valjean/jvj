@@ -22,19 +22,29 @@ public interface MemberService {
 
 
 	
-	/** 이메일 찾기
-	 * @param memberName
-	 * @param memberPhone
-	 * @return result
-	 */
-	int searchId(String memberName, String memberPhone);
-
+	
 
 	/** 로그인
 	 * @param member
 	 * @return loginMember
 	 */
 	Member login(Member member);
+
+
+	
+	/** 동일 이메일 조회
+	 * @param map
+	 * @return result
+	 */
+	int checkEmail(Map<String, String> map);
+
+	/** 이메일 찾기
+	 * @param map
+	 * @return result
+	 */
+	int searchEmail(Map<String, String> map);
+
+
 	
 
 	

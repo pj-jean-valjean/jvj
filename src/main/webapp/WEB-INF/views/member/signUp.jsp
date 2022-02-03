@@ -15,7 +15,7 @@
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이메일<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info email-input" name="email" id="email-input" required></div>
+                <div class="input-div"><input type="text" class="member-info email-input" name="email" id="email-input" autocomplete="off" required></div>
 
                 <span>@</span>
                 <div class="input-div">
@@ -28,7 +28,7 @@
                     </select>
                 </div> 
                 <div class="input-div">
-                    <button type="button" id="sendEmail">이메일인증</button>
+                    <button type="button" class="email-check-btn" id="sendEmail">이메일인증</button>
                     
                 </div>
             </div>
@@ -39,10 +39,10 @@
            <div class="input-info-div" id="email-checkNum">
                 <div class="p-div"><p>인증번호<span> *</span></p></div>
                 <div class="input-div">
-                    <input type="number" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
+                    <input type="number" class="member-info" id="email-Authentication" placeholder=" 인증번호를 입력해주세요.">
                 </div> 
                 <div class="input-div">
-                    <button type="button" id="check-email-Authentication" >확인</button>
+                    <button type="button" class="email-check-btn"  id="check-email-Authentication" >확인</button>
                		<input type="hidden" id="certificationYN" value="false">
                 </div>   
                 	<span id="check-email-Authentication"></span>
@@ -54,12 +54,12 @@
 
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호<span> *</span></p></div>
-                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요" required></div>
+                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호 6~20글자" required></div>
             	
             	<!-- 비밀번호 유효성 검사1 -->
             	<span id="checkPwd1"></span>
             	
-            	<input type="hidden" name="idDup" id="idDup" value="false">
+            	<!-- <input type="hidden" name="idDup" id="idDup" value="false"> -->
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호 확인<span> *</span></p></div>
@@ -70,14 +70,14 @@
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>닉네임<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info" id="nickname" name="memberNickname" maxlength="5" required></div>
+                <div class="input-div"><input type="text" class="member-info" id="nickname" name="memberNickname" maxlength="5" autocomplete="off" required></div>
                 
                 <!-- 닉네임 유효성 검사 -->
             	<span id="checkNickname"></span>
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>이름<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" required></div>
+                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" autocomplete="off" required></div>
             	<!-- 이름 유효성 검사 -->
             	<span id="checkName"></span>
             </div>
@@ -95,9 +95,9 @@
                     </select>
                 </div> 
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" autocomplete="off" required></div>
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" autocomplete="off" required></div>
             	
             	<!-- 전화번호 유효성 검사 -->
             	<span id="checkPhone"></span>
