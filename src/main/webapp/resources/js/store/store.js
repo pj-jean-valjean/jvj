@@ -12,9 +12,10 @@
   // 우리팀 1등을 위한 도약 1
    $(".pdt-img").click(function(){
     $(this).addClass("outer");
+    let storeNo = $(this).next().val();
     $(this).addClass("bingel").toggleClass("emphasized");
     $(this).css({ "position": "fixed", "top": "41%", "left":"43%"}).css("z-index","999");    
-    setTimeout(() => {location.href ="store/info"}, 1500);
+    setTimeout(() => {location.href ="store/info/"+storeNo}, 1500);
   });
 
 

@@ -108,3 +108,14 @@ function returnReviewContent(글번호){
       $(this).children().toggleClass("heart-active");
     });
   });
+  
+   // 가격에 콤마표시
+ let prices = $('.real-price');
+ let price = $('.price');
+ for(let i = 0; i<prices.length; i++){
+	prices[i].textContent = parseInt(prices[i].textContent).toLocaleString('ko-KR')+"원";
+};
+ for(let i = 0; i<price.length; i++){
+	price[i].textContent = parseInt(price[i].textContent).toLocaleString('ko-KR')+"원";
+};
+ 

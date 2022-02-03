@@ -12,4 +12,8 @@ public interface StoreService {
 
 	Pagination getPagination(int cp, Search search);
 
+	Store selectStoreDetail(int no);
+
+	List<Store> storeImgSelect(int no);
+
 }

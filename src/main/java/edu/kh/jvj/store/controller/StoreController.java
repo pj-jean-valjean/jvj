@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,14 +30,21 @@ public class StoreController {
 		Pagination pagination = service.getPagination(cp,search);
 		List<Store> storeList = service.selectStoreList(pagination,search);
 		
-		System.out.println(storeList);
+		
 		model.addAttribute("store",storeList);
 		model.addAttribute("pagination",pagination);
 		model.addAttribute("search",search);
 		return "store/storeEx";
 	}
-	@GetMapping("info")
-	public String detailForward() {
+	@GetMapping("info/{no}")
+	public String detailForward(Model model,@PathVariable("no") int no) {
+		
+		
+		Store store = service.selectStoreDetail(no); 
+		List<Store> imgLevelList = service.storeImgSelect(no);
+		model.addAttribute("store",store);
+		System.out.println(imgLevelList);
+		model.addAttribute("imgLevel", imgLevelList);
 		return "store/storeDetail";
 	}
 }
