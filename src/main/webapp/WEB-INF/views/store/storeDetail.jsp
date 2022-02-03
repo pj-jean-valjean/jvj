@@ -41,7 +41,7 @@
 			<section class="product-thumbnail">
 				<article class="main-img-area">
 					<img class="main-thumbnail"
-						src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg"
+						src="${contextPath}${imgLevel[0].imgPath}"
 						alt="sub-bread-main">
 				</article>
 				<div>
@@ -51,16 +51,16 @@
 							src="${contextPath}${imgLevel[0].imgPath}" alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[0].imgPath}">
-						<div class="sub-img img-margin"
-							style="background: gray; width: 22%; border-radius: 5px;"></div>
+						<img class="sub-img img-margin"
+							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[1].imgPath}">
 						<img class="sub-img img-margin"
 							src="${contextPath}${imgLevel[1].imgPath}" alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[1].imgPath}">
-						<div class="sub-img img-margin"
-							style="background: gray; width: 22%; border-radius: 5px;"></div>
+						<img class="sub-img img-margin"
+							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[2].imgPath}">
 						<img class="sub-img img-margin"
@@ -68,8 +68,8 @@
 							alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[2].imgPath}">
-						<div class="sub-img img-margin"
-							style="background: gray; width: 22%; border-radius: 5px;"></div>
+						<img class="sub-img img-margin"
+							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[3].imgPath}">
 						<img class="sub-img img-margin"
@@ -77,8 +77,8 @@
 							alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[3].imgPath}">
-						<div class="sub-img img-margin"
-							style="background: gray; width: 22%; border-radius: 5px;"></div>
+						<img class="sub-img img-margin"
+							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
 					</c:if>
 				</div>
 			</section>
@@ -94,8 +94,8 @@
 
 						</div>
 					</div>
-					<span class="sale">10%</span> <span class="real-price">${store.price}</span>
-					<span class="price">${store.price * (100-store.discountPer)/100}원</span>
+					<span class="sale">${store.discountPer }%</span> <span class="real-price prices">${store.price}</span>
+					<span class="price prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 
 				<div class="bottom-line"></div>
@@ -129,9 +129,9 @@
 					<div class="align-div" id="align-div">
 						<select id='selectcate-option'>
 							<option>선택 없음</option>
-							<option>[카야하우스] 싱가포르카야잼 - 그린(240g) 8,500원</option>
-							<option>[알랭밀리아] 프랑스 과일잼 - 무화과잼(230g) 8,500원</option>
-							<option>[이즈니] AOP 버터 - 무염 버터 롤(250g) 9,500원</option>
+							<option>카야잼 6,300원</option>
+							<option>무화과잼 9,900원</option>
+							<option>버터 나이프 20,000원</option>
 						</select>
 					</div>
 				</article>
@@ -140,12 +140,12 @@
 				<article class="buy-total">
 					<!-- 기본 상품 -->
 					<div class="grayBox total-area choose-price">
-						<span>상품 가격</span> <span>18,000원</span>
+						<span>상품 가격</span> <span class="prices">${store.price * (100-store.discountPer)/100}원</span>
 					</div>
 
 					<!-- 선택한 상품 존재 -->
 					<div class="grayBox total-area choose-option">
-						<span>추가상품: [알랭밀리아] 프랑스 과일잼 - 무화과잼(230g) 8,500원</span> <img
+						<span>추가상품: 카야잼 6,300원</span> <img
 							class="clear-btn" id="clearBtn"
 							src="${contextPath}/resources/images/subscribe/clear.png"
 							alt="clear">
@@ -164,7 +164,7 @@
 
 				<article class="total-price">
 					<p>총 구매 금액</p>
-					<span>18,000</span> <span>원</span>
+					<span class="prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 
 				<div class="submit-sub">
@@ -182,13 +182,13 @@
 		<!-- contents -->
 		<div class="contents-top-line"></div>
 		<section class="detail-contents">
-			<ul>
-				<li><a href="#contents-exp">상품설명</a></li>
-				<li><a href="#contents-review">리뷰</a></li>
-				<li><a href="#contents-delievery">배송/교환/환불</a></li>
+		<ul >
+                <li onclick="scrollExp()">상품설명</li>
+                <li onclick="scrollReview()">리뷰</li>
+                <li onclick="scrollDelievery()">배송/교환/환불</li>
 
-				<div class="contents-bottom-line"></div>
-			</ul>
+                <div class="contents-bottom-line"></div>        
+            </ul>
 
 		</section>
 		<section class="content">
@@ -212,7 +212,7 @@
 								<option>최신순</option>
 							</select>
 						</div>
-						<a class="reviewWrite" href="">리뷰쓰기</a>
+						<a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
 					</div>
 				</div>
 			</article>
@@ -417,7 +417,7 @@ DELIVERY / 배송정보
 
 
 	</main>
-
+<script>const price = ${store.price * (100-store.discountPer)/100}</script>
 
 
 
