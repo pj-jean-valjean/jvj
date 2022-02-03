@@ -2,9 +2,17 @@
 // 조아요
   $(document).ready(function () {
     $('.content').click(function () {
-      $(this).toggleClass("heart-active");
-      $(this).next().toggleClass("heart-active");
-      $(this).children().toggleClass("heart-active");
+      
+      if(loginMember != ''){
+        
+        $(this).toggleClass("heart-active");
+        $(this).next().toggleClass("heart-active");
+        $(this).children().toggleClass("heart-active");
+      } else{
+        swal("로그인 후 좋아요 가능합니다.",null,"info");
+        location.href("member/login");
+      }
+
     });
   });
   
