@@ -4,7 +4,8 @@ const signUpCheckObj = {
     "pwd2" : false,
     "nickname" : false,
     "name" : false,
-    "phone3" : false
+    "phone3" : false,
+    "checkEmailNum" : false
 }
 
  // 회원 가입 버튼 클릭 시 유효성검사 판단 
@@ -23,12 +24,13 @@ function validate(){
             case "pwd1" : message = "비밀번호가 유효하지 않습니다."; break;
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
             case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
+            case "checkEmailNum" : message = "인증번호가 유효하지 않습니다."; break;
             }
 
             alert(message);
 
             // 유효하지 않은 input 요소로 포커스 이동
-            //document.getElementById(key).focus(); 
+           	document.getElementById(key).focus(); 
 
             // form태그 submit 기본 이벤트 제거
             return false;
@@ -69,35 +71,8 @@ function validate(){
         document.signUpForm.append(input3);
     }   
     
-    
-    /*$.ajax({
-            url: "signUpEmailCodeCheck", // 필수속성
-            type: "GET",
-            data: { "signUpEmailCode": document.querySelector("#signUpEmailCheck").value, 
-                    "inputEmail" : document.querySelector("#signUpEmail").value }, // 파라미터
-            success(result){
-                if(result != 0){
-                    alert("회원가입이 완료 되었습니다");
-                    emailCodeCheck = true;
-                    document.getElementById("signUpForm").submit();
-                } else {
-                    alert("이메일 인증에 실패하였습니다");
-                    document.getElementById("signUpEmailCheck").focus();
-                }
-            }
-        });
-
-        if(emailCodeCheck){
-            return;
-        }
-
-        return false;*/
 }
     
-
-
-
-
 
 //이메일 입력방식 선택 
 $('#email-select').change(function() {
@@ -115,11 +90,12 @@ $('#email-select').change(function() {
 
 // 이메일 인증 버튼 인증번호 input 태그 보여줌 
 document.querySelector("#sendEmail").addEventListener("click", function() {
-//document.querySelector(".email-input").addEventListener("input", function() {
 	
 	const inputEmail = document.getElementById("email-input").value;
     const selectEmail = document.getElementById("email-input-select").value;
 	const checkEmail = document.getElementById("checkEmail");
+	const memberEmail = inputEmail + '@' + selectEmail;
+	
 	
 	const regExp1 = /^[\w]{4,}$/;
 	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
@@ -142,14 +118,13 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 	    document.querySelector("#email-checkNum").style.display = "block";
         signUpCheckObj.email = true;
         
-        const memberEmail = inputEmail + '@' + selectEmail;
+        
     
     	$.ajax({
 			type:"POST",
 			url :"email",
 			data :{"memberEmail":memberEmail},
 			success : function(data){
-				console.log(data);
 			}, error : function(request, status, error){
 				alert("오류입니다.");
 			}
@@ -157,9 +132,113 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 		
     }
     
+    
+    
+    
+});
+
+// 인증번호 확인
+document.querySelector("#check-email-Authentication").addEventListener("click", function() {
+
+	let inputEmail = document.getElementById("email-input").value;
+    let selectEmail = document.getElementById("email-input-select").value;
+    
+    let memberEmail = inputEmail + '@' + selectEmail;
+    
+    let inputCode= document.getElementById("email-Authentication").value;
+    
+    
+    
+    $.ajax({
+		type:"POST",
+		url :"certification",
+		data :{"memberEmail":memberEmail, "inputCode":inputCode},
+		success : function(result){
+			console.log(result);
+			if(result == true){
+				alert('인증 완료');
+				
+				document.getElementById("certificationYN").value = "true";
+				signUpCheckObj.checkEmailNum = true;
+				
+				memberEmail.onchange = function(){
+					document.getElementById("certificationYN").value = "false";
+					signUpCheckObj.checkEmailNum = true;
+				}
+			} else{
+				alert("츄라이 어게인");
+				signUpCheckObj.checkEmailNum = false;
+			}
+			
+		}, error : function(request, status, error){
+			alert("인증 확인 중 오류입니다.");
+		}
+	
+	
+	
+	});
+    
+    
 });
 
 
+
+// 이메일
+/*let flag = true;
+
+// 이메일 인증
+document.querySelector("#email-Authentication").addEventListener("input", () => {
+    let timeCount = document.querySelector("#timeCount");
+    
+    if (flag) {
+
+        flag = false;
+
+        if (signUpCheckObj.signUpEmail) {
+            document.querySelector("#signUpEmailCheck").removeAttribute("disabled");
+            $.ajax({
+                url: "sendEmail",
+                type: "GET",
+                data: { "signUpEmail": document.querySelector("#email-input").value }, // 파라미터
+
+                success(result){
+                    let timeCount = document.querySelector("#timeCount");
+
+                    let time = 600; // 10분
+                    let min = "";
+                    let sec = "";
+        
+                    let x = setInterval(() => {
+                        min = addZero(parseInt(time / 60));
+                        sec = addZero(time % 60);
+        
+                        timeCount.innerHTML = min + ":" + sec;
+                        time--;
+        
+                        if (time < 0) {
+                            clearInterval(x);
+                        }
+                    }, 1000);
+                }
+            });
+        } else {
+            const signUpEmailResult = document.querySelector("#signUpEmailResult");
+            //document.getElementById("signUpEmail").focus();
+            signUpEmailResult.innerHTML = "이메일을 입력해주세요";
+            signUpEmailResult.style.color = "red";
+        }
+    }
+});
+
+
+// 00:00 
+function addZero(time) {
+    if (Number(time) < 10) { // 한 자리인 경우
+        return "0" + time;
+    } else {
+        return time;
+    }
+}*/
 
 
 
@@ -322,61 +401,3 @@ document.querySelector("#searchAddr").addEventListener("click", function(){
 });
 
 
-// 이메일
-let flag = true;
-
-// 이메일 인증
-/*document.querySelector("#email-Authentication").addEventListener("input", () => {
-    
-    let timeCount = document.querySelector("#timeCount");
-    
-    if (flag) {
-
-        flag = false;
-
-        if (signUpCheckObj.signUpEmail) {
-            document.querySelector("#signUpEmailCheck").removeAttribute("disabled");
-            $.ajax({
-                url: "sendEmail",
-                type: "GET",
-                data: { "signUpEmail": document.querySelector("#email-input").value }, // 파라미터
-
-                success(result){
-                    let timeCount = document.querySelector("#timeCount");
-
-                    let time = 600; // 10분
-                    let min = "";
-                    let sec = "";
-        
-                    let x = setInterval(() => {
-                        min = addZero(parseInt(time / 60));
-                        sec = addZero(time % 60);
-        
-                        timeCount.innerHTML = min + ":" + sec;
-                        time--;
-        
-                        if (time < 0) {
-                            clearInterval(x);
-                        }
-                    }, 1000);
-                }
-            });
-        } else {
-            const signUpEmailResult = document.querySelector("#signUpEmailResult");
-            //document.getElementById("signUpEmail").focus();
-            signUpEmailResult.innerHTML = "이메일을 입력해주세요";
-            signUpEmailResult.style.color = "red";
-        }
-    }
-});
-
-
-// 00:00 
-function addZero(time) {
-    if (Number(time) < 10) { // 한 자리인 경우
-        return "0" + time;
-    } else {
-        return time;
-    }
-}
-*/

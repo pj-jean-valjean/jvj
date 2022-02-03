@@ -12,24 +12,24 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	int signUp(Member member);
-//
-//	/** 이메일 인증 완료시 상태코드
-//	 * @param member
-//	 */
-//	void updateAuthstatus(Member member);
 
-	
 	
 	/** 인증번호 생성기
 	 * @param inputEmail
 	 * @return
 	 */
 	String authCodeMaker(String inputEmail);
-	
-	// 이메일 중복검사
-	//int emailDupCheck(String inputEmail, String selectEmail);
+
 
 	
+	/** 이메일 찾기
+	 * @param memberName
+	 * @param memberPhone
+	 * @return result
+	 */
+	int searchId(String memberName, String memberPhone);
+	
+
 	
 	
 	

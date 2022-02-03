@@ -6,5 +6,7 @@ public interface MailService {
 	
 	
 	void mailSend(HttpSession session, String memberEmail);
+
+	boolean emailCertification(HttpSession session, String memberEmail, int inputCode);
 	
 }

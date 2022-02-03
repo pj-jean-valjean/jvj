@@ -30,9 +30,9 @@
                             </select>
                         </div> 
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone2" name="phone" required></div>
+                        <div class="input-div"><input type="number" class="search-info phone-input phone" id="phone2" name="phone" required></div>
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone3" name="phone" required></div>
+                        <div class="input-div"><input type="number" class="search-info phone-input phone" id="phone3" name="phone" required></div>
             </div>
         </div>
 

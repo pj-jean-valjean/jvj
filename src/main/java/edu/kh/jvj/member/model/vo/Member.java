@@ -13,9 +13,6 @@ public class Member {
 	private String memberAddress;
 	private Date enrollDate;
 	
-	// 이메일 인증
-	private String authKey;
-	private int emailStatusCode;
 	
 	
 	public Member() {}
@@ -102,26 +99,7 @@ public class Member {
 	}
 
 
-	public String getAuthKey() {
-		return authKey;
-	}
-
-
-	public void setAuthKey(String authKey) {
-		this.authKey = authKey;
-	}
-
-
-	public int getEmailStatusCode() {
-		return emailStatusCode;
-	}
-
-
-	public void setEmailStatusCode(int emailStatusCode) {
-		this.emailStatusCode = emailStatusCode;
-	}
-
-
+	
 	
 	
 	

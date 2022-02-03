@@ -41,6 +41,14 @@ public class MemberServiceImpl implements MemberService{
 		
 		return null;
 	}
+
+	
+	// 이메일 찾기
+	@Override
+	public int searchId(String memberName, String memberPhone) {
+		
+		return dao.searchId(memberName, memberPhone);
+	}
 	
 
 	
