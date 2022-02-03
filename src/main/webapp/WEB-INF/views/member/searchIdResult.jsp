@@ -11,7 +11,8 @@
     <div class="login-title">
         <p class="text-center">찾으시는 이메일</p>
     </div> 
-
+	${member.memberEmail}
+	${memberEmail}
     <div class="login-title">
         <p class="text-center">${member.memberEmail}</p>
     </div> 

@@ -18,12 +18,13 @@ function validate(){
             let message;
 
             switch(key){
-            case "name" : message = "이름이 유효하지 않습니다."; break;
-            case "nickname" : message = "이름이 유효하지 않습니다."; break;
             case "email" : message = "이메일이 유효하지 않습니다."; break;
+            case "name" : message = "이름이 유효하지 않습니다."; break;
+            case "nickname" : message = "닉네임이 유효하지 않습니다."; break;
             case "pwd1" : message = "비밀번호가 유효하지 않습니다."; break;
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
             case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
+            case "checkEmail" : message = "인증번호가 유효하지 않습니다."; break;
             }
 
             alert(message);
@@ -86,8 +87,55 @@ $('#email-select').change(function() {
 	});
 });
 
+// 이메일 중복검사 //셀렉트에 change에 안먹음 
+$(".email-input").on({
+	select: function(){
+	    const inputEmail = document.getElementById("email-input").value;
+	    const selectEmail = document.getElementById("email-input-select").value;
+	    const memberEmail = inputEmail + '@' + selectEmail;
+	
+	    $.ajax({
+	        url: "emailDupCheck",
+	        type: "post",
+	        dataType: "json",
+	        data: { "memberEmail": memberEmail },
+	        success: function (result) {
+	            if (result > 0) {
+	                signUpCheckObj.email = false;
+	                console.log("중복");
+	            } else {
+	                signUpCheckObj.email = true;
+	                console.log("가능");
+	            }
+	        }
+	    })
+	},
+	blur: function(){
+	    const inputEmail = document.getElementById("email-input").value;
+	    const selectEmail = document.getElementById("email-input-select").value;
+	    const memberEmail = inputEmail + '@' + selectEmail;
+	
+	    $.ajax({
+	        url: "emailDupCheck",
+	        type: "post",
+	        dataType: "json",
+	        data: { "memberEmail": memberEmail },
+	        success: function (result) {
+	            if (result > 0) {
+	                alert("사용가능한 이메일입니다.");
+	                signUpCheckObj.email = true;
+	            } else {
+	                alert("중복된 이메일입니다.");
+	                signUpCheckObj.email = false;
+	            }
+	        }
+	    })
+	}
+	
+});
 
-// 이메일 인증 버튼 인증번호 input 태그 보여줌 
+// 이메일 인증 버튼 클릭 시  
+// 인증번호 input 태그 보여줌 
 document.querySelector("#sendEmail").addEventListener("click", function() {
 	
 	const inputEmail = document.getElementById("email-input").value;
@@ -124,11 +172,17 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 			url :"email",
 			data :{"memberEmail":memberEmail},
 			success : function(data){
+
+
 			}, error : function(request, status, error){
 				alert("오류입니다.");
 			}
 		});
 		
+
+
+
+
     }
     
     

@@ -28,7 +28,7 @@
                     </select>
                 </div> 
                 <div class="input-div">
-                    <button type="button" class="email-check-btn" id="sendEmail">이메일인증</button>
+                    <button type="button" class="email-check-btn" id="sendEmail" >이메일인증</button>
                     
                 </div>
             </div>

@@ -68,7 +68,16 @@
 }
 
 
-#sendEmail, #check-email-Authentication{
+#sendEmail{
+    cursor: pointer;
+    background-color: #A78A6C;
+    width: 100px;
+    height: 45px;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
+.email-check-btn{
     cursor: pointer;
     background-color: #A78A6C;
     width: 100px;
