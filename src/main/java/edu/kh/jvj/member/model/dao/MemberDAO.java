@@ -1,5 +1,7 @@
 package edu.kh.jvj.member.model.dao;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,16 +31,6 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.signUp", member);
 	}
 	
-	
-	/** 이메일 찾기
-	 * @param memberName
-	 * @param memberPhone
-	 * @return result
-	 */
-	public int searchId(String memberName, String memberPhone) {
-		return 0;
-	}
-
 
 	/** 로그인
 	 * @param memberEmail
@@ -47,6 +39,37 @@ public class MemberDAO {
 	public Member login(String memberEmail) {
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
+
+
+	/** 비밀번호 찾기 
+	 * @param member
+	 * @return
+	 */
+	public int pwCheck(Member member) {
+		return sqlSession.selectOne("memberMapper.pwCheck", member);
+	}
+
+
+	/** 이메일 중복검사
+	 * @param inputEmail
+	 * @return
+	 */
+	public int emailDupCheck(String memberEmail) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.emailDupCheck", memberEmail);
+	}
+
+
+	/** 이메일 찾기
+	 * @param map
+	 * @return
+	 */
+	public String searchId(Map<String, String> map) {
+		return sqlSession.selectOne("memberMapper.searchId", map);
+	}
+
+
+	
 
 //	/** 이메일 중복 검사
 //	 * @param inputEmail

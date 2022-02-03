@@ -11,7 +11,7 @@
 
         <div class="member-form-info">
         
-	        <form method="post" action="${contextPath}/member/searchPwResult" name="searchPwForm" onsubmit="return validate();">
+	        <form method="post" action="${contextPath}/member/searchPw" name="searchPwForm" onsubmit="return validate();">
 			<div class="input-info">
 				<div class="input-info-div">
 					<div class="p-div">
@@ -23,7 +23,7 @@
 
 					<span>@</span>
 					<div class="input-div">
-						<input type="text" class="member-info email-input" id="email-input-select"> 
+						<input type="text" class="member-info email-input" id="email-input-select" name="memberEmail"> 
 						<select class="member-info" id="email-select">
 							<option value="0">직접입력</option>
 							<option value="1">naver.com</option>
@@ -36,34 +36,24 @@
 					<div class="input-div">
 						<button type="button" id="sendEmail">이메일인증</button>
 					</div>
-				</div>
-
-
-
-				<div class="input-info-div" id="email-checkNum">
-					<div class="p-div">
-						<p>인증번호</p>
-					</div>
-					<div class="input-div">
-						<input type="text" class="member-info" id="email-Authentication">
-					</div>
+					<p id="checkEmail"></p>
 				</div>
 
 
 				<div class="input-info-div" id="email-checkNum">
 					<div class="p-div">
 						<p>
-							인증번호<span> *</span>
+							인증번호
 						</p>
 					</div>
 					<div class="input-div">
 						<input type="number" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요." maxlength="12" required>
 					</div>
 					<div class="input-div">
-						<button type="button" id="check-email-Authentication">확인</button>
-						<input type="hidden" id="certificationYN" value="false">
-					</div>
-					<span id="check-email-Authentication"></span> <span id="timeCount"></span>
+	                    <button type="button" class="email-check-btn"  id="check-email-Authentication" >확인</button>
+	               		<input type="hidden" id="certificationYN" value="false">
+	                </div>   
+					<span id="timeCount"></span>
 					<span id="signUpEmailCheck"></span>
 				</div>
 
@@ -95,7 +85,7 @@
 
 
     <script> 
-    
+
     </script>
     
     <script src="${contextPath}/resources/js/member/searchPw.js"></script>

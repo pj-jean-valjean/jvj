@@ -21,9 +21,6 @@ public interface MemberService {
 	String authCodeMaker(String inputEmail);
 
 
-	
-	
-
 	/** 로그인
 	 * @param member
 	 * @return loginMember
@@ -31,19 +28,28 @@ public interface MemberService {
 	Member login(Member member);
 
 
+	/** 이메일 조회
+	 * @param map
+	 * @return
+	 */
+	String searchId(Map<String, String> map);
+
 	
-	/** 동일 이메일 조회
-	 * @param map
-	 * @return result
+	/** 비밀번호 변경 조회
+	 * @param member
+	 * @return
 	 */
-	int checkEmail(Map<String, String> map);
+	int pwCheck(Member member);
 
-	/** 이메일 찾기
-	 * @param map
-	 * @return result
+
+	/** 이메일 중복 검사
+	 * @param inputEmail
+	 * @return
 	 */
-	int searchEmail(Map<String, String> map);
+	int emailDupCheck(String memberEmail);
 
+
+	
 
 	
 
