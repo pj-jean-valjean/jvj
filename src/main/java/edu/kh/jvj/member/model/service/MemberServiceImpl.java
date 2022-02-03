@@ -49,6 +49,23 @@ public class MemberServiceImpl implements MemberService{
 		
 		return dao.searchId(memberName, memberPhone);
 	}
+
+	
+	// 로그인
+	@Override
+	public Member login(Member member) {
+		
+		String encPw = encoder.encode(member.getMemberPw());
+		
+		Member loginMember = dao.login(member.getMemberEmail());
+		
+		if(loginMember != null && encoder.matches(member.getMemberPw(), loginMember.getMemberPw())) {
+			loginMember.setMemberPw(null);
+		} else {
+			loginMember = null;
+		}
+		return loginMember;
+	}
 	
 
 	

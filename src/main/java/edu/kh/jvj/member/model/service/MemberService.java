@@ -28,6 +28,13 @@ public interface MemberService {
 	 * @return result
 	 */
 	int searchId(String memberName, String memberPhone);
+
+
+	/** 로그인
+	 * @param member
+	 * @return loginMember
+	 */
+	Member login(Member member);
 	
 
 	

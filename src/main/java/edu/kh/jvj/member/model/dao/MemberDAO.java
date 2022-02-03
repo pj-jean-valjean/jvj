@@ -39,6 +39,15 @@ public class MemberDAO {
 		return 0;
 	}
 
+
+	/** 로그인
+	 * @param memberEmail
+	 * @return loginMember
+	 */
+	public Member login(String memberEmail) {
+		return sqlSession.selectOne("memberMapper.login", memberEmail);
+	}
+
 //	/** 이메일 중복 검사
 //	 * @param inputEmail
 //	 * @param selectEmail
