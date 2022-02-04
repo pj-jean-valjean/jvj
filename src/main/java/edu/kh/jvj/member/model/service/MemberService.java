@@ -49,6 +49,13 @@ public interface MemberService {
 	int emailDupCheck(String memberEmail);
 
 
+	/** 비밀번호 찾기 - 비밀번호 변경
+	 * @param map
+	 * @return result
+	 */
+	int searchPwResult(Map<String, String> map);
+
+
 	
 
 	

@@ -18,12 +18,12 @@
 						<p>이메일</p>
 					</div>
 					<div class="input-div">
-						<input type="text" class="member-info email-input" name="memberEmail" id="email-input" autocomplete="off" maxlength="20" required>
+						<input type="text" class="member-info email-input" name="email" id="email-input" autocomplete="off" maxlength="20" required>
 					</div>
 
 					<span>@</span>
 					<div class="input-div">
-						<input type="text" class="member-info email-input" id="email-input-select" name="memberEmail"> 
+						<input type="text" class="member-info email-input"  name="email" id="email-input-select"> 
 						<select class="member-info" id="email-select">
 							<option value="0">직접입력</option>
 							<option value="1">naver.com</option>

@@ -15,21 +15,21 @@
         <form action="${contextPath}/member/searchPwResult" method="POST">
         <div class="input-info"><div class="input-info-div">
             <div class="p-div"><p>비밀번호</p></div>
-            <div class="input-div"><input type="password" class="member-info"  id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요"></div>
+            <div class="input-div"><input type="password" class="member-info"  id="newPw1" name="newPw1" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요"></div>
         	
-        	<span id="checkPwd1"></span>
+        	<span id="checkPw1"></span>
         </div>
         
         <div class="input-info-div">
             <div class="p-div"><p>비밀번호 확인</p></div>
-            <div class="input-div"><input type="password" class="member-info" id="pwd2" maxlength="12" placeholder="비밀번호 확인" required></div>
-        	<span id="checkPwd2"></span>
+            <div class="input-div"><input type="password" class="member-info" id="newPw2" name="newPw2" maxlength="12" placeholder="비밀번호 확인" required></div>
+        	<span id="checkPw2"></span>
         </div>
 
         </div>
             <div class="flex-div">
                 <div class="signUp-select-btn">
-                    <button type="submit" id="search-btn" onclick="updatePwValidate()">확인</button>
+                    <button type="submit" id="search-btn"  onclick="return updatePwValidate();">확인</button>
                 </div>
             </div>
             
@@ -46,32 +46,81 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
+
+//////////////////////
+
 //새 비밀번호 유효성 검사
 //- 영어 대/소문자, 숫자, 특수문자(!,@,#,-,_), 6~20글자
-document.getElementById("pwd1").addEventListener("input", (e) => {
+const updatePwResult = {
+	newPw1 : false,
+	newPw2 : false
+}
 
- const inputPw = e.target.value; 
+function updatePwValidate() {
 
- const regExp = /^[a-zA-Z\d\!\@\#\-\_]{6,20}$/; // 정규식
+	for( key  in updatePwResult ){
+	
+		if( !updatePwResult[key] ){
+			document.getElementById(key).style.backgroundcolor = "#F99C9C";
+			// 유효하지 않은 input 요소로 포커스 이동
+			document.getElementById(key).focus(); 
+			
+			return false;
+		
+		}
+	}
+		 
+}
 
- const checkPwd1 = document.getElementById("checkPwd1"); // 출력용
 
- if(inputPw.length == 0){ // 빈칸
-     checkPwd1.innerText = "";
-     signUpCheckObj.pwd1 = false;
- 
- }else if(regExp.test(inputPw)){ // 유효할 때
-     checkPwd1.innerText = "유효한 비밀번호 입니다.";
-     checkPwd1.style.color = "#9CC7F9";
-     signUpCheckObj.pwd1 = true;
+document.getElementById("newPw1").addEventListener("input", function(){
+	
+	 const inputPw = document.getElementById("newPw1").value; 
+	
+	 const regExp = /^[a-zA-Z\d\!\@\#\-\_]{6,20}$/; // 정규식
+	
+	 const checkPw1 = document.getElementById("checkPw1"); // 출력용
+	
+	 if( inputPw.trim().length == 0 ){ // 비밀번호 확인이 빈칸일 경우
+		 checkPw1.innerText = "";
+		 updatePwResult.newPw1 = false;
+	
+	 }else if(regExp.test(inputPw)){ // 유효할 때
+		 checkPw1.innerText = "유효한 비밀번호 입니다.";
+		 checkPw1.style.color = "#9CC7F9";
+		 updatePwResult.newPw1 = true;
+	
+	 }else{
+		 checkPw1.innerText = "유효하지 않은 비밀번호 입니다.";
+		 checkPw1.style.color = "#F99C9C";
+		 updatePwResult.newPw1 = false;
+	 }
+});
 
- }else{
-     checkPwd1.innerText = "유효하지 않은 비밀번호 입니다.";
-     checkPwd1.style.color = "#F99C9C";
-     signUpCheckObj.pwd1 = false;
- }
- 
-});	
+
+//비밀번호 확인 유효성 검사  == > pw1이랑 같은 값이면 유효
+$("#newPw2, #newPw1").on("input", function(){
+	
+	 const newPw1 = document.getElementById("newPw1").value;
+	 const newPw2 = document.getElementById("newPw2").value;
+	 const checkPw2 = document.getElementById("checkPw2"); // 출력용
+	
+	 if( newPw2.trim().length == 0 ){ // 비밀번호 확인이 빈칸일 경우
+		 checkPw2.innerText = "";
+		 updatePwResult.newPw2 = false;
+	
+	 }else if(newPw1 == newPw2){ // 유효한 경우
+		 checkPw2.innerText = "비밀번호가 일치합니다.";
+		 checkPw2.style.color = "#9CC7F9";
+		 updatePwResult.newPw2 = true;
+	
+	 }else { // 유효하지 않은 경우
+	 	checkPw2.innerText = "비밀번호가 일치하지 않습니다.";
+		 checkPw2.style.color = "#F99C9C";
+		 updatePwResult.newPw2 = false;
+	 }
+});
+	 
 </script>
 <script src="${contextPath}/resources/js/member/searchPw.js"></script>
     
