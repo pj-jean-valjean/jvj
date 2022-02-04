@@ -71,4 +71,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 
+
+	@Override
+	public List<Store> advantage() {
+		// TODO Auto-generated method stub
+		return dao.advantage();
+	}
+
+
 }

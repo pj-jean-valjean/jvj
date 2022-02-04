@@ -78,11 +78,16 @@ public class StoreController {
 	@GetMapping("info/{no}")
 	public String detailForward(Model model,@PathVariable("no") int no) {
 		
-		
+		// 스토어 상세조회
 		Store store = service.selectStoreDetail(no); 
+		// 스토어 상품 이미지 가져오기
 		List<Store> imgLevelList = service.storeImgSelect(no);
+		
+		// 추가옵션 상품 가져오기
+		List<Store> advantage = service.advantage();
+		System.out.println(advantage);
 		model.addAttribute("store",store);
-		System.out.println(imgLevelList);
+		model.addAttribute("advantage",advantage);
 		model.addAttribute("imgLevel", imgLevelList);
 		return "store/storeDetail";
 	}

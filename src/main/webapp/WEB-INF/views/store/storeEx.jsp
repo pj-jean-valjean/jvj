@@ -22,7 +22,7 @@
 			<div class="select">
 				<select name="format" id="format">
 					<option selected disabled>카테고리 선택</option>
-					<option value="0">세상 모든 빵</option>
+					<option value="0">전체</option>
 					<option <c:if test="${param.ct eq '1'}">selected</c:if> value="1">식빵</option>
 					<option <c:if test="${param.ct eq '2'}">selected</c:if> value="2">바게트</option>
 					<option <c:if test="${param.ct eq '3'}">selected</c:if> value="3">기타</option>
@@ -35,8 +35,15 @@
 				<li><a href="store?cp=1&ct=${param.ct}&op=1">낮은가격</a></li>
 				<li>|</li>
 				<li><a href="store?cp=1&ct=${param.ct}&op=2">높은가격</a></li>
+				<c:if test="${not empty loginMember }">
 				<li>|</li>
-				<li><a href="store?cp=1&ct=${param.ct}&op=3">인기상품</a></li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=3">찜한상품</a></li>
+				</c:if>
+				<c:if test ="${empty loginMember }">
+				<li>|</li>
+				<li><a href="member/login">찜한상품</a></li>
+				
+				</c:if>
 			</ul>
 		</div>
 		<div class="main-content">
