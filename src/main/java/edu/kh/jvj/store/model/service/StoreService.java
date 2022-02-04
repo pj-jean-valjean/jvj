@@ -20,4 +20,6 @@ public interface StoreService {
 
 	int doesntLikeit(Store store);
 
+	List<Store> advantage();
+
 }

@@ -68,4 +68,11 @@ public class StoreDAO {
 	}
 
 
+
+	public List<Store> advantage() {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("storeMapper.advantage");
+	}
+
+
 }
