@@ -5,7 +5,8 @@ const signUpCheckObj = {
     "nickname" : false,
     "name" : false,
     "phone3" : false,
-    "checkEmail" : false
+    "checkEmail" : false,
+    "signUpEmail" :false
 }
 
  // 회원 가입 버튼 클릭 시 유효성검사 판단 
@@ -25,6 +26,7 @@ function validate(){
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
             case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
             case "checkEmail" : message = "인증번호가 유효하지 않습니다."; break;
+            case "signUpEmail" : message = "인증시간이 지났습니다."; break;
             }
 
             alert(message);
@@ -155,11 +157,6 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 				alert("오류입니다.");
 			}
 		});
-		
-
-
-
-
     }
     
     
@@ -215,63 +212,78 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 
 
 // 이메일
-/*let flag = true;
-
-// 이메일 인증
-// 이메일 인증하기 버튼을 클릭했을때 db에 저장해서 
-// 인증 시간 -sysdate
-document.querySelector("#email-Authentication").addEventListener("input", () => {
-    let timeCount = document.querySelector("#timeCount");
-    
-    if (flag) {
-
-        flag = false;
-
-        if (signUpCheckObj.signUpEmail) {
-            document.querySelector("#signUpEmailCheck").removeAttribute("disabled");
-            $.ajax({
-                url: "sendEmail",
-                type: "GET",
-                data: { "signUpEmail": document.querySelector("#email-input").value }, // 파라미터
-
-                success(result){
-                    let timeCount = document.querySelector("#timeCount");
-
-                    let time = 600; // 10분
-                    let min = "";
-                    let sec = "";
-        
-                    let x = setInterval(() => {
-                        min = addZero(parseInt(time / 60));
-                        sec = addZero(time % 60);
-        
-                        timeCount.innerHTML = min + ":" + sec;
-                        time--;
-        
-                        if (time < 0) {
-                            clearInterval(x);
-                        }
-                    }, 1000);
-                }
-            });
-        } else {
-            const signUpEmailResult = document.querySelector("#signUpEmailResult");
-            //document.getElementById("signUpEmail").focus();
-            signUpEmailResult.innerHTML = "이메일을 입력해주세요";
-            signUpEmailResult.style.color = "red";
-        }
-    }
-});
+let flag = true;
 
 
-// 00:00 
-function addZero(time) {
-    if (Number(time) < 10) { // 한 자리인 경우
-        return "0" + time;
-    } else {
-        return time;
-    }
-}*/
+// 전역변수로 빼주고 clearInterval 수행해야함
+let isStop = false;
+let countInterval;
+
+// 인증번호 카운트다운
+function paddedFormat(num) {
+	return num < 10 ? "0" + num : num;
+}
+
+function startCountDown(duration, element) {
+
+	let secondsRemaining = duration;
+	let min = 0;
+	let sec = 0;
+
+	countInterval = setInterval(function() {
+
+		if (!isStop) { // isStop false
+
+			min = parseInt(secondsRemaining / 60);
+			sec = parseInt(secondsRemaining % 60);
+
+			element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
+
+			secondsRemaining = secondsRemaining - 1;
+			// 타이머가 만료되면
+			if (secondsRemaining < 0) {
+
+				clearInterval(countInterval);
+				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
+				$("#check-email-Authentication").attr("disabled", true); // 확인버튼 비활성화
+
+			};
+
+		} else { //
+			
+			clearInterval(countInterval);
+		}
+
+	}, 1000);
+}
+
+// 타이머 멈추기
+function stopTimer() {
+	isStop = true;
+	clearInterval(countInterval);
+}
+
+// 타이머 시작하기
+function startTimer() {
+	let time_minutes = 0; // Value in minutes
+	let time_seconds = 30; // Value in seconds
+
+	let duration = time_minutes * 60 + time_seconds;
+
+	element = document.querySelector('#count-down-timer'); 
+	element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+
+	isStop = false;
+
+	startCountDown(--duration, element);
+	
+	// 타이머 시작되면 활성화
+	$("#email-Authentication").attr("disabled", false);
+	$("#check-email-Authentication").attr("disabled", false);
+};
+
+
+
 
 
 
@@ -293,7 +305,7 @@ document.getElementById("pwd1").addEventListener("input", (e) => {
     
     }else if(regExp.test(inputPw)){ // 유효할 때
         checkPwd1.innerText = "유효한 비밀번호 입니다.";
-        checkPwd1.style.color = "#9CC7F9";
+        checkPwd1.style.color = "initial";
         signUpCheckObj.pwd1 = true;
 
     }else{
@@ -320,7 +332,7 @@ $("#pwd2, #pwd1").on("input", function(){
 
     }else if(pwd1 == pwd2){ // 유효한 경우
         checkPwd2.innerText = "비밀번호가 일치합니다.";
-        checkPwd2.style.color = "#9CC7F9";
+        checkPwd2.style.color = "initial";
         signUpCheckObj.pwd2 = true;
         
     }else { // 유효하지 않은 경우
@@ -345,7 +357,7 @@ $("#nickname").on("input", function(){
         signUpCheckObj.nickname = false;
 
     }else if(regExp.test(inputNickname)){ // 유효한 경우
-        $("#checkNickname").text("유효한 이름 입니다.").css("color", "#9CC7F9");
+        $("#checkNickname").text("유효한 이름 입니다.").css("color", "initial");
         
         signUpCheckObj.nickname = true;
 
@@ -370,7 +382,7 @@ $("#name").on("input", function(){
         signUpCheckObj.name = false;
 
     }else if(regExp.test(inputName)){ // 유효한 경우
-        $("#checkName").text("유효한 이름 입니다.").css("color", "#9CC7F9");
+        $("#checkName").text("유효한 이름 입니다.").css("color", "initial");
         
         signUpCheckObj.name = true;
 
@@ -407,7 +419,7 @@ $(".phone").on("input", function(){
     }else if(regExp2.test(inputPhone2) && regExp3.test(inputPhone3) ){ // 둘다 유효
 
         checkPhone.innerText = "유효한 전화번호 입니다.";
-        checkPhone.style.color = "#9CC7F9";
+        checkPhone.style.color = "initial";
         signUpCheckObj.phone3 = true;
 
     }else{ // 둘 중 하나라도 유효 X

@@ -196,26 +196,45 @@ public class MemberController {
    
    @RequestMapping(value = "searchPw", method = RequestMethod.POST)
    public String searchPw(String memberEmail,  Model model) {
+	  // 쿠키 설정 카운트는 쿠키에 설정해서 카운트다운
 	  
 	  model.addAttribute("memberEmail", memberEmail);
       return "member/searchPwResult";
    }
    
-   // 이메일과 변경할 비밀번호 두개의 값을 어떻게 가져가는가?
+   
+   // 이메일과 변경할 비밀번호
    @RequestMapping(value = "searchPwResult", method = RequestMethod.POST)
-   public String searchPwResult(String memberEmail , Model model) {
-      
-      // 비밀번호 업데이트
-	  // js로 값 넘어오는지 memberEmail에서 아이디만 넘어감
-	  
-	  // 쿠키 설정 카운트는 쿠키에 설정해서 카운트다운
-	  System.out.println(memberEmail);
-	  
-      return "member/login";
-   }
+   public String searchPwResult(
+		   String memberEmail, String newPw1, Model model) {
+	   	Map<String, String> map = new HashMap<String, String>();
+
+	   	map.put("memberEmail", memberEmail);
+	   	map.put("newPw1", newPw1);
+	   	
+	   	
+		// 비밀번호 업데이트
+		int result = service.searchPwResult(map);
+		
+		if(result > 0) {
+			Util.swalSetMessage("비밀번호가 변경되었습니다.", null, "success", model);
+		} else {
+			Util.swalSetMessage("비밀번호가 변경되지 않았습니다.", null, "error", model);
+		}
+		
+		return "member/login";
+	}
 
    
    
+   
+   // 카운트 다운
+   @ResponseBody
+   @RequestMapping("emailCountdown")
+   private int emailCountdown(HttpServletRequest request, String memberEmail) {
+	  
+	   return 0;
+   }
    
    // 인증번호 전송
    @ResponseBody

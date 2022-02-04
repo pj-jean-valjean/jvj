@@ -28,13 +28,17 @@
                     </select>
                 </div> 
                 <div class="input-div">
-                    <button type="button" class="email-check-btn" id="sendEmail" >이메일인증</button>
-                    
+                    <button type="button" class="email-check-btn" id="sendEmail" onclick="startTimer();">이메일인증</button>
+                    <span id="count-down-timer"></span>
                 </div>
             </div>
             <!-- 버튼 클릭 유효성 검사 확인 -->
 			<p id="checkEmail"></p>
 			
+			<div class="failMsg">
+             	<button type="button" class="btn auth-resend-btn" onclick="resendAuth();"></button>
+             	<span id="signUpEmailCheck"></span>
+            </div>
 			
            <div class="input-info-div" id="email-checkNum">
                 <div class="p-div"><p>인증번호<span> *</span></p></div>
@@ -46,8 +50,7 @@
                		<input type="hidden" id="certificationYN" value="false">
                 </div>   
                 	<span id="check-email-Authentication"></span>
-                	<span id="timeCount"></span>
-                	<span id="signUpEmailCheck"></span>
+                	
             </div>
           
 
