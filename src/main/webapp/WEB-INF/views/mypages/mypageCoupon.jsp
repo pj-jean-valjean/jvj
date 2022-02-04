@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>원데이 클래스 수강 신청 내역</title>
+<title>보유 쿠폰 내역</title>
 <jsp:include page="../common/header.jsp" />
  	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
  	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
@@ -29,7 +29,7 @@
     
       <article>
             <div class="selectDiv">
-                <span>현재 보유 중인 쿠폰입니다</span>
+                <span>쿠폰 보유 내역</span>
                 <select name="" id="selectOption">
                     <option value="">사용 가능</option>
                     <option value="">사용 완료</option>

@@ -49,7 +49,7 @@
                             <li> 댕식빵/댕댕식빵</li>
                             <li> 10,000,000</li>
                             <li>
-                                <button class="p-btn" id="btn-pur">바로 구매</button>
+                                <button class="p-btn" id="btn-pur" onclick="paymentResult()">바로 구매</button>
                                 <button class="p-btn" id="btn-cc">좋아요 삭제</button>
                             </li>
                         </ul>
