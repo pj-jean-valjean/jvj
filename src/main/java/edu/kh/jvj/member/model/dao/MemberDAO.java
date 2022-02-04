@@ -69,18 +69,18 @@ public class MemberDAO {
 	}
 
 
+	/** 비밀번호찾기 - 비밀번호 변경
+	 * @param map
+	 * @return result
+	 */
+	public int searchPwResult(Map<String, String> map) {
+		return sqlSession.update("memberMapper.searchPwResult", map);
+	}
+
+
 	
 
-//	/** 이메일 중복 검사
-//	 * @param inputEmail
-//	 * @param selectEmail
-//	 * @return result
-//	 */
-//	public int emailDupCheck(String inputEmail, String selectEmail) {
-//		return sqlSession.selectList("memberMapper.emailDupCheck", inputEmail,selectEmail);
-//	}
-//	
-	
+
 	
 	
 }
