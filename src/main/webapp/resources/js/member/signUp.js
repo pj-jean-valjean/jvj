@@ -5,8 +5,7 @@ const signUpCheckObj = {
     "nickname" : false,
     "name" : false,
     "phone3" : false,
-    "checkEmail" : false,
-    "signUpEmail" :false
+    "checkEmail" : false
 }
 
  // 회원 가입 버튼 클릭 시 유효성검사 판단 
@@ -26,7 +25,7 @@ function validate(){
             case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
             case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
             case "checkEmail" : message = "인증번호가 유효하지 않습니다."; break;
-            case "signUpEmail" : message = "인증시간이 지났습니다."; break;
+           
             }
 
             alert(message);
@@ -225,7 +224,11 @@ function paddedFormat(num) {
 }
 
 function startCountDown(duration, element) {
-
+	
+	// 타이머 시작되면 활성화
+	$("#email-Authentication").attr("disabled", false);
+	$("#check-email-Authentication").attr("disabled", false);
+	
 	let secondsRemaining = duration;
 	let min = 0;
 	let sec = 0;
@@ -265,8 +268,8 @@ function stopTimer() {
 
 // 타이머 시작하기
 function startTimer() {
-	let time_minutes = 0; // Value in minutes
-	let time_seconds = 30; // Value in seconds
+	let time_minutes = 1; // Value in minutes
+	let time_seconds = 59; // Value in seconds
 
 	let duration = time_minutes * 60 + time_seconds;
 
@@ -277,9 +280,7 @@ function startTimer() {
 
 	startCountDown(--duration, element);
 	
-	// 타이머 시작되면 활성화
-	$("#email-Authentication").attr("disabled", false);
-	$("#check-email-Authentication").attr("disabled", false);
+	
 };
 
 
