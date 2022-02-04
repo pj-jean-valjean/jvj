@@ -15,6 +15,7 @@
  	<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
  	<link rel="stylesheet" href="${contextPath}/resources/css/myPage/myPageMain.css/">
 </head>
+
 <body>
 	    <main>
          <div class="titleText">
@@ -37,7 +38,7 @@
         <article id="bottomCategory">
         <div class="category part1">
             <span>최근 주문내역</span>
-            <a>click</a>
+            <a href="purchase">click</a>
             <hr id="hr2"></hr>
             <table>
                 <tr>
@@ -48,7 +49,7 @@
         </div>
         <div class="category part2">
             <span>구독한 상품 내역</span>
-            <a>click</a>
+            <a href="sub">click</a>
             <hr id="hr2"></hr>
             <table>
                 <tr>
@@ -59,7 +60,7 @@
         </div>
         <div class="category part3">
             <span>클래스 수강 목록</span>
-            <a>click</a>
+            <a href="class">click</a>
             <hr id="hr2"></hr>
             <table>
                 <tr>
@@ -73,5 +74,7 @@
     </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
+	
+	
 </body>
 </html>

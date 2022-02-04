@@ -29,40 +29,72 @@ section{margin-top: 60px}
     border: 2px solid rgba(167, 138, 108, 1); 
     font-size: 13px; 
     color: rgba(109, 109, 109, 1);
+    
 }
 
-/* 이름, 전화번호 input */
+/* infor input */
 .inputLabel{
     display:inline-block; 
-    width: 120px; 
+    width: 180px; 
     line-height: 10px;
     font-size: 20px;
     font-weight: bold;
 }
-.inputeel{
+.inputStyle{
     height: 36px; 
+    width: 200px;
     border-radius: 10px; 
     border: 2px solid rgba(167, 138, 108, 1); 
-    font-size: 13px; 
     text-align: center;
     margin-bottom: 20px;
     padding: 0;
-}
-.nameInput{
-    width: 150px;
     font-weight: bold;
+    font-size: 15px;
 }
 .phoneInput{
     margin-bottom: 20px;
     width: 200px;
     font-weight: bold;
 }
+.phoneNum{
+    height: 36px;
+    width: 80px;
+    border-radius: 10px; 
+    border: 2px solid rgba(167, 138, 108, 1); 
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 0;
+
+}
+.phoneOpt{
+    height: 39px;
+}
+.phoneNum>option{
+    text-align: center;
+}
+
+.userInfo>p{
+	display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.userInfo>p:first-child{
+	width: 185px;
+}
+
 
 
 
 /* 주소 input */
 .addIb{
-    margin-left: 126px;
+    margin-left: 186px;
+    width: 380px; 
+    display: block; 
+    padding: 0;
+    padding-left: 10px;
 }
 #addInput>p{
     font-size: 20px;
@@ -74,32 +106,24 @@ section{margin-top: 60px}
     margin-top: 10px;
 }
 .addInput1{
-    width: 150px; 
+    width: 140px; 
     margin-bottom: 15px; 
     display: block; 
     float: left; 
     margin-right: 10px;
-    margin-left: 86px;
+    margin-left: 146px;
     padding: 0; 
+    padding-left: 10px;
 }
 .addInput2{
-    width: 480px;  
     margin-bottom: 15px;
     float: left;
     display: flex; 
     flex-direction: column; 
     justify-content: center;
-    padding: 0;
 }
-.addInput3{
-    width: 480px; 
-    display: block; 
-    padding: 0;
-}
-.addInput3::placeholder{
-    font-size: 13px; 
-    color: rgba(109, 109, 109, 1);
-}
+
+
 
 .addBtn{ 
     width: 100px; 
@@ -151,7 +175,7 @@ input[id="cbInput"]{
 }
 
 .chkInput{
-    margin-left: 126px;
+    margin-left: 186px;
 }
 .chkInput>div{
     display: inline-block;
@@ -161,6 +185,3 @@ input[id="cbInput"]{
     margin-left: 35px;
 }
 
-#btnDiv>input{
-	font-size:18px;
-}
