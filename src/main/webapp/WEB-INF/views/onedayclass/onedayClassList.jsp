@@ -23,29 +23,30 @@
     <section>
         <article>
             <div id="pathline"><a href="">HOME</a>&gt;<a href="">원데이 클래스</a></div>
-            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<span id="placespan">[클래스 진행 지점] 부천점, 금천점, 남양주점, 창동점, 마포점</span></h1>
+            <h1 id="classpname" style="font-size: 35px;">원데이 클래스<span id="placespan">[클래스 진행 지점] 마포점, 부천점, 금천점, 남양주점, 창동점</span></h1>
             <div id="align-div">
-                <button onclick="calmodal()" class='opencal'><i class="far fa-calendar-alt"></i>날짜별 정렬</button>
-                <i class="fas fa-map-marker-alt"></i>
-                <select id='selectplace'>
-                    <option>지점별 정렬</option>
-                    <option>부천점</option>
-                    <option>금천점</option>
-                    <option>남양주점</option>
-                    <option>창동점</option>
-                    <option>마포점</option>
+                <i class="far fa-calendar-alt"></i><button onclick="calmodal()" class='opencal'>날짜별 정렬</button>
+                <i class="fas fa-map-marker-alt" >&nbsp;</i>
+                <select id='selectplace' name='selectplace'>
+                    <option value='0'>지점별 정렬</option>
+                    <option value='1'>마포점</option>
+                    <option value='2'>부천점</option>
+                    <option value='3'>금천점</option>
+                    <option value='4'>남양주점</option>
+                    <option value='5'>창동점</option>
                 </select>
+                <span id="resetsearch"><i class="fas fa-undo-alt"></i></span>
             </div>
             <div id="infinitebox">
-			
+				
             </div><!-- infinite -->
         </article>
         <article class="cal">
             <div class="calendar">
                 <div class="calhead">
-                <button class="month-control" onclick="prev()"><<<</button>
+                <button class="month-control" onclick="prev()">&lt;&lt;&lt;</button>
                 <span id="today-month"></span>
-                <button class="month-control" onclick="next()">>>></button>
+                <button class="month-control" onclick="next()">&gt;&gt;&gt;</button>
                 <button id="allcal" onclick="showAllDay()">전체날짜</button>
                 <button id="closecal">닫기</button>
                 </div>
@@ -66,11 +67,19 @@
                 </table>
             </div>
             </article>
-
+		<article class="loadingshow">
+			<div class="loadingtext">
+				<img alt="로딩이미지" src="${contextPath}/resources/images/onedayclassList/loadingIMG.gif">
+				<h1>클래스 목록을 불러오는 중입니다...</h1>
+			</div>
+		</article>
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
-	<script>const contextPath = "${contextPath}"</script>
+	<script>
+		const contextPath = "${contextPath}"
+		const loginNo = "${loginMember.memberNo}"
+	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classList.js"></script>
 </body>
 </html>

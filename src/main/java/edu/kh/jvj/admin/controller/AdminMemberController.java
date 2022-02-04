@@ -1,15 +1,33 @@
 package edu.kh.jvj.admin.controller;
 
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import edu.kh.jvj.admin.model.service.AdminService;
+import edu.kh.jvj.admin.model.vo.Admin;
 
 @Controller
 @RequestMapping
+@SessionAttributes("Admin")
 public class AdminMemberController {
+	private final AdminService service;
+	@Autowired
+	public AdminMemberController(AdminService service) {
+		this.service = service;
+	}
+	
 	//로그인 페이지
 	@GetMapping("admin/login")
 	public String AdmingLogin() {
@@ -17,18 +35,48 @@ public class AdminMemberController {
 	}
 	//로그인 일치시 관리자페이지 메인 이동
 	@PostMapping("admin/board/main")
-	public String AdmingLoginProcess(
-			String adminId, String adminPw,
+	public String AdmingLoginProcess( 
+			@ModelAttribute Admin admin, HttpServletRequest req, HttpServletResponse resp,
 			RedirectAttributes ra, Model model
 			) {
-		String path = "";
-		if(adminId.equals("admin")&&adminPw.equals("admin1234")) {
-			path =  "admin/adminMain";
-		}
-		else{
-			path = "redirect:/admin/login";
-			ra.addFlashAttribute("message", "아이디 비밀번호를 확인해주세요!");
-		}
+			String path = "";
+			
+			Admin checkedAdmin = service.findMatchAdmin(admin);
+			
+			if(checkedAdmin!=null) {
+				checkedAdmin.setAdminId(admin.getAdminId());
+				model.addAttribute("Admin", checkedAdmin);
+				path = "admin/adminMain";
+				
+				Cookie cookie = new Cookie("saveId" , admin.getAdminId());
+				if(admin.getSaveId()!=null) {
+					//아이디 저장 체크 시
+					cookie.setMaxAge(60*60*24*30);
+				}
+				else {
+					cookie.setMaxAge(0);
+				}
+				cookie.setPath(req.getContextPath());
+				resp.addCookie(cookie);
+			}
+			else {
+				ra.addFlashAttribute("message", "일치하는 정보가 없습니다!");
+				path = "redirect:/admin/login";
+			}
+			/*
+			 * if(result>0) { path = "admin/adminMain"; } else {
+			 * 
+			 * }
+			 */
+			/* path = "redirect:/admin/login"; */
 		return path;
+	}
+	// router 새로고침 처리 
+	@GetMapping("admin/board/route/*")
+	public String refresh(@ModelAttribute Admin admin) {
+		if(admin==null) {
+			return "redirect:/admin/login";
+		}
+		else return "admin/adminMain";
 	}
 }

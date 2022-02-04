@@ -2,13 +2,23 @@
     let pagination = 0;
     const tempDate = new Date();
     let getType = 'total';
+    let place ='0';
+    let dateplace = false;
     let selectdate ='';
+    //스크롤 추가 공간 = infinitebox
+    const infinitebox = document.getElementById("infinitebox");
     let lastpage = false;
+    let oneTime = false; // 일회성 보장 변수
+    let first = true;
     window.onload = function(){
-        calmodal();
-        //스크롤함수 실행
-        addClassLine();
         classScroll();
+    }
+    calmodal();
+    function loading(){
+        document.querySelector(".loadingshow").style.display = "block";
+    }
+    function loadingEnd(){
+        document.querySelector(".loadingshow").style.display = "none";
     }
     //달력모달 동작
     function calmodal(){
@@ -115,14 +125,15 @@
                 let showday = ""+count;
                 if(count<10){showday = '0'+showday}
                 const yymmdd = document.querySelector("#today-month").innerText +"-" +showday;
-                console.log(yymmdd);
                 selectdate=yymmdd;
                 getType='date';
                 document.querySelector(".cal").style.display = "none";
                 infinitebox.innerHTML ="";
                 pagination = 0;
                 lastpage = false;
-                addClassLine();
+                document.querySelector(".opencal").innerText=yymmdd;
+                first = true;
+                classScroll()
             })
         }
         //이전달btn
@@ -139,52 +150,95 @@
             monthday.innerHTML = "";
             displaycal(); 
         }
+        //전체날짜 보기
         function showAllDay(){
-            getType = 'total';
+            if(place=='0') getType = 'total';
+            else getType = 'place';
+            selectdate ='';
             pagination = 0;
             document.querySelector('#closecal').click();
             infinitebox.innerHTML ="";
             lastpage = false;
-            addClassLine();
+            document.querySelector(".opencal").innerText="날짜별 정렬";
+            first = true;
+            classScroll();
         }
+
+        //지점별 보기
+        document.querySelector("select[name='selectplace']").addEventListener("change",function(){
+            place= this.value;
+            if(place=='0'&&selectdate=='')getType='total';
+            else if(place=='0') getType='date';
+            else getType='place';
+            pagination =0;
+            infinitebox.innerHTML ="";
+            lastpage = false;
+            first = true;
+            classScroll();
+        })
+        //초기화
+        document.getElementById("resetsearch").addEventListener("click",function(){
+            console.log("done");
+            getType='total';
+            document.querySelector(".opencal").innerText="날짜별 정렬";
+            document.querySelector("#selectplace").value="0";
+            selectdate ='';
+            place='0'
+            pagination = 0;
+            lastpage=false;
+            infinitebox.innerHTML ="";
+            first = true;
+            classScroll();
+        })
+
         /* 무한스크롤 구현 */
-        //모든 내용을 감싼 공간 = infinitebox
-        const infinitebox = document.getElementById("infinitebox");
 
 
         function classScroll(){
             const screenHeight = screen.height;/* 화면크기 */
 
-            let oneTime = false; // 일회성 보장 변수
-
+            if(first&& !oneTime){
+                oneTime = true;
+                first =false;
+                addClassLine();//컨텐츠 추가 발동
+            }//맨처음 실행
+            
             document.addEventListener('scroll',OnScroll,{passive:true}) // 스크롤 이벤트함수정의
 
             function OnScroll () { //스크롤 이벤트 함수
+            
             const fullHeight = infinitebox.clientHeight; // infinite 클래스의 높이   , 스크롤 이벤트 안에서 정의해야 추가된 높이가 다시 계산된다
             const scrollPosition = scrollY; // 스크롤 위치
-                if (fullHeight-screenHeight*1/4 <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이1/4가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
-                    oneTime = true; // oneTime 변수를 true로 변경해주고,
-                    if(!lastpage){
+                    if (fullHeight-screenHeight*1/4 <= scrollPosition && !oneTime && !lastpage && !first) { // 만약 전체높이-화면높이1/4가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
+                        oneTime = true; // oneTime 변수를 true로 변경해주고,
                         addClassLine();//컨텐츠 추가 발동
                     }
-                    setTimeout(function() {
-                        classScroll();
-                    }, 500);
-                }
+
+            }
+
+        }
+        function checkzero(){
+            if(document.getElementsByClassName("newOneclassInfo").length==0){
+                const info = document.createElement("h1");
+                info.className = "noclass";
+                info.innerText="현재 수강 가능한 클래스가 존재하지 않습니다."
+                infinitebox.append(info);
             }
         }
         const KoreanDay = ['일','월', '화','수','목','금','토'];
         //컨텐츠 추가함수
         function addClassLine(){
             ++pagination;//페이지네이션 증가
-            
+            if(selectdate!='' && place!='0'){
+                getType = 'dateAndplace';
+            }
             //**자바스크립트방식 ajax**
             const reqJson = {
                 "getType" : getType,
+                "place" : place,
                 "pagination" : pagination,
                 "selectdate" :selectdate
             }
-            const url = "list";
             let httpRequest = new XMLHttpRequest();
             //통신에 사용될 XMLHttpRequest 객체 정의
 
@@ -193,21 +247,20 @@
                 if(httpRequest.readyState === XMLHttpRequest.DONE){
                     //readyState가 Done이고 응답값이 200이면
                     if(httpRequest.status ===200){
-                        console.log("추가 정보 불러오기 성공")
+                        console.log("호출됨");
                         var classList = httpRequest.response;
-                        console.log(classList);
-                        if(classList.length ==0){
-                            if(!lastpage){
-                                console.log("더이상 수강 가능한 클래스가 없습니다!");
+                            if(classList.length==0 ){
+                                lastpage = true;
+                                oneTime = false;
+                                checkzero();
+                                return;
+                            }
+                            else if(classList.length<8){
                                 lastpage = true;
                             }
-                            return;
-                        }
-                        else{
                             //ONEBOX = 8EA
                             const onebox = document.createElement("div");
                             onebox.className = "newOneLine";
-
                             for(oneclass of classList){
                                 const oneNewClass =  document.createElement("div");
                                 oneNewClass.className = "newOneclassInfo";
@@ -223,10 +276,10 @@
                                 const time = document.createElement("span");
                                 time.innerText=oneclass.classtime;
                                 newDate.append(date,time);
-
+                                
                                 /* 클래스 info */
                                 const atag = document.createElement("a");
-                                atag.href = "view"; 
+                                atag.href = "view/"+(""+oneclass.productNo); 
                                 
                                     const thumb = document.createElement("img");
                                     thumb.src = contextPath+ oneclass.imgPathName;
@@ -263,9 +316,10 @@
                                 oneNewClass.append(newDate,newClassInfo);
                                 onebox.append(oneNewClass);
                             }
-
                             infinitebox.append(onebox);
-                        }
+                            classScroll();
+                            oneTime = false;
+                            loadingEnd();
                     }
                     else{
                         alert("문제 발생!");

@@ -15,20 +15,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
+			<c:if test="${ !empty cookie.saveId.value  }">
+				<c:set var="chk" value="checked" />
+			</c:if>
     <div id="admin-wraaper">
         <div id="adminlogin-box">
             <h1 class="prjName">Jean Val Jean </h1>
             <h1 class="admin-title">관리자 로그인</h1>
             <form action="${contextPath}/admin/board/main" method="POST" onsubmit="return validate()">
                 <div class="login-one-line">
-                    <label for="adminId">아이디</label><input type="text" name="adminId" id="adminId" class="admin-input">
+                    <label for="adminId">아이디</label><input type="text" name="adminId" id="adminId" class="admin-input" value="${cookie.saveId.value}">
                 </div>
                 <div class="login-one-line">
                     <label for="adminPw">비밀번호</label><input type="password" name="adminPw" id="adminPw" class="admin-input">
                 </div>
                 <div class="login-one-line loginbtn">
+                	<label>아이디 저장<input type="checkbox" name="saveId" ${chk}></label>
                     <button>로그인</button>
-                    <button>취소</button>
+                    <button type="reset">취소</button>
                 </div>
             </form>
         </div>

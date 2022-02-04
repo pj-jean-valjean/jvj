@@ -4,11 +4,11 @@ import java.util.List;
 
 public class OnedayClass {
 	//PROCUT_NO
-	private int classNo;
+	private int productNo;
 	
 	//PRODUCT_NM
 	private String title;
-	
+		
 	//PRODUCT_PRICE
 	private int price;
 	
@@ -40,21 +40,23 @@ public class OnedayClass {
 	
 	//LIKECOUNT
 	private int likecount;
-	
+	//LIKEDONE
+	private int likedone;
 	//PRODUCT_IMG_PATH
 	private String imgPathName;
 	
 	//RATING_AVG
 	private double ratingAgv;
 	
+	//이미지
 	private List<ProductImage> classImgList;
-
-	public int getClassNo() {
-		return classNo;
+	
+	public int getProductNo() {
+		return productNo;
 	}
 
-	public void setClassNo(int classNo) {
-		this.classNo = classNo;
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 
 	public String getTitle() {
@@ -188,15 +190,34 @@ public class OnedayClass {
 	public int getProductCd() {
 		return productCd;
 	}
+	
+	public int getLikedone() {
+		return likedone;
+	}
+
+	public void setLikedone(int likedone) {
+		this.likedone = likedone;
+	}
 
 	@Override
 	public String toString() {
-		return "OnedayClass [classNo=" + classNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
-				+ ", productCd=" + productCd + ", classDt=" + classDt + ", classMaxPpl=" + classMaxPpl
+		return "OnedayClass [productNo=" + productNo + ", title=" + title + ", price=" + price + ", createDt="
+				+ createDt + ", productCd=" + productCd + ", classDt=" + classDt + ", classMaxPpl=" + classMaxPpl
 				+ ", classStatusCd=" + classStatusCd + ", classtime=" + classtime + ", placeCd=" + placeCd
 				+ ", contents=" + contents + ", classStatusName=" + classStatusName + ", placeName=" + placeName
-				+ ", placeAddr=" + placeAddr + ", likecount=" + likecount + ", imgPathName=" + imgPathName
-				+ ", ratingAgv=" + ratingAgv + ", classImgList=" + classImgList + "]";
+				+ ", placeAddr=" + placeAddr + ", likecount=" + likecount + ", likedone=" + likedone + ", imgPathName="
+				+ imgPathName + ", ratingAgv=" + ratingAgv + ", classImgList=" + classImgList + ", getProductNo()="
+				+ getProductNo() + ", getTitle()=" + getTitle() + ", getPrice()=" + getPrice() + ", getCreateDt()="
+				+ getCreateDt() + ", getClassDt()=" + getClassDt() + ", getClassMaxPpl()=" + getClassMaxPpl()
+				+ ", getClassStatusCd()=" + getClassStatusCd() + ", getClasstime()=" + getClasstime()
+				+ ", getPlaceCd()=" + getPlaceCd() + ", getContents()=" + getContents() + ", getClassStatusName()="
+				+ getClassStatusName() + ", getPlaceName()=" + getPlaceName() + ", getPlaceAddr()=" + getPlaceAddr()
+				+ ", getLikecount()=" + getLikecount() + ", getImgPathName()=" + getImgPathName() + ", getRatingAgv()="
+				+ getRatingAgv() + ", getClassImgList()=" + getClassImgList() + ", getProductCd()=" + getProductCd()
+				+ ", getLikedone()=" + getLikedone() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
+	
+	
 	
 }

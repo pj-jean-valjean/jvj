@@ -36,6 +36,10 @@
             font-weight: bold;
             font-size: 25px;
         }
+        #adminlogin-box > form > div:nth-child(3) > label{
+            padding-left: 0px;
+            font-size: 20px;
+        }
         .login-one-line > input{
             width: 350px;
             height: 30px;

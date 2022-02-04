@@ -353,9 +353,11 @@ main{
     transition: 0.3s;
 }
 
-.submit-btn{
+.submit-btn,.detail-contents>ul>li:hover{
     color: white;
     background-color: #A78A6C;
+    transition: 0.3s;
+    cursor:pointer;
 }
 .submit-btn:hover {
     background-color: #ceb498;

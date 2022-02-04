@@ -36,12 +36,10 @@
         }
         #align-div{
             text-align: right;
+            margin-top: 60px;
+            margin-bottom: 30px;
         }
-        #align-div>span{
-            display: inline-block;
-            width: 120px;
-            text-align: center;
-        }
+
         #placespan{
             display: block;
             font-size: 15px;
@@ -57,12 +55,20 @@
         #align-div>button:hover{
             cursor: pointer;
         }
-        #align-div>button:first-of-type{
+        #align-div>button:first-of-type,#align-div>select{
             border-right: 1px solid black;
         }
-
-        
-
+        #align-div>select{
+            padding-right: 15px;
+        }
+        .fa-undo-alt{
+            padding-left: 15px;
+            font-size: 20px;
+        }
+        #align-div>button:first-of-type:hover,#align-div>select:hover, .fa-undo-alt:hover{
+            color: #A78A6C;
+            cursor: pointer;
+        }
         /* 클래스정보 라인 */
         .newOneLine{
             width: 100%;
@@ -146,9 +152,13 @@
             margin: 0px 5px 0px 5px;
         }
 
-
+        .noclass{
+            text-align: center;
+            font-size: 25px;
+            margin: 30px 0px 30px 0px;
+        }
         /* 달력 모달 */
-        .cal ,.place{ 
+        .cal ,.loadingshow{ 
             position: absolute; 
             top: 0; left: 0; 
             width: 100%; height: 2000px; 
@@ -156,10 +166,29 @@
             background-color: rgba(0, 0, 0, 0.6); 
             z-index: 2;
         }
+        .loadingshow{
+            display: block;
+        }
         .calendar{
             position: absolute; 
             top: 30%; right: calc( 50% - 250px ); 
             background-color: white;
+        }
+        .loadingtext{
+            position: absolute; 
+            top: 25%; right: calc( 50% - 150px ); 
+            background-color: white;
+        }
+        .loadingtext>img{
+            display: block;
+            width: 300px;
+            height: 300px;
+        }
+        .loadingtext>h1{
+            width: 300px;
+            color: #A78A6C;
+            font-size: 20px;
+            text-align: center;
         }
         .calhead,.placehead{
             margin-bottom: 30px;

@@ -9,6 +9,8 @@
 			<typeAlias alias="store" type="edu.kh.jvj.store.model.vo.Store" />
 			<typeAlias alias="Member" type="edu.kh.jvj.member.model.vo.Member" />
 			<typeAlias alias="Coupon" type="edu.kh.jvj.mypage.model.vo.Coupon" />
+
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mappers/classlist-mapper.xml" />
@@ -16,5 +18,9 @@
 		<mapper resource="/mappers/store-mapper.xml" />
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
+
+
 	</mappers>
+	
+	
 </configuration>

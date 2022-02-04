@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Search;
 import edu.kh.jvj.store.model.vo.Store;
 
 @Repository
@@ -16,7 +17,7 @@ public class StoreDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public List<Store> selectStoreList(Pagination pagination) {
+	public List<Store> selectStoreList(Pagination pagination, Search search) {
 		
 		//offset : 몇행을 건너 뛸것인지
 		//limit 건너뛴 위치부터 몇행을 조회할지
@@ -24,15 +25,47 @@ public class StoreDAO {
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset,limit);
 		
-		
-		return mybatis.selectList("storeMapper.selectStoreList",null,rowBounds);
+			return mybatis.selectList("storeMapper.selectStoreList",search,rowBounds);			
+	
 	}
 	
 	
 	
-	public int getListCount() {
+	public int getListCount(Search search) {
 		
-		return mybatis.selectOne("storeMapper.getListCount");
+		return mybatis.selectOne("storeMapper.getListCount",search);
 	}
+
+
+
+	public Store selectStoreDetail(int no) {
+		
+		
+		return mybatis.selectOne("storeMapper.selectStoreDetail",no);
+		
+		
+	}
+
+
+
+	public List<Store> storeImgSelect(int no) {
+		
+		return mybatis.selectList("storeMapper.storeImgSelect",no);
+	}
+
+
+
+	public int likeit(Store store) {
+	
+		return mybatis.insert("storeMapper.likeit",store);
+	}
+
+
+
+	public int doesntLikeit(Store store) {
+		// TODO Auto-generated method stub
+		return mybatis.delete("storeMapper.doesntLikeit",store);
+	}
+
 
 }

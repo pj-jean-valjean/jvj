@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	 <resultMap type="Member" id="member_rm">
+	 	<id property="memberNo" column="MEMBER_NO"/>
+	 	
+	 	<result property="memberEmail" 			column="MEMBER_EMAIL"/>
+	 	<result property="memberPw" 			column="MEMBER_PW"/>
+	 	<result property="memberNickname" 		column="MEMBER_NICKNAME"/>
+	 	<result property="memberName" 			column="MEMBER_NAME"/>
+	 	<result property="memberPhone" 			column="MEMBER_PHONE"/>
+	 	<result property="memberAddress" 		column="MEMBER_ADDR"/>
+	 	<result property="enrollDate" 			column="ENROLL_DT"/>
+	 	<result property="statusCode" 			column="STATUS_CD"/>
+	 	<result property="gradeCode" 			column="GRADE_CD"/>
+	 </resultMap>
+
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="Member">	
+		INSERT INTO MEMBER 
+		VALUES( SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberName},
+		#{memberPhone}, #{memberAddress}, DEFAULT, 1, DEFAULT)
+	</insert>
+	
+	
+	<!-- 로그인 -->
+	<select id="login" resultMap="member_rm">
+		SELECT * FROM MEMBER WHERE MEMBER_EMAIL = #{MEMBER_EMAIL} AND STATUS_CD = 1 AND GRADE_CD = 100
+	</select>
+	
+	<!-- 아이디찾기 -->
+	<select id="searchId" resultType="string" >
+		SELECT MEMBER_EMAIL FROM MEMBER WHERE MEMBER_NAME = #{memberName} AND MEMBER_PHONE = #{memberPhone} AND STATUS_CD = 1 AND GRADE_CD = 100
+	</select>
+	
+	<!-- 이메일 중복 검사 -->
+	<select id="emailDupCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND STATUS_CD = 1
+	</select>
+	
+	
+	
+	
+</mapper>

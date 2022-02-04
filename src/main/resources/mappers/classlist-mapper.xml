@@ -2,24 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="classListMapper">
 	
-	<resultMap type="onedayclass" id="onedayclass_id">
-		<id property="classNo" column="PRODUCT_NO"></id>
+	<resultMap type="onedayclass" id="onedayclass_list">
+		<id property="productNo" column="PRODUCT_NO"></id>
 		<result property="title" column="PRODUCT_NM"></result>
 		<result property="price" column="PRODUCT_PRICE"></result>
 		<result property="createDt" column="CREATE_DT"></result>
 		<result property="classDt" column="CLASS_DT"></result>
-		<result property="classMaxPpl" column="CLASS_MAX_PPL"></result>
 		<result property="classStatusCd" column="CLASS_STATUS_CD"></result>
 		<result property="placeCd" column="PLACE_CODE"></result>
-		<result property="contents" column="CLASS_EXP"></result>
 		<result property="classStatusName" column="CLASS_STATUS_NM"></result>
 		<result property="classtime" column="CLASS_TIME"></result>
 		<result property="placeName" column="PLACE_NM"></result>
-		<result property="placeAddr" column="PLACE_ADDR"></result>
 		<result property="likecount" column="LIKECOUNT"></result>
 		<result property="imgPathName" column="PRODUCT_IMG_PATH"></result>
 	</resultMap>
-	<select id="scrollListAdd" resultMap="onedayclass_id">
+	
+	<resultMap type="onedayclass" id="onedayclass_detail">
+		<id property="productNo" column="PRODUCT_NO" />
+		<result property="title" column="PRODUCT_NM" />
+		<result property="price" column="PRODUCT_PRICE" />
+		<result property="classDt" column="CLASS_DT" />
+		<result property="classMaxPpl" column="CLASS_MAX_PPL" />
+		<result property="placeCd" column="PLACE_CODE" />
+		<result property="contents" column="CLASS_EXP" />
+		<result property="classtime" column="CLASS_TIME" />
+		<result property="placeName" column="PLACE_NM" />
+		<result property="placeAddr" column="PLACE_ADDR" />
+		<collection property="classImgList" column="PRODUCT_NO"
+				javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
+				 select="selectProductImageList" />
+	</resultMap>
+	<resultMap type="edu.kh.jvj.onedayclass.model.vo.ProductImage" id="productImg_rm">
+		<id property="productImgNo" column="PRODUCT_IMG_NO" />
+		<result property="productImgPath" column="PRODUCT_IMG_PATH" />
+		<result property="productImgName" column="PRODUCT_IMG_NAME" />
+		<result property="productImgLevel" column="PRODUCT_IMG_LEVEL" />
+		<result property="productNo" column="PRODUCT_NO" />
+	</resultMap>
+	
+	<select id="selectProductImageList" resultMap="productImg_rm">
+		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
+		ORDER BY PRODUCT_IMG_LEVEL 
+	</select>
+	
+	<select id="scrollListAdd" resultMap="onedayclass_list">
 		SELECT (SELECT COUNT (*) FROM "LIKE" WHERE PRODUCT_NO = RSSET.PRODUCT_NO) LIKECOUNT,
 		RSSET.*
 		FROM(
@@ -36,14 +62,41 @@
 		WHERE CLASS_DT &gt;= SYSDATE
 		  <if test="getType == 'date'">
 			AND TO_CHAR(CDE.CLASS_DT, 'YYYY-MM-DD') =  #{selectdate}
-			AND PRODUCT_IMG_LEVEL =0) RSSET 
-		  </if>
-		  <if test="getType == 'total'">
-			AND PRODUCT_IMG_LEVEL =0) RSSET 
 		  </if>
 		  <if test="getType == 'place'">
-			AND PRODUCT_IMG_LEVEL =0) RSSET 
+			<if test="place != '0'">
+				AND PLACE_CODE = #{place}
+			</if>
 		  </if>
+  		  <if test="getType == 'dateAndplace'">
+				AND TO_CHAR(CDE.CLASS_DT, 'YYYY-MM-DD') =  #{selectdate}
+				AND PLACE_CODE = #{place}
+		  </if>
+		  AND PRODUCT_IMG_LEVEL =0) RSSET 
+		  ORDER BY CLASS_DT
 	</select>	
-	
+	<select id="selectOneClass" resultMap="onedayclass_detail">
+		SELECT 
+		PRODUCT_NO, PRODUCT_NM , PRODUCT_PRICE, PLACE_CODE , PLACE_NM, PLACE_ADDR ,
+		TO_CHAR(CLASS_DT, 'YYYY-MM-DD') CLASS_DT , CLASS_TIME , CLASS_MAX_PPL
+		FROM PRODUCT
+		JOIN CLASS_DETAIL USING (PRODUCT_NO)
+		JOIN CLASS_PLACE USING (PLACE_CODE)
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<insert id="likeclass">
+		INSERT INTO "LIKE" VALUES(
+			#{productNo}, #{loginNo}
+		)
+	</insert>
+	<delete id="undolike">
+		DELETE FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginNo}
+	</delete>
+	<select id="likecheck" resultType="_int">
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginNo}
+	</select>
 </mapper>

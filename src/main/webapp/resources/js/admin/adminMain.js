@@ -1,31 +1,43 @@
 const contentbox = document.getElementById("adminPCont");
 
-     //네비게이션 함수
+        //check 변수
         let writingcheck = false;
         let selectMonth = 0;
-        let filecheck = [0 , 0 , 0 , 0 , 0];
-        let discountset = false;
+        let commonWriteCheckObj={};
+        let nomalChekcObj={};
+        let subsCheckObj={};
+        let filecheck=[0 , 0 , 0 , 0 , 0];
+        let discountset=false;
+        let classCheckObj={};
 
-        //게시글 input check
-        const commonWriteCheckObj = {
-            "title" : false,
-            "price" : false,
-            "images" : false
+        //게시글 input check 변수 initial
+        function validateVarInitial(){
+            commonWriteCheckObj = {
+                "title" : false,
+                "price" : false,
+                "images" : false
+            }
+            nomalChekcObj = {
+                "stock" : false,
+                "detailcontents" : false,
+                "discountyn" : false
+            } 
+            subsCheckObj = {
+            }
+            classCheckObj = {
+                "people" : false,
+                "classtime":false,
+                "classdate" : false
+            } 
+            filecheck = [0 , 0 , 0 , 0 , 0];
+            discountset = false;
+            selectMonth = 0;
+            writingcheck = false;
         }
-        const nomalChekcObj = {
-            "stock" : false,
-            "discountyn" : false
-        } 
-        const subsCheckObj = {
-        }
-        const classCheckObj = {
-            "people" : false,
-            "classtime":false,
-            "classdate" : false
-        } 
+
         //게시글 validation
         function validate(options){
-            for( key  in commonWriteCheckObj ){
+            for( key  in commonWriteCheckObj){
                 if( !commonWriteCheckObj[key] ){
                     let message;
                     switch(key){
@@ -45,6 +57,7 @@ const contentbox = document.getElementById("adminPCont");
                         let message;
                         switch(key){
                             case "stock" : message = "재고를 입력해주세요"; break;
+                            case "detailcontents" : message = "상세설명을 입력해주세요"; break;
                             case "discountyn" : message = "할인여부를 입력해주세요"; break;
                         }
                         alert(message);
@@ -52,7 +65,7 @@ const contentbox = document.getElementById("adminPCont");
                         return false;
                     }}
                     if(discountset){
-                        return validatediscountnum();}break;
+                        return validatediscountnum();} break;
                 case 2 : 
                 for( key  in subsCheckObj ){
                     if( !subsCheckObj[key] ){
@@ -87,32 +100,9 @@ const contentbox = document.getElementById("adminPCont");
             return true;
         }
 
-        //게시글 작성1 -공지사항 등록
-        $(".adminWriter")[0].addEventListener("click",function(){
-            noticeboardWriter('공지사항 등록');
-        });
-        //게시글 작성2 -일반 상품 등록
-        $(".adminWriter")[1].addEventListener("click",function(){
-            commonWriter('일반 상품 등록');
-            makeNormalPWritePage();});
-        //게시글 작성3 -구독 상품 등록
-        $(".adminWriter")[2].addEventListener("click",function(){
-            commonWriter('구독 상품 등록');
-            makeSubscribePWritePage();});
-        //게시글 작성4 -클래스 상품 등록
-        $(".adminWriter")[3].addEventListener("click",function(){
-            commonWriter('클래스 상품 등록');
-            makeClassPWritePage();});
-        //글관리1- 후기 관리
-        $(".modifyArticle")[0].addEventListener("click",reviewManage);
-        //글관리2- 공지사항 관리
-        $(".modifyArticle")[1].addEventListener("click",modifyWrite);
-        //상품 관리1 
-        $(".manageP")[0].addEventListener("click",modifyProduct);
-        //상품 관리2 상품 옵션 관리
-        /* $(".manageP")[1].addEventListener("click",);  */
+        
         //관리자계정 추가
-        $(".one-admin-func")[4].addEventListener("click",addManagerId);
+        /* $(".one-admin-func")[4].addEventListener("click",addManagerId); */
         //7- 원데이클래스 회원 정보
         //$(".one-admin-func")[6].addEventListener("click",onedayClassMember);
 
@@ -120,6 +110,7 @@ const contentbox = document.getElementById("adminPCont");
         //카테고리 / 제목 / 내용
         function noticeboardWriter(writename){
             //초기화
+            validateVarInitial();
             contentbox.innerHTML="";
             //폼태그
             const adminwriteform = document.createElement("form")
@@ -183,10 +174,10 @@ const contentbox = document.getElementById("adminPCont");
             //할인 프로모션
             const discountPromotion = document.createElement("div");
             discountPromotion.className= "oneLine discountLine";
-            discountPromotion.setAttribute("id", "discountYN");
+            discountPromotion.setAttribute("id", "discountyn");
             discountPromotion.innerHTML="<label class='labels'>할인 Y/N</label>"+
-            "<label class='labels'>할인 없음<input type='radio' name='discountYN' value='none'></label>"+
-            "<label class='labels'>할인 추가<input type='radio' name='discountYN' value='yes'></label>";
+            "<label class='labels'>할인 없음<input type='radio' name='discountyn' value='none'></label>"+
+            "<label class='labels'>할인 추가<input type='radio' name='discountyn' value='yes'></label>";
 
             //썸머노트
             const div4 = document.createElement("div");
@@ -211,17 +202,20 @@ const contentbox = document.getElementById("adminPCont");
             showImg();
             //할인 선택함수 실행
             discountPlus();
-            nomalChekcObj.stock =false;
-            filecheck = [0 , 0 , 0 , 0 , 0];
 
             document.querySelector("input[name='stock']").addEventListener("input", function(){
                 if(this.value.trim().length>0) nomalChekcObj.stock = true;
                 else  nomalChekcObj.stock = false;
             })
+            document.querySelector("input[name='detailcontents']").addEventListener("input", function(){
+                if(this.value.trim().length>0) nomalChekcObj.detailcontents = true;
+                else  nomalChekcObj.detailcontents = false;
+            })
+
         }
         //할인추가 function
         function discountPlus(){
-            const discountcheck = document.querySelectorAll("input[name='discountYN']");
+            const discountcheck = document.querySelectorAll("input[name='discountyn']");
                 for(btn of discountcheck){
                     btn.addEventListener("change", function(){
                         if(this.value == 'yes'){
@@ -249,18 +243,32 @@ const contentbox = document.getElementById("adminPCont");
                 }
         }
         //-----------------------------------------------------------------//
+        //당일선택
         function todayshow(){
             const date= new Date();
-            const today = ""+date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate(); 
+            let month = (date.getMonth()+1)>10?  (date.getMonth()+1) : '0'+(date.getMonth()+1);
+            let day = date.getDate()>10?  date.getDate() : '0'+date.getDate();
+            const today = ""+date.getFullYear() + "-" + month + "-" + day; 
             $("input[name='discountStart']").val(today);        
         }
+
+
         function validatediscountnum(){
-            const startday = document.querySelector("input[name='discountStart']");
+            const startday = document.querySelector("input[name='discountStart']").value;
 
-            const endday = document.querySelector("input[name='discountEnd']")
+            const endday = document.querySelector("input[name='discountEnd']").value;
 
-            document.querySelector("input[name='discountPer']")
-            return true;
+            const percent =document.querySelector("input[name='discountPer']").value;
+            console.log(new Date(startday));
+            console.log(new Date(endday));
+            console.log(new Date(startday)>new Date(endday));
+            
+            if(startday.length!=0 && endday.length!=0 && percent.length!=0) {
+                if(new Date(startday)>new Date(endday)){ alert("할인 기간을 확인해주세요!"); return false;}
+                else return true;
+            }
+            else { alert("할인 정보를 입력해주세요! ");return false;}
+            
         }
         //4-3. 구독 상품 게시글 작성
         //사진 1장 / 제목 / 빵 or 커피  / 가격 / 식빵 종류 
@@ -277,26 +285,29 @@ const contentbox = document.getElementById("adminPCont");
             "<label class='labels'>식빵세트 <input type='radio' name='breadCoffee' value='bread'></label>"+
             "<label class='labels'>식빵&커피 세트 <input type='radio' name='breadCoffee' value='coffee'></label>";
 
+            const subsoption = document.createElement("div");
+            subsoption.className= "oneLine";
+            subsoption.innerHTML="<label class='labels'>구독 옵션</label>"+
+            "<input type='text' name='inputsubsoption' class='options'><button type='button' class='addBreadType subsN'>구독 옵션 추가</button>";
             const div6 = document.createElement("div");
             div6.className= "oneLine";
             div6.innerHTML="<label class='labels'>빵 종류</label>"+
-            "<input type='text' class='input-smallcate'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
+            "<input type='text' name='inputbread' class='options'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
             const div7 = document.createElement("div");
             div7.className= "oneLine";
             div7.innerHTML="<label class='labels'>맛 종류</label>"+
-            "<input type='text' class='input-taste'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
+            "<input type='text' name='inputtaste' class='options'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
             const writecate = document.createElement("input");
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "2");
-            $("#writerForm").append(div5,div6,div7,div4,subcanBTN(),writecate);
+            $("#writerForm").append(div5,subsoption,div6,div7,div4,subcanBTN(),writecate);
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
             addE();
             addTaste();
-            filecheck = [0 , 0 , 0 , 0 , 0];
         }
         //-----------------------------------------------------------------//
         //용량추가
@@ -306,14 +317,64 @@ const contentbox = document.getElementById("adminPCont");
                     const addcoffee = document.createElement("div");
                     addcoffee.setAttribute("class", "oneLine addCoffee");
                     addcoffee.innerHTML="<label class='labels'>커피 용량</label>"+
-                    "<input type='text' class='input-smallcate'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
-                    $("#uppercate").next().next().after(addcoffee);
-                    addTaste();
+                    "<input type='text' name='inputcoffeeoption' class='options'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
+                    $("#uppercate").next().next().next().after(addcoffee);
+
+                    document.querySelector(".coffeeN").addEventListener("click",function(){
+                        const input = this.previousElementSibling;
+                        if(input.value.trim().length>0){
+                            const optiontags = document.createElement("span");
+                            optiontags.className="coffee-type tagspan";
+                            optiontags.innerText = input.value;
+                            optiontags.style.cursor= "pointer";
+                            optiontags.addEventListener("click", function(){
+                                if(confirm("삭제하시겠습니까?")){
+                                    this.remove();
+                                }
+                            })
+                            this.parentElement.append(optiontags);
+                            input.value="";
+                        }
+                    });
+
+                    const addtags = document.querySelectorAll(".addCoffee > .tagspan");
+                    for(let i =0 ; i<addtags.length ; i++){
+                        addtags[i].addEventListener("click", function(){
+                            if(confirm("삭제하시겠습니까?")){
+                                this.remove();
+                            }
+                        })
+                    }
                 }
                 else{
                     $(".addCoffee").remove();
                 }
             })
+        }
+        //커피용량 빵종류 맛종류 추가 func
+        function addTaste(){
+            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
+            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
+                addSubsOptionBtn[i].addEventListener("click", function(){
+                    const input = addSubsOptionBtn[i].previousElementSibling;
+                    if(input.value.trim().length>0){
+                        const optiontags = document.createElement("span");
+                        if(i==0)  optiontags.className="subs-type tagspan";
+                        else if(i==1) optiontags.className = "bread-type tagspan";
+                        else if(i==2) optiontags.className = "taste-type tagspan";
+                        optiontags.innerText = input.value;
+                        optiontags.style.cursor= "pointer";
+                        optiontags.addEventListener("click", function(){
+                            if(confirm("삭제하시겠습니까?")){
+                                this.remove();
+                            }
+                        })
+                        addSubsOptionBtn[i].parentElement.append(optiontags);
+                        input.value="";
+                        const addtags = document.querySelectorAll(".tagspan");
+                    }
+                })
+            }
         }
         //4-4.클래스 상품 
         //사진 1장 / 제목 / 가격 / 지점 / 가능수강일 /  
@@ -368,9 +429,6 @@ const contentbox = document.getElementById("adminPCont");
             calmodal();
             //시작시간 make
             makehourminute();
-            classCheckObj.people = false;
-            classCheckObj.classdate = false;
-            filecheck = [0 , 0 , 0 , 0 , 0];
             document.querySelector("input[name='people']").addEventListener("input", function(){
                 if(this.value.trim().length>0) classCheckObj.people = true;
                 else  classCheckObj.people = false;
@@ -400,6 +458,7 @@ const contentbox = document.getElementById("adminPCont");
         //4 게시글작성 common  일반 + 구독 + 클래스 공통부분
         function commonWriter(writename){
             //초기화
+            validateVarInitial();
             contentbox.innerHTML="";
             //폼태그
             const adminwriteform = document.createElement("form")
@@ -413,13 +472,12 @@ const contentbox = document.getElementById("adminPCont");
             //제목
             const title = document.createElement("div");
             title.setAttribute("class", "oneLine");
-            title.innerHTML="<label class='labels'>제목</label><input type='text' name='title'>";
+            title.innerHTML="<label class='labels'>상품명</label><input type='text' name='title'>";
 
             //가격
             const price = document.createElement("div");
             price.setAttribute("class", "oneLine");
             price.innerHTML="<label class='labels'>가격</label><input type='number' name='price'><span class='won'>원</span>";
-
 
             const div3 = document.createElement("div");
             div3.setAttribute("class", "oneLine imgline");
@@ -434,10 +492,6 @@ const contentbox = document.getElementById("adminPCont");
             contentbox.append(adminwriteform);
             //게시글 input check
 
-
-            commonWriteCheckObj.title = false; 
-            commonWriteCheckObj.price = false;
-            commonWriteCheckObj.images = false; 
             document.querySelector("input[name='title']").addEventListener("input", function(){
                 if(this.value.trim().length>0) commonWriteCheckObj.title = true;
                 else  commonWriteCheckObj.title = false;
@@ -474,37 +528,40 @@ const contentbox = document.getElementById("adminPCont");
             return div5;
         }
         //-----------------------------------------------------------------//
-        
-        //5. 후기 관리
-        function reviewManage(){
+        //게시글 5 추가옵션상품
+        function optionProductWrite(){
+            //초기화
+            validateVarInitial();
             contentbox.innerHTML="";
-             //이름
+            //폼태그
+            const adminwriteform = document.createElement("form")
+            adminwriteform.setAttribute("id","writerForm");
+            adminwriteform.setAttribute("method","POST");
+            //이름
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"리뷰 관리"+"</h2>"
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine search-review");
-            searchDiv.innerHTML="<select>"+
-            "<option>All</option>"+
-            "<option>일반 상품 별</option>"+
-            "<option>구독 상품 별</option>"+
-            "<option>클래스 상품 별</option>"+
-            "<option>아이디 별</option>"+
-            "<input type='text'><button class='opencal'>검색</button>";
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>글 번호</span>"+
-                "<span class='oneMemberInfo'>상품명</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo notice-title'>후기 내용</span>"+
-                "<span class='oneMemberInfo'>블라인드 여부</span>"+
-                "<span class='oneMemberInfo'>후기 처리</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
+            funcName.innerHTML="<h2>추가 옵션 상품 등록<br>(스토어 상품)</h2>"
+            //제목
+            const title = document.createElement("div");
+            title.setAttribute("class", "oneLine");
+            title.innerHTML="<label class='labels'>상품명</label><input type='text' name='title'>";
+            
+            //가격
+            const price = document.createElement("div");
+            price.setAttribute("class", "oneLine");
+            price.innerHTML="<label class='labels'>가격</label><input type='number' name='price'><span class='won'>원</span>";
+            const writecate = document.createElement("input");
+            writecate.setAttribute("type", "hidden");
+            writecate.setAttribute("name", "writecate");
+            writecate.setAttribute("value", "4");
+
+            //버튼
+            const div5 = document.createElement("div");
+            div5.setAttribute("class", "oneLine write-btns");
+            div5.innerHTML= '<span><button type="button" onclick="addOptionProduct()" class="admin-write-btn opencal">제출</button><button class="admin-write-btn opencal" type="reset">취소</button></span>'
+            adminwriteform.append(funcName,title,price,writecate,div5);
+            contentbox.append(adminwriteform);
         }
-        //-----------------------------------------------------------------//
         
         //6. 관리자 계정 추가
         function addManagerId(){
@@ -539,40 +596,7 @@ const contentbox = document.getElementById("adminPCont");
         }
         //-----------------------------------------------------------------//
         
-        //8. 공지사항 관리
-        function modifyWrite(){
-            contentbox.innerHTML="";
-             //이름
-            const funcName = document.createElement("div");
-            funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"공지사항 관리"+"</h2>"
-
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine search-review");
-            searchDiv.innerHTML="<select>"+
-            "<option>All</option>"+
-            "<option>공지사항</option>"+
-            "<option>프로모션</option>"+
-            "<option>이벤트</option>"+
-            "<input type='text'><button class='opencal'>검색</button>";
-            
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>글 번호</span>"+
-                "<span class='oneMemberInfo'>카테고리</span>"+
-                "<span class='oneMemberInfo notice-title'>제목</span>"+
-                "<span class='oneMemberInfo'>처리</span>"+
-            "</li>"+
-            "<li class='oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>1</span>"+
-                "<span class='oneMemberInfo'>공지사항</span>"+
-                "<span class='oneMemberInfo notice-title'>공지사항입니다.</span>"+
-                "<span class='oneMemberInfo'>처리</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
-        }
+        
 
         //9. 상품 관리
         function modifyProduct(){
@@ -665,7 +689,7 @@ const contentbox = document.getElementById("adminPCont");
             data = new FormData();
             data.append("file", file);
             $.ajax({
-                url : "summernoteImage",
+                url : contextPath+"/admin/board/summernoteImage",
                 data : data,
                 type : "POST",
                 dataType : 'JSON',
@@ -765,7 +789,7 @@ const contentbox = document.getElementById("adminPCont");
                     $("#closecal").click();
                 })
             };
-    }
+        }
         //다음달btn
         const prev = function(){
             selectMonth=selectMonth - 1;
@@ -812,34 +836,7 @@ const contentbox = document.getElementById("adminPCont");
                 }
             })
         }
-        //커피용량 빵종류 맛종류 추가 func
-        function addTaste(){
-            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
-            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
-                addSubsOptionBtn[i].addEventListener("click", function(){
-                    const input = addSubsOptionBtn[i].previousElementSibling;
-                    if(input.value.trim().length>0){
-                        const span = document.createElement("span");
-                        if(i==0)span.className="bread-type tagspan";
-                        else if(i==1) span.className = "taste-type tagspan";
-                        else span.className="coffee-type tagspan";
-                        span.innerText = "#"+input.value;
-                        span.style.cursor= "pointer";
-                        addSubsOptionBtn[i].parentElement.append(span);
-                        input.value="";
-                        const tags = document.querySelectorAll(".tagspan");
-                        for(let i =0 ; i<tags.length ; i++){
-                            tags[i].addEventListener("click", function(){
-                                if(confirm("삭제하시겠습니까?")){
-                                    this.remove();
-                                }
-                            })
-                        }
-                    }
-                    
-                })
-            }
-        }
+        
         function makehourminute(){
             for(let i = 9 ; i< 21 ; i++){
                 const option = document.createElement("option")
@@ -863,30 +860,44 @@ const contentbox = document.getElementById("adminPCont");
             }
 
         }
-
-
         function submitProduct(){
-            const form = $("#writerForm");
-            const formData = new FormData(form[0]);
             const cate = document.querySelector("input[name='writecate']").value;
-            console.log(111);
             if(!validate(parseInt(cate))){
                 return;
             };
-            console.log(111);
+
+            const form = $("#writerForm");
+            const formData = new FormData(form[0]);
             $.ajax({
-                url : "productWrite",
+                url : contextPath+"/admin/board/productWrite",
                 type : "POST",
                 data : formData,
                 contentType: false,
                 processData: false,
                 cache: false,
                 success : function(result){
-                    alert(result);
-
-
-                    commonWriter('클래스 상품 등록');
-                    makeClassPWritePage();
+                    alert("등록 성공!");
+                    
+                    let url = "";
+                    switch(cate){
+                        case '1' : 
+                        commonWriter('일반 상품 등록');
+                        makeNormalPWritePage(); 
+/*                      url = contextPath + '/onedayclass/view/' + result;
+                        window.open(url, '등록일반상품', ''+result); */
+                        break;
+                        case '2' : 
+                        commonWriter('구독 상품 등록');
+                        makeSubscribePWritePage(); break;
+                        case '3' : 
+                        commonWriter('클래스 상품 등록');
+                        makeClassPWritePage(); 
+                        url = contextPath + '/onedayclass/view/' + result;
+                        window.open(url, '등록클래스상품', ''+result);
+                        break;
+                    }
+                    
+                    
                 },
                 error: function(result){
                     alert(result);
@@ -903,7 +914,7 @@ const contentbox = document.getElementById("adminPCont");
             const form = $("#writerForm"); 
             const formData = new FormData(form[0]);
             $.ajax({
-                url : "noticeWrite",
+                url : contextPath+"/admin/board/noticeWrite",
                 type : "POST",
                 data : formData,
                 contentType: false,
@@ -920,3 +931,37 @@ const contentbox = document.getElementById("adminPCont");
             })
         }
         
+        function addOptionProduct(){
+
+            const title = document.querySelector("input[name='title']").value;
+            const price = document.querySelector("input[name='price']").value;
+            const writecate = document.querySelector("input[name='writecate']").value;
+            if(title.trim().length==0){
+                alert("상품명을 입력해주세요!");
+                document.querySelector("input[name='title']").focus();
+                return;
+            }
+            if(price.trim().length==0){
+                alert("가격을 입력해주세요!");
+                document.querySelector("input[name='price']").focus();
+                return;
+            }
+            $.ajax({
+                url : contextPath+"/admin/board/addOptionProduct",
+                data : {
+                    "title" : title,
+                    "price" : price,
+                    "writecate" : writecate
+                },
+                type : "POST",
+                success : function(result){
+                    alert("등록 성공!");
+                    document.querySelector("input[name='title']").value = "";
+                    document.querySelector("input[name='price']").value = "";
+                },
+                error: function(result){
+                    alert("오류 발생");
+                }
+            })
+        }
+

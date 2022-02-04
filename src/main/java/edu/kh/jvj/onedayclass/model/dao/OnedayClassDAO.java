@@ -36,6 +36,22 @@ public class OnedayClassDAO {
 		
 		return sqlSession.selectList("classListMapper.scrollListAdd",pagination,rowBounds);
 	}
+
+	public OnedayClass selectOneClass(Map<String, Integer> map) {
+		return sqlSession.selectOne("classListMapper.selectOneClass", map);
+	}
+
+	public int likeclass(Map<String, Integer> map) {
+		return sqlSession.insert("classListMapper.likeclass", map);
+	}
+
+	public int undolike(Map<String, Integer> map) {
+		return sqlSession.delete("classListMapper.undolike", map);
+	}
+
+	public int likecheck(Map<String, Integer> map) {
+		return sqlSession.selectOne("classListMapper.likecheck", map);
+	}
 	
 	
 	

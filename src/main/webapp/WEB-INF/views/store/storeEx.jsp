@@ -22,99 +22,112 @@
 			<div class="select">
 				<select name="format" id="format">
 					<option selected disabled>카테고리 선택</option>
-					<option value="sick">식빵</option>
-					<option value="baget">바게트</option>
-					<option value="etc">기타</option>
+					<option value="0">세상 모든 빵</option>
+					<option <c:if test="${param.ct eq '1'}">selected</c:if> value="1">식빵</option>
+					<option <c:if test="${param.ct eq '2'}">selected</c:if> value="2">바게트</option>
+					<option <c:if test="${param.ct eq '3'}">selected</c:if> value="3">기타</option>
 				</select>
 			</div>
 			<ul class="main-category">
-				<li style="color: #f58c8c;">신상품</li>
+				<li style="color: #f58c8c;"><a
+					href="store?cp=1&ct=${param.ct}&op=0">신상품</a></li>
 				<li>|</li>
-				<li>낮은가격</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=1">낮은가격</a></li>
 				<li>|</li>
-				<li>높은가격</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=2">높은가격</a></li>
 				<li>|</li>
-				<li>인기상품</li>
+				<li><a href="store?cp=1&ct=${param.ct}&op=3">인기상품</a></li>
 			</ul>
 		</div>
 		<div class="main-content">
 
 
-			<%-- 
-			<c:forEach var="pdt" items="product">
+
+			<c:forEach var="pdt" items="${store}" varStatus="i">
+
 				<div class="pdt-box">
 					<div class="outer brand-new">
-						<div class="pdt-img"></div>
+						<div class="pdt-img"
+							style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
+						<input type="hidden" value="${pdt.storeNo}" name="storeNo">
 					</div>
-					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.title}</div>
+					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
 					<div class="heart-btn">
-						<div class="content">
-							<div class="heart"></div>
+						<div
+							class="content <c:if test="${pdt.likeit  > 0}">heart-active</c:if>">
+							<div
+								class="heart <c:if test="${pdt.likeit > 0}">heart-active</c:if>"></div>
 						</div>
 
 					</div>
-					
-					<div style="font-size: 20px; margin-top: 5px;">${pdt.price}원</div>
+
+					<span class="pricewon"
+						style="font-size: 20px; margin-top: 5px;<c:if test="${pdt.discountPer ne 0}">text-decoration:line-through;</c:if>">
+						${pdt.price} </span>
+					<c:if test="${pdt.discountPer ne 0}">
+						<span class="pricewon"
+							style="font-size: 24px; margin: 5px 0 0 10px; color: #00b992;">${pdt.price * (100-pdt.discountPer)/100}원</span>
+					</c:if>
 					<div style="font-size: 16px; margin-top: 15px;">${pdt.memo}</div>
-		
-						<c:if test="${ pdt.amount  eq 0}">
-							<div class="pdt-label label-sold">품절</div>
-						</c:if>
-						
-						<c:if test="">
-							<div class="pdt-label label-new">NEW</div>
-						</c:if>
-						
-						<c:if test="">
-							<div class="pdt-label label-best">BEST</div>
-						</c:if>
 
-						<c:if test="${ pdt.discount ne 0}">
-							<div class="pdt-label label-sale">SALE</div>
-						</c:if>
-					</div>
+					<c:if test="${ pdt.stock  eq 0}">
+						<div class="pdt-label label-sold">품절</div>
+					</c:if>
+
+					<c:if test="${param.cp eq 1 && i.first && param.op eq 0}">
+
+						<div class="pdt-label label-new">NEW</div>
+
+					</c:if>
+
+					<c:if test="">
+						<div class="pdt-label label-best">BEST</div>
+					</c:if>
+
+					<c:if test="${ pdt.discountPer ne 0}">
+						<div class="pdt-label label-sale">SALE</div>
+					</c:if>
+				</div>
 			</c:forEach>
---%>
-
-			<div class="pdt-box">
-				<div class="outer">
-					<div class="pdt-img"></div>
-				</div>
-				<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">호빵맛
-					식빵</div>
-				<div class="heart-btn">
-					<div class="content">
-						<div class="heart"></div>
-					</div>
-
-				</div>
-				<div style="font-size: 20px; margin-top: 5px;">9,500원</div>
-				<div style="font-size: 16px; margin-top: 15px;">호빵맛이 나는 식빵이다.</div>
-
-				<div class="pdt-label label-sold">품절</div>
-				<div class="pdt-label label-sale">SALE</div>
-				<div class="pdt-label label-new">NEW</div>
-				<div class="pdt-label label-best">BEST</div>
-			</div>
 
 
 		</div>
 	</div>
 	<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link"
+				href="store?cp=1&ct=${search.ct}&op=${param.op}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=${pagination.prevPage}&ct=${search.ct}&op=${param.op}">&lt;</a></li>
+		</c:if>
 
-		<li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
-		<li><a class="page-link"
-			style="padding: 6px 11px; border-radius: 20px; background-color: #B9845A; color: white;">1</a></li>
-		<li><a class="page-link" style="" href="list?cp=${i}${s}">2</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
-		<li><a class="page-link"
-			href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin: 5px"
+						href="store?cp=${i}&ct=${search.ct}&op=${param.op}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link"
+				href="store?cp=${pagination.nextPage}&ct=${search.ct}&op=${param.op}">&gt;</a></li>
+			<li><a class="page-link"
+				href="store?cp=${pagination.maxPage }&ct=${search.ct}&op=${param.op}">&gt;&gt;</a></li>
+		</c:if>
 	</ul>
 	<!-- main-wrapper end-->
 </body>
+<script>
+	const contextPath = '${contextPath}';
+	const loginMember = '${loginMember.memberNo}';
+</script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/store/store.js"></script>
 <jsp:include page="../common/footer.jsp" />

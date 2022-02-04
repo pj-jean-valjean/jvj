@@ -1,6 +1,5 @@
 package edu.kh.jvj.admin.model.vo;
 
-
 public class ProductWrite {
 	//공통 product
 	private int productNo;
@@ -12,7 +11,7 @@ public class ProductWrite {
 	//일반스토어
 	private int stock;
 	private int storecate;
-	private String discountYN;
+	private String discountyn;
 	private String discountStart;
 	private String discountEnd;
 	private double discountPer;
@@ -57,6 +56,48 @@ public class ProductWrite {
 	}
 	public void setWritecate(int writecate) {
 		this.writecate = writecate;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public int getStorecate() {
+		return storecate;
+	}
+	public void setStorecate(int storecate) {
+		this.storecate = storecate;
+	}
+	public String getDiscountyn() {
+		return discountyn;
+	}
+	public void setDiscountyn(String discountyn) {
+		this.discountyn = discountyn;
+	}
+	public String getDiscountStart() {
+		return discountStart;
+	}
+	public void setDiscountStart(String discountStart) {
+		this.discountStart = discountStart;
+	}
+	public String getDiscountEnd() {
+		return discountEnd;
+	}
+	public void setDiscountEnd(String discountEnd) {
+		this.discountEnd = discountEnd;
+	}
+	public double getDiscountPer() {
+		return discountPer;
+	}
+	public void setDiscountPer(double discountPer) {
+		this.discountPer = discountPer;
+	}
+	public String getDetailcontents() {
+		return detailcontents;
+	}
+	public void setDetailcontents(String detailcontents) {
+		this.detailcontents = detailcontents;
 	}
 	public int getPlace() {
 		return place;
@@ -106,53 +147,11 @@ public class ProductWrite {
 	public void setStartEndTime(String startEndTime) {
 		this.startEndTime = startEndTime;
 	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-	public int getStorecate() {
-		return storecate;
-	}
-	public void setStorecate(int storecate) {
-		this.storecate = storecate;
-	}
-	public String getDiscountStart() {
-		return discountStart;
-	}
-	public void setDiscountStart(String discountStart) {
-		this.discountStart = discountStart;
-	}
-	public String getDiscountEnd() {
-		return discountEnd;
-	}
-	public void setDiscountEnd(String discountEnd) {
-		this.discountEnd = discountEnd;
-	}
-	public double getDiscountPer() {
-		return discountPer;
-	}
-	public void setDiscountPer(double discountPer) {
-		this.discountPer = discountPer;
-	}
-	public String getDetailcontents() {
-		return detailcontents;
-	}
-	public void setDetailcontents(String detailcontents) {
-		this.detailcontents = detailcontents;
-	}
-	public String getDiscountYN() {
-		return discountYN;
-	}
-	public void setDiscountYN(String discountYN) {
-		this.discountYN = discountYN;
-	}
 	@Override
 	public String toString() {
 		return "ProductWrite [productNo=" + productNo + ", title=" + title + ", price=" + price + ", editordata="
 				+ editordata + ", writecate=" + writecate + ", stock=" + stock + ", storecate=" + storecate
-				+ ", discountYN=" + discountYN + ", discountStart=" + discountStart + ", discountEnd=" + discountEnd
+				+ ", discountyn=" + discountyn + ", discountStart=" + discountStart + ", discountEnd=" + discountEnd
 				+ ", discountPer=" + discountPer + ", detailcontents=" + detailcontents + ", place=" + place
 				+ ", people=" + people + ", classdate=" + classdate + ", starthour=" + starthour + ", startminute="
 				+ startminute + ", endhour=" + endhour + ", endminute=" + endminute + ", startEndTime=" + startEndTime

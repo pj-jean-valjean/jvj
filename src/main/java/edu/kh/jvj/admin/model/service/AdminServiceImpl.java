@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.jvj.admin.model.dao.AdminDAO;
+import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.SearchedMember;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -39,20 +41,19 @@ public class AdminServiceImpl implements AdminService{
 		}
 		//2-1 일반스토어 
 		if(product.getWritecate()==1) {
+			product.setDetailcontents(XSS(product.getDetailcontents()));
 			result = dao.insertStoreProduct(product); 
-			result = dao.insertStoreDiscount(product); 
-		}
-		//2-2 구독스토어
-		else if(product.getWritecate()==2) {
-			
+			if(product.getDiscountyn().equals("yes")) {
+				result = dao.insertStoreDiscount(product); 
+			}
 		}
 		//2-3 클래스 페이지
 		else {
 			String plustime="";
-			plustime += (product.getStarthour()==9? "0"+product.getStarthour():product.getStarthour())+": "
-					  + product.getStartminute()+ " ~ " 
-					 + (product.getEndhour()==9? "0"+product.getEndhour():product.getEndhour())+": "
-					  + product.getEndminute();
+			plustime += (product.getStarthour()<=9? "0"+product.getStarthour():product.getStarthour())+": "
+					+(product.getStartminute()==0? "0"+product.getStartminute():product.getStartminute())+ " ~ " 
+					 + (product.getEndhour()<=9? "0"+product.getEndhour():product.getEndhour())+": "
+					 +(product.getEndminute()==0? "0"+product.getEndminute():product.getEndminute());
 			product.setStartEndTime(plustime);
 			//수업시간 설정
 			product.setClassdate(product.getClassdate());
@@ -123,7 +124,8 @@ public class AdminServiceImpl implements AdminService{
 
 	// 공지사항 작성
 	@Override
-	public int insertNotice(String title, String noticecate, String editordata, int loginMember) {
+	@Transactional(rollbackFor = Exception.class)
+	public int insertNotice(String title, String noticecate, String editordata, int loginAdmin) {
 		
 		title= XSS(title);
 		Map<String, String> noticeMap = new HashMap<String, String>();
@@ -131,10 +133,31 @@ public class AdminServiceImpl implements AdminService{
 		noticeMap.put("title", title);
 		noticeMap.put("noticecate", noticecate);
 		noticeMap.put("editordata", editordata);
-		noticeMap.put("loginMember", loginMember+"");
+		noticeMap.put("loginMember", loginAdmin+"");
 		
 		 return dao.insertNotice(noticeMap); 
 	}
+	
+	// 관리자 로그인 ID PW 확인
+	@Override
+	public Admin findMatchAdmin(Admin admin) {
+		return dao.findMatchAdmin(admin); 
+	}
+	
+	//멤버 서치
+	@Override
+	public List<SearchedMember> searchMember(Map<String, String> dataMap) {
+		
+		return dao.searchMember(dataMap); 
+	}
+
+	//옵션 상품
+	@Override
+	public int insertOptionP(Map<String, String> map) {
+		return dao.insertOptionP(map); 
+	}
+
+	
 	
 	
 	// 크로스 사이트 스크립트 방지 처리 메소드

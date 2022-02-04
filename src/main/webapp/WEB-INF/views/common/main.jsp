@@ -56,7 +56,7 @@
 							용도로 사용하는 빵을 케시판(消しパン: 지움빵)이라 부르는데, 이에 대응하여 실제로 먹는 빵을 쇼쿠판(食パン:
 							먹음빵)이라 부르던 데서 나왔다는 설이 대표적이다.</p>
 						<h1>35,000원</h1>
-						<div class="moreBtn">+ 더보기</div>
+						<div class="moreBtn"  onclick="location.href='http://localhost:8080/jvj/store?cp=1&ct=1&op=0'">+ 더보기</div>
 					</div>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 							그 자리를 꿰차게 되었다. 캉파뉴는 발효 과정과 만드는 시간, 과정이 바게트보다 까다롭고 오래 걸린다. 반면 바게트는 캉파뉴보다 만들기 쉬웠고, 먹기도 편하고 운반하는 데도 더
 							유리했다.</p>
 						<h1>35,000원</h1>
-						<div class="moreBtn">+ 더보기</div>
+						<div class="moreBtn"  onclick="location.href='http://localhost:8080/jvj/store?cp=1&ct=2&op=0'">+ 더보기</div>
 					</div>
 					<div class="store-pdt pdt2-img"></div>
 
@@ -90,7 +90,7 @@
 			</div>
 		</div>
 		<div class="m-notice" data-aos="fade-up" data-aos-duration="400">
-		<img alt="" src="${contextPath}/resources/images/main/notice.png">
+		<img alt="" src="${contextPath}/resources/images/main/notice.png" style="width:1200px">
 		</div>
 	</div>
 

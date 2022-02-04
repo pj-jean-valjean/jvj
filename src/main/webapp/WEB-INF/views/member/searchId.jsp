@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <jsp:include page="../common/header.jsp" />
  <link rel="stylesheet" href="${contextPath}/resources/css/member/searchId.css">
 
@@ -10,11 +13,11 @@
     </div> 
     
     <%-- action="${contextPath}/member/searchIdResult"> --%>
-    <form method="POST" action="${contextPath}/member/searchIdResult" name="searchIdForm" onsubmit="return validate();">
+    <form method="POST" action="${contextPath}/member/searchId" name="searchIdForm" onsubmit="return validate();">
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이름</p></div>
-                <div class="input-div name-div"><input type="text" class="search-info"  id="name" name="memberName" maxlength="5" required></div>
+                <div class="input-div name-div"><input type="text" class="search-info"  id="name" name="memberName" maxlength="5" autocomplete="off" required></div>
             </div>
             	
             	
@@ -30,9 +33,9 @@
                             </select>
                         </div> 
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone2" name="phone" required></div>
+                        <div class="input-div"><input type="number" class="search-info phone-input phone" id="phone2" name="phone" autocomplete="off" required></div>
                         <span>-</span>
-                        <div class="input-div"><input type="text" class="search-info phone-input phone" id="phone3" name="phone" required></div>
+                        <div class="input-div"><input type="number" class="search-info phone-input phone" id="phone3" name="phone" autocomplete="off" required></div>
             </div>
         </div>
 

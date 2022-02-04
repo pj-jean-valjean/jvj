@@ -77,6 +77,15 @@
     border-radius: 4px;
     color: #FFFFFF;
 }
+.email-check-btn{
+    cursor: pointer;
+    background-color: #A78A6C;
+    width: 100px;
+    height: 45px;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
 
 
 #search-btn{
@@ -115,6 +124,14 @@
 }
 
 
-#display-none{
+/* 이메일 인증번호 */
+#email-checkNum{
     display: none;
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

@@ -14,16 +14,21 @@
 	<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	
+	<!-- swalalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 </head>
+
+
 <body>
 	<header>
         <section class="nav">
             <ul class="nav-menu">
                 <li><a href="${contextPath}/subscribe/subMain">정기 구독</a></li>
                 <li>|</li>
-                <li><a href="${contextPath}/store">스토어</a></li>
+                <li><a href="${contextPath}/store?cp=1&ct=0&op=0">스토어</a></li>
                 <li>|</li>
                 <li><a href="${contextPath}/onedayclass/list">원데이 클래스</a></li>
                 <li>|</li>
@@ -38,18 +43,27 @@
             <ul class="nav-login">
                 
 
-                <!-- 비로그인 -->
-                <li><a href="${contextPath}/member/login">로그인</a></li>
-
+				<c:choose>
+				<c:when test="${empty loginMember}">
+	                <!-- 비로그인 -->
+	                <li><a href="${contextPath}/member/login">로그인</a></li>
+				</c:when>
+				<c:otherwise>
                 <!-- 로그인 -->
-                <%-- <li>
-                    <a href="">
-                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
-                    </a>
-                    <a href="">
-                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
-                    </a>
-                </li> --%>
+	                <li>
+	                    <a href="">
+	                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
+	                    </a>
+	                    <a href="">
+	                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
+	                    </a>
+						<a href="${contextPath}/member/logout" title="logout-icon">
+							<img class="logout-img" src="${contextPath}/resources/images/common/icon-logout.png">
+						</a>	                    
+	                </li>
+	             </c:otherwise>
+				</c:choose>
+
                 
                 <li>
                     <input class="nav-search" type="text" list="search-options" maxlength="20">
@@ -63,4 +77,5 @@
             </ul>
         </section>
     </header>
+
 	

@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
+
 <jsp:include page="../common/header.jsp" />
  <link rel="stylesheet" href="${contextPath}/resources/css/member/searchIdResult.css">
 
@@ -7,9 +11,10 @@
     <div class="login-title">
         <p class="text-center">찾으시는 이메일</p>
     </div> 
-
+	${member.memberEmail}
+	${memberEmail}
     <div class="login-title">
-        <p class="text-center">user01@google.com</p>
+        <p class="text-center">${member.memberEmail}</p>
     </div> 
     
    

@@ -18,27 +18,30 @@
     <main>
         <section class="top">
             <section class="main-nav">
-                <a href="">HOME</a>
+                <a href="${contextPath}">HOME</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">원데이 클래스</a>
+                <a href="${contextPath}/onedayclass/list">원데이 클래스</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="">클래스 상세</a>
+                <a href="#">클래스 상세</a>
             </section>     
             <section class="product-thumbnail">
                 <article class="main-img-area">
-                    <img class="main-thumbnail" src="${contextPath}/resources/images/onedayclassList/bread.jpg" alt="sub-bread-main">
+                    <img class="main-thumbnail" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[0].productImgName}" alt="sub-bread-main">
                 </article>
             <div>
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/onedayclassList/bread.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/onedayclassList/classMain.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/onedayclassList/greenteabread.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/onedayclassList/macaron.jpg" alt="sub-bread-main">
-            </div>
+            	<c:forEach items="${Oneclass.classImgList}" var="imginfo">
+	                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+            	</c:forEach>
+                <%-- <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[1].productImgName}" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[2].productImgName}" alt="sub-bread-main">
+                <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[3].productImgName}" alt="sub-bread-main">
+             --%></div>
             </section>
+            <%-- <section> ${Oneclass.placeAddr} </section> --%>
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
-                        <span>초보자도 쉽게 배우는 베이킹 클래스!</span>
+                        <span>${Oneclass.title}</span>
                         <div class="heart-btn">
 							<div class="contentss">
 								<div class="heart"></div>
@@ -53,7 +56,7 @@
                         <span>가격</span>
                     </div>
                     <div class="period-area btn-area"> 
- 						 <span class="price">20,000원</span>
+ 						 <span class="price">${Oneclass.price}원</span>
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -62,7 +65,7 @@
                         <span>지점명</span>
                     </div>
                     <div class="subdetail-content"> 
-                          <input type="text" name="place" readonly value="마포점"><button onclick="showMaps()"><i class="fas fa-map-marker-alt"></i> 위치</button>
+                          <input type="text" name="place" readonly value="${Oneclass.placeName}"><button onclick="showMaps()"><i class="fas fa-map-marker-alt"></i> 위치</button>
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -72,7 +75,7 @@
                         <span></span>
                     </div>
                     <div class="subdetail-content"> 
-                        <input type="text" readonly value="2022-02-01">
+                        <input type="text" readonly value="${Oneclass.classDt}">
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -81,7 +84,7 @@
                         <span>수업 시간</span>
                     </div>
                     <div class="subdetail-content"> 
-                      	<input type="text" readonly value="09:00 ~ 11:00">
+                      	<input type="text" readonly value="${Oneclass.classtime}">
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -90,7 +93,7 @@
                         <span>신청 현황</span>
                     </div>
                     <div class="subdetail-content"> 
-                        <span class="nowsubmit"><span>3</span><span> / </span><span>10</span></span>
+                        <span class="nowsubmit"><span>3</span><span> / </span><span>${Oneclass.classMaxPpl}</span></span>
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -116,8 +119,8 @@
                     </div> -->
                     <!-- 선택한 상품 없을경우 -->
                     <div class="total-area">
-	                   	<span>초보자도 쉽게 배우는 베이킹 클래스!</span>
-	                    <span>마포점 / 09:00 / <span id="ppl">2</span>명</span>
+	                   	<span>${Oneclass.title}</span>
+	                    <span>${Oneclass.placeName} / ${Oneclass.classtime} / <span id="ppl">0</span>명</span>
                     </div>
                     <div class="showpay">
 	                    <p>총 구매 금액 <span id="totalprice" class="showprice">0</span>  <span class="showprice">원</span></p>
@@ -143,7 +146,7 @@
         <section class="content">
             <!-- 상품 설명 -->
             <article id="contents-exp">
-                <img class="exp-img" src="${contextPath}/resources/images/onedayclassList/macaron.jpg" alt="sub_detail_bread">
+                ${Oneclass.contents}
             </article>   
             <!-- 리뷰 -->
             <article class="boundary-line" id="contents-review" >
@@ -388,14 +391,12 @@ DELIVERY / 배송정보
         </div>
     	</div>
 	<jsp:include page="../common/footer.jsp" />	
-<!--     <script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
-		var map = new kakao.maps.Map(container, options);
-	</script> -->
+	<script> 
+		let mapAddress = "${Oneclass.placeAddr}" ;
+		const contextPath = "${contextPath}";
+		const loginNo = "${loginMember.memberNo}"
+		const productNo = "${productNo}"
+	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=551a4828db4bdc904ebb55328c53c9ae&libraries=services,clusterer,drawing"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classDetail.js"></script>
 </body>

@@ -11,15 +11,15 @@
 
         <div class="member-form-info">
         
-        <form>
+        <form method="POST" action="signUp" class="needs-validation" name="signUpForm" onsubmit="return validate();">
         <div class="input-info">
             <div class="input-info-div">
                 <div class="p-div"><p>이메일<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info email-input" name="memberEmail" id="email-input" required></div>
+                <div class="input-div"><input type="text" class="member-info email-input" name="email" id="email-input" autocomplete="off" required></div>
 
                 <span>@</span>
                 <div class="input-div">
-                    <input type="text" class="member-info email-input" id="email-input-select">
+                    <input type="text" class="member-info email-input" name="email" id="email-input-select" >
                     <select class="member-info" id="email-select">
                         <option value="0">직접입력</option>
                         <option value="1">naver.com</option>
@@ -28,7 +28,7 @@
                     </select>
                 </div> 
                 <div class="input-div">
-                    <button type="button" id="sendEmail">이메일인증</button>
+                    <button type="button" class="email-check-btn" id="sendEmail" >이메일인증</button>
                     
                 </div>
             </div>
@@ -36,21 +36,30 @@
 			<p id="checkEmail"></p>
 			
 			
-            <div class="input-info-div" id="email-checkNum">
+           <div class="input-info-div" id="email-checkNum">
                 <div class="p-div"><p>인증번호<span> *</span></p></div>
                 <div class="input-div">
-                    <input type="text" class="member-info" id="email-Authentication" placeholder="인증번호를 입력해주세요.">
+                    <input type="number" class="member-info" id="email-Authentication" placeholder=" 인증번호를 입력해주세요.">
+                </div> 
+                <div class="input-div">
+                    <button type="button" class="email-check-btn"  id="check-email-Authentication" >확인</button>
+               		<input type="hidden" id="certificationYN" value="false">
                 </div>   
                 	<span id="check-email-Authentication"></span>
+                	<span id="timeCount"></span>
+                	<span id="signUpEmailCheck"></span>
             </div>
+          
 
 
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호<span> *</span></p></div>
-                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder="영어 대/소문자, 숫자, 특수문자(!,@,#,-,_) 포함 6~20글자" required></div>
+                <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호 6~20글자" required></div>
             	
             	<!-- 비밀번호 유효성 검사1 -->
             	<span id="checkPwd1"></span>
+            	
+            	<!-- <input type="hidden" name="idDup" id="idDup" value="false"> -->
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호 확인<span> *</span></p></div>
@@ -61,14 +70,14 @@
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>닉네임<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info" id="nickname" name="memberNickname" required></div>
+                <div class="input-div"><input type="text" class="member-info" id="nickname" name="memberNickname" maxlength="5" autocomplete="off" required></div>
                 
                 <!-- 닉네임 유효성 검사 -->
             	<span id="checkNickname"></span>
             </div>
             <div class="input-info-div">
                 <div class="p-div"><p>이름<span> *</span></p></div>
-                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" required></div>
+                <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" autocomplete="off" required></div>
             	<!-- 이름 유효성 검사 -->
             	<span id="checkName"></span>
             </div>
@@ -86,9 +95,9 @@
                     </select>
                 </div> 
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" autocomplete="off" required></div>
                 <span>-</span>
-                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" required></div>
+                <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" autocomplete="off" required></div>
             	
             	<!-- 전화번호 유효성 검사 -->
             	<span id="checkPhone"></span>
@@ -96,23 +105,23 @@
 
             <div class="input-info-div">
                 <div class="p-div"><p>주소</p></div>
-                <div class="input-div"><input type="text" class="member-info addr" id="addr1"></div>
+                <div class="input-div"><input type="text" class="member-info addr" id="addr1" name="address"></div>
                 <div class="input-div"><button class="input-btn" type="button" id="searchAddr">주소검색</button></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
-                <div class="input-div"><input type="text" class="member-info" id="addr2"></div>
+                <div class="input-div"><input type="text" class="member-info" id="addr2" name="address"></div>
             </div>
             <div class="input-info-div">
                 <div class="p-div"></div>
-                <div class="input-div"><input type="text"  class="member-info"></div>
+                <div class="input-div"><input type="text"  class="member-info" id="addr3" name="address"></div>
             </div>
             
 
         </div>
             <div class="give-flex">
                 <div class="signUp-select-btn">
-                    <button type="submit" id="signUp-btn" onclick="return validate();">회원가입</button>
+                    <button id="signUp-btn">회원가입</button>
                 </div>
             </div>
 
