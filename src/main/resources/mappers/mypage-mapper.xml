@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mypageMapper">
+
+	<resultMap type="Coupon" id="coupon_rm">
+		<id property="conponNo" column="COUPON_NO"/>
+		<result property="couponName" column="COUPON_NM"/>
+		<result property="discountPer" column="DISCOUNT_PER"/>
+		<result property="provideDate" column="PROVIDE_DT"/>
+		<result property="expireDate" column="EXPIRE_DT"/>
+		<result property="couponStatusCode" column="COU_STATUS_CD"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+
+	<!-- 전체 쿠폰 조회 -->
+	<select id="getCouponCount" resultType="_int">
+		SELECT COUNT(*) FROM COUPON WHERE COU_STATUS_CD != 4 AND MEMBER_NO = #{memberNo}
+	</select>
+	<select id="selectCouponList" resultMap="coupon_rm">
+		SELECT COUPON_NO, COUPON_NM, PROVIDE_DT, EXPIRE_DT, COU_STATUS_CD, MEMBER_NO 
+		FROM COUPON
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+</mapper>

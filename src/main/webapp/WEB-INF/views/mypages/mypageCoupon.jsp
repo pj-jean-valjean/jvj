@@ -28,6 +28,8 @@
     
     
       <article>
+      
+     	
             <div class="selectDiv">
                 <span>쿠폰 보유 내역</span>
                 <select name="" id="selectOption">
@@ -48,117 +50,67 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd overdate">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-02</td>
-                        <td>기간 만료</td>
-                    </tr>
-                    <tr class="tb-tbd donetd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 완료</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd donetd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 완료</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td>신규가입자 전용 쿠폰</td>
-                        <td>20%</td>
-                        <td>2021-12-01</td>
-                        <td>2022-01-31</td>
-                        <td>사용 가능</td>
-                    </tr>
+                <c:choose>
+                
+                	<%-- 쿠폰이 존재하지 않을 경우 --%>
+                	<c:when test="${empty couponList}">
+					  <tr>
+						<td colspan="5" 
+						style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
+						font-size:20px; font-weight:bold; margin-left: auto; margin-right: auto; text-align:center;
+						padding-top:236px; padding-bottom:236px;">
+						보유중인 쿠폰이 존재하지 않습니다.</td>
+					  </tr>       
+                	</c:when>
+                	
+                	
+                	<c:otherwise>
+	                	<c:forEach items="${couponList}" var="coupon">
+	                	<tr class="tb-tbd">
+	                        <td>${couponList.couponName}</td>
+	                        <td>${couponList.discountPer}</td>
+	                        <td>${couponList.provideDate}</td>
+	                        <td>${couponList.expireDate}</td>
+	                        <td>사용 가능</td>
+	                    </tr>
+	                    </c:forEach>
+                	</c:otherwise>
+                </c:choose>
+                  
                 </tbody>
             </table>
         </article>
 
 
         <article>
+        
             <div class="page">
                 <ul class="pagination">
-                    <li><a href="#" class="first pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg></a></li> 
-                    <li><a href="#" class="previous pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg>
-                    </a></li> 
-
-                    <li class="pagiList"><a class="pagiLink" href="#">1</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">2</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">3</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">4</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">5</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">6</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">7</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">8</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">9</a></li>
-                    <li class="pagiList"><a class="pagiLink2" href="#">10</a></li>
                 
-                    <li><a href="#" class="next pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a></li> 
-                    <li><a href="#" class="last pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-                            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                    </a></li> 
+                	<c:if test="${pagination.startPage != 1 }">
+						<li><a class="first pagi" href="coupon?cp=1${c}${s}">&lt;&lt;</a></li>
+						<li><a class="previous pagi" href="coupon?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+					</c:if>
+
+                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+					<c:choose>
+						<c:when test="${i == pagination.currentPage}">
+							<li class="pagiList"><a class="pagiLink" >${i}</a></li>  
+						</c:when>
+						
+						<c:otherwise>
+							<li><a class="pagiList" href="coupon?cp=${i}">${i}</a></li>
+						</c:otherwise>
+						
+					</c:choose>
+				</c:forEach>
+                
+                    
+                    <c:if test="${pagination.endPage != pagination.maxPage }">
+					<li><a class="next pagi" href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+					<li><a class="last pagi" href="list?cp=${pagination.maxPage}${c}${s}">&gt;&gt;</a></li>
+					
+				</c:if>
                 </ul>
             </div>  
         </article>
