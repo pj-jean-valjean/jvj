@@ -41,7 +41,13 @@
 		AND STATUS_CD = 1
 	</select>
 	
-	
+	<!-- 비밀번호 찾기 - 비밀번호 변경 -->
+	<update id="searchPwResult" parameterType="map">
+		UPDATE MEMBER SET 
+		MEMBER_PW = #{newPw1}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND STATUS_CD = 1
+	</update>
 	
 	
 </mapper>

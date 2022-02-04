@@ -9,5 +9,6 @@ public interface MailService {
 
 	boolean emailCertification(HttpSession session, String memberEmail, int inputCode);
 
+
 	
 }

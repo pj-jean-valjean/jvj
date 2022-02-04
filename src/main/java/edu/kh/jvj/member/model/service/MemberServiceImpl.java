@@ -85,6 +85,15 @@ public class MemberServiceImpl implements MemberService{
 	public int emailDupCheck(String memberEmail) {
 		return dao.emailDupCheck(memberEmail);
 	}
+	
+	// 비밀번호 찾기 - 비밀번호 변경
+	@Override
+	public int searchPwResult(Map<String, String> map) {
+		String encPw = encoder.encode(map.get("newPw1"));
+		map.put("newPw1", encPw);
+		
+		return dao.searchPwResult(map);
+	}
 
 	
 	
