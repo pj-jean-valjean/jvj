@@ -58,74 +58,12 @@
                             <li>빵이 맛이 있엉요</li>
                             <li>2022-01-02</li>
                             <li>
-                                <button class="p-btn" id="btn-pur">리뷰 수정</button>
-                                <button class="p-btn" id="btn-pur">리뷰 삭제</button>
+                                <a class="p-btn" id="btn-pur" href="recorrect">리뷰 수정</a>
+                                <button class="p-btn" id="btn-del" type="button">리뷰 삭제</button>
                             </li>
                         </ul>
                        
-                        <ul class="tbname">
-                            <li>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                            </li>
-                            <li>빵이 맛이 있엉요</li>
-                            <li>2022-01-02</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">리뷰 수정</button>
-                                <button class="p-btn" id="btn-pur">리뷰 삭제</button>
-                            </li>
-                        </ul>
                        
-                        <ul class="tbname">
-                            <li>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                            </li>
-                            <li>빵이 맛이 있엉요</li>
-                            <li>2022-01-02</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">리뷰 수정</button>
-                                <button class="p-btn" id="btn-pur">리뷰 삭제</button>
-                            </li>
-                        </ul>
-                       
-                        <ul class="tbname">
-                            <li>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                            </li>
-                            <li>빵이 맛이 있엉요</li>
-                            <li>2022-01-02</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">리뷰 수정</button>
-                                <button class="p-btn" id="btn-pur">리뷰 삭제</button>
-                            </li>
-                        </ul>
-                       
-                        <ul class="tbname">
-                            <li>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                                <span>★</span>
-                            </li>
-                            <li>빵이 맛이 있엉요</li>
-                            <li>2022-01-02</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">리뷰 수정</button>
-                                <button class="p-btn" id="btn-pur">리뷰 삭제</button>
-                            </li>
-                        </ul>
                        
                     </div>
                     
