@@ -198,12 +198,29 @@ function scrollDelievery() {
 
 // 장바구니
 function cart(){
+  const options = $('.choose-option');
+  const totalresult = $('.total-result');
+  console.log(totalresult.length);
+  let arrays = "";
+  
+  for(let i = 0 ; i<totalresult.length;i++){
+    console.log(options[i].style.display);
+    if(options[i].style.display == "block"){
+
+      arrays += totalresult[i].textContent;
+    }else{
+      arrays +="0";
+    }
+    arrays+=",";
+  }
+  console.log(arrays);
     $.ajax({
         url:contextPath+'/cart/addCart',
         type:'POST',
-        data:{
+        data:{  "storeNo":storeNo,
                 "addq":result.innerText,
-                "adStock":adStock},
+                "arrays":arrays,
+                "adStock":adPrice+""},
         success:function(result){
             console.log(result);
         }
