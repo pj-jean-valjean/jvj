@@ -457,6 +457,8 @@ DELIVERY / 배송정보
 	const stock = ${store.stock};
 	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];
 	const contextPath ='${contextPath}';
+	const storeNo = ${store.storeNo};
+	const adPrice = [${advantage[0].price},${advantage[1].price},${advantage[2].price}];
 	</script>
 
 
