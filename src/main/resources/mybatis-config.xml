@@ -9,6 +9,7 @@
 			<typeAlias alias="store" type="edu.kh.jvj.store.model.vo.Store" />
 			<typeAlias alias="Member" type="edu.kh.jvj.member.model.vo.Member" />
 			<typeAlias alias="Coupon" type="edu.kh.jvj.mypage.model.vo.Coupon" />
+			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
 
 
 	</typeAliases>
@@ -18,6 +19,7 @@
 		<mapper resource="/mappers/store-mapper.xml" />
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
+		<mapper resource="/mappers/cart-mapper.xml" />
 
 
 	</mappers>
