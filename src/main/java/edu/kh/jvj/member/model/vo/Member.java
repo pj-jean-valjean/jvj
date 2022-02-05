@@ -18,7 +18,7 @@ public class Member {
 	
 	// 로그인 api용 변수
 	private String service;
-	private String id;
+	private String memberId;
 	
 	
 	
@@ -131,12 +131,14 @@ public class Member {
 		this.service = service;
 	}
 
-	public String getId() {
-		return id;
+	
+
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override
@@ -144,9 +146,9 @@ public class Member {
 		return "Member [memberNo=" + memberNo + ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
 				+ ", memberNickname=" + memberNickname + ", memberName=" + memberName + ", memberPhone=" + memberPhone
 				+ ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", statusCode=" + statusCode
-				+ ", gradeCode=" + gradeCode + ", service=" + service + ", id=" + id + "]";
+				+ ", gradeCode=" + gradeCode + ", service=" + service + ", memberId=" + memberId + "]";
 	}
-	
+
 	
 	
 	

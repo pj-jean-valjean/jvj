@@ -1,4 +1,4 @@
-package edu.kh.jvj.member.model.vo;
+package edu.kh.jvj.member.model.service;
 
 
 import java.io.BufferedReader;
@@ -17,12 +17,16 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
-public class SnsLogin {
+import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.member.model.vo.SnsToken;
+import edu.kh.jvj.member.model.vo.SnsValue;
+
+public class SnsLoginService {
 
 	private OAuth20Service oauthService;
 	private SnsValue sns;
 
-	public SnsLogin(SnsValue sns) {
+	public SnsLoginService(SnsValue sns) {
 
 		if(sns.isNaver()) {
 			this.oauthService = new ServiceBuilder(sns.getClientId())
@@ -46,7 +50,6 @@ public class SnsLogin {
 	}
 
 	public Member getNaverUserProfile(String code, String snsService) throws Exception{
-
 		OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, this.sns.getProfileUrl());
@@ -59,7 +62,7 @@ public class SnsLogin {
 
 		JsonNode resNode = rootNode.get("response");
 
-		member.setId(resNode.get("id").asText());
+		member.setMemberId(resNode.get("id").asText());
 		member.setMemberNickname(resNode.get("nickname").asText());
 		member.setMemberEmail(resNode.get("email").asText());
 		member.setMemberName(resNode.get("name").asText());
@@ -69,7 +72,7 @@ public class SnsLogin {
 	}
 
 
-	public Member getKakaoUserProfile(String code, String snsService) throws Exception{
+	public SnsToken getKakaoToken(String code) throws Exception{
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -95,6 +98,8 @@ public class SnsLogin {
 		//    결과 코드가 200이라면 성공
 		int responseCode = conn.getResponseCode();
 
+
+
 		//    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String line = "";
@@ -105,47 +110,57 @@ public class SnsLogin {
 			result += line;
 		}
 
-		//    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-        ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = mapper.readTree(result);
-		access_Token = rootNode.get("access_token").asText();
-		refresh_Token = rootNode.get("refresh_token").asText();
+		br.close();
+		bw.close();
 
-		String reqInfoURL = "https://kapi.kakao.com/v2/user/me";
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(result);
+
+		SnsToken snsToken = new SnsToken();
+		snsToken.setAccess_Token(rootNode.get("access_token").asText());
+		snsToken.setRefresh_Token(rootNode.get("refresh_token").asText());
+
+		return snsToken;
+
+
+	}
+
+	public Member getKakaoProfile(SnsToken snsToken, String snsService) throws Exception{
+
+		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		String resultInfo = "";
-		URL urlInfo = new URL(reqInfoURL);
-		conn = (HttpURLConnection) urlInfo.openConnection();
+		
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 
 		//    요청에 필요한 Header에 포함될 내용
-		conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		conn.setRequestProperty("Authorization", "Bearer " + snsToken.getAccess_Token());
 
-		responseCode = conn.getResponseCode();
+		int responseCode = conn.getResponseCode();
 
-		br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String line = "";
 
 		while ((line = br.readLine()) != null) {
 			resultInfo += line;
 		}
-		
+
 		br.close();
-		bw.close();
-		
-		
-		System.out.println("response body : " + resultInfo);
-		
+
+		ObjectMapper mapper = new ObjectMapper();
 		JsonNode resultNode = mapper.readTree(resultInfo);
-		
+
 		JsonNode kakao_account = resultNode.get("kakao_account");
 		JsonNode profile = kakao_account.get("profile");
-		
+
 		Member member = new Member();
 
-		member.setId(resultNode.get("id").asText());
+		member.setMemberId(resultNode.get("id").asText());
 		member.setMemberNickname(profile.get("nickname").asText());
 		member.setMemberEmail(kakao_account.get("email").asText());
 		member.setService(snsService);
-		
+
 		return member;
 	}
 
