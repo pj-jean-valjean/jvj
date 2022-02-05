@@ -1,11 +1,14 @@
 package edu.kh.jvj.cart.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.jvj.cart.model.dao.CartDAO;
 import edu.kh.jvj.cart.model.vo.Cart;
+import edu.kh.jvj.member.model.vo.Member;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -26,4 +29,19 @@ public class CartServiceImpl implements CartService {
 		
 		return dao.addSub(cart2);
 	}
+
+	@Override
+	public List<Cart> selectCartList(Member member) {
+		// TODO Auto-generated method stub
+		return dao.selectCartList(member);
+	}
+
+	@Override
+	public List<Cart> selectOptionList(Member member) {
+		
+		return dao.selectOptionList(member);
+	}
+
+	
+
 }

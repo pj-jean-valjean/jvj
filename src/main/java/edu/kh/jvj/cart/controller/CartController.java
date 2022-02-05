@@ -1,7 +1,10 @@
 package edu.kh.jvj.cart.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +24,13 @@ public class CartController {
 	private CartService service;
 
 	@GetMapping("")
-	public String cartForward() {
+	public String cartForward(@ModelAttribute("loginMember") Member member,Cart cart,Model model) {
+		
+		List<Cart> cartList= service.selectCartList(member);
+		System.out.println(cartList);
+		List<Cart> optionList = service.selectOptionList(member);
+		model.addAttribute("cartList",cartList);
+		
 		return "member/cart";
 	}
 
@@ -41,7 +50,6 @@ public class CartController {
 		// 상품 추가
 		int addMainResultNo = service.addCart(cart);
 
-		
 		if (addMainResultNo > 0) { // 상품 추가됐을때 추가옵션 추가
 			for (int i = 0; i < arrayQ.length; i++) {
 				if (Integer.parseInt(arrayQ[i]) == 0) { // 수량 0일시 건너뛰기

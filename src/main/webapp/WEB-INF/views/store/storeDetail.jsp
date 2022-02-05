@@ -203,10 +203,10 @@
 				</article>
 
 				<div class="submit-sub">
-					<button class="shopping-btn" onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if><c:if test="${empty loginMember }">'location.href="${contextPath}/member/login"'</c:if>>
+					<button class="shopping-btn" onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if><c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>장바구니</span>
 					</button>
-					<button class="submit-btn" onclick=<c:if test="${not empty loginMember }"> 'buy();'</c:if><c:if test="${empty loginMember }">'location.href="${contextPath}/member/login"'</c:if>>
+					<button class="submit-btn" onclick=<c:if test="${not empty loginMember }"> 'buy();'</c:if><c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>바로 구매</span>
 					</button>
 				</div>
@@ -456,7 +456,6 @@ DELIVERY / 배송정보
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};
 	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];
-	const contextPath ='${contextPath}';
 	const storeNo = ${store.storeNo};
 	const adPrice = [${advantage[0].price},${advantage[1].price},${advantage[2].price}];
 	</script>

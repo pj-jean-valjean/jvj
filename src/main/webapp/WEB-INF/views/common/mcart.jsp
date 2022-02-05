@@ -48,4 +48,8 @@
            <h3><a href="cart" style="color:white"><u>구매하기</u></a></h3>
        </div>
    </div>
+   <script>
+	const contextPath = '${contextPath}';
+	const loginMember = '${loginMember.memberNo}';
+   </script>
    <script src="${contextPath}/resources/js/common/mcart.js"></script>

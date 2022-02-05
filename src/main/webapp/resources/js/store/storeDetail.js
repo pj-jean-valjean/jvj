@@ -239,3 +239,13 @@ function cart(){
 // 스토어 물건 바로결제
 function buy(){
 }
+
+// 로그인 안했을때
+function infoAlert(){
+  swal({title: "로그인 필요",text:"로그인 후 이용 가능합니다.",icon:"info",buttons:'확인'}).then((value)=>{
+    if(value){
+      location.href=contextPath+"/member/login";
+      
+    }
+  });
+}
