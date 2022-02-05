@@ -28,7 +28,7 @@ public class CartController {
 		
 		List<Cart> cartList= service.selectCartList(member);
 		System.out.println(cartList);
-		List<Cart> optionList = service.selectOptionList(member);
+		
 		model.addAttribute("cartList",cartList);
 		
 		return "member/cart";
@@ -56,9 +56,9 @@ public class CartController {
 					continue;
 				}
 				Cart cart2 = new Cart();
-				cart2.setOptq(Integer.parseInt(arrayQ[i])); // 옵션 수량
+				cart2.setAddq(Integer.parseInt(arrayQ[i])); // 옵션 수량
 				cart2.setCartNo(cart.getCartNo()); // 카트번호
-				cart2.setOpt(cart2.getOptSetNum()[i]); // 옵션번호
+				cart2.setProductNo(cart2.getOptSetNum()[i]); // 옵션번호
 				cart2.setMemberNo(memberNo); // 회원번호
 
 				int addSub = service.addSub(cart2);
