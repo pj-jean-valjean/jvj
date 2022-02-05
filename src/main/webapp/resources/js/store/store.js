@@ -51,7 +51,14 @@
        
       // 로그인 안했을때
       else{
-        swal("로그인 후 좋아요 가능합니다.","","info");
+        swal({title: "로그인 필요",text:"로그인 후 좋아요가 가능합니다.",icon:"info",buttons:'확인'}).then((value)=>{
+
+          // 확인눌렀을때 실행
+          if(value){
+            location.href=contextPath+"/member/login";
+            
+          }
+        });
         
       }
 

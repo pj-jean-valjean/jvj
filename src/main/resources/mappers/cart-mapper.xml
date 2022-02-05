@@ -8,6 +8,8 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="opt" column="ADVANTAGE_NO" />
 		<result property="optq" column="ADVANTAGE_Q" />
+		<result property="price" column="PRODUCT_PRICE" />
+		<result property="productName" column="PRODUCT_NM" />
 	</resultMap>
 
 	<!-- 장바구니에 상품 하나 추가 -->
@@ -23,4 +25,5 @@
 		INSERT INTO ADVANTAGE
 		VALUES(#{cartNo},#{opt},#{optq})
 	</insert>
+	
 </mapper>
