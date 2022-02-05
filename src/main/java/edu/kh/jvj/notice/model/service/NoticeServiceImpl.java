@@ -1,6 +1,7 @@
 package edu.kh.jvj.notice.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,19 +18,19 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDAO dao;
 	
 	@Override
-	public Pagination countNotice(int cp) {
-		int count =  dao.countNotice();
-		return new Pagination(count,cp);
+	public Pagination countNotice(Map<String , String> map ) {
+		int count =  dao.countNotice(map);
+		return new Pagination(count,Integer.parseInt(map.get("cp")));
 	}
 	
 	@Override
-	public List<Notice> selectNoticeList(Pagination page,int cate) {
-		return dao.selectStoreList(page, cate);
+	public Notice selectOneNotice(int noticeNo) {
+		return dao.selectOneNotice(noticeNo);
 	}
 
 	@Override
-	public Notice selectOneNotice(int noticeNo) {
-		return dao.selectOneNotice(noticeNo);
+	public List<Notice> selectNoticeList(Pagination page, Map<String, String> dataMap) {
+		return dao.selectSearchNoticeList(page,dataMap);
 	}
 	
 	

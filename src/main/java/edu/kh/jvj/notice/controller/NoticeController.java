@@ -1,6 +1,8 @@
 package edu.kh.jvj.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +23,17 @@ public class NoticeController {
 	private NoticeService service;
 	
 	@GetMapping("list")
-	public String noticeListShow(@RequestParam(value="cp", defaultValue="1" )int cp, Model model,
-			@RequestParam(value="cate", defaultValue="0" ) int cate
+	public String noticeListShow(@RequestParam(value="cp", defaultValue="1" )String cp, Model model,
+			@RequestParam(value="cate", defaultValue="0" ) String cate
 			) {
-		
-		Pagination page = service.countNotice(cp);
-		
-		List<Notice> noticeList = service.selectNoticeList(page,cate);
+		Map<String, String> map = new HashMap<>();
+		map.put("cp", cp);
+		map.put("cate", cate);
+		map.put("search", "");
+		Pagination page = service.countNotice(map);
+		page.setLimit(10);
+		page.setPageSize(10);
+		List<Notice> noticeList = service.selectNoticeList(page,map);
 		
 		model.addAttribute("noticeList",noticeList);
 		model.addAttribute("pagination",page);

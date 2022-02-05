@@ -77,10 +77,6 @@
             margin-bottom: 25px;
             display: flex;
         }
-        .ResultLine>li{
-            display: flex;
-            justify-content: space-evenly;
-        }
 
         /* 썸네일 크기 */
         .imgline{
@@ -123,7 +119,8 @@
             width: 100%;
             font-size: 25px;
             text-align: center;
-            margin: 0px 0px 30px 0px;
+            border-bottom: 3px solid black;
+            padding: 0px 0px 30px 0px;
         }
         .images{
             width: 120px;
@@ -169,6 +166,9 @@
             width: 100%;
             display: flex;
         }
+        .eachW>li>a {
+            color: #A78A6C;
+        }
         .adminWriter,.querywork,.modifyArticle,.manageP{
             width: 150px;
             height: 60px;
@@ -190,9 +190,20 @@
         #uppercate>label{
             width: 160px;
         }
-        /*  정보 조회 input  */
+        /*  정보 조회 라인  */
+        .ResultLine>li{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .ResultLine>li:nth-of-type(2n+3){
+            background-color: #f8f8f8;
+        }
+        .ResultLine>li:last-of-type{
+            background: none;
+        }
         .search-member,.subscribe-search, .order-search,.search-review, .addAdmin{
-            justify-content:center;
+            justify-content:left;
+            padding-left: 20px;
             margin-bottom: 20px;
         }
         .search-member>input,.subscribe-search>select,.search-review>input,.addAdmin>input{
@@ -207,31 +218,22 @@
         .notice-title{
             width: 30%;
         }
-        /* 제출 취소 btn */
-        .write-btns{
-            height: 50px;
-            width: 100%;
-            justify-content:center;
-        }
-        .write-btns>span{
-            display: flex;
-        }
-        .write-btns>span>button{
-            margin-right: 20px;
-            width: 100px;
-            height: 70%;
-        }
         .oneMemberInfo{
             width: 15%;
             text-align: center;
         }
         .sequence{ width:90px;}
-        .notice-title{ width:30%;}
+        .notice-title{ width: 40% !important;;}
         .oneMemberResult{
             border-bottom: 1px solid #eee;
-            margin-top: 10px;
+            padding-top: 10px;
         }
-
+        .oneMemberResult >span>a{
+            color: #A78A6C;
+        }
+        .numberformat{
+            width: 10%!important;
+        }
         .tagspan{
             background: #eee;
             border: 1px solid #eee;
@@ -254,6 +256,44 @@
         .oneMemberResult  > span:first-of-type{
             width: 25%;
         }
+
+        /* 정보 조회 pagination  */
+        .pagination{
+            justify-content: center!important;
+        }
+        .pagination>span{
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 30px;
+            margin-top: 20px;
+            margin-right: 20px;
+            color: #A78A6C;
+        }
+        .pagination>span:hover{
+            cursor: pointer;
+        }
+        #currPage{
+            background-color: #A78A6C;
+            color: #FFFFFF;
+            border-radius: 50%;
+        }
+        /* 제출 취소 btn */
+        .write-btns{
+            height: 50px;
+            width: 100%;
+            justify-content:center;
+        }
+        .write-btns>span{
+            display: flex;
+        }
+        .write-btns>span>button{
+            margin-right: 20px;
+            width: 100px;
+            height: 70%;
+        }
+        
         /* 달력 모달 */
         .cal { 
             position: absolute; 

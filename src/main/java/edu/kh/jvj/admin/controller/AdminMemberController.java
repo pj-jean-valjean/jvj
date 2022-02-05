@@ -20,7 +20,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 
 @Controller
 @RequestMapping
-@SessionAttributes("Admin")
+@SessionAttributes({"loginAdmin"})
 public class AdminMemberController {
 	private final AdminService service;
 	@Autowired
@@ -45,7 +45,7 @@ public class AdminMemberController {
 			
 			if(checkedAdmin!=null) {
 				checkedAdmin.setAdminId(admin.getAdminId());
-				model.addAttribute("Admin", checkedAdmin);
+				model.addAttribute("loginAdmin", checkedAdmin);
 				path = "admin/adminMain";
 				
 				Cookie cookie = new Cookie("saveId" , admin.getAdminId());
@@ -56,7 +56,7 @@ public class AdminMemberController {
 				else {
 					cookie.setMaxAge(0);
 				}
-				cookie.setPath(req.getContextPath());
+				cookie.setPath(req.getContextPath()+"/admin");
 				resp.addCookie(cookie);
 			}
 			else {
@@ -73,8 +73,8 @@ public class AdminMemberController {
 	}
 	// router 새로고침 처리 
 	@GetMapping("admin/board/route/*")
-	public String refresh(@ModelAttribute Admin admin) {
-		if(admin==null) {
+	public String refresh( @ModelAttribute(value="loginAdmin") Admin loginAdmin) {
+		if(loginAdmin.getAdminId()==null) {
 			return "redirect:/admin/login";
 		}
 		else return "admin/adminMain";

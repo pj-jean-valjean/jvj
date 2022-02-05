@@ -28,7 +28,7 @@
 </head>
 <body>
     <header>
-        <div class="admin-info"><span>${Admin.nickName}</span> 님 환영합니다! <a>로그아웃</a></div>
+        <div class="admin-info"><span>${loginAdmin.nickName}</span> 님 환영합니다! <a>로그아웃</a></div>
         <img src="${contextPath}/resources/images/common/jvj_logo.png">
     </header>
     <main>
