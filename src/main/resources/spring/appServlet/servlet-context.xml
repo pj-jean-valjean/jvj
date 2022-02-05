@@ -32,7 +32,7 @@
 	        <beans:constructor-arg value="qMkfw_T1UO" />
 	</beans:bean>
 	<beans:bean id="naverRedirectUrl" class="java.lang.String">
-	        <beans:constructor-arg value="http://localhost:8080/exTest/naver/callback" />
+	        <beans:constructor-arg value="http://localhost:8080/jvj/member/naver/callback" />
 	</beans:bean>
 	    
 	<beans:bean id="naverSns" class="edu.kh.jvj.member.model.vo.SnsValue">
@@ -46,13 +46,18 @@
         <beans:constructor-arg value="dce5678c6c2aceeae891719b598cbe3b" />
 	</beans:bean>
 	
+	<beans:bean id="kakaoClientSecret" class="java.lang.String">
+	        <beans:constructor-arg value="7eTOUzByC4SNMlx0tLIRVihvm1Edygie" />
+	</beans:bean>
+	
 	<beans:bean id="kakaoRedirectUrl" class="java.lang.String">
-	        <beans:constructor-arg value="http://localhost:8080/exTest/kakao/callback" />
+	        <beans:constructor-arg value="http://localhost:8080/jvj/member/kakao/callback" />
 	</beans:bean>
 	
 	<beans:bean id="kakaoSns" class="edu.kh.jvj.member.model.vo.SnsValue">
 	        <beans:constructor-arg value="kakao" />
 	        <beans:constructor-arg ref="kakaoClientID" />
+	        <beans:constructor-arg ref="kakaoClientSecret" />
 	        <beans:constructor-arg ref="kakaoRedirectUrl" />
 	</beans:bean>
 	
