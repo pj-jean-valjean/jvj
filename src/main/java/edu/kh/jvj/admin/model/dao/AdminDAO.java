@@ -12,6 +12,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.store.model.vo.Pagination;
 
 @Repository
 public class AdminDAO {
@@ -79,17 +80,37 @@ public class AdminDAO {
 	 * @param dataMap
 	 * @return
 	 */
-	public List<SearchedMember> searchMember(Map<String, String> dataMap) {
+	public List<SearchedMember> searchMember(Map<String, String> dataMap, Pagination page) {
 		
-		int limit =15;
-		int offset = (Integer.parseInt(dataMap.get("page")) -1 )* limit;
+		int limit =page.getLimit();
+		int offset = (page.getCurrentPage() -1 )* limit;
 		RowBounds rowBounds = new RowBounds(offset, limit); 
 		
 		return sqlSession.selectList("adminMapper.searchMember",dataMap,rowBounds);
 	}
 
+	/** 추가옵션상품
+	 * @param map
+	 * @return
+	 */
 	public int insertOptionP(Map<String, String> map) {
 		return sqlSession.insert("adminMapper.insertOptionP",map);
+	}
+
+	/** 검색해당 멤버 전체 수 조회
+	 * @param dataMap
+	 * @return
+	 */
+	public int countMember(Map<String, String> dataMap) {
+		return sqlSession.selectOne("adminMapper.countMember",dataMap);
+	}
+
+	/** 공지사항 update
+	 * @param noticeMap
+	 * @return
+	 */
+	public int updateNotice(Map<String, String> noticeMap) {
+		return sqlSession.update("adminMapper.updateNotice",noticeMap);
 	}
 	
 	

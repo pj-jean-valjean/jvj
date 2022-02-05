@@ -17,6 +17,8 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.notice.model.vo.Notice;
+import edu.kh.jvj.store.model.vo.Pagination;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -137,7 +139,19 @@ public class AdminServiceImpl implements AdminService{
 		
 		 return dao.insertNotice(noticeMap); 
 	}
-	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateNotice(String title, String noticecate, String editordata, String noticeNo) {
+		title= XSS(title);
+		Map<String, String> noticeMap = new HashMap<String, String>();
+		
+		noticeMap.put("title", title);
+		noticeMap.put("noticecate", noticecate);
+		noticeMap.put("editordata", editordata);
+		noticeMap.put("noticeNo", noticeNo);
+		
+		 return dao.updateNotice(noticeMap); 
+	}
 	// 관리자 로그인 ID PW 확인
 	@Override
 	public Admin findMatchAdmin(Admin admin) {
@@ -146,9 +160,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	//멤버 서치
 	@Override
-	public List<SearchedMember> searchMember(Map<String, String> dataMap) {
+	public List<SearchedMember> searchMember(Map<String, String> dataMap, Pagination page) {
 		
-		return dao.searchMember(dataMap); 
+		return dao.searchMember(dataMap,page); 
 	}
 
 	//옵션 상품
@@ -157,7 +171,17 @@ public class AdminServiceImpl implements AdminService{
 		return dao.insertOptionP(map); 
 	}
 
-	
+
+	//멤버 서치 페이지네이션
+	@Override
+	public Pagination countMember(Map<String, String> dataMap) {
+		int cp = Integer.parseInt(dataMap.get("cp"));
+		int listcount = dao.countMember(dataMap);
+		
+		return new Pagination(listcount,cp);
+	}
+
+
 	
 	
 	// 크로스 사이트 스크립트 방지 처리 메소드

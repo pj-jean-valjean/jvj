@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.notice.model.vo.Notice;
+import edu.kh.jvj.store.model.vo.Pagination;
 
 public interface AdminService {
 
@@ -29,6 +31,7 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertNotice(String title, String noticecate, String editordata, int loginMember);
+	int updateNotice(String title, String noticecate, String editordata, String noticeNo);
 
 	/** findMatchedAdminIdPw
 	 * @param admin
@@ -36,9 +39,12 @@ public interface AdminService {
 	 */
 	Admin findMatchAdmin(Admin admin);
 
-	List<SearchedMember> searchMember(Map<String, String> dataMap);
+	List<SearchedMember> searchMember(Map<String, String> dataMap, Pagination page);
 
 	int insertOptionP(Map<String, String> map);
+
+	Pagination countMember(Map<String, String> dataMap);
+
 
 	
 }

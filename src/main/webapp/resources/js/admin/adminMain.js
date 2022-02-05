@@ -9,7 +9,11 @@ const contentbox = document.getElementById("adminPCont");
         let filecheck=[0 , 0 , 0 , 0 , 0];
         let discountset=false;
         let classCheckObj={};
-
+        /* 페이지네이션 변수 */
+        let cp =1;
+        let cate=0;
+        let search ='';
+        let modifyNo = 0;
         //게시글 input check 변수 initial
         function validateVarInitial(){
             commonWriteCheckObj = {
@@ -34,7 +38,7 @@ const contentbox = document.getElementById("adminPCont");
             selectMonth = 0;
             writingcheck = false;
         }
-
+        
         //게시글 validation
         function validate(options){
             for( key  in commonWriteCheckObj){
@@ -883,8 +887,8 @@ const contentbox = document.getElementById("adminPCont");
                         case '1' : 
                         commonWriter('일반 상품 등록');
                         makeNormalPWritePage(); 
-/*                      url = contextPath + '/onedayclass/view/' + result;
-                        window.open(url, '등록일반상품', ''+result); */
+                        url = contextPath + '/store/info/' + result;
+                        window.open(url, '등록일반상품', ''+result); 
                         break;
                         case '2' : 
                         commonWriter('구독 상품 등록');

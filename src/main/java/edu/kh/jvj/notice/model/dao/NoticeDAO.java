@@ -1,6 +1,7 @@
 package edu.kh.jvj.notice.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,22 +18,20 @@ public class NoticeDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public int countNotice() {
-		return sqlSession.selectOne("adminMapper.countNotice");
+	public int countNotice(Map<String, String> map) {
+		return sqlSession.selectOne("adminMapper.countNotice",map);
 	}
-	public List<Notice> selectStoreList(Pagination page, int cate) {
-		
-		
+	public Notice selectOneNotice(int noticeNo) {
+		return sqlSession.selectOne("adminMapper.oneNotice",noticeNo);
+	}
+	public List<Notice> selectSearchNoticeList(Pagination page, Map<String, String> dataMap) {
 		//offset : 몇행을 건너 뛸것인지
 		//limit 건너뛴 위치부터 몇행을 조회할지
 		int limit = page.getLimit();
 		int offset = (page.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset,limit);
 		
-		return sqlSession.selectList("adminMapper.noticeList",cate,rowBounds);
-	}
-	public Notice selectOneNotice(int noticeNo) {
-		return sqlSession.selectOne("adminMapper.oneNotice",noticeNo);
+		return sqlSession.selectList("adminMapper.noticeSearchList",dataMap,rowBounds);
 	}
 	
 }
