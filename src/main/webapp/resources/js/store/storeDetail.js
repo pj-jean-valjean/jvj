@@ -220,9 +220,14 @@ function cart(){
         data:{  "storeNo":storeNo,
                 "addq":result.innerText,
                 "arrays":arrays,
-                "adStock":adPrice+""},
+                "adPrice":adPrice+"",
+              "adStock":adStock+""},
         success:function(result){
-            console.log(result);
+            if(result>0){
+              swal("상품이 장바구니에 추가되었습니다.","","success");
+            }else{
+              swal("오류","관리자에게 문의하세요","error");
+            }
         }
         ,error: function(err,message){
             console.log(err);

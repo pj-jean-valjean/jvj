@@ -19,4 +19,11 @@ public class CartServiceImpl implements CartService {
 		
 		return dao.addCart(cart);
 	}
+
+	@Override
+	@Transactional
+	public int addSub(Cart cart2) {
+		
+		return dao.addSub(cart2);
+	}
 }
