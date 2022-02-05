@@ -72,10 +72,10 @@ public class MemberController {
    public String login(Model model, HttpSession session) {
 	   
 	SnsLogin naverLogin = new SnsLogin(naverSns);
-	model.addAttribute("naver_url", naverLogin.getNaverAuthURL());
+	model.addAttribute("naver_url", naverLogin.getSnsAuthURL());
 	
 	SnsLogin kakaoLogin = new SnsLogin(kakaoSns);
-	model.addAttribute("kakao_url", kakaoLogin.getNaverAuthURL());
+	model.addAttribute("kakao_url", kakaoLogin.getSnsAuthURL());
 	
       return "member/login";
    }
@@ -128,12 +128,20 @@ public class MemberController {
 		// 1. code를 이용해서 access_token 받기
 		// 2. access_token 이용해서 사용자 profile 정보 가져오기
 		SnsLogin snsLogin = new SnsLogin(sns);
-		Member snsUser = snsLogin.getUserProfile(code);
+		Member snsUser = null;
+		
+		if(StringUtils.equals("naver", snsService)) {
+			snsUser = snsLogin.getNaverUserProfile(code, snsService);
+		} else if(StringUtils.equals("kakao", snsService)) {
+			snsUser = snsLogin.getKakaoUserProfile(code, snsService);
+		}
 		
 		model.addAttribute("snsUser", snsUser);
 		
+		System.out.println(snsUser);
+		
 		// 3. DB에 해당 유저가 존재하는지 체크(googleId, naverId 컬럼 추가)
-		Member user = null; // = service.getBySns(snsUser); 
+		Member user = null; // service.getBySns(snsUser); 
 		
 		if(user == null) { // 회원이 없는 경우
 			

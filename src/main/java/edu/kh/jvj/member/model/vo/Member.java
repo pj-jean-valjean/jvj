@@ -138,6 +138,16 @@ public class Member {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
+				+ ", memberNickname=" + memberNickname + ", memberName=" + memberName + ", memberPhone=" + memberPhone
+				+ ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", statusCode=" + statusCode
+				+ ", gradeCode=" + gradeCode + ", service=" + service + ", id=" + id + "]";
+	}
+	
+	
 	
 	
 }
