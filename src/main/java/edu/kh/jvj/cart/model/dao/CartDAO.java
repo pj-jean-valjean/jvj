@@ -17,4 +17,9 @@ public class CartDAO {
 		return mybatis.insert("cartMapper.addCart",cart);
 	}
 
+	public int addSub(Cart cart2) {
+		
+		return  mybatis.insert("cartMapper.addSub",cart2);
+	}
+
 }
