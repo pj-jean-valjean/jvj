@@ -33,38 +33,47 @@
 		<div class="hr" style="height: 5px; margin: 20px 0 30px 0"></div>
 
 		<c:forEach items="${cartList}" var="cart">
+			
+				<c:if test="${cart.parentNo eq 0}">
 
+					<div class="inline-block">
+						<input type="hidden" value="${cart.productNo}">
+						<div
+							style="width: 486px; height: 195px; border-right: 1px solid #d3c5b6;"
+							class="inline-block">
+							<h4 class="x-btn">x</h4>
+							<div class="j-img"
+								style="background-image: url('${contextPath}${cart.imgPath }');"></div>
+							<div>
 
-			<div class="inline-block">
-			<input type="hidden" value="${cart.productNo}">
-				<div
-					style="width: 486px; height: 195px; border-right: 1px solid #d3c5b6;"
-					class="inline-block">
-					<h4 class="x-btn">x</h4>
-					<div class="j-img"></div>
-					<div>
-						
-						<h4 style="margin-bottom: 25px;">${cart.productName }</h4>
-						<h3 style="margin-bottom: 15px;">${cart.price}</h3>
-						<div class="j-pmbtn">-</div>
-						<h4 style="display: inline-block; margin: 0 20px;">${cart.addq}</h4>
-						<div class="j-pmbtn">+</div>
+								<h4 style="margin-bottom: 25px;">${cart.productName }</h4>
+								<h3 style="margin-bottom: 15px;">${cart.price}</h3>
+								<div class="j-pmbtn">-</div>
+								<h4 style="display: inline-block; margin: 0 20px;">${cart.addq}</h4>
+								<div class="j-pmbtn">+</div>
+							</div>
+						</div>
+						<div
+							style="width: 330px; margin: 0 40px; height: 195px; border-right: 1px solid #d3c5b6;"
+							class="inline-block">
+						<c:forEach items="${cartList}" var="cart2">	
+							<c:if test="${cart2.parentNo eq cart.cartNo}">
+					
+								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName}${cart2.price} * ${cart2.addq}</h4>
+							</c:if>
+							</c:forEach>
+						</div>
+						<div style="width: 204px; height: 195px; text-align: center;">
+							<h2 style="margin-top: 80px">30,900원</h2>
+
+						</div>
+
 					</div>
-				</div>
-				<div
-					style="width: 330px; margin: 0 40px; height: 195px; border-right: 1px solid #d3c5b6;"
-					class="inline-block">
-					<h4 style="margin: 0px 0 25px 60px;">버터잼 1000ML 3,000원</h4>
-					<h4 style="margin: 0px 0 25px 60px;">버터칼 5,000원</h4>
-				</div>
-				<div style="width: 204px; height: 195px; text-align: center;">
-					<h2 style="margin-top: 80px">30,900원</h2>
-
-				</div>
-
-			</div>
-			<div class="hr" style="height: 1px; margin: 30px 0 30px 0"></div>
+					<div class="hr" style="height: 1px; margin: 30px 0 30px 0"></div>
+				</c:if>
+			
 		</c:forEach>
+
 		<div class="j-notice">
 
 
