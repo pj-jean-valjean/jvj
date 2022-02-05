@@ -115,23 +115,22 @@ public class MemberController {
    }
    
    @RequestMapping(value="/{service}/callback", method = {RequestMethod.GET, RequestMethod.POST})
-	public String snsLoginCallback(@PathVariable String snsService, Model model, @RequestParam String code, HttpSession session) throws Exception{
-		// 1. code를 이용해서 access_token 받기
-		
-		// 2. access_token 이용해서 사용자 profile 정보 가져오기
+	public String snsLoginCallback(@PathVariable("service") String snsService, Model model, @RequestParam String code, HttpSession session) throws Exception{
 		
 		SnsValue sns = null;
 		
 		if(StringUtils.equals("naver", snsService)) {
 			sns = naverSns;
 		} else if(StringUtils.equals("kakao", snsService)) {
-			
+			sns = kakaoSns;
 		}
 		
+		// 1. code를 이용해서 access_token 받기
+		// 2. access_token 이용해서 사용자 profile 정보 가져오기
 		SnsLogin snsLogin = new SnsLogin(sns);
 		Member snsUser = snsLogin.getUserProfile(code);
 		
-		model.addAttribute("result", snsUser);
+		model.addAttribute("snsUser", snsUser);
 		
 		// 3. DB에 해당 유저가 존재하는지 체크(googleId, naverId 컬럼 추가)
 		Member user = null; // = service.getBySns(snsUser); 

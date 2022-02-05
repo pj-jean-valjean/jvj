@@ -26,6 +26,7 @@ public class SnsLogin {
 			
 		}  else if(sns.isKakao()) {
 			this.oauthService = new ServiceBuilder(sns.getClientId())
+					.apiSecret(sns.getClientSecret())
 					.callback(sns.getRedirectUrl())
 					.build(sns.getApi20Instance());
 		}
@@ -39,11 +40,17 @@ public class SnsLogin {
 
 	public Member getUserProfile(String code) throws Exception{
 		OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
+		
+		System.out.println("1");
 	 
 		OAuthRequest request = new OAuthRequest(Verb.GET, this.sns.getProfileUrl());
 		oauthService.signRequest(accessToken, request);
 		
+		System.out.println("2");
+		
 		Response resp = oauthService.execute(request);
+		
+		System.out.println("3");
 		
 		return parseJson(resp.getBody());
 	}
@@ -68,6 +75,8 @@ public class SnsLogin {
 			member.setMemberEmail(email);
 			member.setMemberName(name);
 		
+		} else if(this.sns.isKakao()) {
+			
 		}
 
 		return member;
