@@ -51,7 +51,7 @@
 				<c:otherwise>
                 <!-- 로그인 -->
 	                <li>
-	                    <a href="">
+	                    <a href="${contextPath}/mypage/main">
 	                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
 	                    </a>
 	                    <a href="">
