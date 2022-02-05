@@ -43,13 +43,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.jvj.common.Util;
 import edu.kh.jvj.member.model.service.MailService;
 import edu.kh.jvj.member.model.service.MemberService;
+import edu.kh.jvj.member.model.service.SnsLoginService;
 import edu.kh.jvj.member.model.vo.Member;
-import edu.kh.jvj.member.model.vo.SnsLogin;
+import edu.kh.jvj.member.model.vo.SnsToken;
 import edu.kh.jvj.member.model.vo.SnsValue;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember"}) 
+@SessionAttributes({"loginMember", "token"}) 
 public class MemberController {
 
    @Autowired
@@ -71,10 +72,10 @@ public class MemberController {
    @RequestMapping(value = "login", method = RequestMethod.GET)
    public String login(Model model, HttpSession session) {
 	   
-	SnsLogin naverLogin = new SnsLogin(naverSns);
+	SnsLoginService naverLogin = new SnsLoginService(naverSns);
 	model.addAttribute("naver_url", naverLogin.getSnsAuthURL());
 	
-	SnsLogin kakaoLogin = new SnsLogin(kakaoSns);
+	SnsLoginService kakaoLogin = new SnsLoginService(kakaoSns);
 	model.addAttribute("kakao_url", kakaoLogin.getSnsAuthURL());
 	
       return "member/login";
@@ -127,31 +128,33 @@ public class MemberController {
 		
 		// 1. code를 이용해서 access_token 받기
 		// 2. access_token 이용해서 사용자 profile 정보 가져오기
-		SnsLogin snsLogin = new SnsLogin(sns);
+		SnsLoginService snsLogin = new SnsLoginService(sns);
 		Member snsUser = null;
 		
 		if(StringUtils.equals("naver", snsService)) {
 			snsUser = snsLogin.getNaverUserProfile(code, snsService);
 		} else if(StringUtils.equals("kakao", snsService)) {
-			snsUser = snsLogin.getKakaoUserProfile(code, snsService);
+			SnsToken snsToken = snsLogin.getKakaoToken(code);
+			
+			if(snsToken != null) {
+				snsUser = snsLogin.getKakaoProfile(snsToken, snsService);
+				model.addAttribute("token", snsToken.getAccess_Token());
+			}
 		}
-		
-		model.addAttribute("snsUser", snsUser);
 		
 		System.out.println(snsUser);
 		
-		// 3. DB에 해당 유저가 존재하는지 체크(googleId, naverId 컬럼 추가)
-		Member user = null; // service.getBySns(snsUser); 
+		// 3. DB에 해당 유저가 존재하는지 체크
+		Member member = service.getSnsUser(snsUser);
 		
-		if(user == null) { // 회원이 없는 경우
-			
+		if(member == null) { // 회원이 없는 경우
+			model.addAttribute("snsUser", snsUser);
+			return "member/signUp";
 		} else { // 회원이 있는 경우
 			// 4. 존재 시 강제 로그인, 미 존재시 가입페이지 !!
-			
+			model.addAttribute("loginMember", member);
+			return "redirect:/";
 		}
-		
-		
-		return "loginResult";
 	}
 
    @RequestMapping(value = "logout", method = RequestMethod.GET)

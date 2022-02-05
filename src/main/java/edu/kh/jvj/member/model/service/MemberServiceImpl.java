@@ -96,6 +96,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
+	// 로그인 api 회원 정보 조회
+	@Override
+	public Member getSnsUser(Member snsUser) {
+		return dao.getSnsUser(snsUser);
+	}
+
+	
 	
 
 
