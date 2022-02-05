@@ -53,13 +53,13 @@
     
 
     <div class="login-btns">
-        <a href="#">
+        <a href="${kakao_url}">
             <div class="login-kakao">
                 <img src="${contextPath}/resources/images/member/kakao-talk.png">
                 <p>카카오톡으로 로그인</p>
             </div>
         </a>
-        <a href="#">
+        <a href="${naver_url}">
             <div class="login-naver">
                 <img src="${contextPath}/resources/images/member/naver.png">
                 <p>네이버로 로그인</p>

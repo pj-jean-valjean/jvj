@@ -25,11 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,8 @@ import edu.kh.jvj.common.Util;
 import edu.kh.jvj.member.model.service.MailService;
 import edu.kh.jvj.member.model.service.MemberService;
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.member.model.vo.SnsLogin;
+import edu.kh.jvj.member.model.vo.SnsValue;
 
 @Controller
 @RequestMapping("/member/*")
@@ -56,10 +60,23 @@ public class MemberController {
    
    @Autowired 
    JavaMailSender mailSender;
+   
+   @Autowired
+	private SnsValue naverSns;
+	
+	@Autowired
+	private SnsValue kakaoSns;
 
    
    @RequestMapping(value = "login", method = RequestMethod.GET)
-   public String login() {
+   public String login(Model model, HttpSession session) {
+	   
+	SnsLogin naverLogin = new SnsLogin(naverSns);
+	model.addAttribute("naver_url", naverLogin.getNaverAuthURL());
+	
+	SnsLogin kakaoLogin = new SnsLogin(kakaoSns);
+	model.addAttribute("kakao_url", kakaoLogin.getNaverAuthURL());
+	
       return "member/login";
    }
    
@@ -96,6 +113,39 @@ public class MemberController {
       }
       return path;
    }
+   
+   @RequestMapping(value="/{service}/callback", method = {RequestMethod.GET, RequestMethod.POST})
+	public String snsLoginCallback(@PathVariable String snsService, Model model, @RequestParam String code, HttpSession session) throws Exception{
+		// 1. code를 이용해서 access_token 받기
+		
+		// 2. access_token 이용해서 사용자 profile 정보 가져오기
+		
+		SnsValue sns = null;
+		
+		if(StringUtils.equals("naver", snsService)) {
+			sns = naverSns;
+		} else if(StringUtils.equals("kakao", snsService)) {
+			
+		}
+		
+		SnsLogin snsLogin = new SnsLogin(sns);
+		Member snsUser = snsLogin.getUserProfile(code);
+		
+		model.addAttribute("result", snsUser);
+		
+		// 3. DB에 해당 유저가 존재하는지 체크(googleId, naverId 컬럼 추가)
+		Member user = null; // = service.getBySns(snsUser); 
+		
+		if(user == null) { // 회원이 없는 경우
+			
+		} else { // 회원이 있는 경우
+			// 4. 존재 시 강제 로그인, 미 존재시 가입페이지 !!
+			
+		}
+		
+		
+		return "loginResult";
+	}
 
    @RequestMapping(value = "logout", method = RequestMethod.GET)
    public String logout(SessionStatus status) {
