@@ -90,9 +90,9 @@
 		</div>
 		<div class="j-sum inline-block">
 			<p>
-				총 주문 금액 <b class="resultPrice">27,900원</b> + 배송비 <b class="taxPrice">3,000원</b> =
+				총 주문 금액 <b class="resultPrice">0원</b> + 배송비 <b class="taxPrice">3,000원</b> =
 			</p>
-			<h1>총 결제 금액</h1><h1  class="lastMaxPrice"> 30,900원</h1>
+			<h1>총 결제 금액</h1><h1  class="lastMaxPrice"> 0원</h1>
 		</div>
 		<div class="j-buy">
 			<h2>구매하기</h2>

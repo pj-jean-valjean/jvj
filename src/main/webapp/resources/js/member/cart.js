@@ -3,6 +3,8 @@
 $(".x-btn").on("click", (e) => {
   console.log($(e.target).parent().parent().children().val());
   const cartNo= $(e.target).parent().parent().children().val();
+  let itemp = $(e.target).parent().parent().find('.cartSumPrice').text();
+  const itemPrice = parseInt(itemp.substr('원',itemp.length-1));
   $.ajax({
       url:specialContextPath+"/cart/deleteCart",
       type:"POST",
@@ -22,6 +24,10 @@ $(".x-btn").on("click", (e) => {
   });
   $(e.target).parent().parent().next().fadeOut(500);
   $(e.target).parent().parent().fadeOut(500);
+  console.log(itemp);
+  resultPrice -=itemPrice;
+  paging();
+
 });
 
 
@@ -56,15 +62,20 @@ for(let i = 0 ; i<items.length;i++){
     resultPrice += pp * aq + tempsum;
  
     cartSumPrice[i].textContent = pp * aq + tempsum +"원";
+    
 }
 
-rp.text(resultPrice+"원") ;
+// 결산
+function paging(){
+    rp.text(resultPrice+"원") ;
+        
+    if(resultPrice>=30000){
+        taxPrice.text(0+'원');
+        lastMaxPrice.text(resultPrice+"원");
+    }else{
+        taxPrice.text(3000+'원');
+        lastMaxPrice.text(resultPrice+3000+"원");
+    }
 
-
-if(resultPrice>=30000){
-    taxPrice.text(0+'원');
-    lastMaxPrice.text(resultPrice+"원");
-}else{
-    taxPrice.text(3000+'원');
-    lastMaxPrice.text(resultPrice+3000+"원");
 }
+paging();
