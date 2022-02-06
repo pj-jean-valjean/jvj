@@ -16,6 +16,59 @@ function changeImg() {
   }
 }
 
+// 조아요
+$(document).ready(function () {
+$(".contentss").on("click",function(){
+  if (loginMember != "") {
+    // 하트있을때
+    if ($(".contentss").hasClass("heart-active")) {
+      $.ajax({
+        url: contextPath + "/store/doesntLikeit",
+        type: "POST",
+        data: { productNo: storeNo },
+        success: function (result) {
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+      $(".contentss").removeClass("heart-active");
+      $(".heart").removeClass("heart-active");
+    } else {
+      $.ajax({
+        url: contextPath + "/store/likeit",
+        type: "POST",
+        data: { productNo: storeNo },
+        success: function (result) {
+          console.log(result);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+      $(".contentss").toggleClass("heart-active");
+      $(".heart").toggleClass("heart-active");
+    }
+  }
+
+  // 로그인 안했을때
+  else {
+    swal({
+      title: "로그인 필요",
+      text: "로그인 후 좋아요가 가능합니다.",
+      icon: "info",
+      buttons: "확인",
+    }).then((value) => {
+      // 확인눌렀을때 실행
+      if (value) {
+        location.href = contextPath + "/member/login";
+      }
+    });
+  }
+});
+});
+
 // 추가옵션 추가 했을때
 $("#selectcate-option").change((e) => {
   let selectValue = $(e.target).val();
@@ -32,6 +85,7 @@ $("#selectcate-option").change((e) => {
     console.log($(".choose-option")[selectValue - 1]);
   }
   resultPrice.text(maxPrice());
+  resultComma();
   $(e.target).val(0);
 });
 
@@ -39,6 +93,7 @@ $("#selectcate-option").change((e) => {
 $(".clear-btn").click((e) => {
   $(e.target).parent().slideUp(0);
   resultPrice.text(maxPrice());
+  resultComma();
 });
 
 /* 수량 증감 버튼*/
@@ -72,6 +127,7 @@ function count(type) {
   pdtprice.innerText =
     (price * parseInt(resultNum)).toLocaleString("ko-KR") + "원";
   resultPrice.text(maxPrice());
+  resultComma();
 }
 
 /* 추가 옵션 수량 증감 버튼*/
@@ -98,6 +154,7 @@ function totalCount(type, num) {
   }
   result.innerText = resultNum;
   resultPrice.text(maxPrice());
+  resultComma();
 }
 const optionList = [6300, 9900, 20000];
 
@@ -116,10 +173,12 @@ function maxPrice() {
     }
   }
   resultPrice.text(sum);
+  resultComma();
   return sum;
 }
 
 resultPrice.text(maxPrice());
+resultComma();
 /* 리뷰 */
 /* 상세리뷰 토글check */
 let reviewtoggle = false;
@@ -166,13 +225,10 @@ function returnReviewContent(글번호) {
   /* ajax */
   return ajax;
 }
-$(document).ready(function () {
-  $(".contentss").click(function () {
-    $(this).toggleClass("heart-active");
-    $(this).next().toggleClass("heart-active");
-    $(this).children().toggleClass("heart-active");
-  });
-});
+
+function resultComma(){
+  resultPrice.text(parseInt(resultPrice.text()).toLocaleString("ko-KR") + "원");
+}
 
 // 가격에 콤마표시
 function comma() {
@@ -181,6 +237,7 @@ function comma() {
     prices[i].textContent =
       parseInt(prices[i].textContent).toLocaleString("ko-KR") + "원";
   }
+  
 }
 comma();
 
@@ -195,57 +252,69 @@ function scrollDelievery() {
   document.querySelector("#contents-delievery").scrollIntoView();
 }
 
-
 // 장바구니
-function cart(){
-  const options = $('.choose-option');
-  const totalresult = $('.total-result');
+function cart() {
+  if (stock == 0) {
+    swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
+    return;
+  }
+  const options = $(".choose-option");
+  const totalresult = $(".total-result");
   console.log(totalresult.length);
   let arrays = "";
-  
-  for(let i = 0 ; i<totalresult.length;i++){
-    console.log(options[i].style.display);
-    if(options[i].style.display == "block"){
 
+  for (let i = 0; i < totalresult.length; i++) {
+    console.log(options[i].style.display);
+    if (options[i].style.display == "block") {
       arrays += totalresult[i].textContent;
-    }else{
-      arrays +="0";
+    } else {
+      arrays += "0";
     }
-    arrays+=",";
+    arrays += ",";
   }
   console.log(arrays);
-    $.ajax({
-        url:contextPath+'/cart/addCart',
-        type:'POST',
-        data:{  "storeNo":storeNo,
-                "addq":result.innerText,
-                "arrays":arrays,
-                "adPrice":adPrice+"",
-              "adStock":adStock+""},
-        success:function(result){
-            if(result>0){
-              swal("상품이 장바구니에 추가되었습니다.","","success");
-            }else{
-              swal("오류","관리자에게 문의하세요","error");
-            }
-        }
-        ,error: function(err,message){
-            console.log(err);
-            console.log(message);
-        }
-    });
+  $.ajax({
+    url: contextPath + "/cart/addCart",
+    type: "POST",
+    data: {
+      storeNo: storeNo,
+      addq: result.innerText,
+      arrays: arrays,
+      adPrice: adPrice + "",
+      adStock: adStock + "",
+    },
+    success: function (result) {
+      if (result > 0) {
+        swal("상품이 장바구니에 추가되었습니다.", "", "success");
+      } else {
+        swal("오류", "관리자에게 문의하세요", "error");
+      }
+    },
+    error: function (err, message) {
+      console.log(err);
+      console.log(message);
+    },
+  });
 }
 
 // 스토어 물건 바로결제
-function buy(){
+function buy() {
+  if (stock == 0) {
+    swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
+    return;
+  }
 }
 
 // 로그인 안했을때
-function infoAlert(){
-  swal({title: "로그인 필요",text:"로그인 후 이용 가능합니다.",icon:"info",buttons:'확인'}).then((value)=>{
-    if(value){
-      location.href=contextPath+"/member/login";
-      
+function infoAlert() {
+  swal({
+    title: "로그인 필요",
+    text: "로그인 후 이용 가능합니다.",
+    icon: "info",
+    buttons: "확인",
+  }).then((value) => {
+    if (value) {
+      location.href = contextPath + "/member/login";
     }
   });
 }

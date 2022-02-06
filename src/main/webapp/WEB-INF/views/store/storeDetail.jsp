@@ -92,16 +92,20 @@
 					<div class="category-title">
 						<span>${store.storeName}</span>
 						<div class="heart-btn">
-							<div class="contentss">
-								<div class="heart"></div>
+							<div
+								class="contentss <c:if test="${store.likeit  > 0}">heart-active</c:if>">
+								<div
+									class="heart <c:if test="${store.likeit > 0}">heart-active</c:if>"></div>
 							</div>
 
 						</div>
 					</div>
-					
-						<c:if test="${store.discountPer > 0}"><span class="sale">${store.discountPer }%</span>
-						<span class="real-price prices">${store.price}</span></c:if>
-					
+
+					<c:if test="${store.discountPer > 0}">
+						<span class="sale">${store.discountPer }%</span>
+						<span class="real-price prices">${store.price}</span>
+					</c:if>
+
 					<span class="price prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 
@@ -125,6 +129,10 @@
 						<img class="add-btn"
 							src="${contextPath}/resources/images/subscribe/add-btn.png"
 							alt="add-btn" onclick='count("add")'>
+						<c:if test="${store.stock eq 0}">
+							<h2 style="margin-left: 20px; color: red; line-height: 1;">
+								품절</h2>
+						</c:if>
 					</div>
 				</article>
 				<div class="bottom-line"></div>
@@ -203,10 +211,14 @@
 				</article>
 
 				<div class="submit-sub">
-					<button class="shopping-btn" onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if><c:if test="${empty loginMember }">'infoAlert();'</c:if>>
+					<button class="shopping-btn"
+						onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if>
+						<c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>장바구니</span>
 					</button>
-					<button class="submit-btn" onclick=<c:if test="${not empty loginMember }"> 'buy();'</c:if><c:if test="${empty loginMember }">'infoAlert();'</c:if>>
+					<button class="submit-btn"
+						onclick=<c:if test="${not empty loginMember }"> 'buy();'</c:if>
+						<c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>바로 구매</span>
 					</button>
 				</div>
@@ -454,6 +466,7 @@ DELIVERY / 배송정보
 	</main>
 	<script>
 	const contextPath = '${contextPath}';
+	const loginMember = '${loginMember.memberNo}';
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};
 	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];
