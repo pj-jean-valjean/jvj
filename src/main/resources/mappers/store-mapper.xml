@@ -81,7 +81,6 @@
 			#{memberNo} AND
 			D.PRODUCT_NO = A.PRODUCT_NO) LIKEIT
 		</if>
-
 		FROM
 		PRODUCT A
 		LEFT
@@ -90,7 +89,7 @@
 		JOIN DISCOUNT C
 		ON A.PRODUCT_NO = C.PRODUCT_NO
 		WHERE PRODUCT_CD= 1
-		AND A.PRODUCT_NO=#{no}
+		AND A.PRODUCT_NO=#{storeNo}
 	</select>
 	<!-- 썸네일 다불러오기 -->
 	<select id="storeImgSelect" resultMap="store_rm">

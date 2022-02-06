@@ -34,9 +34,9 @@ public class StoreDAO {
 		return mybatis.selectOne("storeMapper.getListCount", search);
 	}
 
-	public Store selectStoreDetail(int no) {
+	public Store selectStoreDetail(Store store) {
 
-		return mybatis.selectOne("storeMapper.selectStoreDetail", no);
+		return mybatis.selectOne("storeMapper.selectStoreDetail", store);
 
 	}
 
