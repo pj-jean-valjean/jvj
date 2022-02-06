@@ -54,7 +54,7 @@
 	                    <a href="${contextPath}/mypage/main">
 	                        <img src="${contextPath}/resources/images/common/user.png" alt="user">
 	                    </a>
-	                    <a href="">
+	                    <a href="${contextPath}/cart">
 	                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
 	                    </a>
 						<a href="${contextPath}/member/logout" title="logout-icon">
