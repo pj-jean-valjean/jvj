@@ -125,7 +125,8 @@
 
         </form>
         </div>
-
+${snsUser}
+${snsUser.memberEmail}
     </main>
 
  
