@@ -29,7 +29,7 @@
 .input-info-div{
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+   	margin: 10px 0;
 }
 
 .input-info p{
@@ -71,8 +71,7 @@
 
 /* 유효성 검사 */
 #checkEmail{
-	font-size: initial;
-	color: rgb(249, 156, 156);
+	color:#F99C9C;
 	font-weight: normal;
 	/* padding: 10px; */
 }
@@ -146,3 +145,16 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 20px;
     color: #FFFFFF;
 }
+
+
+
+
+/* 중복검사, 유효성 검사용들 p */
+.check-p{
+	font-size: small;
+    margin-left: 245px;
+    display: block;
+    font-weight: normal;
+    
+}
+	

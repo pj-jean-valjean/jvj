@@ -20,7 +20,7 @@
                 <span>@</span>
                 <div class="input-div">
                     <input type="text" class="member-info email-input" name="email" id="email-input-select" >
-                    <select class="member-info" id="email-select">
+                    <select class="member-info email-input" id="email-select">
                         <option value="0">직접입력</option>
                         <option value="1">naver.com</option>
                         <option value="2">daum.net</option>
@@ -28,20 +28,19 @@
                     </select>
                 </div> 
                 <div class="input-div">
-                    <button type="button" class="email-check-btn" id="sendEmail" onclick="startTimer();">이메일인증</button>
+                    <button type="button" class="email-check-btn" id="sendEmail">이메일인증</button>
                     <span id="count-down-timer"></span>
                 </div>
             </div>
+             <!-- 이메일 중복검사 -->
+			<p class="check-p" id="dupEmail"></p>
             <!-- 버튼 클릭 유효성 검사 확인 -->
-			<p id="checkEmail"></p>
+			<p class="check-p" id="checkEmail"></p>
 			
-			<div class="failMsg">
-             	<button type="button" class="btn auth-resend-btn" onclick="resendAuth();"></button>
-             	<span id="signUpEmailCheck"></span>
-            </div>
 			
-           <div class="input-info-div" id="email-checkNum">
-                <div class="p-div"><p>인증번호<span> *</span></p></div>
+			
+			<div class="input-info-div" id="email-checkNum">
+            	<div class="p-div"><p>인증번호<span> *</span></p></div>
                 <div class="input-div">
                     <input type="number" class="member-info" id="email-Authentication" placeholder=" 인증번호를 입력해주세요.">
                 </div> 
@@ -49,41 +48,37 @@
                     <button type="button" class="email-check-btn"  id="check-email-Authentication" >확인</button>
                		<input type="hidden" id="certificationYN" value="false">
                 </div>   
-                	<span id="check-email-Authentication"></span>
-                	
-            </div>
-          
-
+			</div>
+            <!-- 비밀번호 확인 유효성검사 -->
+            <p class="check-p" id="check-email-Authentication"></p>
 
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호<span> *</span></p></div>
                 <div class="input-div"><input type="password" class="member-info" id="pwd1" name="memberPw" maxlength="12" placeholder=" 문자, 숫자, 기호 6~20글자" required></div>
-            	
-            	<!-- 비밀번호 유효성 검사1 -->
-            	<span id="checkPwd1"></span>
-            	
-            	<!-- <input type="hidden" name="idDup" id="idDup" value="false"> -->
             </div>
+           	<!-- 비밀번호 유효성 검사1 -->
+           	<p class="check-p" id="checkPwd1"></p>
+            	
             <div class="input-info-div">
                 <div class="p-div"><p>비밀번호 확인<span> *</span></p></div>
                 <div class="input-div"><input type="password" class="member-info" id="pwd2" maxlength="12" placeholder="비밀번호 확인" required></div>
-            	
-            	<!-- 비밀번호 유효성 검사2 -->
-            	<span id="checkPwd2"></span>
             </div>
+           	<!-- 비밀번호 유효성 검사2 -->
+           	<p class="check-p" id="checkPwd2"></p>
+
             <div class="input-info-div">
                 <div class="p-div"><p>닉네임<span> *</span></p></div>
                 <div class="input-div"><input type="text" class="member-info" id="nickname" name="memberNickname" maxlength="5" autocomplete="off" required></div>
-                
-                <!-- 닉네임 유효성 검사 -->
-            	<span id="checkNickname"></span>
             </div>
+            <!-- 닉네임 유효성 검사 -->
+           	<p class="check-p"  id="checkNickname"></p>
+
             <div class="input-info-div">
                 <div class="p-div"><p>이름<span> *</span></p></div>
                 <div class="input-div"><input type="text" class="member-info" id="name" name="memberName" maxlength="5" autocomplete="off" required></div>
-            	<!-- 이름 유효성 검사 -->
-            	<span id="checkName"></span>
             </div>
+           	<!-- 이름 유효성 검사 -->
+           	<p class="check-p" id="checkName"></p>
            
 
             <div class="input-info-div">
@@ -101,10 +96,9 @@
                 <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone2" name="phone" autocomplete="off" required></div>
                 <span>-</span>
                 <div class="input-div"><input type="number" class="member-info phone-input phone" id="phone3" name="phone" autocomplete="off" required></div>
-            	
-            	<!-- 전화번호 유효성 검사 -->
-            	<span id="checkPhone"></span>
             </div>
+           	<!-- 전화번호 유효성 검사 -->
+           	<p class="check-p"  id="checkPhone"></p>
 
             <div class="input-info-div">
                 <div class="p-div"><p>주소</p></div>
@@ -131,7 +125,8 @@
 
         </form>
         </div>
-
+${snsUser}
+${snsUser.memberEmail}
     </main>
 
  

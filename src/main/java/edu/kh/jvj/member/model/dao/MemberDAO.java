@@ -78,6 +78,15 @@ public class MemberDAO {
 	}
 
 
+	/** 로그인 api 회원 정보 조회
+	 * @param snsUser
+	 * @return member
+	 */
+	public Member getSnsUser(Member snsUser) {
+		return sqlSession.selectOne("memberMapper.selectSnsUser", snsUser);
+	}
+
+
 	
 
 

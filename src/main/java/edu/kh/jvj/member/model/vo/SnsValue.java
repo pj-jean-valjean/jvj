@@ -22,26 +22,17 @@ public class SnsValue implements SnsUrls{
 		this.redirectUrl = redirectUrl;
 		
 		this.isNaver = StringUtils.equalsIgnoreCase("naver", this.service);
+		this.isKakao = StringUtils.equalsIgnoreCase("kakao", this.service);
 		
 		if(isNaver) {
 			this.api20Instance = NaverAPI20.instance();
 			this.profileUrl = NAVER_PROFILE_URL;
-		} 
-	}
-	
-	public SnsValue(String service, String clientId, String redirectUrl) {	
-		this.service = service;
-		this.clientId = clientId;
-		this.redirectUrl = redirectUrl;
-		
-		this.isKakao = StringUtils.equalsIgnoreCase("kakao", this.service);
-		
-		if(isKakao) {
+		} else if(isKakao) {
 			this.api20Instance = KakaoAPI20.instance();
 			this.profileUrl = KAKAO_PROFILE_URL;
 		}
 	}
-
+	
 	public String getService() {
 		return service;
 	}

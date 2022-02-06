@@ -243,7 +243,9 @@ main{
     margin-top: 90px;
     border-bottom: 1px solid #B7B7B7;
 }
-
+#contents-exp img{
+	width : 100%!important;
+}
 .detail-contents{
     width: 100%;
     z-index: 2;

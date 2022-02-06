@@ -1,12 +1,7 @@
 package edu.kh.jvj.admin.model.vo;
 
-public class ProductWrite {
-	//공통 product
-	private int productNo;
-	private String title;
-	private int price;
+public class ProductWrite extends SimpleProduct{
 	private String editordata; //설명내용(섬머노트)
-	private int writecate;
 	
 	//일반스토어
 	private int stock;
@@ -27,35 +22,11 @@ public class ProductWrite {
 	private int endhour;//끝 시간
 	private int endminute; //끝 분
 	private String startEndTime;
-	public int getProductNo() {
-		return productNo;
-	}
-	public void setProductNo(int productNo) {
-		this.productNo = productNo;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
 	public String getEditordata() {
 		return editordata;
 	}
 	public void setEditordata(String editordata) {
 		this.editordata = editordata;
-	}
-	public int getWritecate() {
-		return writecate;
-	}
-	public void setWritecate(int writecate) {
-		this.writecate = writecate;
 	}
 	public int getStock() {
 		return stock;
@@ -149,17 +120,13 @@ public class ProductWrite {
 	}
 	@Override
 	public String toString() {
-		return "ProductWrite [productNo=" + productNo + ", title=" + title + ", price=" + price + ", editordata="
-				+ editordata + ", writecate=" + writecate + ", stock=" + stock + ", storecate=" + storecate
+		return "ProductWrite [editordata=" + editordata + ", stock=" + stock + ", storecate=" + storecate
 				+ ", discountyn=" + discountyn + ", discountStart=" + discountStart + ", discountEnd=" + discountEnd
 				+ ", discountPer=" + discountPer + ", detailcontents=" + detailcontents + ", place=" + place
 				+ ", people=" + people + ", classdate=" + classdate + ", starthour=" + starthour + ", startminute="
 				+ startminute + ", endhour=" + endhour + ", endminute=" + endminute + ", startEndTime=" + startEndTime
 				+ "]";
 	}
-	
-	
-	
 	
 	
 }
