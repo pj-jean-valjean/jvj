@@ -453,6 +453,7 @@ DELIVERY / 배송정보
 
 	</main>
 	<script>
+	const contextPath = '${contextPath}';
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};
 	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];

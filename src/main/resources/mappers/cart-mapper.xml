@@ -10,7 +10,7 @@
 		<result property="productName" column="PRODUCT_NM" />
 		<result property="parentNo" column="CART_NO2" />
 		<result property="imgPath" column="IMGPATH" />
-		
+
 	</resultMap>
 
 	<!-- 장바구니에 상품 하나 추가 -->
@@ -33,8 +33,16 @@
 		CART_NO,PRODUCT_NO,ADD_Q,CART_NO2,PRODUCT_NM,PRODUCT_PRICE,PRODUCT_IMG_PATH||PRODUCT_IMG_NAME
 		IMGPATH FROM CART
 		LEFT JOIN PRODUCT USING(PRODUCT_NO)
-		LEFT JOIN PRODUCT_IMG USING(PRODUCT_NO)
-		WHERE MEMBER_NO =#{memberNo} AND PRODUCT_IMG_LEVEL = 0
+		LEFT JOIN
+		PRODUCT_IMG USING(PRODUCT_NO)
+		WHERE MEMBER_NO =#{memberNo} AND
+		PRODUCT_IMG_LEVEL = 0
 		ORDER BY 1
 	</select>
+	<!-- 장바구니를 비웁니다. -->
+	<delete id="deleteCart">
+		DELETE FROM CART
+		WHERE (CART_NO = #{cartNo} OR CART_NO2 = #{cartNo} ) AND MEMBER_NO
+		=#{memberNo}
+	</delete>
 </mapper>

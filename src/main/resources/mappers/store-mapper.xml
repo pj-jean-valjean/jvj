@@ -71,7 +71,7 @@
 
 		</choose>
 	</select>
-	<!-- 스토어 상세페이지 수정해야함 -->
+	<!-- 스토어 상세페이지 -->
 	<select id="selectStoreDetail" resultMap="store_rm">
 		SELECT
 		A.PRODUCT_NO,A.PRODUCT_NM,A.PRODUCT_PRICE,B.STORE_AMOUNT,C.DISCOUNT_PER,B.STORE_TYPE

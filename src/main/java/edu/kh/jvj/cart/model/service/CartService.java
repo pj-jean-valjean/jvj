@@ -15,5 +15,7 @@ public interface CartService {
 
 	List<Cart> selectOptionList(Member member);
 
+	int deleteCart(Cart cart);
+
 
 }
