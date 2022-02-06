@@ -23,7 +23,7 @@
                 optionProductWrite(); } },
                 /* 상품 관리(수정) */
             { path: routepath+'productManage', component: function(){
-                modifyProduct();} },
+                modifyProduct();searchProduct();} },
                 /* 글관리 */
             { path: routepath+'reviewManage', component: function(){
                 reviewManage();} },
@@ -37,6 +37,16 @@
                 }
                 noticeboardWriter('공지사항수정');
                 modifyThisNotice();
+            } },
+            { path: routepath+'modifyProduct', component: function(){
+                if(productcate==3){
+                    alert("클래스페이지로 이동"+productcate)
+                    makeClassModyfy();
+                }
+                else {
+                    alert("준비중입니다"+productcate)
+                    location.href='main';
+                }
             } },
             
         ];
@@ -536,7 +546,6 @@
                             ul.append(li);
                             return;
                         }
-                        console.log(productList);
                         for(product of productList){
                             const li = document.createElement("li");
                             li.className = "oneMemberResult";
@@ -556,6 +565,7 @@
                             "<span class='oneMemberInfo'>"+product.cateName+"</span>"+
                             "<span class='oneMemberInfo notice-title'>"+titleAtag+"</span>"+
                             "<span class='oneMemberInfo'>"+product.price+"</span>"+
+                            "<span class='oneMemberInfo'>"+"<input type='hidden' value='"+product.writecate+"'>"+"</span>"+
                             "<span class='oneMemberInfo'><a href='modifyProduct' class='modifyProductBtn'>수정하기</a></span>";
                             li.innerHTML = inner;
                             ul.append(li);
@@ -569,6 +579,7 @@
                             function(Btn){
                                 Btn.addEventListener("click", e=>{
                                     modifyNo = Btn.parentElement.parentElement.firstElementChild.innerText;
+                                    productcate = Btn.parentElement.previousElementSibling.children[0].value;
                                     if(!e.target.matches('.modifyProductBtn')) 
                                     {
                                         console.log("안맞음");
@@ -588,6 +599,23 @@
                 }
             }
         }
+        function makeClassModyfy(){
+            commonWriter('클래스 상품 등록'); makeClassPWritePage();
+            const goback = document.createElement("button");
+            const reload = document.createElement("button");
+            goback.setAttribute("type", "button");
+            reload.setAttribute("type", "button");
+            goback.setAttribute("onclick","window.history.back()");
+            reload.setAttribute("onclick","loadNoticeDetail()");
+            goback.innerText = "목록으로 돌아가기";
+            reload.innerText = "다시불러오기";
+            const modifyNoInput = document.createElement("input");
+            modifyNoInput.name = "noticeNo";
+            modifyNoInput.type="hidden";
+            modifyNoInput.value = modifyNo;
+            document.querySelector("#writerForm").prepend(goback,reload,modifyNoInput);
+        }
+
         //-----------------------------------------------------------------//
         /* 페이지네이션 생성 */
         function makePagination(page){
