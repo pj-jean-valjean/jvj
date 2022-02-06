@@ -131,6 +131,10 @@
 	</ul>
 	<!-- main-wrapper end-->
 </body>
+<script>
+const contextPath = '${contextPath}';
+const loginMember = '${loginMember.memberNo}';
+</script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/store/store.js"></script>
 <jsp:include page="../common/footer.jsp" />
