@@ -72,8 +72,19 @@ public class CartController {
 			}
 
 		}
-
+		
 		return addMainResultNo;
 	}
-
+	
+	@PostMapping("deleteCart")
+	@ResponseBody
+	public int deleteCart(int cartNo,@ModelAttribute("loginMember") Member member, Cart cart) {
+		System.out.println(cartNo);
+		System.out.println(member.getMemberNo());		
+		cart.setCartNo(cartNo);
+		cart.setMemberNo(member.getMemberNo());
+		int result = service.deleteCart(cart);
+		
+		return result;
+	}
 }

@@ -22,10 +22,10 @@ function openc(){
       }, 3000);
 }
 document.querySelector('.open-c').addEventListener("click",()=>{
-  if(loginMember == ""){
+  if(loginMember123 == ""){
     swal({title: "로그인 필요",text:"로그인 후 장바구니에 담기가 가능합니다.",icon:"info",buttons:'확인'}).then((value)=>{
       if(value){
-        location.href=contextPath+"/member/login";
+        location.href=contextPath123+"/member/login";
         
       }
     });

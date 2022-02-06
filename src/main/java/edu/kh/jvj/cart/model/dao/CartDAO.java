@@ -35,6 +35,11 @@ public class CartDAO {
 		return mybatis.selectList("cartMapper.selectOptionList",member);
 	}
 
+	public int deleteCart(Cart cart) {
+		// TODO Auto-generated method stub
+		return mybatis.delete("cartMapper.deleteCart",cart);
+	}
+
 	
 
 }

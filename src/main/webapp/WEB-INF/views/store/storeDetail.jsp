@@ -98,10 +98,10 @@
 
 						</div>
 					</div>
-					<c:if test="${store.discountPer ne 0} ">
-						<span class="sale">${store.discountPer }%</span>
-						<span class="real-price prices">${store.price}</span>
-					</c:if>
+					
+						<c:if test="${store.discountPer > 0}"><span class="sale">${store.discountPer }%</span>
+						<span class="real-price prices">${store.price}</span></c:if>
+					
 					<span class="price prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 
@@ -453,6 +453,7 @@ DELIVERY / 배송정보
 
 	</main>
 	<script>
+	const contextPath = '${contextPath}';
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};
 	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];

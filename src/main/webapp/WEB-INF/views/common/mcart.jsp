@@ -45,11 +45,11 @@
        
        <div class="c-sum-btn">
            <h3>현재 총 구매 가격 : 148,700원</h3>
-           <h3><a href="cart" style="color:white"><u>구매하기</u></a></h3>
+           <h3><a href="${contextPath}/cart" style="color:white"><u>구매하기</u></a></h3>
        </div>
    </div>
    <script>
-	const contextPath = '${contextPath}';
-	const loginMember = '${loginMember.memberNo}';
+	const contextPath123 = '${contextPath}';
+	const loginMember123 = '${loginMember.memberNo}';
    </script>
    <script src="${contextPath}/resources/js/common/mcart.js"></script>
