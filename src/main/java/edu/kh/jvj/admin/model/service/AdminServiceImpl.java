@@ -17,6 +17,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
 
@@ -180,7 +181,19 @@ public class AdminServiceImpl implements AdminService{
 		
 		return new Pagination(listcount,cp);
 	}
+	//상품 서치 페이지네이션
+	@Override
+	public Pagination countProduct(Map<String, String> dataMap) {
+		int cp = Integer.parseInt(dataMap.get("cp"));
+		int listcount = dao.countProduct(dataMap);
+		return new Pagination(listcount,cp);
+	}
 
+	//상품 리스트 반환
+	@Override
+	public List<SimpleProduct> productselect(Map<String, String> dataMap, Pagination page) {
+		return dao.productselect(dataMap,page); 
+	}
 
 	
 	
@@ -217,7 +230,6 @@ public class AdminServiceImpl implements AdminService{
 	      
 	      
 	   }
-
 
 
 }

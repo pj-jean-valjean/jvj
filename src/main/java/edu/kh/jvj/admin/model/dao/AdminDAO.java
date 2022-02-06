@@ -12,6 +12,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.store.model.vo.Pagination;
 
 @Repository
@@ -111,6 +112,22 @@ public class AdminDAO {
 	 */
 	public int updateNotice(Map<String, String> noticeMap) {
 		return sqlSession.update("adminMapper.updateNotice",noticeMap);
+	}
+
+	/**검색해당 상품 전체 수 조회
+	 * @param dataMap
+	 * @return
+	 */
+	public int countProduct(Map<String, String> dataMap) {
+		return sqlSession.selectOne("adminMapper.countProduct",dataMap);
+	}
+
+	public List<SimpleProduct> productselect(Map<String, String> dataMap, Pagination page) {
+		int limit =page.getLimit();
+		int offset = (page.getCurrentPage() -1 )* limit;
+		RowBounds rowBounds = new RowBounds(offset, limit); 
+		
+		return sqlSession.selectList("adminMapper.productselect",dataMap,rowBounds);
 	}
 	
 	

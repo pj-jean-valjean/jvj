@@ -74,7 +74,7 @@ public class AdminMemberController {
 	// router 새로고침 처리 
 	@GetMapping("admin/board/route/*")
 	public String refresh( @ModelAttribute(value="loginAdmin") Admin loginAdmin) {
-		if(loginAdmin.getAdminId()==null) {
+		if(loginAdmin==null) {
 			return "redirect:/admin/login";
 		}
 		else return "admin/adminMain";
