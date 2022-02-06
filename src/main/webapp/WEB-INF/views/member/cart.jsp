@@ -37,7 +37,7 @@
 				<c:if test="${cart.parentNo eq 0}">
 
 					<div class="inline-block">
-						<input type="hidden" value="${cart.productNo}">
+						<input type="hidden" value="${cart.cartNo}">
 						<div
 							style="width: 486px; height: 195px; border-right: 1px solid #d3c5b6;"
 							class="inline-block">
@@ -92,5 +92,9 @@
 			<h2>구매하기</h2>
 		</div>
 	</div>
+	<script>
+	const specialContextPath = '${contextPath}';
+	</script>
+	<script src="${contextPath}/resources/js/member/cart.js"> </script>
 	<jsp:include page="../common/footer.jsp" />
 </html>

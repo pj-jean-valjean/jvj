@@ -42,6 +42,12 @@ public class CartServiceImpl implements CartService {
 		return dao.selectOptionList(member);
 	}
 
+	@Override
+	public int deleteCart(Cart cart) {
+		// TODO Auto-generated method stub
+		return dao.deleteCart(cart);
+	}
+
 	
 
 }
