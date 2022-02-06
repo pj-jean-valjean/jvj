@@ -5,7 +5,7 @@
         const routes = [
                 /* 조회 업무 */
             { path: routepath+'searchMember', component: function(){
-                memberInfo();} },
+                memberInfo();firstMemberSearch();} },
             { path: routepath+'subsMember', component: function(){
                 subscribingInfo();} },
             { path: routepath+'searchOrder', component: function(){
@@ -21,6 +21,7 @@
                 commonWriter('클래스 상품 등록'); makeClassPWritePage();} },
             { path: routepath+'optionSubmit', component: function(){
                 optionProductWrite(); } },
+                /* 상품 관리(수정) */
             { path: routepath+'productManage', component: function(){
                 modifyProduct();} },
                 /* 글관리 */
@@ -53,7 +54,6 @@
             }
 		};
         const allNavi = document.querySelectorAll(".eachW > li >a");
-        
         allNavi.forEach(
             function(navi){
                 navi.addEventListener("click", e=>{
@@ -72,7 +72,6 @@
                 });
             }
         )
-        
 
         // pjax 방식은 hash를 사용하지 않으므로 hashchange 이벤트를 사용할 수 없다.
         // popstate 이벤트는 pushState에 의해 발생하지 않고 앞으로/뒤로 가기 버튼을 클릭하거나
@@ -109,24 +108,15 @@
 
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine search-member");
-            searchDiv.innerHTML="<select name='searchSelector'><option value='searchById'>회원아이디</option><option value='searchByName'>회원명</option><option value='searchByNickName'>닉네임</option></select><input type='text' class='inputboxs'><button class='opencal' onclick='firstMemberSearch()'>회원검색</button>";
+            searchDiv.innerHTML="<select name='searchSelector'><option value='1'>회원아이디</option><option value='2'>회원명</option><option value='3'>닉네임</option></select><input type='text' class='inputboxs'><button class='opencal' onclick='firstMemberSearch()'>회원검색</button>";
 
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo'>닉네임</span>"+
-                "<span class='oneMemberInfo'>이름</span>"+
-                "<span class='oneMemberInfo'>가입일</span>"+
-                "<span class='oneMemberInfo'>누적구매금액</span>"+
-                "<span class='oneMemberInfo'>탈퇴여부</span>"+
-            "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
             enterfunc();
         }
 
-        //-----------------------------------------------------------------//
+        
         function firstMemberSearch(){
             cp =1;
             cate = document.getElementsByName("searchSelector")[0].value;
@@ -178,8 +168,8 @@
                             li.innerHTML = inner;
                             parentUl.append(li);
                         }
-                        let cate = resultData.cate;
-                        let search = resultData.search;
+                        cate = resultData.cate;
+                        search = resultData.search;
 
                         /* 페이지네이션 생성 및 동작  */
                         parentUl.append(makePagination(page));
@@ -192,6 +182,7 @@
             }
         }
 
+        //-----------------------------------------------------------------//
         //2. 구독 회원 조회---------------------------------------------------
         function subscribingInfo(){
             contentbox.innerHTML="";
@@ -283,9 +274,6 @@
             contentbox.append(funcName,searchDiv,SearchResult);
             enterfunc();
         }
-
-
-
         //-----------------------------------------------------------------//
 
         //글관리2- 공지사항 관리
@@ -310,13 +298,6 @@
             
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>글 번호</span>"+
-                "<span class='oneMemberInfo'>카테고리</span>"+
-                "<span class='oneMemberInfo notice-title'>제목</span>"+
-                "<span class='oneMemberInfo'>수정</span>"+
-            "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
             enterfunc();
             document.getElementById("noticeSearch").addEventListener("click", function(){
@@ -326,6 +307,8 @@
                 searchNotice();
             })
         }
+
+        /* 공지사항 리스트 조회 ajax */
         function searchNotice(){
 
             let httpRequest = new XMLHttpRequest();
@@ -387,8 +370,8 @@
                             li.innerHTML = inner;
                             ul.append(li);
                         }
-                        let cate = result.cate;
-                        let search = result.search;
+                        cate = result.cate;
+                        search = result.search;
                         /* 페이지네이션 생성 및 동작  */
                         ul.append(makePagination(page));
                         addPageFunc(searchNotice, page,cate,search);
@@ -420,6 +403,192 @@
                 }
             }
         }
+
+        /* 공지사항 수정 동작 */
+        function modifyThisNotice(){
+                const goback = document.createElement("button");
+                const reload = document.createElement("button");
+                goback.setAttribute("type", "button");
+                reload.setAttribute("type", "button");
+                goback.setAttribute("onclick","window.history.back()");
+                reload.setAttribute("onclick","loadNoticeDetail()");
+                goback.innerText = "목록으로 돌아가기";
+                reload.innerText = "다시불러오기";
+                const modifyNoInput = document.createElement("input");
+                modifyNoInput.name = "noticeNo";
+                modifyNoInput.type="hidden";
+                modifyNoInput.value = modifyNo;
+                document.querySelector("#writerForm").prepend(goback,reload,modifyNoInput);
+                /* 공지사항 내용 불러오기   */
+                loadNoticeDetail();
+                const submitbtn= document.querySelector(".admin-write-btn");
+                const cancelbtn= document.querySelector("button[type='reset']");
+                submitbtn.setAttribute("onclick", "updateNotice()");
+                cancelbtn.setAttribute("onclick", "window.history.back()"); 
+        }
+        function loadNoticeDetail(){
+            $.ajax({
+                url : contextPath+"/admin/board/ajaxNoticeDetail",
+                data : {"noticeNo":modifyNo},
+                type : "POST",
+                dataType : 'JSON',
+                success : function(data) {
+                    console.log(data);
+                    console.log(data.noticeTitle);
+                    document.querySelector("input[name='title']").value = data.noticeTitle;
+                    document.querySelector("select[name='noticecate']").value = data.noticeCd;
+                    if(document.querySelector(".note-placeholder") !=null){
+                        document.querySelector(".note-placeholder").innerText=""; 
+                    }
+                    document.querySelector(".note-editable").innerHTML = data.content; 
+                    document.querySelector("textarea[name='editordata']").innerHTML = data.content; 
+                }
+            })
+        }
+        function updateNotice(){
+            if(document.querySelector("input[name='title']").value.trim().length==0){
+                alert("제목을 입력해주세요!");
+                document.querySelector("input[name='title']").focus();
+                return;
+            }
+            const form = $("#writerForm"); 
+            const formData = new FormData(form[0]);
+            $.ajax({
+                url : contextPath+"/admin/board/noticeUpdate",
+                type : "POST",
+                data : formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success : function(result){
+                    console.log("결과: " + result);
+                    alert("수정 성공!");
+                    url = contextPath + '/notice/view?noticeNo=' + modifyNo;
+                    window.open(url, '등록클래스상품', ''+result); 
+                    location.href='noticeManage';
+                },
+                error: function(result){
+                    alert("오류 발생");
+                }
+            })
+        }
+        //-----------------------------------------------------------------//
+        //9. 상품 관리
+        function modifyProduct(){
+            contentbox.innerHTML="";
+            //이름
+            const funcName = document.createElement("div");
+            funcName.setAttribute("class", "oneLine");
+            funcName.innerHTML="<h2>"+"상품 관리"+"</h2>"
+
+            const searchDiv = document.createElement("div");
+            searchDiv.setAttribute("class", "oneLine search-review");
+            searchDiv.innerHTML="<select name='productCate'>"+
+            "<option value='0'>All</option>"+
+            "<option value='1'>스토어 상품</option>"+
+            "<option value='2'>구독 상품</option>"+
+            "<option value='3'>클래스 상품</option>"+
+            "<option value='4'>추가옵션 상품</option>"+
+            "<input type='text' class='inputboxs'><button class='opencal' id='searchProduct'>검색</button>";
+
+            const SearchResult = document.createElement("ul");
+            SearchResult.setAttribute("class", "ResultLine");
+            contentbox.append(funcName,searchDiv,SearchResult);
+            enterfunc();
+            document.getElementById("searchProduct").addEventListener("click", function(){
+                cate = document.querySelector("select[name='productCate']").value;
+                search = document.querySelector(".inputboxs").value;
+                searchProduct();
+            })
+        }
+        /* 상품정보조회 ajax */
+        function searchProduct(){
+            let httpRequest = new XMLHttpRequest();
+            const reqJson  = {
+                "search": search,
+                "cate" : cate,
+                "cp" : cp
+            }
+            httpRequest.open("POST", contextPath+'/admin/board/productselect' , true);
+            httpRequest.responseType = "json";
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify(reqJson));
+            httpRequest.onreadystatechange = ()=>{
+                if(httpRequest.readyState === XMLHttpRequest.DONE){
+                    if(httpRequest.status ===200){
+                        const result = httpRequest.response;
+                        const productList = JSON.parse(result.productList);
+                        const page = JSON.parse(result.pagination);
+                        const ul = document.querySelector(".ResultLine");
+                        ul.innerHTML=
+                        "<li class='resultTitle oneMemberResult'>"+
+                        "<span class='oneMemberInfo numberformat'>상품 번호</span>"+
+                        "<span class='oneMemberInfo'>카테고리</span>"+
+                        "<span class='oneMemberInfo notice-title'>이름</span>"+
+                        "<span class='oneMemberInfo'>가격</span>"+
+                        "<span class='oneMemberInfo'>수정하기</span>"+
+                        "</li>";
+                        if(productList.length ==0){
+                            console.log("결과없음");
+                            const li = document.createElement("li");
+                            li.className = "oneMemberResult";
+                            li.innerHTML="<div style='font-size:20px;'>조회되는 결과가 없습니다</div>";
+                            ul.append(li);
+                            return;
+                        }
+                        console.log(productList);
+                        for(product of productList){
+                            const li = document.createElement("li");
+                            li.className = "oneMemberResult";
+                            if(product.writecate == 3){
+                                titleAtag="<a target='_blank' href="+contextPath+"/onedayclass/view/"+product.productNo+">"+
+                                product.title+"</a>"
+                            }
+                            else if(product.writecate == 1){
+                                titleAtag="<a target='_blank' href="+contextPath+"/store/info/"+product.productNo+">"+
+                                product.title+"</a>"
+                            }
+                            else{
+                                titleAtag = "<a>"+product.title+"</a>";
+                            }
+                            const inner =
+                            "<span class='oneMemberInfo numberformat'>"+product.productNo+"</span>"+
+                            "<span class='oneMemberInfo'>"+product.cateName+"</span>"+
+                            "<span class='oneMemberInfo notice-title'>"+titleAtag+"</span>"+
+                            "<span class='oneMemberInfo'>"+product.price+"</span>"+
+                            "<span class='oneMemberInfo'><a href='modifyProduct' class='modifyProductBtn'>수정하기</a></span>";
+                            li.innerHTML = inner;
+                            ul.append(li);
+                        }
+                        cate = result.cate;
+                        search = result.search;
+                        ul.append(makePagination(page));
+                        addPageFunc(searchProduct, page,cate,search);
+                        const allModifyBtn = document.querySelectorAll(".modifyProductBtn");
+                        allModifyBtn.forEach(
+                            function(Btn){
+                                Btn.addEventListener("click", e=>{
+                                    modifyNo = Btn.parentElement.parentElement.firstElementChild.innerText;
+                                    if(!e.target.matches('.modifyProductBtn')) 
+                                    {
+                                        console.log("안맞음");
+                                        return;
+                                    }
+                                    e.preventDefault();
+                                    const path = e.target.getAttribute('href');
+                                    window.history.pushState({}, null, path);
+                                    render(routepath+path);
+                                });
+                            }
+                        )
+                    }
+                    else{
+                        //실패
+                    }
+                }
+            }
+        }
+        //-----------------------------------------------------------------//
         /* 페이지네이션 생성 */
         function makePagination(page){
             const pageli = document.createElement("li");
@@ -494,73 +663,4 @@
                     }
                 )
             }
-        }
-        /* 공지사항 수정 동작 */
-        function modifyThisNotice(){
-                const goback = document.createElement("button");
-                const reload = document.createElement("button");
-                goback.setAttribute("type", "button");
-                reload.setAttribute("type", "button");
-                goback.setAttribute("onclick","window.history.back()");
-                reload.setAttribute("onclick","loadNoticeDetail()");
-                goback.innerText = "목록으로 돌아가기";
-                reload.innerText = "다시불러오기";
-                const modifyNoInput = document.createElement("input");
-                modifyNoInput.name = "noticeNo";
-                modifyNoInput.type="hidden";
-                modifyNoInput.value = modifyNo;
-                document.querySelector("#writerForm").prepend(goback,reload,modifyNoInput);
-                /* 공지사항 내용 불러오기   */
-                loadNoticeDetail();
-                const submitbtn= document.querySelector(".admin-write-btn");
-                const cancelbtn= document.querySelector("button[type='reset']");
-                submitbtn.setAttribute("onclick", "updateNotice()");
-                cancelbtn.setAttribute("onclick", "window.history.back()"); 
-        }
-        function loadNoticeDetail(){
-            $.ajax({
-                url : contextPath+"/admin/board/ajaxNoticeDetail",
-                data : {"noticeNo":modifyNo},
-                type : "POST",
-                dataType : 'JSON',
-                success : function(data) {
-                    console.log(data);
-                    console.log(data.noticeTitle);
-                    document.querySelector("input[name='title']").value = data.noticeTitle;
-                    document.querySelector("select[name='noticecate']").value = data.noticeCd;
-                    if(document.querySelector(".note-placeholder") !=null){
-                        document.querySelector(".note-placeholder").innerText=""; 
-                    }
-                    document.querySelector(".note-editable").innerHTML = data.content; 
-                    document.querySelector("textarea[name='editordata']").innerHTML = data.content; 
-                    document.querySelector(".editordata").innerHTML = data.content; 
-                }
-            })
-        }
-        function updateNotice(){
-            if(document.querySelector("input[name='title']").value.trim().length==0){
-                alert("제목을 입력해주세요!");
-                document.querySelector("input[name='title']").focus();
-                return;
-            }
-            const form = $("#writerForm"); 
-            const formData = new FormData(form[0]);
-            $.ajax({
-                url : contextPath+"/admin/board/noticeUpdate",
-                type : "POST",
-                data : formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success : function(result){
-                    console.log("결과: " + result);
-                    alert("수정 성공!");
-                    url = contextPath + '/notice/view?noticeNo=' + modifyNo;
-                    window.open(url, '등록클래스상품', ''+result); 
-                    location.href='noticeManage';
-                },
-                error: function(result){
-                    alert("오류 발생");
-                }
-            })
         }

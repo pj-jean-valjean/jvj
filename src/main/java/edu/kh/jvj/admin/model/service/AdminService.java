@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
 
@@ -39,11 +40,37 @@ public interface AdminService {
 	 */
 	Admin findMatchAdmin(Admin admin);
 
+	/** 회원정보검색결과 회원리스트
+	 * @param dataMap
+	 * @param page
+	 * @return
+	 */
 	List<SearchedMember> searchMember(Map<String, String> dataMap, Pagination page);
 
+	/** 추가옵션상품
+	 * @param map
+	 * @return
+	 */
 	int insertOptionP(Map<String, String> map);
 
+	/** 결과조회 전체 회원 수
+	 * @param dataMap
+	 * @return
+	 */
 	Pagination countMember(Map<String, String> dataMap);
+
+	/** 결과조회 전체 상품 수 
+	 * @param dataMap
+	 * @return
+	 */
+	Pagination countProduct(Map<String, String> dataMap);
+
+	/** 결과조회 전체 상품 리스트
+	 * @param dataMap
+	 * @param page
+	 * @return
+	 */
+	List<SimpleProduct> productselect(Map<String, String> dataMap, Pagination page);
 
 
 	

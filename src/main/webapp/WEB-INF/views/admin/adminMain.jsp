@@ -28,49 +28,58 @@
 </head>
 <body>
     <header>
-        <div class="admin-info"><span>${loginAdmin.nickName}</span> 님 환영합니다! <a>로그아웃</a></div>
-        <img src="${contextPath}/resources/images/common/jvj_logo.png">
+        <div class="banner"><h1>Jean Val Jean</h1><h1>관리자 페이지</h1></div>
+        <div class="admin-info">
+        <h3 id="clock">현재시각</h3>
+        <h4>${loginAdmin.nickName}</h4><span>님 환영합니다!</span><button>로그아웃</button></div>
     </header>
     <main>
-        <aside id='showfunc'>
-            <div class="one-admin-func" id=querybox>조회 업무
+        <aside class='showfunc'>
+            <div class="one-admin-func">▶조회 업무
             	<div class="each-querybox">
                     <ul class="eachW">
-                        <li class="querywork"><a href="/jvj/admin/board/route/searchMember">회원 정보 조회</a></li>
-                        <li class="querywork"><a href="/jvj/admin/board/route/subsMember">구독 회원 조회</a></li>
-                        <li class="querywork"><a href="/jvj/admin/board/route/searchOrder">주문 조회</a></li>
+                        <li><a href="/jvj/admin/board/route/searchMember">회원 정보 조회</a></li>
+                        <li><a href="/jvj/admin/board/route/subsMember">구독 회원 조회</a></li>
+                        <li><a href="/jvj/admin/board/route/searchOrder">주문 조회</a></li>
+                        <li><a>원데이 클래스 회원 조회</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="one-admin-func" id="writerP">게시글 작성
+            <div class="one-admin-func">▶게시글 작성
                 <div class="eachWriter">
                     <ul class="eachW">
-                        <li class="adminWriter"><a href="/jvj/admin/board/route/noticeWriter">공지사항 작성</a></li>
-                        <li class="adminWriter"><a href="/jvj/admin/board/route/storeSubmit">일반 상품 등록</a></li>
-                        <li class="adminWriter"><a href="/jvj/admin/board/route/subsSubmit">구독 상품 등록</a></li>
-                        <li class="adminWriter"><a href="/jvj/admin/board/route/classSubmit">클래스 상품 등록</a></li>
-                        <li class="adminWriter"><a href="/jvj/admin/board/route/optionSubmit">추가옵션상품 등록</a></li>
+                        <li><a href="/jvj/admin/board/route/noticeWriter">공지사항 작성</a></li>
+                        <li><a href="/jvj/admin/board/route/storeSubmit">일반 상품 등록</a></li>
+                        <li><a href="/jvj/admin/board/route/subsSubmit">구독 상품 등록</a></li>
+                        <li><a href="/jvj/admin/board/route/classSubmit">클래스 상품 등록</a></li>
+                        <li><a href="/jvj/admin/board/route/optionSubmit">추가옵션상품 등록</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="one-admin-func" id="editArticle">글 관리
+            <div class="one-admin-func">▶글 관리
                 <div class="each-article">
                     <ul class="eachW">
-                        <li class="modifyArticle"><a href="/jvj/admin/board/route/reviewManage">리뷰 관리</a></li>
-                        <li class="modifyArticle"><a href="/jvj/admin/board/route/noticeManage">공지사항 수정</a></li>
+                        <li><a href="/jvj/admin/board/route/reviewManage">리뷰 관리</a></li>
+                        <li><a href="/jvj/admin/board/route/noticeManage">공지사항 수정</a></li>
                     </ul>
                 </div>
             </div>
-			<div class="one-admin-func" id="manageP">상품 관리
+			<div class="one-admin-func">▶상품 /구독옵션 관리
 				<div class="modifyP">
                     <ul class="eachW">
-                        <li class="manageP"><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
-                        <li class="manageP">상품 옵션 관리</li>
+                        <li><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
+                        <li><a>구독옵션 관리</a></li>
                     </ul>
                 </div>
 			</div>
-            <div class="one-admin-func">관리자계정 추가</div>
-            <div class="one-admin-func">원데이클래스 회원정보</div>
+            <div class="one-admin-func">▶기타업무
+         		<div class="addAdmin">
+                    <ul class="eachW">
+                        <li><a>관리자 계정 추가</a></li>
+                    </ul>
+                </div></div>
+            <div class="one-admin-func">매출 분석</div>
+            <div class="one-admin-func">마케팅 업무</div>
         </aside>
         <section>
             <article id="adminPCont">

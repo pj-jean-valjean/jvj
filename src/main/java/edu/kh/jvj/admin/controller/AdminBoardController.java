@@ -35,6 +35,7 @@ import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.notice.model.service.NoticeService;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
@@ -78,7 +79,24 @@ public class AdminBoardController {
 		return gson.toJson(map);
 	}
 	 
-	//관리자 글작성 ajax
+	//관리자 상품관리 상품수정목록 조회 ajax
+	@PostMapping("productselect")
+	public Map<String,String> productselect(
+			@RequestBody Map<String,String> dataMap
+			) {
+		//전체 페이지네이션
+		Pagination page = service.countProduct(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<SimpleProduct> searchedList = service.productselect(dataMap,page);
+		Gson gson = new Gson(); String pageJson = gson.toJson(page); 
+		String productList= gson.toJson(searchedList); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("productList", productList);
+		
+		return dataMap; 
+	}
+	//관리자 상품등록 ajax
 	@PostMapping("productWrite")
 	public int productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
@@ -107,7 +125,7 @@ public class AdminBoardController {
 	
 	//회원정보 조회
 	@PostMapping("searchMember")
-	public ResponseEntity<Map<String, String>> searchMember(
+	public Map<String, String> searchMember(
 			@RequestBody Map<String,String> dataMap
 			){
 		
@@ -120,7 +138,7 @@ public class AdminBoardController {
 		dataMap.put("pagination", pageJson);
 		dataMap.put("memberList", resultMember);
 		
-		return new ResponseEntity<Map<String,String>>(dataMap , HttpStatus.OK); 
+		return dataMap;
 	}
 	//추가옵션상품 등록
 	@PostMapping("addOptionProduct")
@@ -137,10 +155,11 @@ public class AdminBoardController {
 	
 	//공지사항 조회
 	@PostMapping("noticeselect")
-	public ResponseEntity<Map<String, String>> noticeSelect(
+	public Map<String, String> noticeSelect(
 			@RequestBody Map<String,String> dataMap
 			){
- 		System.out.println(dataMap.get("search"));
+		
+		System.out.println(dataMap);
 		Pagination page = noticeService.countNotice(dataMap);
 		page.setLimit(15);
 		page.setPageSize(10);
@@ -150,7 +169,7 @@ public class AdminBoardController {
 		String listJson = gson.toJson(list);
 		dataMap.put("pagination", pageJson);
 		dataMap.put("noticeList", listJson);
-		return new ResponseEntity<Map<String,String>>(dataMap , HttpStatus.OK); 
+		return dataMap;
 	}
 	
 	//공지사항 수정 시 상세데이터 조회
@@ -164,10 +183,6 @@ public class AdminBoardController {
 	public int noticeUpdate(String title,	String noticecate,
 			String editordata, String noticeNo) {
 		int result =0;
-		System.out.println(title);
-		System.out.println(noticeNo);
-		System.out.println(noticecate);
-		System.out.println(editordata);
 		result = service.updateNotice(title, noticecate, editordata, noticeNo);
 		return result;
 	}

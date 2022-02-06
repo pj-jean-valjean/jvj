@@ -26,6 +26,13 @@
 		<result property="enrollDt" column="ENROLL_DT" />
 		<result property="statusCode" column="STATUS_CD" />
 	</resultMap>
+	<resultMap type="edu.kh.jvj.admin.model.vo.SimpleProduct" id="product_rm">
+		<id property="productNo" column="PRODUCT_NO" />
+		<result property="title" column="PRODUCT_NM" />
+		<result property="writecate" column="PRODUCT_CD" />
+		<result property="cateName" column="PRODUCT_CATE" />
+		<result property="price" column="PRODUCT_PRICE" />
+	</resultMap>
 	
 	<!-- 상품 공통 인서트 -->
 	<insert id="insertProductCommon" >
@@ -103,6 +110,7 @@
 		AND NOTICE_CD = #{cate}
 		</if>
 	</select>
+
 	<!-- 공지사항 search 리스트 -->
 	<select id="noticeSearchList" parameterType = "map" resultMap="notice_rm">
 		SELECT NOTICE_NO , NOTICE_TITLE, NOTICE_CONTENT, TO_CHAR(NOTICE_CREATE_DT , 'YYYY-MM-DD') NOTICE_CREATE_DT, NOTICE_CD
@@ -129,13 +137,13 @@
 		MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_NAME ,
 		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER 
 		WHERE GRADE_CD = 100
-		<if test="cate == 'searchById'">
+		<if test="cate == 1">
 			AND MEMBER_EMAIL LIKE '%'||#{search}||'%'
 		</if>
-		<if test="cate == 'searchByName'">
+		<if test="cate == 2">
 			AND MEMBER_NAME LIKE '%'||#{search}||'%'
 		</if>
-		<if test="cate == 'searchByNickName'">
+		<if test="cate == 3">
 			AND MEMBER_NICKNAME LIKE '%'||#{search}||'%'
 		</if>
 	</select>
@@ -149,14 +157,31 @@
 	<select id="countMember" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE GRADE_CD = 100
-		<if test="cate == 'searchById'">
+		<if test="cate == 1">
 			AND MEMBER_EMAIL LIKE '%'||#{search}||'%'
 		</if>
-		<if test="cate == 'searchByName'">
+		<if test="cate == 2">
 			AND MEMBER_NAME LIKE '%'||#{search}||'%'
 		</if>
-		<if test="cate == 'searchByNickName'">
+		<if test="cate == 3">
 			AND MEMBER_NICKNAME LIKE '%'||#{search}||'%'
+		</if>
+	</select>
+	<!-- 검색 결과 상품 수 조회 -->
+	<select id="countProduct" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT
+		WHERE PRODUCT_NM LIKE '%'||#{search}||'%'
+		<if test="cate != 0">
+			AND PRODUCT_CD =#{cate}
+		</if>
+	</select>
+	<select id="productselect" resultMap="product_rm">
+		SELECT PRODUCT_NO, PRODUCT_NM ,PRODUCT_PRICE, PRODUCT_CD, PRODUCT_CATE
+		FROM PRODUCT
+		JOIN PRODUCT_CATEGORY USING(PRODUCT_CD) 
+		WHERE PRODUCT_NM LIKE '%'||#{search}||'%'
+		<if test="cate != 0">
+			AND PRODUCT_CD =#{cate}
 		</if>
 	</select>
 </mapper>
