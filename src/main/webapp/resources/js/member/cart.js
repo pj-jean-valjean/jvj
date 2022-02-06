@@ -23,3 +23,48 @@ $(".x-btn").on("click", (e) => {
   $(e.target).parent().parent().next().fadeOut(500);
   $(e.target).parent().parent().fadeOut(500);
 });
+
+
+// 미니 합계
+const cartSumPrice = $('.cartSumPrice');
+const productPrice = $('.productPrice');
+const optionPrice = $('.optionPrice');
+const items = $('.items');
+const addq = $('.addq');
+const rp = $('.resultPrice');
+const optionBox = $('.option-box');
+let resultPrice = 0;
+let lastMaxPrice = $('.lastMaxPrice');
+let taxPrice = $('.taxPrice');
+for(let i = 0 ; i<items.length;i++){
+    let pp =  parseInt(productPrice[i].textContent);
+    let aq = parseInt(addq[i].textContent);
+    let arr = [];
+    let tempsum = 0;
+    for(let j=0; j<optionBox[i].children.length;j++){
+       if(j%2 == 1){
+        
+           arr.push(optionBox[i].children[j].value);
+            tempsum += parseInt(optionBox[i].children[j].value);
+
+       }
+         
+
+    }
+    console.log(arr);
+    console.log(tempsum);
+    resultPrice += pp * aq + tempsum;
+ 
+    cartSumPrice[i].textContent = pp * aq + tempsum +"원";
+}
+
+rp.text(resultPrice+"원") ;
+
+
+if(resultPrice>=30000){
+    taxPrice.text(0+'원');
+    lastMaxPrice.text(resultPrice+"원");
+}else{
+    taxPrice.text(3000+'원');
+    lastMaxPrice.text(resultPrice+3000+"원");
+}

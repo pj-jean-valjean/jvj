@@ -10,6 +10,7 @@
 		<result property="productName" column="PRODUCT_NM" />
 		<result property="parentNo" column="CART_NO2" />
 		<result property="imgPath" column="IMGPATH" />
+		<result property="discountPer" column="DISCOUNT_PER" />
 
 	</resultMap>
 
@@ -31,10 +32,11 @@
 	<select id="selectCartList" resultMap="cart_rm">
 		SELECT
 		CART_NO,PRODUCT_NO,ADD_Q,CART_NO2,PRODUCT_NM,PRODUCT_PRICE,PRODUCT_IMG_PATH||PRODUCT_IMG_NAME
-		IMGPATH FROM CART
+		IMGPATH,NVL(DISCOUNT_PER, 0)DISCOUNT_PER FROM CART
 		LEFT JOIN PRODUCT USING(PRODUCT_NO)
 		LEFT JOIN
 		PRODUCT_IMG USING(PRODUCT_NO)
+		LEFT JOIN DISCOUNT USING(PRODUCT_NO)
 		WHERE MEMBER_NO =#{memberNo} AND
 		PRODUCT_IMG_LEVEL = 0
 		ORDER BY 1

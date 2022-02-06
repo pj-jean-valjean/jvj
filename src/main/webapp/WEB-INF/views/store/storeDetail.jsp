@@ -98,10 +98,10 @@
 
 						</div>
 					</div>
-					<c:if test="${store.discountPer ne 0} ">
-						<span class="sale">${store.discountPer }%</span>
-						<span class="real-price prices">${store.price}</span>
-					</c:if>
+					
+						<c:if test="${store.discountPer > 0}"><span class="sale">${store.discountPer }%</span>
+						<span class="real-price prices">${store.price}</span></c:if>
+					
 					<span class="price prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 

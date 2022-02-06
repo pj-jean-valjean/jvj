@@ -85,7 +85,7 @@ public class StoreController {
 		
 		// 추가옵션 상품 가져오기
 		List<Store> advantage = service.advantage();
-		System.out.println(advantage);
+		System.out.println(store);
 		model.addAttribute("store",store);
 		model.addAttribute("advantage",advantage);
 		model.addAttribute("imgLevel", imgLevelList);
