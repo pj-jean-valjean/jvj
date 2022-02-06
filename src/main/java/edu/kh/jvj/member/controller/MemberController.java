@@ -156,8 +156,11 @@ public class MemberController {
    // 회원 가입
    @RequestMapping(value="signUp", method = RequestMethod.POST)
    public String signUp(Member member, RedirectAttributes ra) {
+	   System.out.println(member.getMemberEmail());
+	   System.out.println(member.getMemberPhone());
       
       int result = service.signUp(member);
+      
       
       String title;
       String text;
@@ -177,7 +180,7 @@ public class MemberController {
       ra.addFlashAttribute("text", text);
       ra.addFlashAttribute("icon", icon);
       
-      return "redirect:/";
+      return "member/login";
    }
    
    // 이메일 중복 검사(ajax)

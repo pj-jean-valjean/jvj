@@ -157,4 +157,10 @@ input[type="number"]::-webkit-inner-spin-button {
     font-weight: normal;
     
 }
+
+
+/* sns 회원가입의 경우 */
+.service-input{
+	width: 400px;
+}
 	
