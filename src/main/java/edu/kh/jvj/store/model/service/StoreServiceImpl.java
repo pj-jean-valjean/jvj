@@ -40,9 +40,9 @@ public class StoreServiceImpl implements StoreService {
 
 
 	@Override
-	public Store selectStoreDetail(int no) {
+	public Store selectStoreDetail(Store store) {
 		// TODO Auto-generated method stub
-		return dao.selectStoreDetail(no);
+		return dao.selectStoreDetail(store);
 	}
 
 
