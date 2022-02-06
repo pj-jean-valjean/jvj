@@ -41,7 +41,6 @@ function validate(){
         }
 	}
 	
-	
 	// input type="hidden" 태그 생성 및 추가 
     const email = document.getElementsByName("email");
     const phone = document.getElementsByName("phone");
