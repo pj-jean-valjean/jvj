@@ -30,6 +30,7 @@ setInterval(getTime, 1000);
         let cp =1;
         let cate;
         let search ='';
+        let productcate;
         let modifyNo = 0;
 
         
