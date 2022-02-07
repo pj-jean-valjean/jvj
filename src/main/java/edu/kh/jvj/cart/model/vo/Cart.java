@@ -8,7 +8,7 @@ public class Cart {
 	private int productNo; // 상품번호
 	private int addq; // 수량
 	private int memberNo; // 회원번호
-	private int[] optSetNum = { 1348, 1350, 1351 }; // 추가옵션 번호
+	private int[] optSetNum = {1427,1429,1428}; // 추가옵션 번호
 	private String productName; // 상품이름
 	private int price; // 상품 가격
 	private String imgPath;// 이미지 경로
