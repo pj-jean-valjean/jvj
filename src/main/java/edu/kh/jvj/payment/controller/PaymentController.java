@@ -13,9 +13,10 @@ import edu.kh.jvj.member.model.vo.Member;
 @RequestMapping("/payment/*")
 public class PaymentController {
 	
-	@RequestMapping(value = "payment", method = RequestMethod.GET)
-	public String payment(HttpSession session) {
+	@RequestMapping(value = "payment", method = RequestMethod.POST)
+	public String payment(HttpSession session, String price) {
 		
+		System.out.println(price);
 		return "payment/payment";
 	}
 	
