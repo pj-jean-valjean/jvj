@@ -58,7 +58,7 @@
 							style=" background-image: url('${contextPath}${pdt.imgPath}');"></div>
 						<input type="hidden" value="${pdt.storeNo}" name="storeNo">
 					</div>
-					<div style="margin-top: 10px; font-size: 24px; font-weight: bold;">${pdt.storeName}</div>
+					<div class="pdt-name">${pdt.storeName}</div>
 					<div class="heart-btn">
 						<div
 							class="content <c:if test="${pdt.likeit  > 0}">heart-active</c:if>">
