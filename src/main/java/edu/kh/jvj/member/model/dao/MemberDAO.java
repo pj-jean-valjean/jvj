@@ -27,8 +27,14 @@ public class MemberDAO {
 	 * @return result
 	 */
 	public int signUp(Member member) {
-
-		return sqlSession.insert("memberMapper.signUp", member);
+		
+		// 일반회원가입
+		if(member.getService() == null) {
+			return sqlSession.insert("memberMapper.signUp", member);
+		} else { // sns회원가입
+			return sqlSession.insert("memberMapper.snsSignUp", member);
+		}
+		
 	}
 	
 
@@ -85,6 +91,9 @@ public class MemberDAO {
 	public Member getSnsUser(Member snsUser) {
 		return sqlSession.selectOne("memberMapper.selectSnsUser", snsUser);
 	}
+
+
+	
 
 
 	

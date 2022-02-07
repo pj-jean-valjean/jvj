@@ -155,17 +155,23 @@ public class MemberController {
    
    // 회원 가입
    @RequestMapping(value="signUp", method = RequestMethod.POST)
-   public String signUp(Member member, Model model) {
-	   
+   public String signUp(Member member, Model model, RedirectAttributes ra) {
+	  
       int result = service.signUp(member);
 
-      if(result > 0) { // 성공
-    	 Util.swalSetMessage("회원 가입 성공!",  member.getMemberName() + "님! 회원가입 완료.", "success", model);
-
-      } else { // 실패
-    	 Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
+      String path = "";
+      
+    		  
+      if(result > 0) { // 성공(redirect)
+    	  model.addAttribute("loginMember", member);
+    	  Util.swalSetMessage("회원 가입 성공!",  member.getMemberName() + "님! 회원가입 완료.", "success", ra);
+    	  path = "redirect:/";
+    	 
+      } else { // 실패(forward)
+		  Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
+		  path = "member/login";
       }
-      return "member/login";
+      return path;
    }
    
    // 이메일 중복 검사(ajax)
