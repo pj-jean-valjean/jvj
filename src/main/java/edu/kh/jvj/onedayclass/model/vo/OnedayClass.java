@@ -37,7 +37,17 @@ public class OnedayClass {
 	private String placeName;
 	//PLACE_ADDR
 	private String placeAddr;
+	//CLASS_ADD_PPL
+	private String nowPeople;
 	
+	public String getNowPeople() {
+		return nowPeople;
+	}
+
+	public void setNowPeople(String nowPeople) {
+		this.nowPeople = nowPeople;
+	}
+
 	//LIKECOUNT
 	private int likecount;
 	//LIKEDONE

@@ -87,6 +87,8 @@ public interface AdminService {
 	 */
 	int updateProduct(List<MultipartFile> images, ProductWrite product, String webPath, String serverPath);
 
+	int sendmessage();
+
 
 	
 }
