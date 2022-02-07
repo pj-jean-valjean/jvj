@@ -379,24 +379,24 @@
 				}
  			
 	 			   
- 				$(document).ready(function(){
+ 			$('#name').on('input', function () {
  					const name = $("#name").val();
  				    const regExp = /^[가-힣]{2,5}$/;
 					
  				    if( name.length == 0 ){ // 이름을 입력하지 않은경우
-	 			        $("#checkName").text("유효");
+	 			        $("#checkName").text("");
 	 			
 	 			        signUpCheckObj.name = false;
 	 			
-	 			    }else if(!regExp.test(name)){ // 유효한 경우
-	 			        $("#checkName").text("유효한 이름 입니다.").css("color", "initial");
-	 			        
-	 			        signUpCheckObj.name = true;
-
-	 			    }else{ // 유효한 경우
+	 			    }else if(!regExp.test(name)){ // 유효하지 않은 경
 	 			        $("#checkName").text("유효하지 않은 이름 입니다.").css("color", "#F99C9C");
 	 			
 	 			        signUpCheckObj.name = false;
+
+	 			    }else{ // 유효한 경우
+	 			        $("#checkName").text("유효한 이름 입니다.").css("color", "initial");
+	 			        
+	 			        signUpCheckObj.name = true;
 	 			    }
 	 			});	   
 	       	</script>	
