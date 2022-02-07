@@ -73,7 +73,7 @@
 	<!-- 클래스 detail 인서트 -->
 	<insert id="insertClassProduct" >
 		INSERT INTO CLASS_DETAIL VALUES(
-			#{productNo} , #{people} , #{editordata} , #{classdate} , 1 ,#{place} , #{startEndTime}
+			#{productNo} , #{people} , #{editordata} , #{classdate} , 1 ,#{place} , #{startEndTime} , DEFAULT
 		)
 	</insert>
 	<insert id="insertProductImg">
@@ -105,7 +105,7 @@
 	<!-- 일반상품 인서트 -->
 	<insert id="insertStoreProduct">
 		INSERT INTO STORE_DETAIL VALUES(
-			#{productNo} ,  #{editordata}, #{stock} , #{detailcontents},#{storecate}
+			#{productNo} ,  #{stock} , #{detailcontents},#{storecate} ,#{editordata}
 		)
 	</insert>
 	<!-- 할인정보 인서트 -->
