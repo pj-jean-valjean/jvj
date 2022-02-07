@@ -215,4 +215,13 @@ public class AdminBoardController {
 		result = service.updateNotice(title, noticecate, editordata, noticeNo);
 		return result;
 	}
+	
+	//회원 대상 문자메세지
+	@PostMapping("sendMessage")
+	public int sendMessageBySens() {
+		
+		int result = service.sendmessage();
+		
+		return 0;
+	}
 }
