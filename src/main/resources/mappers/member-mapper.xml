@@ -20,7 +20,7 @@
 	<insert id="signUp" parameterType="Member">	
 		INSERT INTO MEMBER 
 		VALUES( SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberName},
-		#{memberPhone}, #{memberAddress}, DEFAULT, 1, DEFAULT)
+		#{memberPhone}, #{memberAddress}, DEFAULT, 1, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	

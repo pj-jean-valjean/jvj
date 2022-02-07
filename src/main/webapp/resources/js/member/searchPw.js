@@ -54,7 +54,7 @@ $('#email-select').change(function() {
 
 
 
-  // 이메일 인증 버튼 인증번호 input 태그 보여줌 
+// 이메일 인증 버튼 인증번호 input 태그 보여줌 
 document.querySelector("#sendEmail").addEventListener("click", function() {
 
 	const inputEmail = document.getElementById("email-input").value;
@@ -63,28 +63,22 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 	const memberEmail = inputEmail + '@' + selectEmail;
 
 
-	const regExp1 = /^[\w]{4,}$/;
-	const regExp2 = /^[\w]+(\.[\w]+){1,3}$/;
+	if ( inputEmail.length == 0 || selectEmail.length == 0) { // 둘 중 하나라도 0일경우 
 
-	if (inputEmail.length == 0 && selectEmail.length == 0) { // 둘 다 빈칸일 경우
-
-		document.querySelector("#email-checkNum").style.display = "none";
-		checkEmail.innerText = "";
-		searchPwResult.email = false;
-
-	} else if (!regExp1.test(inputEmail) || !regExp2.test(selectEmail)) { // 둘 중 하나라도 유효 X
-		document.querySelector("#email-checkNum").style.display = "none";
-		checkEmail.innerText = "이메일을 확인해주세요.";
+		// document.querySelector("#email-checkNum").style.display = "none";
+		checkEmail.innerText = "이메일을 입력해주세요";
 		checkEmail.style.color = "#F99C9C";
+    	$("#sendEmail").attr("disabled", true); //비활성화
 		searchPwResult.email = false;
 
-	} else {
-		//checkEmail.innerText ="유효한 이메일 입니다";
-		//checkPwd1.style.color = "#9CC7F9";
+	} else { // 값이 있을 경우
+		// 유효성 검사 통과 시 이메일 인증 시간제한 시작
+		startTimer();
+		
+		$("#sendEmail").attr("disabled", false); //활성화
+		checkEmail.innerText = "";
 		document.querySelector("#email-checkNum").style.display = "block";
 		searchPwResult.email = true;
-
-
 
 		$.ajax({
 			type: "POST",
@@ -95,61 +89,116 @@ document.querySelector("#sendEmail").addEventListener("click", function() {
 				alert("오류입니다.");
 			}
 		});
-
 	}
-
-
-
-
 });
 
-  // 인증번호 확인
+// 인증번호 확인
 document.querySelector("#check-email-Authentication").addEventListener("click", function() {
 
 	let inputEmail = document.getElementById("email-input").value;
-	let selectEmail = document.getElementById("email-input-select").value;
+    let selectEmail = document.getElementById("email-input-select").value;
+    let memberEmail = inputEmail + '@' + selectEmail;
+    let inputCode= document.getElementById("email-Authentication").value;
 
-	let memberEmail = inputEmail + '@' + selectEmail;
-
-	let inputCode = document.getElementById("email-Authentication").value;
-
-	
-
-	$.ajax({
-		type: "POST",
-		url: "certification",
-		data: { "memberEmail": memberEmail, "inputCode": inputCode },
-		success: function(result) {
-			console.log(result);
-			if (result == true) {
-				$("#email-Authentication").css("background-color", "initial");
+    $.ajax({
+		type:"POST",
+		url :"certification",
+		data :{"memberEmail":memberEmail, "inputCode":inputCode},
+		success : function(result){
+			if(result == true){
+				// 인증번호 맞을 경우 타이머 멈추기
+				stopTimer();
+				document.querySelector('#count-down-timer').style.display ="none"; 
 				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
-				
+				$("#email-Authentication").css("background-color", "initial");
 				document.getElementById("certificationYN").value = "true";
-				searchPwResult.checkEmail = true;
-
-				memberEmail.onchange = function() {
+				searchPwResult.checkEmail= true;
+				
+				memberEmail.onchange = function(){
 					document.getElementById("certificationYN").value = "false";
 					searchPwResult.checkEmail = true;
 				}
-			} else {
+			} else{
 				$("#email-Authentication").css("background-color", "#F99C9C");
-
 				searchPwResult.checkEmail = false;
 			}
-
-		}, error: function(request, status, error) {
+		}, error : function(request, status, error){
 			alert("인증 확인 중 오류입니다.");
 		}
-
-
-
 	});
-
-
 });
 
 
 
+// 이메일
+let flag = true;
 
 
+// 전역변수로 빼주고 clearInterval 수행해야함
+let isStop = false;
+let countInterval;
+
+// 인증번호 카운트다운
+function paddedFormat(num) {
+	return num < 10 ? "0" + num : num;
+}
+
+function startCountDown(duration, element) {
+	
+	// 타이머 시작되면 활성화
+	$("#email-Authentication").attr("disabled", false);
+	$("#check-email-Authentication").attr("disabled", false);
+	
+	let secondsRemaining = duration;
+	let min = 0;
+	let sec = 0;
+
+	countInterval = setInterval(function() {
+
+		if (!isStop) { // isStop false
+
+			min = parseInt(secondsRemaining / 60);
+			sec = parseInt(secondsRemaining % 60);
+
+			element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
+
+			secondsRemaining = secondsRemaining - 1;
+			// 타이머가 만료되면
+			if (secondsRemaining < 0) {
+
+				clearInterval(countInterval);
+				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
+				$("#check-email-Authentication").attr("disabled", true); // 확인버튼 비활성화
+
+			};
+
+		} else { //
+			
+			clearInterval(countInterval);
+		}
+
+	}, 1000);
+}
+
+// 타이머 멈추기
+function stopTimer() {
+	isStop = true;
+	clearInterval(countInterval);
+}
+
+// 타이머 시작하기
+function startTimer() {
+	let time_minutes = 1; // Value in minutes
+	let time_seconds = 59; // Value in seconds
+
+	let duration = time_minutes * 60 + time_seconds;
+
+	element = document.querySelector('#count-down-timer'); 
+	element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+
+	isStop = false;
+
+	startCountDown(--duration, element);
+	
+	
+};
