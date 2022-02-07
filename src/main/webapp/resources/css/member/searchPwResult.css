@@ -81,3 +81,12 @@
 .goSignUp > li{
     float: left;
 }
+
+/*  유효성 검사용들 p */
+.check-p{
+	font-size: small;
+    margin-left: 245px;
+    display: block;
+    font-weight: normal;
+    
+}

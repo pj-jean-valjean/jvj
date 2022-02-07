@@ -153,7 +153,9 @@ public class SnsLoginService {
 
 		JsonNode kakao_account = resultNode.get("kakao_account");
 		JsonNode profile = kakao_account.get("profile");
-
+		
+		System.out.println(resultNode);
+		
 		Member member = new Member();
 
 		member.setMemberId(resultNode.get("id").asText());

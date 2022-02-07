@@ -15,18 +15,24 @@
         <form action="${contextPath}/member/searchPwResult" method="POST">
         <div class="input-info"><div class="input-info-div">
             <div class="p-div"><p>비밀번호</p></div>
-            <div class="input-div"><input type="password" class="member-info"  id="newPw1" name="newPw1" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요"></div>
-        	
-        	<span id="checkPw1"></span>
+            <div class="input-div">
+            	<input type="password" class="member-info"  id="newPw1" name="newPw1" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요">
+            </div>
         </div>
-        
+        <!-- 비밀번호 유효성 검사1 -->
+		<p class="check-p" id="checkPwd1"></p>
+						
         <div class="input-info-div">
             <div class="p-div"><p>비밀번호 확인</p></div>
-            <div class="input-div"><input type="password" class="member-info" id="newPw2" name="newPw2" maxlength="12" placeholder="비밀번호 확인" required></div>
-        	<span id="checkPw2"></span>
+	            <div class="input-div">
+	            	<input type="password" class="member-info" id="newPw2" name="newPw2" maxlength="12" placeholder="비밀번호 확인" required>
+	            </div>
+				<!-- 비밀번호 유효성 검사2 -->
+				<p class="check-p" id="checkPwd2"></p>
+        	</div>
         </div>
-
-        </div>
+		
+		
             <div class="flex-div">
                 <div class="signUp-select-btn">
                     <button type="submit" id="search-btn"  onclick="return updatePwValidate();">확인</button>
