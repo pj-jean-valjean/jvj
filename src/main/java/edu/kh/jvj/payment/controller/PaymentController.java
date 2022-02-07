@@ -1,4 +1,4 @@
-package edu.kh.jvj.payment;
+package edu.kh.jvj.payment.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/payment/*")
-public class paymentController {
+public class PaymentController {
 	
 	@RequestMapping(value = "payment", method = RequestMethod.GET)
 	public String payment() {
