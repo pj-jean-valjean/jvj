@@ -13,7 +13,7 @@
 
 	<div class="member-form-info">
 
-		<form method="POST" action="signUp" class="needs-validation" name="signUpForm" onsubmit="return validate();">
+		<form method="POST" action="${contextPath}/member/signUp" class="needs-validation" name="signUpForm" onsubmit="return validate();">
 
 			<div class="input-info">
 
@@ -28,7 +28,7 @@
 								</p>
 							</div>
 							<div class="input-div">
-								<input type="text" class="member-info service-input" name="email" id="email-input" value="${snsUser.memberEmail}" readonly>
+								<input type="text" class="member-info service-input" name="memberEmail" id="email-input" value="${snsUser.memberEmail}" readonly>
 							</div>
 						</div>
 
@@ -135,7 +135,7 @@
 								<p>이름<span> *</span></p>
 							</div>
 							<div class="input-div">
-								<input type="text" class="member-info service-input" id="name" name="memberName" value="${snsUser.memberName}">
+								<input type="text" class="member-info service-input" id="name" name="memberName" value="${snsUser.memberName}" readonly>
 							</div>
 						</div>
 					</c:when>
@@ -218,11 +218,11 @@
 					</c:choose>
 				</div>
 			</div>
-
-
+		
+			<input type="hidden" name="service" value="${snsUser.service}">
+			<input type="hidden" name="memberId" value="${snsUser.memberId}">
 		</form>
 	</div>
-	${snsUser} ${snsUser.memberEmail} ${snsUser.service}
 </main>
 
 
@@ -237,7 +237,6 @@
 	<%-- 추후 스크립트 내용 너무 길어지면 안에 내용을 function 으로 빼고 함수호출하는 방법으로 수정하기 --%>
 	<c:when test="${ !empty snsUser.service}">
 		<script>
-		console.log("sdfsdf");
  			const signUpCheckObj = {
 				    "email" : true,
 				    "pwd1" : true,
@@ -282,19 +281,9 @@
 					}
 					
 					// input type="hidden" 태그 생성 및 추가 
-				    const email = document.getElementsByName("email");
 				    const phone = document.getElementsByName("phone");
 				    const address = document.getElementsByName("address");
 				    
-					
-				    
-				    // input태그 생성
-				    // email 진행
-					const input1 = document.createElement("input");
-				    input1.setAttribute("type", "hidden");
-				    input1.setAttribute("name", "memberEmail");
-				    input1.value = email[0].value + "@" + email[1].value;
-				    document.signUpForm.append(input1);
 					
 				    // phone 번호 있을때만 진행
 					if(phone[0].value.trim().length > 0){
