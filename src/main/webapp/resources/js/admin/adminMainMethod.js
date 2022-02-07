@@ -877,3 +877,21 @@
                 )
             }
         }
+
+        //-----------------------------------------------------------------//
+        /* 문자테스트 */
+        function sendMessage(){
+            alert("막누르면 안됨")
+            $.ajax({
+                url : contextPath+"/admin/board/sendMessage",
+                type : "POST",
+                data : {}, 
+                dataType: "json",
+                success : function(result){
+                    console.log("성공 "+result);
+                },
+                error : function(status){
+                    console.log("오류 "+status);
+                }
+            })
+        }

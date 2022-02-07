@@ -80,6 +80,7 @@
                 </div></div>
             <div class="one-admin-func"><a href="/jvj/admin/board/route/productManage">매출 분석</a></div>
             <div class="one-admin-func">마케팅 업무</div>
+            <div class="one-admin-func"><button onclick="sendMessage();" id="msgTest">문자테스트</button></div>
         </aside>
         <section>
             <article id="adminPCont">
