@@ -17,5 +17,11 @@ public interface CartService {
 
 	int deleteCart(Cart cart);
 
+	List<Cart> selectProductList(int memberNo);
+
+	int selectAmount(int productNo);
+
+	int updateCart(Cart cart2);
+
 
 }

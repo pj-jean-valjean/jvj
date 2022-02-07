@@ -47,4 +47,21 @@
 		WHERE (CART_NO = #{cartNo} OR CART_NO2 = #{cartNo} ) AND MEMBER_NO
 		=#{memberNo}
 	</delete>
+	<!-- 장바구니 중복 목록을 합쳐서 상품번호와 수량를 가져옴 -->
+	<select id="selectProductList" resultMap="cart_rm">
+	SELECT PRODUCT_NO,SUM(ADD_Q) ADD_Q FROM CART
+	WHERE MEMBER_NO = #{memberNo}
+	GROUP BY PRODUCT_NO
+	</select>
+	<!--  재고확인 -->
+	<select id="selectAmount" resultType="_int">
+	SELECT STORE_AMOUNT FROM STORE_DETAIL
+	WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<!-- 재고보다 상품수량이 많으면 상품비움 -->
+	<delete id="updateCart">
+	DELETE FROM CART
+	WHERE PRODUCT_NO = #{productNo} 
+	AND MEMBER_NO = #{memberNo}
+	</delete>
 </mapper>

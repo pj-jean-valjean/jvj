@@ -79,3 +79,32 @@ function paging(){
 
 }
 paging();
+
+function buyit(){
+    updateCart();
+}
+
+function updateCart(){
+    $.ajax({
+        url:specialContextPath+"/cart/updateCart",
+        type:'POST',
+        success : function(result){
+        if(result>0){
+            swal({
+                title: "재고 부족",
+                text: "현재 상품 수량이 재고 수량보다 많아, 장바구니에 다시 담아주시길 바랍니다.",
+                icon: "info",
+                buttons: "확인",
+              }).then((value) => {
+                // 확인눌렀을때 실행
+                if (value) {
+                  location.reload();
+                }
+              });
+        }
+        },
+        error : function(err){
+            console.log(err);
+        }
+    });
+}

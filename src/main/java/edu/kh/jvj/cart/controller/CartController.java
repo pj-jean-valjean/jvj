@@ -87,4 +87,26 @@ public class CartController {
 		
 		return result;
 	}
+	// 카트 최신화
+	@PostMapping("updateCart")
+	@ResponseBody
+	public int updateCart(@ModelAttribute("loginMember") Member member, Cart cart) {
+		
+		int memberNo = member.getMemberNo();
+		int result = 0;
+		List<Cart> productList = service.selectProductList(memberNo);
+		System.out.println(productList);
+		for(Cart pdt : productList) {
+			int amount = service.selectAmount(pdt.getProductNo());
+		
+			// 재고보다 상품 수량이 더많을때
+			if(pdt.getAddq()>amount) {
+				Cart cart2 = new Cart();
+				cart2.setProductNo(pdt.getProductNo());
+				cart2.setMemberNo(memberNo);
+				result = service.updateCart(cart2);
+			}
+		}
+		return result;
+	}
 }
