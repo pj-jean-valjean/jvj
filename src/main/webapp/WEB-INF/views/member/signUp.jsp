@@ -309,7 +309,7 @@
 	       	</script>
 		</c:if>
 		
-		<c:if test="${snsUser.service eq 'kakao' }">
+		<c:if test="${snsUser.service eq 'kakao'}">
 			<script>
  			const signUpCheckObj = {
 				    "email" : true,
