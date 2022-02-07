@@ -220,8 +220,8 @@ public class AdminBoardController {
 	@PostMapping("sendMessage")
 	public int sendMessageBySens() {
 		
-		int result = service.sendmessage();
-		
+		String result = service.sendmessage();
+		System.out.println(result);
 		return 0;
 	}
 }

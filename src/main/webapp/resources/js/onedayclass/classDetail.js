@@ -1,6 +1,7 @@
 
 /* 사진교체 */
 let likedone=0;
+let nownum = 0;
 window.onload = function(){
     changeImg();
     reviewDetail();
@@ -103,11 +104,11 @@ function likecheck(){
     }
 }
 
-    const possibleppl = document.querySelector(".product_detail > article:nth-child(11) > div.subdetail-content > span > span:nth-child(3)").innerText
-    - document.querySelector(".product_detail > article:nth-child(11) > div.subdetail-content > span > span:nth-child(1)").innerText;
+    const possibleppl = document.querySelector(".product_detail >form> article:nth-child(11) > div.subdetail-content > span > span:nth-child(3)").innerText
+    - document.querySelector(".product_detail > form>article:nth-child(11) > div.subdetail-content > span > span:nth-child(1)").innerText;
     const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
     
-    let nownum = 0;
+  
     //인원 증감
     function plusppl(){
         if(possibleppl>nownum){
@@ -173,34 +174,6 @@ function showMaps(){
                     map.setCenter(coords);
                 } 
             });  
-
-            /* 
-    //위도경도 얻기
-    let placex;
-    let placey;
-    let httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () =>{
-        //readyState가 변화했을 때 함수 실행
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
-            //readyState가 Done이고 응답값이 200이면
-            if(httpRequest.status ===200){
-
-                const redirectAddr = httpRequest.response;
-                placex = parseFloat(redirectAddr.documents[0].address.x);
-                placey =redirectAddr.documents[0].address.y;
-                
-                console.log('x는 '+placex + ' y는 ' + placey);
-                // 주소-좌표 변환 객체를 생성합니다
-            }
-            else{
-                console.log(httpRequest.status+"error!");
-            }
-        }
-    }
-    httpRequest.open("POST", "getPlace?mapAddress="+mapAddress , true);
-    httpRequest.responseType = "json";
-    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    httpRequest.send(); */
 }
 function hideMaps(){
     document.getElementById("cal").style.display = "none";
@@ -267,6 +240,24 @@ function scrollDelievery(){
 
 
 // 결제 페이지 이동
-document.querySelector("#submit-btn").addEventListener("click", function(){
+/* document.querySelector("#submit-btn").addEventListener("click", function(){
     location.href = contextPath + "/payment/payment";
-});
+}); */
+// 결제 페이지 이동
+function reconfirim(){
+    if(nownum==0){
+        alert("수강 인원을 선택해주세요");
+        return false;
+    }
+    if(confirm("현재 정보로 클래스를 신청하시겠습니까?")){
+        return true;
+    }
+    else{
+        const totalprice= $("#totalprice").text();
+        const totalPeople= $("#ppl").text()
+    
+        $("#hiddenTotalprice").val(totalprice);
+        $("#hiddenTotalPeople").val(totalPeople);
+        return false;
+    }
+}

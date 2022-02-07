@@ -1,7 +1,16 @@
 package edu.kh.jvj.admin.model.service;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
@@ -16,16 +25,26 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import edu.kh.jvj.admin.model.dao.AdminDAO;
 import edu.kh.jvj.admin.model.vo.Admin;
+import edu.kh.jvj.admin.model.vo.MessagesRequestDto;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SendSmsResponseDto;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.admin.model.vo.SmsRequestDto;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -346,54 +365,100 @@ public class AdminServiceImpl implements AdminService{
 	   }
 
 	@Override
-	public int sendmessage() {
+	public String sendmessage() {
+		Long time = System.currentTimeMillis();
+		List<MessagesRequestDto> list = new ArrayList<>();
+		MessagesRequestDto oneMRD = new MessagesRequestDto("01025639598","내가보낸 메세지");
+		Gson gson = new Gson();
+		list.add(oneMRD);
+		
+//		Body Json
+		SmsRequestDto SRD = new SmsRequestDto();
+		SRD.setType("SMS");
+		SRD.setContentType("COMM");
+		SRD.setCountryCode("82");
+		SRD.setFrom("01025639598");
+		SRD.setMessages(list);
+		SRD.setContent("-장발장-");
+		
+		String jsonBody = gson.toJson(SRD);
+		
 		String accessKey="zC9zNinRIJqHLInx7Ajx";
-		String secretKey="df0813e3de944faea3fe3c9294627a6a";
 		String serviceId="ncp:sms:kr:275225299182:final_jvj_prj";
 		
-		
 		String hostUrl ="https://sens.apigw.ntruss.com/sms/v2/services/"
-			+serviceId+"/messages?requestId=";
-		//?requestId=";
-		
-		Long datetime = System.currentTimeMillis();
-        Timestamp time = new Timestamp(datetime);
-		String timestamp = time.toString();
-		
-		Map<String, String> toBeJson = new HashMap<>();
-		toBeJson.put("subject", timestamp);
-		
-		
-		return 0;
-	}
-
-	private static String datas(String timestamp) {
-			//요청헤더
-			String url = "https://sens.apigw.ntruss.com/sms/v2/services/{ncp:sms:kr:275225299182:final_jvj_prj}/messages?requestId=";
-			String message = new StringBuilder()
-					.append("GET ").append(url)
-					.append("\n").append(timestamp)
-					.append("\n").append("zC9zNinRIJqHLInx7Ajx")
-					.append("\n").append("zC9zNinRIJqHLInx7Ajx").toString();
+			+serviceId+"/messages";
+		System.out.println(jsonBody);
+		// 헤더에서 여러 설정값들을 잡아준다.
+		try {
+			String sig = makeSignature(time);
+			URL url = new URL(hostUrl);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setUseCaches(false);
+			con.setDoOutput(true);
+			con.setDoInput(true);
+			con.setRequestProperty("content-type", "application/json;charset=utf-8");
+			con.setRequestProperty("x-ncp-apigw-timestamp", time.toString());
+			con.setRequestProperty("x-ncp-iam-access-key", accessKey);
+			con.setRequestProperty("x-ncp-apigw-signature-v2", sig);
+			con.setRequestMethod("POST");
 			
-			try {
-				String secretKey = "df0813e3de944faea3fe3c9294627a6a";
-				SecretKeySpec signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
-				Mac mac = Mac.getInstance("HmacSHA256");
-				 mac.init(signingKey);
-				 byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8")); 
-				 String encodeBase64String = Base64.encodeBase64String(rawHmac); 
-				 return encodeBase64String;
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			} catch (InvalidKeyException e) {
-				e.printStackTrace();
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.write(jsonBody.getBytes());
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode==202) {
+				br= new BufferedReader(new InputStreamReader(con.getInputStream()));
 			}
-			return null;
+			else {
+				System.out.println(responseCode);
+				br= new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while((inputLine=br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			String result = response.toString();
+			System.out.println(result);
+			return result;
+			
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-
-
+		
+		return null;
+	}
+	
+	public String makeSignature(Long time) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException {
+		//시키는대로 헤더를 암호화한다
+		String serviceId="ncp:sms:kr:275225299182:final_jvj_prj";
+		
+		String space = " "; 
+		// one space 
+		String newLine = "\n"; 
+		// new line String method = "POST"; 
+		// method 
+		String url = "/sms/v2/services/"+serviceId+"/messages"; 
+		// url (include query string) 
+		String timestamp = time.toString(); 
+		// current timestamp (epoch)
+		String accessKey="zC9zNinRIJqHLInx7Ajx";
+		// access key id (from portal or Sub Account) 
+		String secretKey="3CQEI2J2UJ1QNQshiM6Vq6828X00N5lRSviCXBhw";
+		String message = new StringBuilder() 
+				.append("POST") .append(space) 
+				.append(url) .append(newLine) 
+				.append(timestamp) .append(newLine) 
+				.append(accessKey) .toString(); 
+		SecretKeySpec signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
+		Mac mac = Mac.getInstance("HmacSHA256"); mac.init(signingKey); 
+		byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8")); 
+		String encodeBase64String = Base64.encodeBase64String(rawHmac); 
+		return encodeBase64String;
+	}	
 }
+

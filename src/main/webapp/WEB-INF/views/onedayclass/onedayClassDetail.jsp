@@ -32,16 +32,14 @@
             	<c:forEach items="${Oneclass.classImgList}" var="imginfo">
 	                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
             	</c:forEach>
-                <%-- <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[1].productImgName}" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[2].productImgName}" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}${Oneclass.classImgList[0].productImgPath}${Oneclass.classImgList[3].productImgName}" alt="sub-bread-main">
-             --%></div>
+                </div>
             </section>
-            <%-- <section> ${Oneclass.placeAddr} </section> --%>
             <section class="product_detail">
+            	<form action="${contextPath}/payment/payment" method="GET" onsubmit="return reconfirim();">
                 <article class="category_product">
                     <div class="category-title">
                         <span>${Oneclass.title}</span>
+                        <input type="hidden" name="classtitle" readonly value="${Oneclass.title}">
                         <div class="heart-btn">
 							<div class="contentss">
 								<div class="heart"></div>
@@ -75,7 +73,7 @@
                         <span></span>
                     </div>
                     <div class="subdetail-content"> 
-                        <input type="text" readonly value="${Oneclass.classDt}">
+                        <input type="text" readonly value="${Oneclass.classDt}" name="classdate">
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -84,7 +82,7 @@
                         <span>수업 시간</span>
                     </div>
                     <div class="subdetail-content"> 
-                      	<input type="text" readonly value="${Oneclass.classtime}">
+                      	<input type="text" readonly value="${Oneclass.classtime}" name="classtime">
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -110,8 +108,7 @@
                     </div>
                 </article>
                 <div class="bottom-line"></div>
-                <!-- 상태코드 넘어가는 input -->
-                <input type="hidden" name="periodStatusCode">
+
                 <article class="total-price">
                     <!-- 선택한 상품 있을경우 -->
                     <!-- <div class="total-area">
@@ -127,10 +124,23 @@
                     </div>
                 </article>
                 <div class="submit-sub">
-                    <button id="submit-btn" class="submit-btn">
+                                <!-- 상태코드 넘어가는 input -->
+                	<!-- <input type="hidden" name="periodStatusCode"> -->
+                    <input id="hiddenTotalprice" type="hidden" name="totalPrice">
+                    <input id="hiddenTotalPeople" type="hidden" name="totalPeople">
+                    <input type="hidden" value="${productNo}" name="productNo">
+                    <button id="submit-btn" class="submit-btn" type="submit">
                         <span>클래스 신청</span>
                     </button>
                 </div>
+                </form>
+<!-- formData   클래스이름-- classtitle
+				지점명 -- place
+				수강일 -- classdate
+				수강시간 -- classtime
+				신청 인원수 -- totalPeople
+				총 가격 -- totalPrice
+				상품번호 -- productNo -->
             </section>
         </section>
         <!-- contents -->
