@@ -127,7 +127,7 @@
                     </div>
                 </article>
                 <div class="submit-sub">
-                    <button class="submit-btn">
+                    <button id="submit-btn" class="submit-btn">
                         <span>클래스 신청</span>
                     </button>
                 </div>
