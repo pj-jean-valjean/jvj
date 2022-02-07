@@ -237,3 +237,9 @@ option{
 .select:hover::after {
    color: #00f298;
 }
+
+.pdt-name{
+	margin-top: 10px; font-size: 24px; font-weight: bold;
+	white-space:nowrap; text-overflow: ellipsis;
+	width:240px; overflow:hidden;
+}
