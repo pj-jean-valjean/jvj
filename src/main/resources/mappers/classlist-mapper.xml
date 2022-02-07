@@ -28,6 +28,7 @@
 		<result property="classtime" column="CLASS_TIME" />
 		<result property="placeName" column="PLACE_NM" />
 		<result property="placeAddr" column="PLACE_ADDR" />
+		<result property="nowPeople" column="CLASS_ADD_PPL" />
 		<collection property="classImgList" column="PRODUCT_NO"
 				javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 				 select="selectProductImageList" />
@@ -77,7 +78,7 @@
 	</select>	
 	<select id="selectOneClass" resultMap="onedayclass_detail">
 		SELECT 
-		PRODUCT_NO, PRODUCT_NM , PRODUCT_PRICE, PLACE_CODE , PLACE_NM, PLACE_ADDR ,
+		PRODUCT_NO, PRODUCT_NM , PRODUCT_PRICE, PLACE_CODE , PLACE_NM, PLACE_ADDR ,CLASS_ADD_PPL,
 		TO_CHAR(CLASS_DT, 'YYYY-MM-DD') CLASS_DT , CLASS_TIME , CLASS_MAX_PPL ,CLASS_EXP
 		FROM PRODUCT
 		JOIN CLASS_DETAIL USING (PRODUCT_NO)
