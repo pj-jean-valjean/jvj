@@ -30,17 +30,22 @@ import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.notice.model.service.NoticeService;
 import edu.kh.jvj.notice.model.vo.Notice;
+import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
+import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Store;
 
 @RequestMapping("admin/board/*")
 @RestController
 public class AdminBoardController {
 	private final AdminService service;
 	private final NoticeService noticeService;
+	private final OnedayClassService classService;
 	@Autowired
-	public AdminBoardController(AdminService service, NoticeService noticeService) {
+	public AdminBoardController(AdminService service, NoticeService noticeService,OnedayClassService classService) {
 		this.service = service;
 		this.noticeService = noticeService;
+		this.classService = classService;
 	}
 	//썸머노트 이미지처리 ajax
 	@PostMapping("summernoteImage")
@@ -88,6 +93,38 @@ public class AdminBoardController {
 		
 		return dataMap; 
 	}
+	//관리자 상품 수정 전 기존 Detail 정보 조회
+	@PostMapping(value="ajaxProductDetail",produces="application/json;charset=UTF-8")
+	public String productDetailInfo(
+			@RequestBody Map<String, Integer> dataMap) {
+		String returnJson="";
+		Gson gson = new Gson();
+		if(dataMap.get("productcate")==1) {
+			Store store = service.getStoreInfo(dataMap.get("productNo"));
+			returnJson = gson.toJson(store);
+		}
+		else if(dataMap.get("productcate")==3) {
+			 OnedayClass Oneclass = classService.selectOneClass(dataMap); 
+			 returnJson = gson.toJson(Oneclass); 
+		}
+		else {
+			
+		}
+		
+		return returnJson;
+	}
+	//관리자 상품 수정
+	@PostMapping("updateProduct")
+	public int ProductUpdate(
+			@RequestParam(value="images", required=false) List<MultipartFile> images,
+			ProductWrite Product, HttpSession session) {
+		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
+		String serverPath = session.getServletContext().getRealPath(WebPath);
+		service.updateProduct(images, Product, WebPath , serverPath); 
+		
+		return Product.getProductNo();
+	}
+	
 	//관리자 상품등록 ajax
 	@PostMapping("productWrite")
 	public int productWrite(

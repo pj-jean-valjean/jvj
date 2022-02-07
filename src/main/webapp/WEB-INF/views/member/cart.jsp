@@ -63,8 +63,8 @@
 						<c:forEach items="${cartList}" var="cart2">	
 							<c:if test="${cart2.parentNo eq cart.cartNo}">
 					
-								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName}${cart2.price} * ${cart2.addq}</h4>
-								<input class="optionPrice" type ="hidden" value="${cart2.price * cart2.addq}">
+								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName}${cart2.price*(100-cart2.discountPer)/100} * ${cart2.addq}</h4>
+								<input class="optionPrice" type ="hidden" value="${cart2.price * cart2.addq *(100-cart2.discountPer)/100} ">
 								
 							</c:if>
 							</c:forEach>
@@ -94,7 +94,7 @@
 			</p>
 			<h1>총 결제 금액</h1><h1  class="lastMaxPrice"> 0원</h1>
 		</div>
-		<div class="j-buy">
+		<div class="j-buy" onclick="buyit()">
 			<h2>구매하기</h2>
 		</div>
 	</div>

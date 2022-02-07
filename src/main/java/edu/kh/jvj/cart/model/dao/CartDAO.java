@@ -40,6 +40,21 @@ public class CartDAO {
 		return mybatis.delete("cartMapper.deleteCart",cart);
 	}
 
+	public List<Cart> selectProductList(int memberNo) {
+		
+		return mybatis.selectList("cartMapper.selectProductList",memberNo);
+	}
+
+	public int selectAmount(int productNo) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("cartMapper.selectAmount",productNo);
+	}
+
+	public int updateCart(Cart cart2) {
+		// TODO Auto-generated method stub
+		return mybatis.delete("cartMapper.updateCart",cart2);
+	}
+
 	
 
 }

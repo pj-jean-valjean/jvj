@@ -39,8 +39,12 @@ table{
    /*  background-color: rgba(167, 138, 108, 0.3); */
 }
 .tb-tbd>td{
-    border-bottom: rgba(183, 183, 183, 1) solid 1px; font-size: 15px;
+    border-bottom: rgba(183, 183, 183, 1) solid 1px; 
+    font-size: 15px;
     text-align: center;
+    padding-top: 20px;
+    height: 0px;
+    padding-bottom: 0px;
 }
 
 
@@ -131,7 +135,6 @@ table{
     margin-bottom: 10px;
     display: inline-block;
     text-align: right;
-    margin-top: 20px;
 }
 .selectDiv>span{ 
     font-size: 14px;

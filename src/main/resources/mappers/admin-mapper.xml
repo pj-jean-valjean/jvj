@@ -31,9 +31,36 @@
 		<result property="title" column="PRODUCT_NM" />
 		<result property="writecate" column="PRODUCT_CD" />
 		<result property="cateName" column="PRODUCT_CATE" />
+		<result property="createDate" column="CREATE_DT" />
 		<result property="price" column="PRODUCT_PRICE" />
 	</resultMap>
-	
+		<resultMap type="edu.kh.jvj.admin.model.vo.AdminStore" id="store_rm">
+		<id property="storeNo" column="PRODUCT_NO" />
+		<result property="storeName" column="PRODUCT_NM" />
+		<result property="price" column="PRODUCT_PRICE" />
+		<result property="memo" column="STORE_MEMO" />
+		<result property="storeExp" column="STORE_EXP" />
+		<result property="stock" column="STORE_AMOUNT" />
+		<result property="storecate" column="STORE_TYPE" />
+		<result property="discountStart" column="DISCOUNT_START_DT" />
+		<result property="discountEnd" column="DISCOUNT_END_DT" />
+		<result property="discountPer" column="DISCOUNT_PER" />
+		<result property="createDate" column="CREATE_DT" />
+		<collection property="classImgList" column="PRODUCT_NO"
+		javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
+		 select="selectProductImageList" />
+	</resultMap>
+		<resultMap type="edu.kh.jvj.onedayclass.model.vo.ProductImage" id="productImg_rm">
+		<id property="productImgNo" column="PRODUCT_IMG_NO" />
+		<result property="productImgPath" column="PRODUCT_IMG_PATH" />
+		<result property="productImgName" column="PRODUCT_IMG_NAME" />
+		<result property="productImgLevel" column="PRODUCT_IMG_LEVEL" />
+		<result property="productNo" column="PRODUCT_NO" />
+	</resultMap>
+	<select id="selectProductImageList" resultMap="productImg_rm">
+		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
+		ORDER BY PRODUCT_IMG_LEVEL 
+	</select>
 	<!-- 상품 공통 인서트 -->
 	<insert id="insertProductCommon" >
   		<selectKey order="BEFORE" resultType="_int" keyProperty="productNo">
@@ -176,12 +203,68 @@
 		</if>
 	</select>
 	<select id="productselect" resultMap="product_rm">
-		SELECT PRODUCT_NO, PRODUCT_NM ,PRODUCT_PRICE, PRODUCT_CD, PRODUCT_CATE
+		SELECT PRODUCT_NO, PRODUCT_NM ,PRODUCT_PRICE, PRODUCT_CD, PRODUCT_CATE,
+		TO_CHAR(CREATE_DT, 'YYYY-MM-DD') CREATE_DT
 		FROM PRODUCT
 		JOIN PRODUCT_CATEGORY USING(PRODUCT_CD) 
 		WHERE PRODUCT_NM LIKE '%'||#{search}||'%'
 		<if test="cate != 0">
 			AND PRODUCT_CD =#{cate}
 		</if>
+		ORDER BY CREATE_DT DESC
 	</select>
+	<select id="getStoreInfo" resultMap="store_rm">
+		SELECT 
+		PR.PRODUCT_NM, PR.PRODUCT_PRICE,
+		TO_CHAR(PR.CREATE_DT , 'YYYY-MM-DD') CREATE_DT ,
+		SD.* , TO_CHAR(DIS.DISCOUNT_START_DT , 'YYYY-MM-DD') DISCOUNT_START_DT,
+		TO_CHAR(DIS.DISCOUNT_END_DT , 'YYYY-MM-DD') DISCOUNT_END_DT, DIS.DISCOUNT_PER
+		FROM PRODUCT PR
+		JOIN STORE_DETAIL SD ON (PR.PRODUCT_NO = SD.PRODUCT_NO)
+		LEFT JOIN DISCOUNT DIS ON(PR.PRODUCT_NO = DIS.PRODUCT_NO)
+		WHERE PR.PRODUCT_NO = #{productNo}
+	</select>
+	<update id="updateProductCommon">
+		UPDATE PRODUCT SET
+		PRODUCT_NM = #{title} , 
+		PRODUCT_PRICE= #{price} 
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	<update id="updateStoreProduct">
+		UPDATE STORE_DETAIL SET
+		STORE_EXP = #{editordata} ,
+		STORE_AMOUNT = #{stock} ,
+		STORE_MEMO = #{detailcontents} ,
+		STORE_TYPE = #{storecate}
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	<update id="updateStoreDiscount">
+		UPDATE DISCOUNT SET
+		DISCOUNT_START_DT = #{discountStart},
+		DISCOUNT_END_DT = #{discountEnd}, 
+		DISCOUNT_PER = #{discountPer}
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	<delete id="deleteImgs" parameterType="map">
+		DELETE FROM PRODUCT_IMG 
+		WHERE PRODUCT_NO = #{productNo}
+		AND PRODUCT_IMG_LEVEL IN (${deleteLevels})	
+	</delete>
+	<update id="updateClassProduct">
+		UPDATE CLASS_DETAIL SET 
+		CLASS_MAX_PPL = #{people},
+		CLASS_EXP = #{editordata},
+		CLASS_DT = #{classdate},
+		PLACE_CODE= #{place},
+		CLASS_TIME = #{startEndTime}
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	<select id="checkIsDiscount" resultType="_int">
+		SELECT COUNT(*) FROM DISCOUNT
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<delete id="deleteStoreDiscount">
+		DELETE FROM DISCOUNT
+		WHERE PRODUCT_NO = #{productNo}
+	</delete>
 </mapper>
