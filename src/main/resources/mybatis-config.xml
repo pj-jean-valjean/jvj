@@ -9,10 +9,11 @@
 			<typeAlias alias="store" type="edu.kh.jvj.store.model.vo.Store" />
 			<typeAlias alias="Member" type="edu.kh.jvj.member.model.vo.Member" />
 			<typeAlias alias="Coupon" type="edu.kh.jvj.mypage.model.vo.Coupon" />
-			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
-
-
+			<typeAlias alias="CouponStatus" type="edu.kh.jvj.mypage.model.vo.CouponStatus" />
+			<typeAlias alias="Like" type="edu.kh.jvj.mypage.model.vo.Like" />
+      <typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="/mappers/classlist-mapper.xml" />
 		<mapper resource="/mappers/admin-mapper.xml" />

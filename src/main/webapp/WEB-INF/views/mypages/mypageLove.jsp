@@ -44,51 +44,31 @@
                         </ul>
                     </div>
                     <div class="tList tbList">
-                        <ul class="tbname">
-                            <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                            <li> 댕식빵/댕댕식빵</li>
-                            <li> 10,000,000</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur" onclick="paymentResult()">바로 구매</button>
-                                <button class="p-btn" id="btn-cc">좋아요 삭제</button>
-                            </li>
-                        </ul>
-                        <ul class="tbname">
-                            <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                            <li> 댕식빵/댕댕식빵</li>
-                            <li> 10,000,000</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">바로 구매</button>
-                                <button class="p-btn" id="btn-cc">좋아요 삭제</button>
-                            </li>
-                        </ul>
-                        <ul class="tbname">
-                            <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                            <li> 댕식빵/댕댕식빵</li>
-                            <li> 10,000,000</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">바로 구매</button>
-                                <button class="p-btn" id="btn-cc">좋아요 삭제</button>
-                            </li>
-                        </ul>
-                        <ul class="tbname">
-                            <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                            <li> 댕식빵/댕댕식빵</li>
-                            <li> 10,000,000</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">바로 구매</button>
-                                <button class="p-btn" id="btn-cc">좋아요 삭제</button>
-                            </li>
-                        </ul>
-                        <ul class="tbname">
-                            <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                            <li> 댕식빵/댕댕식빵</li>
-                            <li> 10,000,000</li>
-                            <li>
-                                <button class="p-btn" id="btn-pur">바로 구매</button>
-                                <button class="p-btn" id="btn-cc">좋아요 삭제</button>
-                            </li>
-                        </ul>
+                    
+                    <c:choose>
+	                    <c:when test="${empty likeList}">
+							<div style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
+										font-size:20px; font-weight:bold; text-align:center; height:600px; 
+										display: flex; align-items: center; justify-content: center;">
+							좋아요 하신 상품이 존재하지 않습니다.
+							</div>	                    	
+	                    </c:when>
+	                    
+	                    <c:otherwise>
+	                    
+	                    	<c:forEach items="${likeList}" var="likeList">
+		                        <ul class="tbname">
+		                            <li><img src="${contextPath}/${likeList.productImagePath}/${likeList.productImageName}" alt=""></li>
+		                            <li>${likeList.productName}</li>
+		                            <li>${likeList.productPrice}</li>
+		                            <li>
+		                                <button class="p-btn" id="btn-pur" onclick="paymentForm();">바로 구매</button>
+		                                <button class="p-btn" id="btn-cc" onclick="deleteList();">좋아요 삭제</button>
+		                            </li>
+		                        </ul>
+	                        </c:forEach>
+	                    </c:otherwise>
+                     </c:choose>  
                     </div>
                     
                 </div>
@@ -96,20 +76,16 @@
             </article>
         </article>
 
-        <article class="page">
-            <div>
+       <article>
+            <div class="page">
+            
                 <ul class="pagination">
-                    <li><a href="#" class="first pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg></a></li> 
-                    <li><a href="#" class="previous pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg>
-                    </a></li> 
-
+                
+                <c:if test="${paginationLike.startPage != 1}">
+                    <li><a href="#" class="first pagi">&lt;&lt;</a></li> 
+                    <li><a href="#" class="previous pagi">&lt;</a></li> 
+				</c:if>
+				
                     <li class="pagiList"><a class="pagiLink" href="#">1</a></li>
                     <li class="pagiList"><a class="pagiLink" href="#">2</a></li>
                     <li class="pagiList"><a class="pagiLink" href="#">3</a></li>
@@ -141,5 +117,22 @@
     </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
+	<script type="text/javascript">
+	
+		/* function paymentForm(){
+			document.requestForm.action = "#";
+			document.requestForm.method = "POST";
+			document.requestForm.submit();
+		} */
+		function deleteList(){
+			if(confirm("좋아요를 취소 하시겠습니까?")){
+				document.requestForm.action = "../cancellike";
+				document.requestForm.method = "POST";
+				document.requestForm.submit();
+			}	
+		}
+	</script>
+
+</style>
 </body>
 </html>

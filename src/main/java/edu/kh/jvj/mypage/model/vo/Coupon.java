@@ -11,55 +11,18 @@ public class Coupon {
 	private Date provideDate; // 발급일
 	private Date expireDate; // 만료일
 	
-	private int couponStatusCode; // 쿠폰상태코드
+	private int couponStatusCode; // 쿠폰 상태 코드
+	private String couponStatusName; // 쿠폰 상태 코드 이름
 	private int memberNo; // 회원 번호
 	
-	public Coupon() {}
 	
-	public int getCouponNo() {
-		return couponNo;
-	}
-	public void setCouponNo(int couponNo) {
-		this.couponNo = couponNo;
-	}
-	public String getCouponName() {
-		return couponName;
-	}
-	public void setCouponName(String couponName) {
-		this.couponName = couponName;
-	}
-	public int getDiscountPer() {
-		return discountPer;
-	}
-	public void setDiscountPer(int discountPer) {
-		this.discountPer = discountPer;
-	}
-	public Date getProvideDate() {
-		return provideDate;
-	}
-	public void setProvideDate(Date provideDate) {
-		this.provideDate = provideDate;
-	}
-	public Date getExpireDate() {
-		return expireDate;
-	}
-	public void setExpireDate(Date expireDate) {
-		this.expireDate = expireDate;
-	}
-	public int getCouponStatusCode() {
-		return couponStatusCode;
-	}
-	public void setCouponStatusCode(int couponStatusCode) {
-		this.couponStatusCode = couponStatusCode;
-	}
-	public int getMemberNo() {
-		return memberNo;
-	}
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
+
+	public Coupon() {}
+
+
+
 	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
-			int couponStatusCode, int memberNo) {
+			int couponStatusCode, String couponStatusName, int memberNo) {
 		super();
 		this.couponNo = couponNo;
 		this.couponName = couponName;
@@ -67,14 +30,117 @@ public class Coupon {
 		this.provideDate = provideDate;
 		this.expireDate = expireDate;
 		this.couponStatusCode = couponStatusCode;
+		this.couponStatusName = couponStatusName;
 		this.memberNo = memberNo;
 	}
+
+
+
+	public int getCouponNo() {
+		return couponNo;
+	}
+
+
+
+	public void setCouponNo(int couponNo) {
+		this.couponNo = couponNo;
+	}
+
+
+
+	public String getCouponName() {
+		return couponName;
+	}
+
+
+
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+
+
+
+	public int getDiscountPer() {
+		return discountPer;
+	}
+
+
+
+	public void setDiscountPer(int discountPer) {
+		this.discountPer = discountPer;
+	}
+
+
+
+	public Date getProvideDate() {
+		return provideDate;
+	}
+
+
+
+	public void setProvideDate(Date provideDate) {
+		this.provideDate = provideDate;
+	}
+
+
+
+	public Date getExpireDate() {
+		return expireDate;
+	}
+
+
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
+	}
+
+
+
+	public int getCouponStatusCode() {
+		return couponStatusCode;
+	}
+
+
+
+	public void setCouponStatusCode(int couponStatusCode) {
+		this.couponStatusCode = couponStatusCode;
+	}
+
+
+
+	public String getCouponStatusName() {
+		return couponStatusName;
+	}
+
+
+
+	public void setCouponStatusName(String couponStatusName) {
+		this.couponStatusName = couponStatusName;
+	}
+
+
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
 				+ ", provideDate=" + provideDate + ", expireDate=" + expireDate + ", couponStatusCode="
-				+ couponStatusCode + ", memberNo=" + memberNo + "]";
+				+ couponStatusCode + ", couponStatusName=" + couponStatusName + ", memberNo=" + memberNo + "]";
 	}
+	
+	
+	
 	
 	
 	
