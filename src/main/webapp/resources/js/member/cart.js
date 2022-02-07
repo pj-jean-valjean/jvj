@@ -82,6 +82,8 @@ paging();
 
 function buyit(){
     updateCart();
+    
+    location.href = specialContextPath + "/payment/payment";
 }
 
 function updateCart(){
