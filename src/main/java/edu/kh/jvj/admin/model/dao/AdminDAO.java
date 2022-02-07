@@ -14,6 +14,7 @@ import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Store;
 
 @Repository
 public class AdminDAO {
@@ -128,6 +129,38 @@ public class AdminDAO {
 		RowBounds rowBounds = new RowBounds(offset, limit); 
 		
 		return sqlSession.selectList("adminMapper.productselect",dataMap,rowBounds);
+	}
+
+	public Store getStoreInfo(int productNo) {
+		return sqlSession.selectOne("adminMapper.getStoreInfo",productNo);
+	}
+
+	public int updateProductCommon(ProductWrite product) {
+		return sqlSession.update("adminMapper.updateProductCommon",product);
+	}
+
+	public int updateStoreProduct(ProductWrite product) {
+		return sqlSession.update("adminMapper.updateStoreProduct",product);
+	}
+
+	public int updateStoreDiscount(ProductWrite product) {
+		return sqlSession.update("adminMapper.updateStoreDiscount",product);
+	}
+
+	public int deleteImgs(Map<String, String> map) {
+		return sqlSession.delete("adminMapper.deleteImgs",map);
+	}
+
+	public int updateClassProduct(ProductWrite product) {
+		return sqlSession.update("adminMapper.updateClassProduct",product);
+	}
+
+	public int checkIsDiscount(ProductWrite product) {
+		return sqlSession.selectOne("adminMapper.checkIsDiscount",product);
+	}
+
+	public int deleteStoreDiscount(ProductWrite product) {
+		return sqlSession.delete("adminMapper.deleteStoreDiscount",product);
 	}
 	
 	
