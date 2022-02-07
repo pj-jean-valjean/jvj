@@ -6,6 +6,28 @@ public class SimpleProduct {
 	private int price;
 	private int writecate;
 	private String cateName;
+	private String createDate;
+	private String currentImageCheck;
+	private String afterImageCheck;
+	
+	public String getCurrentImageCheck() {
+		return currentImageCheck;
+	}
+	public void setCurrentImageCheck(String currentImageCheck) {
+		this.currentImageCheck = currentImageCheck;
+	}
+	public String getAfterImageCheck() {
+		return afterImageCheck;
+	}
+	public void setAfterImageCheck(String afterImageCheck) {
+		this.afterImageCheck = afterImageCheck;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 	@Override
 	public String toString() {
 		return "SimpleProduct [productNo=" + productNo + ", title=" + title + ", price=" + price + ", writecate="

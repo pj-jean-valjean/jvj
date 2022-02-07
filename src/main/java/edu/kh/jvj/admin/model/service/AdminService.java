@@ -9,8 +9,8 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
-import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Store;
 
 public interface AdminService {
 
@@ -71,6 +71,21 @@ public interface AdminService {
 	 * @return
 	 */
 	List<SimpleProduct> productselect(Map<String, String> dataMap, Pagination page);
+
+	/** 수정시 스토어 상세
+	 * @param productNo
+	 * @return
+	 */
+	Store getStoreInfo(int productNo);
+
+	/** 상품 update
+	 * @param images
+	 * @param product
+	 * @param webPath
+	 * @param serverPath
+	 * @return
+	 */
+	int updateProduct(List<MultipartFile> images, ProductWrite product, String webPath, String serverPath);
 
 
 	

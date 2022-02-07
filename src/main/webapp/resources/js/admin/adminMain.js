@@ -17,12 +17,12 @@ function getTime(){
 setInterval(getTime, 1000);
 
         //check 변수
-        let writingcheck = false;
+        let firstdone = true;
         let selectMonth = 0;
         let commonWriteCheckObj={};
         let nomalChekcObj={};
         let subsCheckObj={};
-        let filecheck=[0 , 0 , 0 , 0 , 0];
+        let filecheck=[0 , 0 , 0 , 0];
         let discountset=false;
         let saveDateBtnthis;
         let classCheckObj={};
@@ -117,10 +117,9 @@ setInterval(getTime, 1000);
                         "classtime":false,
                         "classdate" : false
                     } 
-                    filecheck = [0 , 0 , 0 , 0 , 0];
+                    filecheck = [0 , 0 , 0 , 0];
                     discountset = false;
                     selectMonth = 0;
-                    writingcheck = false;
                 }
         //1. 공지사항 작성------------------------------------------
         //카테고리 / 제목 / 내용
@@ -790,7 +789,9 @@ setInterval(getTime, 1000);
                         $(this).children("img").removeAttr("src");
                         $(this).children("img").css("display","none");
                         $("input[name=images]").eq(index).val("");
-                        commonWriteCheckObj.images = false
+                        if(index==0&&filecheck[index] ==1){
+                            commonWriteCheckObj.images = false
+                        }
                         filecheck[index]=0;
                     }
                 }
