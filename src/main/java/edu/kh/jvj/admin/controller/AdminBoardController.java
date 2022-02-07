@@ -12,22 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -35,15 +27,25 @@ import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
+import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.notice.model.service.NoticeService;
+import edu.kh.jvj.notice.model.vo.Notice;
+import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
+import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.store.model.vo.Pagination;
+import edu.kh.jvj.store.model.vo.Store;
 
 @RequestMapping("admin/board/*")
 @RestController
-@SessionAttributes({"Admin"})
 public class AdminBoardController {
 	private final AdminService service;
+	private final NoticeService noticeService;
+	private final OnedayClassService classService;
 	@Autowired
-	public AdminBoardController(AdminService service) {
+	public AdminBoardController(AdminService service, NoticeService noticeService,OnedayClassService classService) {
 		this.service = service;
+		this.noticeService = noticeService;
+		this.classService = classService;
 	}
 	//썸머노트 이미지처리 ajax
 	@PostMapping("summernoteImage")
@@ -73,8 +75,57 @@ public class AdminBoardController {
 		}
 		return gson.toJson(map);
 	}
+	 
+	//관리자 상품관리 상품수정목록 조회 ajax
+	@PostMapping("productselect")
+	public Map<String,String> productselect(
+			@RequestBody Map<String,String> dataMap
+			) {
+		//전체 페이지네이션
+		Pagination page = service.countProduct(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<SimpleProduct> searchedList = service.productselect(dataMap,page);
+		Gson gson = new Gson(); String pageJson = gson.toJson(page); 
+		String productList= gson.toJson(searchedList); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("productList", productList);
+		
+		return dataMap; 
+	}
+	//관리자 상품 수정 전 기존 Detail 정보 조회
+	@PostMapping(value="ajaxProductDetail",produces="application/json;charset=UTF-8")
+	public String productDetailInfo(
+			@RequestBody Map<String, Integer> dataMap) {
+		String returnJson="";
+		Gson gson = new Gson();
+		if(dataMap.get("productcate")==1) {
+			Store store = service.getStoreInfo(dataMap.get("productNo"));
+			returnJson = gson.toJson(store);
+		}
+		else if(dataMap.get("productcate")==3) {
+			 OnedayClass Oneclass = classService.selectOneClass(dataMap); 
+			 returnJson = gson.toJson(Oneclass); 
+		}
+		else {
+			
+		}
+		
+		return returnJson;
+	}
+	//관리자 상품 수정
+	@PostMapping("updateProduct")
+	public int ProductUpdate(
+			@RequestParam(value="images", required=false) List<MultipartFile> images,
+			ProductWrite Product, HttpSession session) {
+		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
+		String serverPath = session.getServletContext().getRealPath(WebPath);
+		service.updateProduct(images, Product, WebPath , serverPath); 
+		
+		return Product.getProductNo();
+	}
 	
-	//관리자 글작성 ajax
+	//관리자 상품등록 ajax
 	@PostMapping("productWrite")
 	public int productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
@@ -94,8 +145,7 @@ public class AdminBoardController {
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
 	public int noticeWrite(String title,	String noticecate,
-			String editordata, @ModelAttribute(value="Admin") Admin loginAdmin,
-			Model model
+			String editordata, @ModelAttribute(value="loginAdmin") Admin loginAdmin
 			) {
 		int result =0;
 		result = service.insertNotice(title, noticecate, editordata, loginAdmin.getMemberNo());
@@ -104,12 +154,20 @@ public class AdminBoardController {
 	
 	//회원정보 조회
 	@PostMapping("searchMember")
-	public ResponseEntity<List<SearchedMember>> searchMember(
+	public Map<String, String> searchMember(
 			@RequestBody Map<String,String> dataMap
 			){
 		
-		List<SearchedMember> dd = service.searchMember(dataMap);
-		return new ResponseEntity<>(dd , HttpStatus.OK); 
+		Pagination page = service.countMember(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<SearchedMember> searchedMember = service.searchMember(dataMap,page);
+		Gson gson = new Gson(); String pageJson = gson.toJson(page); 
+		String resultMember= gson.toJson(searchedMember); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("memberList", resultMember);
+		
+		return dataMap;
 	}
 	//추가옵션상품 등록
 	@PostMapping("addOptionProduct")
@@ -124,4 +182,37 @@ public class AdminBoardController {
 		return result;
 	}
 	
+	//공지사항 조회
+	@PostMapping("noticeselect")
+	public Map<String, String> noticeSelect(
+			@RequestBody Map<String,String> dataMap
+			){
+		
+		System.out.println(dataMap);
+		Pagination page = noticeService.countNotice(dataMap);
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<Notice> list = noticeService.selectNoticeList(page, dataMap);
+		Gson gson = new Gson();
+		String pageJson = gson.toJson(page);
+		String listJson = gson.toJson(list);
+		dataMap.put("pagination", pageJson);
+		dataMap.put("noticeList", listJson);
+		return dataMap;
+	}
+	
+	//공지사항 수정 시 상세데이터 조회
+	@PostMapping("ajaxNoticeDetail")
+	public Notice noticeDetailCall(int noticeNo) {
+		Notice notice = noticeService.selectOneNotice(noticeNo);
+		return notice;
+	}
+	//공지사항 수정 
+	@PostMapping("noticeUpdate")
+	public int noticeUpdate(String title,	String noticecate,
+			String editordata, String noticeNo) {
+		int result =0;
+		result = service.updateNotice(title, noticecate, editordata, noticeNo);
+		return result;
+	}
 }

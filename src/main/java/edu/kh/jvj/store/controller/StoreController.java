@@ -42,7 +42,7 @@ public class StoreController {
 		}
 		Pagination pagination = service.getPagination(cp,search);
 		List<Store> storeList = service.selectStoreList(pagination,search);
-		System.out.println(storeList);
+		
 		
 		model.addAttribute("store",storeList);
 		model.addAttribute("pagination",pagination);
@@ -54,7 +54,7 @@ public class StoreController {
 	@ResponseBody
 	public int likeit(int productNo,HttpSession session, Member member,Store store) {
 		
-		System.out.println(productNo);
+
 		member =(Member)session.getAttribute("loginMember");
 		store.setStoreNo(productNo);
 		store.setMemberNo(member.getMemberNo());
@@ -67,7 +67,7 @@ public class StoreController {
 	@ResponseBody
 	public int doesntLikeit(int productNo,HttpSession session, Member member,Store store) {
 		
-		System.out.println(productNo);
+	
 		member =(Member)session.getAttribute("loginMember");
 		store.setStoreNo(productNo);
 		store.setMemberNo(member.getMemberNo());
@@ -76,13 +76,27 @@ public class StoreController {
 		return result;
 	}	
 	@GetMapping("info/{no}")
-	public String detailForward(Model model,@PathVariable("no") int no) {
+	public String detailForward(Model model,@PathVariable("no") int no,HttpSession session,Store store) {
 		
-		
-		Store store = service.selectStoreDetail(no); 
+		// 스토어 상세조회
+		if(session.getAttribute("loginMember") != null) {
+			int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			store.setMemberNo(memberNo);
+			
+		}
+		store.setStoreNo(no);
+		Store store1 = service.selectStoreDetail(store); 
+		// 스토어 상품 이미지 가져오기
 		List<Store> imgLevelList = service.storeImgSelect(no);
-		model.addAttribute("store",store);
-		System.out.println(imgLevelList);
+		
+
+		
+		
+		// 추가옵션 상품 가져오기
+		List<Store> advantage = service.advantage();
+		System.out.println(store1);
+		model.addAttribute("store",store1);
+		model.addAttribute("advantage",advantage);
 		model.addAttribute("imgLevel", imgLevelList);
 		return "store/storeDetail";
 	}

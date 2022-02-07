@@ -56,6 +56,13 @@ public interface MemberService {
 	int searchPwResult(Map<String, String> map);
 
 
+	/** 로그인 api 회원 정보 조회
+	 * @param snsUser
+	 * @return member
+	 */
+	Member getSnsUser(Member snsUser);
+
+
 	
 
 	

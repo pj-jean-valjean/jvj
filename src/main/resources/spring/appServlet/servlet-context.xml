@@ -24,4 +24,42 @@
 	<context:component-scan base-package="edu.kh.jvj" />
 	
 	
+	<!-- oauth2 login -->
+	<beans:bean id="naverClientID" class="java.lang.String">
+        <beans:constructor-arg value="5nKK1ckGkdD_iFLRVC67" />
+	</beans:bean>
+	<beans:bean id="naverClientSecret" class="java.lang.String">
+	        <beans:constructor-arg value="qMkfw_T1UO" />
+	</beans:bean>
+	<beans:bean id="naverRedirectUrl" class="java.lang.String">
+	        <beans:constructor-arg value="http://localhost:8080/jvj/member/naver/callback" />
+	</beans:bean>
+	    
+	<beans:bean id="naverSns" class="edu.kh.jvj.member.model.vo.SnsValue">
+	        <beans:constructor-arg value="naver" />
+	        <beans:constructor-arg ref="naverClientID" />
+	        <beans:constructor-arg ref="naverClientSecret" />
+	        <beans:constructor-arg ref="naverRedirectUrl" />
+	</beans:bean>
+	
+	<beans:bean id="kakaoClientID" class="java.lang.String">
+        <beans:constructor-arg value="dce5678c6c2aceeae891719b598cbe3b" />
+	</beans:bean>
+	
+	<beans:bean id="kakaoClientSecret" class="java.lang.String">
+	        <beans:constructor-arg value="7eTOUzByC4SNMlx0tLIRVihvm1Edygie" />
+	</beans:bean>
+	
+	<beans:bean id="kakaoRedirectUrl" class="java.lang.String">
+	        <beans:constructor-arg value="http://localhost:8080/jvj/member/kakao/callback" />
+	</beans:bean>
+	
+	<beans:bean id="kakaoSns" class="edu.kh.jvj.member.model.vo.SnsValue">
+	        <beans:constructor-arg value="kakao" />
+	        <beans:constructor-arg ref="kakaoClientID" />
+	        <beans:constructor-arg ref="kakaoClientSecret" />
+	        <beans:constructor-arg ref="kakaoRedirectUrl" />
+	</beans:bean>
+	
+	
 </beans:beans> 

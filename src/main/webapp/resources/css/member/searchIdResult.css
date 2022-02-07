@@ -10,6 +10,11 @@
 	font-weight: bold;
 }
 
+.login-title > span {
+	font-size: 20px;
+	font-weight: bold;
+}
+
 
 .flex-div{
     display: flex;

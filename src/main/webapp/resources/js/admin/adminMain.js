@@ -1,40 +1,39 @@
 const contentbox = document.getElementById("adminPCont");
+const navbox= document.getElementsByClassName("one-admin-func");
+for(element of navbox){
+    element.addEventListener("click", function(){
+        this.children[0].classList.toggle("shownav");
+    })
+}
+const clock = document.getElementById('clock');
+function getTime(){
+    const time = new Date();
+    const hour = time.getHours();
+    const ampm = hour<12? '오전 ' : '오후 ';
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    clock.innerHTML = ampm+`${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}`
+}
+setInterval(getTime, 1000);
 
         //check 변수
-        let writingcheck = false;
+        let firstdone = true;
         let selectMonth = 0;
         let commonWriteCheckObj={};
         let nomalChekcObj={};
         let subsCheckObj={};
-        let filecheck=[0 , 0 , 0 , 0 , 0];
+        let filecheck=[0 , 0 , 0 , 0];
         let discountset=false;
+        let saveDateBtnthis;
         let classCheckObj={};
+        /* 페이지네이션 변수 */
+        let cp =1;
+        let cate;
+        let search ='';
+        let productcate;
+        let modifyNo = 0;
 
-        //게시글 input check 변수 initial
-        function validateVarInitial(){
-            commonWriteCheckObj = {
-                "title" : false,
-                "price" : false,
-                "images" : false
-            }
-            nomalChekcObj = {
-                "stock" : false,
-                "detailcontents" : false,
-                "discountyn" : false
-            } 
-            subsCheckObj = {
-            }
-            classCheckObj = {
-                "people" : false,
-                "classtime":false,
-                "classdate" : false
-            } 
-            filecheck = [0 , 0 , 0 , 0 , 0];
-            discountset = false;
-            selectMonth = 0;
-            writingcheck = false;
-        }
-
+        
         //게시글 validation
         function validate(options){
             for( key  in commonWriteCheckObj){
@@ -99,13 +98,29 @@ const contentbox = document.getElementById("adminPCont");
             }
             return true;
         }
-
-        
-        //관리자계정 추가
-        /* $(".one-admin-func")[4].addEventListener("click",addManagerId); */
-        //7- 원데이클래스 회원 정보
-        //$(".one-admin-func")[6].addEventListener("click",onedayClassMember);
-
+                //게시글 input check 변수 initial
+                function validateVarInitial(){
+                    commonWriteCheckObj = {
+                        "title" : false,
+                        "price" : false,
+                        "images" : false
+                    }
+                    nomalChekcObj = {
+                        "stock" : false,
+                        "detailcontents" : false,
+                        "discountyn" : false
+                    } 
+                    subsCheckObj = {
+                    }
+                    classCheckObj = {
+                        "people" : false,
+                        "classtime":false,
+                        "classdate" : false
+                    } 
+                    filecheck = [0 , 0 , 0 , 0];
+                    discountset = false;
+                    selectMonth = 0;
+                }
         //1. 공지사항 작성------------------------------------------
         //카테고리 / 제목 / 내용
         function noticeboardWriter(writename){
@@ -251,8 +266,6 @@ const contentbox = document.getElementById("adminPCont");
             const today = ""+date.getFullYear() + "-" + month + "-" + day; 
             $("input[name='discountStart']").val(today);        
         }
-
-
         function validatediscountnum(){
             const startday = document.querySelector("input[name='discountStart']").value;
 
@@ -454,7 +467,6 @@ const contentbox = document.getElementById("adminPCont");
             }
         }
         //-----------------------------------------------------------------//
-
         //4 게시글작성 common  일반 + 구독 + 클래스 공통부분
         function commonWriter(writename){
             //초기화
@@ -596,46 +608,7 @@ const contentbox = document.getElementById("adminPCont");
         }
         //-----------------------------------------------------------------//
         
-        
 
-        //9. 상품 관리
-        function modifyProduct(){
-            contentbox.innerHTML="";
-            //이름
-            const funcName = document.createElement("div");
-            funcName.setAttribute("class", "oneLine");
-            funcName.innerHTML="<h2>"+"상품 관리"+"</h2>"
-
-            const searchDiv = document.createElement("div");
-            searchDiv.setAttribute("class", "oneLine search-review");
-            searchDiv.innerHTML="<select>"+
-            "<option>All</option>"+
-            "<option>스토어 상품</option>"+
-            "<option>구독 상품</option>"+
-            "<option>클래스 상품</option>"+
-            "<input type='text'><button class='opencal'>검색</button>";
-
-            const SearchResult = document.createElement("ul");
-            SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>상품 번호</span>"+
-                "<span class='oneMemberInfo'>카테고리</span>"+
-                "<span class='oneMemberInfo notice-title'>이름</span>"+
-                "<span class='oneMemberInfo'>현재 상태</span>"+
-                "<span class='oneMemberInfo'>처리</span>"+
-            "</li>"+
-            "<li class='oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>1</span>"+
-                "<span class='oneMemberInfo'>스토어상품</span>"+
-                "<span class='oneMemberInfo notice-title'>마카롱</span>"+
-                "<span class='oneMemberInfo'>판매 중</span>"+
-                "<span class='oneMemberInfo'>처리</span>"+
-            "</li>";
-            contentbox.append(funcName,searchDiv,SearchResult);
-        }
-        
-        let saveDateBtnthis;
         //달력모달 동작
         function calmodal(){
             const closecal = document.querySelector('#closecal');
@@ -816,7 +789,9 @@ const contentbox = document.getElementById("adminPCont");
                         $(this).children("img").removeAttr("src");
                         $(this).children("img").css("display","none");
                         $("input[name=images]").eq(index).val("");
-                        commonWriteCheckObj.images = false
+                        if(index==0&&filecheck[index] ==1){
+                            commonWriteCheckObj.images = false
+                        }
                         filecheck[index]=0;
                     }
                 }
@@ -883,8 +858,8 @@ const contentbox = document.getElementById("adminPCont");
                         case '1' : 
                         commonWriter('일반 상품 등록');
                         makeNormalPWritePage(); 
-/*                      url = contextPath + '/onedayclass/view/' + result;
-                        window.open(url, '등록일반상품', ''+result); */
+                        url = contextPath + '/store/info/' + result;
+                        window.open(url, '등록일반상품', ''+result); 
                         break;
                         case '2' : 
                         commonWriter('구독 상품 등록');

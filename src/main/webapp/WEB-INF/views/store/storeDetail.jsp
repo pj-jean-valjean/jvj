@@ -32,8 +32,9 @@
 			<section class="main-nav">
 				<a href="${contextPath}">HOME</a> <img
 					src="${contextPath}/resources/images/common/expand_less.png"
-					alt="expand_less"> <a href="${contextPath}/store?cp=1&ct=0&op=0">스토어</a>
-				<img src="${contextPath}/resources/images/common/expand_less.png"
+					alt="expand_less"> <a
+					href="${contextPath}/store?cp=1&ct=0&op=0">스토어</a> <img
+					src="${contextPath}/resources/images/common/expand_less.png"
 					alt="expand_less"> ${store.storeName}
 			</section>
 
@@ -41,8 +42,7 @@
 			<section class="product-thumbnail">
 				<article class="main-img-area">
 					<img class="main-thumbnail"
-						src="${contextPath}${imgLevel[0].imgPath}"
-						alt="sub-bread-main">
+						src="${contextPath}${imgLevel[0].imgPath}" alt="sub-bread-main">
 				</article>
 				<div>
 
@@ -52,7 +52,8 @@
 					</c:if>
 					<c:if test="${empty imgLevel[0].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
+							src="${contextPath}/resources/images/common/noimage.png"
+							alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[1].imgPath}">
 						<img class="sub-img img-margin"
@@ -60,7 +61,8 @@
 					</c:if>
 					<c:if test="${empty imgLevel[1].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
+							src="${contextPath}/resources/images/common/noimage.png"
+							alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[2].imgPath}">
 						<img class="sub-img img-margin"
@@ -69,7 +71,8 @@
 					</c:if>
 					<c:if test="${empty imgLevel[2].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
+							src="${contextPath}/resources/images/common/noimage.png"
+							alt="noimage">
 					</c:if>
 					<c:if test="${not empty imgLevel[3].imgPath}">
 						<img class="sub-img img-margin"
@@ -78,7 +81,8 @@
 					</c:if>
 					<c:if test="${empty imgLevel[3].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/common/noimage.png" alt="noimage">
+							src="${contextPath}/resources/images/common/noimage.png"
+							alt="noimage">
 					</c:if>
 				</div>
 			</section>
@@ -88,13 +92,20 @@
 					<div class="category-title">
 						<span>${store.storeName}</span>
 						<div class="heart-btn">
-							<div class="contentss">
-								<div class="heart"></div>
+							<div
+								class="contentss <c:if test="${store.likeit  > 0}">heart-active</c:if>">
+								<div
+									class="heart <c:if test="${store.likeit > 0}">heart-active</c:if>"></div>
 							</div>
 
 						</div>
 					</div>
-					<span class="sale">${store.discountPer }%</span> <span class="real-price prices">${store.price}</span>
+
+					<c:if test="${store.discountPer > 0}">
+						<span class="sale">${store.discountPer }%</span>
+						<span class="real-price prices">${store.price}</span>
+					</c:if>
+
 					<span class="price prices">${store.price * (100-store.discountPer)/100}원</span>
 				</article>
 
@@ -118,6 +129,10 @@
 						<img class="add-btn"
 							src="${contextPath}/resources/images/subscribe/add-btn.png"
 							alt="add-btn" onclick='count("add")'>
+						<c:if test="${store.stock eq 0}">
+							<h2 style="margin-left: 20px; color: red; line-height: 1;">
+								품절</h2>
+						</c:if>
 					</div>
 				</article>
 				<div class="bottom-line"></div>
@@ -128,10 +143,10 @@
 					</div>
 					<div class="align-div" id="align-div">
 						<select id='selectcate-option'>
-							<option>선택 없음</option>
-							<option>카야잼 6,300원</option>
-							<option>무화과잼 9,900원</option>
-							<option>버터 나이프 20,000원</option>
+							<option value=0>선택 없음</option>
+							<option value=1>카야잼 6,300원</option>
+							<option value=2>무화과잼 9,900원</option>
+							<option value=3>버터 나이프 20,000원</option>
 						</select>
 					</div>
 				</article>
@@ -140,38 +155,70 @@
 				<article class="buy-total">
 					<!-- 기본 상품 -->
 					<div class="grayBox total-area choose-price">
-						<span>상품 가격</span> <span class="prices">${store.price * (100-store.discountPer)/100}원</span>
+						<span>상품 가격</span> <span class="prices" id="pdt-price">${store.price * (100-store.discountPer)/100}원</span>
 					</div>
 
 					<!-- 선택한 상품 존재 -->
-					<div class="grayBox total-area choose-option">
-						<span>추가상품: 카야잼 6,300원</span> <img
-							class="clear-btn" id="clearBtn"
+					<div class="grayBox total-area choose-option option1">
+						<span>추가상품: 카야잼 6,300원</span> <img class="clear-btn" id="clearBtn"
 							src="${contextPath}/resources/images/subscribe/clear.png"
 							alt="clear">
 
 						<div class="totalCount">
 							<img class="minus-btn"
 								src="${contextPath}/resources/images/subscribe/minus-btn.png"
-								alt="minus btn" onclick='totalCount("minus")'> <span
-								id="total-result">1</span> <img class="add-btn"
+								alt="minus btn" onclick='totalCount("minus",0)'> <span
+								class="total-result">1</span> <img class="add-btn"
 								src="${contextPath}/resources/images/subscribe/add-btn.png"
-								alt="add btn" onclick='totalCount("add")'>
+								alt="add btn" onclick='totalCount("add",0)'>
 						</div>
 					</div>
+					<div class="grayBox total-area choose-option option2">
+						<span>추가상품: 무화과잼 9,900원</span> <img class="clear-btn"
+							id="clearBtn"
+							src="${contextPath}/resources/images/subscribe/clear.png"
+							alt="clear">
 
+						<div class="totalCount">
+							<img class="minus-btn"
+								src="${contextPath}/resources/images/subscribe/minus-btn.png"
+								alt="minus btn" onclick='totalCount("minus",1)'> <span
+								class="total-result">1</span> <img class="add-btn"
+								src="${contextPath}/resources/images/subscribe/add-btn.png"
+								alt="add btn" onclick='totalCount("add",1)'>
+						</div>
+					</div>
+					<div class="grayBox total-area choose-option option3">
+						<span>추가상품: 버터 나이프 20,000원</span> <img class="clear-btn"
+							id="clearBtn"
+							src="${contextPath}/resources/images/subscribe/clear.png"
+							alt="clear">
+
+						<div class="totalCount">
+							<img class="minus-btn"
+								src="${contextPath}/resources/images/subscribe/minus-btn.png"
+								alt="minus btn" onclick='totalCount("minus",2)'> <span
+								class="total-result">1</span> <img class="add-btn"
+								src="${contextPath}/resources/images/subscribe/add-btn.png"
+								alt="add btn" onclick='totalCount("add",2)'>
+						</div>
+					</div>
 				</article>
 
 				<article class="total-price">
 					<p>총 구매 금액</p>
-					<span class="prices">${store.price * (100-store.discountPer)/100}원</span>
+					<span class="resultPrice"></span>
 				</article>
 
 				<div class="submit-sub">
-					<button class="shopping-btn">
+					<button class="shopping-btn"
+						onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if>
+						<c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>장바구니</span>
 					</button>
-					<button class="submit-btn">
+					<button class="submit-btn"
+						onclick=<c:if test="${not empty loginMember }"> 'buy();'</c:if>
+						<c:if test="${empty loginMember }">'infoAlert();'</c:if>>
 						<span>바로 구매</span>
 					</button>
 				</div>
@@ -182,13 +229,13 @@
 		<!-- contents -->
 		<div class="contents-top-line"></div>
 		<section class="detail-contents">
-		<ul >
-                <li onclick="scrollExp()">상품설명</li>
-                <li onclick="scrollReview()">리뷰</li>
-                <li onclick="scrollDelievery()">배송/교환/환불</li>
+			<ul>
+				<li onclick="scrollExp()">상품설명</li>
+				<li onclick="scrollReview()">리뷰</li>
+				<li onclick="scrollDelievery()">배송/교환/환불</li>
 
-                <div class="contents-bottom-line"></div>        
-            </ul>
+				<div class="contents-bottom-line"></div>
+			</ul>
 
 		</section>
 		<section class="content">
@@ -417,7 +464,15 @@ DELIVERY / 배송정보
 
 
 	</main>
-<script>const price = ${store.price * (100-store.discountPer)/100}</script>
+	<script>
+	const contextPath = '${contextPath}';
+	const loginMember = '${loginMember.memberNo}';
+	const price = ${store.price * (100-store.discountPer)/100};
+	const stock = ${store.stock};
+	const adStock = [${advantage[0].stock},${advantage[1].stock},${advantage[2].stock}];
+	const storeNo = ${store.storeNo};
+	const adPrice = [${advantage[0].price},${advantage[1].price},${advantage[2].price}];
+	</script>
 
 
 

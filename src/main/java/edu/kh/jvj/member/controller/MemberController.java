@@ -1,35 +1,19 @@
 package edu.kh.jvj.member.controller;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
 
-import javax.activation.CommandMap;
-import javax.activation.MailcapCommandMap;
-import javax.inject.Inject;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
-import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,11 +25,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.jvj.common.Util;
 import edu.kh.jvj.member.model.service.MailService;
 import edu.kh.jvj.member.model.service.MemberService;
+import edu.kh.jvj.member.model.service.SnsLoginService;
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.member.model.vo.SnsToken;
+import edu.kh.jvj.member.model.vo.SnsValue;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember"}) 
+@SessionAttributes({"loginMember", "token"}) 
 public class MemberController {
 
    @Autowired
@@ -56,10 +43,23 @@ public class MemberController {
    
    @Autowired 
    JavaMailSender mailSender;
+   
+   @Autowired
+	private SnsValue naverSns;
+	
+	@Autowired
+	private SnsValue kakaoSns;
 
    
    @RequestMapping(value = "login", method = RequestMethod.GET)
-   public String login() {
+   public String login(Model model, HttpSession session) {
+	   
+	SnsLoginService naverLogin = new SnsLoginService(naverSns);
+	model.addAttribute("naver_url", naverLogin.getSnsAuthURL());
+	
+	SnsLoginService kakaoLogin = new SnsLoginService(kakaoSns);
+	model.addAttribute("kakao_url", kakaoLogin.getSnsAuthURL());
+	
       return "member/login";
    }
    
@@ -96,6 +96,48 @@ public class MemberController {
       }
       return path;
    }
+   
+   @RequestMapping(value="/{service}/callback", method = {RequestMethod.GET, RequestMethod.POST})
+	public String snsLoginCallback(@PathVariable("service") String snsService, Model model, @RequestParam String code, HttpSession session) throws Exception{
+		
+		SnsValue sns = null;
+		
+		if(StringUtils.equals("naver", snsService)) {
+			sns = naverSns;
+		} else if(StringUtils.equals("kakao", snsService)) {
+			sns = kakaoSns;
+		}
+		
+		// 1. code를 이용해서 access_token 받기
+		// 2. access_token 이용해서 사용자 profile 정보 가져오기
+		SnsLoginService snsLogin = new SnsLoginService(sns);
+		Member snsUser = null;
+		
+		if(StringUtils.equals("naver", snsService)) {
+			snsUser = snsLogin.getNaverUserProfile(code, snsService);
+		} else if(StringUtils.equals("kakao", snsService)) {
+			SnsToken snsToken = snsLogin.getKakaoToken(code);
+			
+			if(snsToken != null) {
+				snsUser = snsLogin.getKakaoProfile(snsToken, snsService);
+				model.addAttribute("token", snsToken.getAccess_Token());
+			}
+		}
+		
+		System.out.println(snsUser);
+		
+		// 3. DB에 해당 유저가 존재하는지 체크
+		Member member = service.getSnsUser(snsUser);
+		
+		if(member == null) { // 회원이 없는 경우
+			model.addAttribute("snsUser", snsUser);
+			return "member/signUp";
+		} else { // 회원이 있는 경우
+			// 4. 존재 시 강제 로그인, 미 존재시 가입페이지 !!
+			model.addAttribute("loginMember", member);
+			return "redirect:/";
+		}
+	}
 
    @RequestMapping(value = "logout", method = RequestMethod.GET)
    public String logout(SessionStatus status) {
@@ -113,29 +155,25 @@ public class MemberController {
    
    // 회원 가입
    @RequestMapping(value="signUp", method = RequestMethod.POST)
-   public String signUp(Member member, RedirectAttributes ra) {
+   public String signUp(Member member, Model model) {
+	   System.out.println(member.getMemberEmail());
+	   System.out.println(member.getMemberPhone());
       
       int result = service.signUp(member);
+      
       
       String title;
       String text;
       String icon;
       
       if(result > 0) { // 성공
-         title = "회원 가입 성공!";
-         text = member.getMemberName() + "님! 회원가입 완료.";
-         icon = "success"; // 총 4개 가능  "error"/ "success" /"warning"/ "info"
+    	 Util.swalSetMessage("회원 가입 성공!",  member.getMemberName() + "님! 회원가입 완료.", "success", model);
+
       } else { // 실패
-         title = "회원 가입 실패!";
-         text = "관리자에 문의해주세요.";
-         icon = "error"; 
+    	 Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
       }
       
-      ra.addFlashAttribute("title", title);
-      ra.addFlashAttribute("text", text);
-      ra.addFlashAttribute("icon", icon);
-      
-      return "redirect:/";
+      return "member/login";
    }
    
    // 이메일 중복 검사(ajax)
