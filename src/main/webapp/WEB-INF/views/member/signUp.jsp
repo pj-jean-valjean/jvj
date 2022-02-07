@@ -146,7 +146,7 @@
 								<p>이름<span> *</span></p>
 							</div>
 							<div class="input-div">
-								<input type="text" class="member-info" id="name" name="memberName" maxlength="5" style="ime-mode:active" autocomplete="off">
+								<input type="text" class="member-info" id="name" name="memberName" maxlength="5" autocomplete="off">
 							</div>
 						</div>
 						<!-- 이름 유효성 검사 -->
@@ -748,11 +748,11 @@
 		
 		        signUpCheckObj.name = false;
 		
-		    /* }else if(regExp.test(inputName)){ // 유효한 경우
+		   }else if(regExp.test(inputName)){ // 유효한 경우
 		        $("#checkName").text("유효한 이름 입니다.").css("color", "initial");
 		        
 		        signUpCheckObj.name = true;
-		 */
+		 
 		    }else{ // 유효하지 않은 경우
 		        $("#checkName").text("유효하지 않은 이름 입니다.").css("color", "#F99C9C");
 		
