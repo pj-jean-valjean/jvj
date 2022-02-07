@@ -93,7 +93,7 @@
                         <span>신청 현황</span>
                     </div>
                     <div class="subdetail-content"> 
-                        <span class="nowsubmit"><span>3</span><span> / </span><span>${Oneclass.classMaxPpl}</span></span>
+                        <span class="nowsubmit"><span>${Oneclass.nowPeople}</span><span> / </span><span>${Oneclass.classMaxPpl}</span></span>
                     </div>
                 </article>
                 <div class="bottom-line"></div>

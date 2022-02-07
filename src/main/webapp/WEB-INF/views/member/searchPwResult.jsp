@@ -16,11 +16,11 @@
         <div class="input-info"><div class="input-info-div">
             <div class="p-div"><p>비밀번호</p></div>
             <div class="input-div">
-            	<input type="password" class="member-info"  id="newPw1" name="newPw1" maxlength="12" placeholder=" 문자, 숫자, 기호를 조합하여 6~20글자를 사용하세요">
+            	<input type="password" class="member-info"  id="newPw1" name="newPw1" maxlength="12" placeholder="문자, 숫자, 기호 6~20글자">
             </div>
         </div>
         <!-- 비밀번호 유효성 검사1 -->
-		<p class="check-p" id="checkPwd1"></p>
+		<p class="check-p" id="checkPw1"></p>
 						
         <div class="input-info-div">
             <div class="p-div"><p>비밀번호 확인</p></div>
@@ -28,7 +28,7 @@
 	            	<input type="password" class="member-info" id="newPw2" name="newPw2" maxlength="12" placeholder="비밀번호 확인" required>
 	            </div>
 				<!-- 비밀번호 유효성 검사2 -->
-				<p class="check-p" id="checkPwd2"></p>
+				<p class="check-p" id="checkPw2"></p>
         	</div>
         </div>
 		

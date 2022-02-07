@@ -78,7 +78,7 @@
                         <li><a>관리자 계정 추가</a></li>
                     </ul>
                 </div></div>
-            <div class="one-admin-func">매출 분석</div>
+            <div class="one-admin-func"><a href="/jvj/admin/board/route/productManage">매출 분석</a></div>
             <div class="one-admin-func">마케팅 업무</div>
         </aside>
         <section>

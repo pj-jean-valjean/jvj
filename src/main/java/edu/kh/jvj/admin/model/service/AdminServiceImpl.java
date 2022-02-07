@@ -1,12 +1,20 @@
 package edu.kh.jvj.admin.model.service;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -337,7 +345,54 @@ public class AdminServiceImpl implements AdminService{
 	      
 	   }
 
+	@Override
+	public int sendmessage() {
+		String accessKey="zC9zNinRIJqHLInx7Ajx";
+		String secretKey="df0813e3de944faea3fe3c9294627a6a";
+		String serviceId="ncp:sms:kr:275225299182:final_jvj_prj";
+		
+		
+		String hostUrl ="https://sens.apigw.ntruss.com/sms/v2/services/"
+			+serviceId+"/messages?requestId=";
+		//?requestId=";
+		
+		Long datetime = System.currentTimeMillis();
+        Timestamp time = new Timestamp(datetime);
+		String timestamp = time.toString();
+		
+		Map<String, String> toBeJson = new HashMap<>();
+		toBeJson.put("subject", timestamp);
+		
+		
+		return 0;
+	}
 
+	private static String datas(String timestamp) {
+			//요청헤더
+			String url = "https://sens.apigw.ntruss.com/sms/v2/services/{ncp:sms:kr:275225299182:final_jvj_prj}/messages?requestId=";
+			String message = new StringBuilder()
+					.append("GET ").append(url)
+					.append("\n").append(timestamp)
+					.append("\n").append("zC9zNinRIJqHLInx7Ajx")
+					.append("\n").append("zC9zNinRIJqHLInx7Ajx").toString();
+			
+			try {
+				String secretKey = "df0813e3de944faea3fe3c9294627a6a";
+				SecretKeySpec signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
+				Mac mac = Mac.getInstance("HmacSHA256");
+				 mac.init(signingKey);
+				 byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8")); 
+				 String encodeBase64String = Base64.encodeBase64String(rawHmac); 
+				 return encodeBase64String;
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (InvalidKeyException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 
 
 
