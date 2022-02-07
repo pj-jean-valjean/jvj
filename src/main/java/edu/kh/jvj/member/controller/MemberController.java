@@ -156,23 +156,15 @@ public class MemberController {
    // 회원 가입
    @RequestMapping(value="signUp", method = RequestMethod.POST)
    public String signUp(Member member, Model model) {
-	   System.out.println(member.getMemberEmail());
-	   System.out.println(member.getMemberPhone());
-      
+	   
       int result = service.signUp(member);
-      
-      
-      String title;
-      String text;
-      String icon;
-      
+
       if(result > 0) { // 성공
     	 Util.swalSetMessage("회원 가입 성공!",  member.getMemberName() + "님! 회원가입 완료.", "success", model);
 
       } else { // 실패
     	 Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
       }
-      
       return "member/login";
    }
    

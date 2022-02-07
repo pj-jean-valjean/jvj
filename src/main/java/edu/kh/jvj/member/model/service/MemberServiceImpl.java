@@ -36,20 +36,21 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int signUp(Member member) {
-		String encPw = encoder.encode(member.getMemberPw());
-		member.setMemberPw(encPw);
 		
+		if(member.getService() == null) { // null일경우
+			// 일반회원가입일 때 :null이 아닐때
+			String encPw = encoder.encode(member.getMemberPw());
+			member.setMemberPw(encPw);
+		} 
 		return dao.signUp(member);
 	}
 
 	// 인증번호
 	@Override
 	public String authCodeMaker(String inputEmail) {
-		
 		return null;
 	}
 
-	
 	//이메일 찾기
 	@Override
 	public String searchId(Map<String, String> map) {
