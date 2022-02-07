@@ -80,6 +80,8 @@ function paging(){
 }
 paging();
 
+
+// 결제 페이지 이동
 function buyit(){
     updateCart();
     

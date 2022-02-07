@@ -264,3 +264,9 @@ function scrollReview(){
 function scrollDelievery(){
 	document.querySelector('#contents-delievery').scrollIntoView();
 }
+
+
+// 결제 페이지 이동
+document.querySelector("#submit-btn").addEventListener("click", function(){
+    location.href = contextPath + "/payment/payment";
+});

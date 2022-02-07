@@ -170,7 +170,7 @@
                 </article>
 
                 <div class="submit-sub">
-                    <button class="submit-btn" >
+                    <button id="submit-btn" class="submit-btn" >
                         <span>바로 구독 신청</span>
                     </button>
                 </div>

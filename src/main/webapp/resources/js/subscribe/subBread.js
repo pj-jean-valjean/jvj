@@ -1,3 +1,5 @@
+const contextPath = getContextPath();
+
 /* 사진교체 */
 window.onload = function(){
     changeImg();
@@ -171,3 +173,10 @@ function returnReviewContent(글번호){
     /* ajax */
     return ajax;
 }
+
+
+
+// 결제페이지 이동
+document.querySelector("#submit-btn").addEventListener("click", function(){
+    location.href = contextPath + "/payment/payment";
+});

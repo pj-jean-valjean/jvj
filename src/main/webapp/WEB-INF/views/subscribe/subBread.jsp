@@ -41,6 +41,7 @@
             </div>
             </section>
 
+			<form action="${contextPath}/payment/payment" method="post">
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
@@ -51,7 +52,7 @@
 							</div>
 						</div>
 					</div>
-                    <span class="price">20,000원</span>
+                    <span class="price" name="price">20,000원</span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -153,13 +154,13 @@
                 </article>
 
                 <div class="submit-sub">
-                    <button class="submit-btn" >
+                    <button id="submit-btn" class="submit-btn" >
                         <span>바로 구독 신청</span>
                     </button>
                 </div>
             </section>
         </section>
-    
+    	</form>
 
         <!-- contents -->
         <div class="contents-top-line"></div>        
