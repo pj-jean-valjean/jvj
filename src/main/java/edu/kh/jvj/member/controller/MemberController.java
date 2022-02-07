@@ -155,7 +155,7 @@ public class MemberController {
    
    // 회원 가입
    @RequestMapping(value="signUp", method = RequestMethod.POST)
-   public String signUp(Member member, RedirectAttributes ra) {
+   public String signUp(Member member, Model model) {
 	   System.out.println(member.getMemberEmail());
 	   System.out.println(member.getMemberPhone());
       
@@ -167,18 +167,11 @@ public class MemberController {
       String icon;
       
       if(result > 0) { // 성공
-         title = "회원 가입 성공!";
-         text = member.getMemberName() + "님! 회원가입 완료.";
-         icon = "success"; // 총 4개 가능  "error"/ "success" /"warning"/ "info"
+    	 Util.swalSetMessage("회원 가입 성공!",  member.getMemberName() + "님! 회원가입 완료.", "success", model);
+
       } else { // 실패
-         title = "회원 가입 실패!";
-         text = "관리자에 문의해주세요.";
-         icon = "error"; 
+    	 Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
       }
-      
-      ra.addFlashAttribute("title", title);
-      ra.addFlashAttribute("text", text);
-      ra.addFlashAttribute("icon", icon);
       
       return "member/login";
    }
