@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
 
@@ -24,30 +25,36 @@
     
     <jsp:include page="mypageMenu.jsp"/>	
             <article>
-            <form method="POST" action="#" class="infoForm" onsubmit="return memberUpdateValidate();" role="form" name="updateForm">
+            <form method="POST" action="update" class="infoForm" onsubmit="return memberUpdateValidate();" role="form" name="updateForm">
+            
+            	<c:set var="addr" value="${fn:split(loginMember.memberAddress, ',,') }"/>
+				
+				<c:set var="ph" value="${fn:split(loginMember.memberPhone, '-') }"/>
+            
+            
                     <div>
 		                    <div class="userInfo">
-		                    <p>이름</p>  <p>장발장</p>
+		                    <p>이름</p>  <p>${loginMember.memberName}</p>
 		                    </div>
 		                    
 							<div class="userInfo">
-							<p>이메일</p>  <p>jang1234@naver.com</p>
+							<p>이메일</p>  <p>${loginMember.memberEmail}</p>
 							</div>
 							
                             <label for="nickname" class="inputLabel" id="inputNickname">닉네임</label>
-                            <input type="text" class="inputStyle"> <br>
+                            <input type="text" class="inputStyle" name="nickname" value="${loginMember.memberNickname}"> <br>
 
-                            <label for="presentPw" class="inputLabel" id="password">현재 비밀번호</label>
-                            <input type="password" class="inputStyle" > <br>
+                            <label for="presentPw" class="inputLabel">현재 비밀번호</label>
+                            <input type="password" class="inputStyle" id="nowPwd" > <span id="checkPwd"></span><br>
 
                             <label for="modifyPw" class="inputLabel">수정할 비밀번호</label>
-                            <input type="password" class="inputStyle" id="repassword1"> <span id="checkPwd1"></span><br>
+                            <input type="password" class="inputStyle" id="modifyPwd1"> <span id="checkPwd1"></span><br>
                             <label for="modifyPw" class="inputLabel">재입력</label>
-                            <input type="password" class="inputStyle" id="repassword2"> <span id="checkPwd2"></span><br>
+                            <input type="password" class="inputStyle" id="modifyPwd2"> <span id="checkPwd2"></span><br>
 
                             <label for="phone" class="inputLabel">전화번호</label>
                             
-                            <select class="phoneNum phoneOpt">
+                            <select class="phoneNum phoneOpt" id="phoneNum1">
                             	<option>010</option>
 		                        <option>011</option>
 		                        <option>016</option>
@@ -55,21 +62,23 @@
 		                        <option>019</option>
                             </select>
                             
-                            <input type="text" class="phone phoneNum"  id="phoneNum2">
-                            <input type="text" class="phone phoneNum" id="phoneNum3"> <br>
+                            <input type="text" class="phone phoneNum"  id="phoneNum2" name="phone" value="${ph[1]}">
+                            <input type="text" class="phone phoneNum" id="phoneNum3" name="phone" value="${ph[2]}"> <br>
 
                         <div id="addInput">
                             <p>주소</p>
-                            <input type="text" class="memberAdd addInput1" id="postcode" placeholder="우편번호">
+                            <input type="text" class="memberAdd addInput1" id="postcode" placeholder="우편번호" name="address" value="${addr[0]}">
                             <input type="button" class="addBtn" value="우편번호" onclick="addressFind()" >
                             <br>
-                            <input type="text" class="memberAdd addInput2 addIb" id="address" placeholder="기본 주소">
-                            <input type="text" class="memberAdd addInput3 addIb" id="detailAddress" placeholder="상세 주소" ><br>
+                            <input type="text" class="memberAdd addInput2 addIb" id="address" placeholder="기본 주소" name="address" value="${addr[1]}">
+                            <input type="text" class="memberAdd addInput3 addIb" id="detailAddress" placeholder="상세 주소" name="address" value="${addr[2]}"><br>
 
                             <div class="chkInput">
-                                <input type="checkbox" id="cbInput">
+                            <c:if test="${!empty loginMember.memberAddress}">
+                                <input type="checkbox" id="cbInput" checked>
                                 <label for="cbInput"></label>
                                 <div>기본 배송지로 저장</div>
+                            </c:if>
                             </div>
                         </div>
                     </div>
@@ -127,9 +136,10 @@
 	        }
 	    }).open();
 	}
+		
+</script>
+
 	
-	
-	</script>
 	
 </body>
 </html>

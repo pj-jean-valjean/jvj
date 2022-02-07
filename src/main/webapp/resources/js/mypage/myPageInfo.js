@@ -54,19 +54,20 @@ const formerNm = document.getElementById("inputNickname").value;
 
 document.getElementById("inputNickname").addEventListener("change",(e)=>{
 
-    const inputName = e.target.value;
+    const inputNm = e.target.value;
     const regExp = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{2,5}$/;
 
-    if( formerNm == inputName){ // 기존 닉네임과 같을경우
+    if( formerNm == inputNm){ // 기존 닉네임과 같을경우
         modifyInfomationChk.nicknameInput = true;
 
-    }else if(regExp.test(inputName)){ // 유효한 닉네임일 경우
+    }else if(regExp.test(inputNm)){ // 유효한 닉네임일 경우
         modifyInfomationChk.nicknameInput = true;
 
-    }else if(inputName == 0){ // 유효하지 않을 경우
+    }else if(inputNm == 0){ // 작성하지 않는 경우
         modifyInfomationChk.nicknameInput = false;
         alert("이름을 작성해주세요");
         this.focus();
+        
     }else{
         modifyInfomationChk.nicknameInput = false;
         alert("유효하지 않는 닉네임 입니다.");
@@ -76,22 +77,35 @@ document.getElementById("inputNickname").addEventListener("change",(e)=>{
 
 
 // 비밀번호 유효성 검사
-let formerPw = document.getElementById("password").value
+let formerPw = document.getElementById("nowPwd").value
 
-document.getElementById("password").addEventListener("change",(e)=>{
+document.getElementById("nowPwd").addEventListener("change",(e)=>{
+
+    const checkPwd = document.getElementById("checkPwd");
     
     const inputPw = e.target.value;
     
-    if(inputPw == formerPw){
+    if(inputPw==0){
+
+        checkPwd.innerText = "";
+        modifyInfomationChk.pwInput = false;
+
+    }else if(inputPw == formerPw){
+
+        checkPwd.innerText = "비밀번호가 일치합니다";
+        checkPwd.style.color = "#9CC7F9";
         modifyInfomationChk.pwInput = true;
+
     }else{
-        alert("비밀번호가 일치하지 않습니다.");
+
+        checkPwd.innerText = "기존의 비밀번호와 불일치합니다";
+        checkPwd.style.color = "#F99C9C";
         modifyInfomationChk.pwInput = false;
     }
 
 });
 
-document.getElementById("repassword1").addEventListener("input",(e)=>{
+$("#modifyPwd1").on("input", function(e){
 
     const inputPw = e.target.value;
 
@@ -115,10 +129,10 @@ document.getElementById("repassword1").addEventListener("input",(e)=>{
     }
 });
 
-$("#repassword2, #repassword1").on("input", function(){
+$("#modifyPwd1, #modifyPwd2").on("input", function(){
 
-    const pwd1 = document.getElementById("repassword1").value;
-    const pwd2 = document.getElementById("repassword2").value;
+    const pwd1 = document.getElementById("modifyPwd1").value;
+    const pwd2 = document.getElementById("modifyPwd2").value;
     const checkPwd2 = document.getElementById("checkPwd2"); // 출력용
 
     if( pwd2.trim().length == 0 ){ // 비밀번호 확인이 빈칸일 경우
@@ -143,7 +157,6 @@ function memberUpdateValidate(){
     for( key in modifyInfomationChk ){
 
         if(!modifyInfomationChk[key]){
-            // updateCheckObj에 저장된 value중 false가 있는 경우
 
             let message;
 
@@ -164,4 +177,24 @@ function memberUpdateValidate(){
 
         }
     }
+    
+	const phone = document.getElementsByName("phone");
+	const address = document.getElementsByName("address");
+
+	
+	const input1 = document.createElement("input");
+	input1.setAttribute("type", "hidden");
+	input1.setAttribute("name", "updatePhone");
+	input1.value = phone[0].value + "-" + phone[1].value + "-" + phone[2].value;
+	document.updateForm.append(input1);
+	
+
+
+	if(address[0].value.trim().length > 0){
+		const input2 = document.createElement("input");
+		input2.setAttribute("type", "hidden");
+		input2.setAttribute("name", "updateAddress");
+		input2.value = address[0].value + ",," + address[1].value + ",," + address[2].value;
+		document.updateForm.append(input2);
+	}
 }
