@@ -43,9 +43,29 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
+	@Transactional
 	public int deleteCart(Cart cart) {
 		// TODO Auto-generated method stub
 		return dao.deleteCart(cart);
+	}
+
+	@Override
+	public List<Cart> selectProductList(int memberNo) {
+	
+		return dao.selectProductList(memberNo);
+	}
+
+	@Override
+	public int selectAmount(int productNo) {
+		
+		return dao.selectAmount(productNo);
+	}
+
+	@Override
+	@Transactional
+	public int updateCart(Cart cart2) {
+		// TODO Auto-generated method stub
+		return dao.updateCart(cart2);
 	}
 
 	
