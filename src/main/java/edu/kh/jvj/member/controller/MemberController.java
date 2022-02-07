@@ -56,7 +56,7 @@ public class MemberController {
 
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login(Model model, HttpSession session) {
+	public String login(Model model) {
 
 		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
 

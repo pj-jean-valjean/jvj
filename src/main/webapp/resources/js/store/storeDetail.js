@@ -302,6 +302,10 @@ function buy() {
   if (stock == 0) {
     swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
     return;
+
+  } else {
+    // 결제 페이지 이동
+	  location.href = contextPath + "/payment/payment";
   }
 }
 
