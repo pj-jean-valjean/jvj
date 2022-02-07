@@ -236,7 +236,81 @@
 	<%-- member.service가 있는 경우 -> sns 회원가입 --%>
 	<%-- 추후 스크립트 내용 너무 길어지면 안에 내용을 function 으로 빼고 함수호출하는 방법으로 수정하기 --%>
 	<c:when test="${ !empty snsUser.service}">
-		<script>
+		<c:if test="${snsUser.service eq 'naver' }">
+			<script>
+ 			const signUpCheckObj = {
+				    "email" : true,
+				    "pwd1" : true,
+				    "pwd2" : true,
+				    "nickname" : true,
+				    "name" : true,
+				    "phone3" : false,
+				    "checkEmail" : true,
+				    "dupEmail" : true
+				}
+				
+				 // 회원 가입 버튼 클릭 시 유효성검사 판단 
+				function validate(){
+					
+					for( key  in signUpCheckObj ){
+				
+				        if( !signUpCheckObj[key] ){
+				            
+				            let message;
+				
+				            switch(key){
+				            case "email" : message = "이메일이 유효하지 않습니다."; break;
+				            case "name" : message = "이름이 유효하지 않습니다."; break;
+				            case "nickname" : message = "닉네임이 유효하지 않습니다."; break;
+				            case "pwd1" : message = "비밀번호가 유효하지 않습니다."; break;
+				            case "pwd2" : message = "비밀번호가 일치하지 않습니다."; break;
+				            case "phone3" : message = "전화번호가 유효하지 않습니다."; break;
+				            case "checkEmail" : message = "인증번호가 유효하지 않습니다."; break;
+				            case "dupEmail" : message = "중복된 아이디입니다."; break;
+				           
+				            }
+				
+				            alert(message);
+				
+				            // 유효하지 않은 input 요소로 포커스 이동
+				           	document.getElementById(key).focus(); 
+				
+				            // form태그 submit 기본 이벤트 제거
+				            return false;
+				
+				        }
+					}
+					
+					// input type="hidden" 태그 생성 및 추가 
+				    const phone = document.getElementsByName("phone");
+				    const address = document.getElementsByName("address");
+				    
+					
+				    // phone 번호 있을때만 진행
+					if(phone[0].value.trim().length > 0){
+						const input2 = document.createElement("input");
+					    input2.setAttribute("type", "hidden");
+					    input2.setAttribute("name", "memberPhone");
+					    input2.value = phone[0].value + "-" + phone[1].value + "-" + phone[2].value;
+					    document.signUpForm.append(input2);
+					}
+					
+				    // 우편번호가 작성되어 있을 땜에만 주소 데이터 input 진행
+				    if(address[0].value.trim().length > 0){
+				        const input3 = document.createElement("input");
+				        input3.setAttribute("type", "hidden");    
+				        input3.setAttribute("name", "memberAddress");
+				        input3.value = address[0].value + ",," + address[1].value + ",," + address[2].value;
+				        document.signUpForm.append(input3);
+				    }
+				}
+ 			
+	 			
+	       	</script>
+		</c:if>
+		
+		<c:if test="${snsUser.service eq 'kakao'}">
+			<script>
  			const signUpCheckObj = {
 				    "email" : true,
 				    "pwd1" : true,
@@ -309,23 +383,26 @@
  					const name = $("#name").val();
  				    const regExp = /^[가-힣]{2,5}$/;
 					
- 				    if( name.length != 0 ){ // 이름이 있는경우 = naver
+ 				    if( name.length == 0 ){ // 이름을 입력하지 않은경우
 	 			        $("#checkName").text("유효");
 	 			
-	 			        signUpCheckObj.name = true;
+	 			        signUpCheckObj.name = false;
 	 			
-	 			    }else if(regExp.test(name)){ // 유효한 경우
+	 			    }else if(!regExp.test(name)){ // 유효한 경우
 	 			        $("#checkName").text("유효한 이름 입니다.").css("color", "initial");
 	 			        
 	 			        signUpCheckObj.name = true;
 
-	 			    }else{ // 유효하지 않은 경우
+	 			    }else{ // 유효한 경우
 	 			        $("#checkName").text("유효하지 않은 이름 입니다.").css("color", "#F99C9C");
 	 			
 	 			        signUpCheckObj.name = false;
 	 			    }
 	 			});	   
-	       	</script>
+	       	</script>	
+		</c:if>
+		
+		
 	</c:when>
 	<c:otherwise>
        <script>
