@@ -29,6 +29,7 @@ import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
+import edu.kh.jvj.admin.model.vo.SubsOptions;
 import edu.kh.jvj.notice.model.service.NoticeService;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
@@ -226,4 +227,35 @@ public class AdminBoardController {
 		System.out.println(result);
 		return 0;
 	}
+	
+	//구독옵션 조회하기
+	@PostMapping("selectSubsOption")
+	public List<SubsOptions> selectSubsOption(int productNo) {
+		List<SubsOptions> list = service.selectSubsOption(productNo);
+		
+		return list;
+	}
+	//구독옵션 추가하기
+	@PostMapping("addSubsOption")
+	public int addSubsOption(
+			SubsOptions subsOption) {
+		int result = service.addSubsOption(subsOption);
+		
+		return result;
+	}
+	//구독옵션 삭제하기
+	@PostMapping("deleteSubsOption")
+	public int deleteSubsOption(
+			int suboptionNo) {
+		int result = service.deleteSubsOption(suboptionNo);
+		return result;
+	}
+	//구독옵션명 변경하기
+	@PostMapping("changeSubsOption")
+	public int changeSubsOption(
+			SubsOptions SubsOptions) {
+		int result = service.changeSubsOption(SubsOptions);
+		return result;
+	}
+	
 }

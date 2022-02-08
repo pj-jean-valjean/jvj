@@ -5,14 +5,14 @@
         const routes = [
             { path: routepath+'showSales', component: function(){
                 drawing(); } },
-                /* 조회 업무 */
+                /* 1 조회 업무 */
             { path: routepath+'searchMember', component: function(){
                 memberInfo();firstMemberSearch();} },
             { path: routepath+'subsMember', component: function(){
                 subscribingInfo();} },
             { path: routepath+'searchOrder', component: function(){
                 orderInfo();} },
-                /* 공지사항 / 상품등록 */
+                /* 2 게시글작성 -- 공지사항 / 상품등록 */
             { path: routepath+'noticeWriter', component: function(){
                 noticeboardWriter('공지사항 등록');} },
             { path: routepath+'storeSubmit', component: function(){
@@ -23,31 +23,36 @@
                 commonWriter('클래스 상품 등록'); makeClassPWritePage();} },
             { path: routepath+'optionSubmit', component: function(){
                 optionProductWrite(); } },
-                /* 상품 관리(수정) */
-            { path: routepath+'productManage', component: function(){
-                modifyProduct();searchProduct();} },
-                /* 글관리 */
+                /* 3 글관리 */
             { path: routepath+'reviewManage', component: function(){
                 reviewManage();} },
             { path: routepath+'noticeManage', component: function(){
                 modifyWrite();searchNotice();} },
-            { path: routepath+'modifyNotice', component: function(){
-                if(modifyNo==0){
-                    alert("새로고침시 수정내용이 초기화됩니다")
-                    location.href='noticeManage';
-                    return;
-                }
-                noticeboardWriter('공지사항수정');
-                modifyThisNotice();
-            } },
-            { path: routepath+'modifyProduct', component: function(){
-                if(productcate==3){makeClassModify();}
-                else if(productcate==1){makeStoreModify();}
-                else if(productcate==2){makeSubsModify();}
-                else {
-                    alert("준비중입니다"+productcate)
-                    location.href='main';
-                }
+                { path: routepath+'modifyNotice', component: function(){
+                    if(modifyNo==0){
+                        alert("새로고침시 수정내용이 초기화됩니다")
+                        location.href='noticeManage';
+                        return;
+                    }
+                    noticeboardWriter('공지사항수정');
+                    modifyThisNotice();
+                } },
+                /* 4 상품 관리(수정) */
+            { path: routepath+'productManage', component: function(){
+                modifyProduct();searchProduct();} },
+                /* 4-1 상품관리 실제 수정 form 페이지 */
+                { path: routepath+'modifyProduct', component: function(){
+                    if(productcate==3){makeClassModify();}
+                    else if(productcate==1){makeStoreModify();}
+                    else if(productcate==2){makeSubsModify();}
+                    else {
+                        alert("준비중입니다"+productcate)
+                        location.href='main';
+                    }
+                } },
+                /* 4-2 구독옵션관리 */
+            { path: routepath+'subsOptionManage', component: function(){
+                subsOptionManage();
             } },
                 /* 기타업무 */
                 { path: routepath+'couponMake', component: function(){
@@ -566,12 +571,18 @@
                         for(product of productList){
                             const li = document.createElement("li");
                             li.className = "oneMemberResult";
-                            if(product.writecate == 3){
-                                titleAtag="<a target='_blank' href="+contextPath+"/subscribe/subBread/>"+
-                                product.title+"</a>"
+                            if(product.writecate == 2){
+                                if(product.productNo == 1437){
+                                    titleAtag="<a target='_blank' href="+contextPath+"/subscribe/subBread/>"+
+                                    product.title+"</a>"
+                                }
+                                else{
+                                    titleAtag="<a target='_blank' href="+contextPath+"/subscribe/subCoffee/>"+
+                                    product.title+"</a>"
+                                }
                             }
-                            else if(product.writecate == 2){
-                                titleAtag="<a target='_blank' href="+contextPath+"/store/info/"+product.productNo+">"+
+                            else if(product.writecate == 3){
+                                titleAtag="<a target='_blank' href="+contextPath+"/onedayclass/view/"+product.productNo+">"+
                                 product.title+"</a>"
                             }
                             else if(product.writecate == 1){
@@ -825,8 +836,6 @@
                         window.open(url, '등록클래스상품', ''+result);
                         break;
                     }
-                    
-                    
                 },
                 error: function(result){
                     alert(result);
@@ -955,7 +964,178 @@
             const couponLimit = document.createElement("div");
             couponLimit.setAttribute("class", "oneLine");
             couponLimit.innerHTML="<label class='labels'>개수제한</label><input type='number' name='discountPer'><span> (미작성시 무한)</span>";
+            /*  subcanBTN()
+            const adminwriteform = document.createElement("form")
+            adminwriteform.setAttribute("id","writerForm");
+            adminwriteform.setAttribute("enctype"," );
+            adminwriteform.setAttribute("method","POST"); */
 
+            
             contentbox.append(funcName,title,couponDate,discountPer,couponLimit);
             calmodal();
+        }
+
+        //----------------------------------------------------------------------------------------
+        function subsOptionManage(){
+            contentbox.innerHTML="";
+            const funcName = document.createElement("div");
+            funcName.setAttribute("class", "oneLine");
+            funcName.innerHTML="<h2>"+"구독상품 옵션 현황"+"</h2>";
+
+            const subsType = document.createElement("div");
+            subsType.setAttribute("class", "oneLine");
+            subsType.innerHTML="<label class='labels'>구독 종류</label>"+
+            "<select name='subsType'>"+
+            "<option value='1437'>빵 구독</option>" +
+            "<option value='1438'>빵 커피 구독</option>"+
+            "</select>";
+
+            const SearchResult = document.createElement("ul");
+            SearchResult.setAttribute("class", "ResultLine");
+
+            contentbox.append(funcName,subsType,SearchResult);
+            document.querySelector("select[name='subsType']").addEventListener("change",function(){
+                selectSubsOption(this.value);
+            });
+            selectSubsOption(1437);
+        }
+
+        function selectSubsOption(val){
+            $.ajax({
+                url : contextPath + "/admin/board/selectSubsOption",
+                type : "post",
+                data:{
+                    "productNo" : val
+                },
+                dataType : "json",
+                success : function(result){
+                    console.log(result);
+                    const ul = document.querySelector(".ResultLine");
+                    ul.innerHTML =
+                    "<li class='resultTitle oneMemberResult'>"+
+                    "<span class='oneMemberInfo'>해당 구독상품명</span>"+
+                    "<span class='oneMemberInfo numberformat'>옵션 번호</span>"+
+                    "<span class='oneMemberInfo notice-title'>옵션명</span>"+
+                    "<span class='oneMemberInfo '>옵션코드</span>"+
+                    "<span class='oneMemberInfo'>변경</span>"+
+                    "<span class='oneMemberInfo'>추가/삭제</span>"+
+                    "</li>";
+                    for(let i = 0 ; i<result.length ; i++){
+                        const li = document.createElement("li");
+                        li.className = "oneMemberResult";
+                        li.innerHTML=
+                        "<span class='oneMemberInfo'>"+ result[i].productName +"</span>"+
+                        "<span class='oneMemberInfo  numberformat'>"+ result[i].suboptionNo +"</span>"+
+                        "<span class='oneMemberInfo notice-title'>"+ "<input type='text' readonly value='"+result[i].subOptionName +"' style='border:none; text-align:center; background:none'></span>"+
+                        "<span class='oneMemberInfo'>"+ result[i].subOptionCd +"</span>"+
+                        "<input type='hidden' value='"+result[i].productNo+"'>"+
+                        "<span class='oneMemberInfo'>"+ "<button onclick='changeSubsOption(this)'>변경하기</button>" +"</span>"+
+                        "<span class='oneMemberInfo'>"+ "<button onclick='deleteSubsOption(this)'>삭제하기</button>" +"</span>"
+                        ul.append(li);
+                    }
+                    ul.innerHTML += 
+                    "<li class='oneMemberResult addOptionLine'>"+
+                    "<span class='oneMemberInfo'><input type='text' readonly value='"+result[0].productName+"' style='border:none; text-align:center'></span>"+
+                    "<span class='oneMemberInfo numberformat'>(자동입력)</span>"+
+                    "<span class='oneMemberInfo notice-title'><input type='text'></span>"+
+                    "<span class='oneMemberInfo '><select><option value='31'>31</option><option value='32'>32</option><option value='33'>33</option><option value='34'>34</option><option value='35'>35</option></select></span>"+
+                    "<input type='hidden' value='"+result[0].productNo+"'>"+
+                    "<span class='oneMemberInfo'>null</span>"+
+                    "<span class='oneMemberInfo'><button onclick='addSubsOption(this)'>추가하기</button></span>"+
+                    "</li>";
+                },
+                error : function(){
+
+                }
+            })  
+        }
+        
+        function changeSubsOption(){
+            
+        }
+        function addSubsOption(btn){
+            if(confirm("추가하시겠습니까?")){
+                let SubsProductNo = btn.parentElement.previousElementSibling.previousElementSibling;
+                let subOptionName = SubsProductNo.previousElementSibling.previousElementSibling.children[0].value;
+                let subsOprionCd = SubsProductNo.previousElementSibling.children[0].value;
+                console.log(SubsProductNo);
+                console.log(subOptionName);
+                console.log(subsOprionCd);
+                $.ajax({
+                    url : contextPath+"/admin/board/addSubsOption",
+                    type : "POST",
+                    data : {
+                        "productNo" : SubsProductNo.value,
+                        "subOptionName" : subOptionName,
+                        "subOptionCd" : subsOprionCd
+                        } ,
+                    success : function(result){
+                        if(result>0){
+                            selectSubsOption(SubsProductNo.value)
+                        }
+                    },
+                    error : function(){
+                        alert("옵션 추가 중 에러발생")
+                    }
+                }) 
+            }
+            else return;
+        }
+        function deleteSubsOption(btn){
+            if(confirm("삭제하시겠습니까?")){
+                const suboptionNo = btn.parentElement.parentElement.firstElementChild.nextElementSibling.innerText;
+                const SubsProductNo = btn.parentElement.previousElementSibling.previousElementSibling.value;
+                console.log(suboptionNo)
+                $.ajax({
+                    url : contextPath+"/admin/board/deleteSubsOption",
+                    type : "POST",
+                    data : {
+                        "suboptionNo" : suboptionNo
+                        } ,
+                    success : function(result){
+                        if(result>0){
+                            selectSubsOption(SubsProductNo)
+                        }
+                    },
+                    error : function(){
+                        alert("옵션 삭제 중 에러발생")
+                    }
+                }) 
+            }
+            else return;
+        }
+        function changeSubsOption(btn){
+            console.log(btn);
+            const suboptionNo = btn.parentElement.parentElement.firstElementChild.nextElementSibling.innerText;
+            const subOptionName = btn.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild
+            if(btn.className==""){
+                subOptionName.readOnly= false;
+                subOptionName.style.background = "#A78A6C";
+                subOptionName.style.color = "white";
+                subOptionName.focus();
+                btn.classList.toggle("doingUpdateOption");
+                console.log(subOptionName);
+            }
+            else {
+                $.ajax({
+                    url : contextPath+"/admin/board/changeSubsOption",
+                    type : "POST",
+                    data : {
+                        "suboptionNo" : suboptionNo,
+                        "subOptionName"    :subOptionName.value
+                        } ,
+                    success : function(result){
+                        if(result>0){
+                        subOptionName.readOnly= true;
+                        subOptionName.style.background = "none";
+                        subOptionName.style.color = "black";
+                        btn.classList.toggle("doingUpdateOption");
+                        console.log(subOptionName);
+                        }
+                    },
+                    error : function(){
+                        alert("옵션 변경 중 에러발생")
+                    }
+                }) 
+            }
         }
