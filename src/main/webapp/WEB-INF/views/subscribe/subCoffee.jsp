@@ -52,7 +52,7 @@
 							</div>
 						</div>
                     </div>
-                    <span class="price">20,000원</span>
+                    <span class="price">25,000원</span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -64,27 +64,7 @@
 
                 <div class="bottom-line"></div>
                 
-                <article class="sub-detail">
-                    <div class="sub-title">
-                        <span>구독 옵션</span>
-                        <span></span>
-                    </div>
-                    <div class="period-area btn-area"> 
-                        <button type="button" class="period-btn btn" name="period" value="1">
-                            <span>1주</span>
-                        </button>
-                        <button type="button" class="period-btn btn" name="period" value="2">
-                            <span>2주</span>
-                        </button>
-                        <button type="button" class="period-btn btn" name="period" value="3">
-                            <span>3주</span>
-                        </button>
-                    </div>
-                    <!-- 상태코드 넘어가는 input -->
-                	<input type="hidden" name="periodStatusCode">
-                </article>
-
-                <div class="bottom-line"></div>
+                
 
                 <article class="sub-detail">
                     <div class="sub-title">
@@ -102,6 +82,7 @@
                     <!-- 상태코드 넘어가는 input -->
             		<input type="hidden" name="breadStatusCode">
                 </article>
+                
                 <div class="bottom-line"></div>
                 
                 <article class="sub-detail">
@@ -127,32 +108,69 @@
 
                 <article class="sub-detail">
                     <div class="sub-title">
-                        <span>커피 개수</span>
+                        <span>커피 종류</span>
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
                         <button type="button" class="coffee-btn btn" name="coffee" value="1">
-                            <span>6개입</span>
+                            <span>로우키</span>
                         </button>
                         <button type="button" class="coffee-btn btn" name="coffee" value="2">
-                            <span>24개입</span>
+                            <span>언더프레셔</span>
                         </button>
                     </div>
                 </article>
                 
+                <div class="bottom-line"></div>
                 
+                <article class="sub-detail">
+                    <div class="sub-title">
+                        <span>구독 옵션</span>
+                        <span></span>
+                    </div>
+                    <div class="period-area btn-area"> 
+                        <button type="button" class="period-btn btn" name="period" value="1">
+                            <span>1주</span>
+                        </button>
+                        <button type="button" class="period-btn btn" name="period" value="2">
+                            <span>2주</span>
+                        </button>
+                    </div>
+                    <!-- 상태코드 넘어가는 input -->
+                	<input type="hidden" name="periodStatusCode">
+                </article>
 
-                <article class="buy-total">
+                <div class="bottom-line"></div>
+
+				<article class="sub-detail">
+					<div class="sub-title">
+						<span>수령 희망일</span> 
+						<span></span>
+					</div>
+					<div class="taste btn-area">
+						<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="1">
+							<span>수요일</span>
+						</button>
+						<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="2">
+							<span>금요일</span>
+						</button>
+					</div>
+					<!-- 상태코드 넘어가는 input -->
+					<input type="hidden" name="chooseDeliveryDay">
+				</article>
+				
+				<article class="buy-total">
                  <!-- 선택한 상품 없을경우 -->
             <!--         <div class="total-area-none">
                         <span>구독 상품을 선택해주세요.</span>
                     </div> --> 
                     <!-- 선택한 상품 있을경우 -->
                 	<div class="total-area">
-                        <span id="period">1주</span>+
-                        <span id="bread">식빵</span>+
-                        <span id="taste">장발장</span>+
-                        <span id="coffee">6개입</span>
+                        <span id="bread"></span>
+                        <span id="taste"></span>
+                        <span id="coffee"></span>
+                        <span id="period"></span>
+                        <span id="deliveryDay"></span>
                     </div>
                     <div class="buy-count">
                         <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
@@ -164,7 +182,7 @@
 				
                 <article class="total-price">
                     <p>총 구매 금액
-	                    <span id="totalprice" class="showprice">20,000</span>
+	                    <span id="totalprice" class="showprice">25,000</span>
 	                    <span class="showprice">원</span>
                     </p>
                 </article>
@@ -455,7 +473,7 @@ DELIVERY / 배송정보
 
 
 	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
 <%-- 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
  --%>
 </body>
