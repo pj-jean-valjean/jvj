@@ -84,8 +84,9 @@ paging();
 // 결제 페이지 이동
 function buyit(){
     updateCart();
-    
-    location.href = specialContextPath + "/payment/payment";
+    document.requestForm.action = specialContextPath + "/payment/payment";
+    document.requestForm.method = "POST";
+    document.requestForm.submit();
 }
 
 function updateCart(){

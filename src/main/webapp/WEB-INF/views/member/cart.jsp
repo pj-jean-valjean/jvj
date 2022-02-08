@@ -98,6 +98,9 @@
 			<h2>구매하기</h2>
 		</div>
 	</div>
+	<form action="#" method="POST" name="requestForm">
+	<input type="hidden" name="carrierList" value="${carrierList}">
+	</form>
 	<script>
 	const specialContextPath = '${contextPath}';
 	</script>

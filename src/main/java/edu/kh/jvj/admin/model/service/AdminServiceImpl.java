@@ -23,7 +23,7 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -457,7 +457,8 @@ public class AdminServiceImpl implements AdminService{
 		SecretKeySpec signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
 		Mac mac = Mac.getInstance("HmacSHA256"); mac.init(signingKey); 
 		byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8")); 
-		String encodeBase64String = Base64.encodeBase64String(rawHmac); 
+		String encodeBase64String = new String(Base64.getEncoder().encode(rawHmac));
+		
 		return encodeBase64String;
 	}	
 }
