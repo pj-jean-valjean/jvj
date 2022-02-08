@@ -26,19 +26,7 @@
                    <h4>추가 옵션 : 무화과 잼 3 , 카야 잼 4 , 식빵 버터 칼</h4>
                </div>
                
-               <div class="c-ss-box">
-                <div class="c-img"></div>
-                <div class="c-sss-box">
 
-                    <h4>초코식빵 디럭스 에디션</h4>
-                    
-                    <h2>19,900원</h2>
-                    <button>-</button>
-                    <p>1</p>
-                    <button>+</button>
-                </div>
-                <h4>추가 옵션 : 무화과 잼 3 , 카야 잼 4 , 식빵 버터 칼</h4>
-            </div>
            </div>
            
        </div>
