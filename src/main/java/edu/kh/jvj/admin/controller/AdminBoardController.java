@@ -28,6 +28,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.notice.model.service.NoticeService;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
@@ -107,8 +108,9 @@ public class AdminBoardController {
 			 OnedayClass Oneclass = classService.selectOneClass(dataMap); 
 			 returnJson = gson.toJson(Oneclass); 
 		}
-		else {
-			
+		else if(dataMap.get("productcate")==2){
+			SubsInfo subsInfo = service.getSubsInfo(dataMap);
+			returnJson = gson.toJson(subsInfo); 
 		}
 		
 		return returnJson;
