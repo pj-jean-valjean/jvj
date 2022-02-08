@@ -250,14 +250,15 @@ function reconfirim(){
         return false;
     }
     if(confirm("현재 정보로 클래스를 신청하시겠습니까?")){
+        const totalprice= $("#totalprice").text();
+        const totalPeople= $("#ppl").text()
+        alert(totalprice);
+        alert(totalPeople);
+        $("#hiddenTotalprice").val(totalprice);
+        $("#hiddenTotalPeople").val(totalPeople);
         return true;
     }
     else{
-        const totalprice= $("#totalprice").text();
-        const totalPeople= $("#ppl").text()
-    
-        $("#hiddenTotalprice").val(totalprice);
-        $("#hiddenTotalPeople").val(totalPeople);
         return false;
     }
 }
