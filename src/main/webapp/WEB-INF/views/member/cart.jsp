@@ -100,6 +100,7 @@
 	</div>
 	<script>
 	const specialContextPath = '${contextPath}';
+	const carrierList = '${carrierList}';
 	</script>
 	<script src="${contextPath}/resources/js/member/cart.js"> </script>
 	<jsp:include page="../common/footer.jsp" />

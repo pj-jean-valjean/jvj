@@ -84,8 +84,17 @@ paging();
 // 결제 페이지 이동
 function buyit(){
     updateCart();
-    
-    location.href = specialContextPath + "/payment/payment";
+    $.ajax({
+        url: specialContextPath + "/payment/payment",
+        type:'GET',
+        data: {"carrierList":carrierList},
+        success: function(result){
+            console.log(result);
+        },
+        error: function(err){
+            console.log(err)
+        }
+    });
 }
 
 function updateCart(){
