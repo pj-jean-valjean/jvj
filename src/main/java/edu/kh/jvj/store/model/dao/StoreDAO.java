@@ -60,4 +60,9 @@ public class StoreDAO {
 		return mybatis.selectList("storeMapper.advantage");
 	}
 
+	public int selectAmount(Store store) {
+
+		return mybatis.selectOne("storeMapper.selectAmount",store);
+	}
+
 }

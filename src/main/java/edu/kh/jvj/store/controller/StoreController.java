@@ -100,4 +100,20 @@ public class StoreController {
 		model.addAttribute("imgLevel", imgLevelList);
 		return "store/storeDetail";
 	}
+	
+	
+	// 스토어 재고확인 ( 만들다맘 )
+	@PostMapping("selectAmount")
+	@ResponseBody
+	public int selectAmount(HttpSession session, int storeNo,Store store) {
+		
+		int memberNo =( (Member)session.getAttribute("loginMember")).getMemberNo();
+		store.setMemberNo(memberNo);
+		store.setStoreNo(storeNo);
+		int result = service.selectAmount(store);
+		
+		System.out.println(result);
+		
+			return result;
+	}
 }

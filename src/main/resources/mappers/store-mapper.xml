@@ -112,8 +112,18 @@
 	</delete>
 	<!-- 추가 옵션 상품 불러오기 -->
 	<select id="advantage" resultMap="store_rm">
-		SELECT PRODUCT_NO,PRODUCT_NM,PRODUCT_PRICE,STORE_AMOUNT FROM PRODUCT
-		LEFT JOIN STORE_DETAIL USING(PRODUCT_NO)
+		SELECT
+		PRODUCT_NO,PRODUCT_NM,PRODUCT_PRICE,STORE_AMOUNT FROM PRODUCT
+		LEFT JOIN
+		STORE_DETAIL USING(PRODUCT_NO)
 		WHERE PRODUCT_NO IN (1427,1429,1428)
 	</select>
+	<!-- 재고확인 -->
+	<select id="selectAmount" resultType="int">
+		SELECT SUM(ADD_Q) FROM CART
+		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{storeNo}
+		GROUP BY PRODUCT_NO
+	</select>
+
+
 </mapper>

@@ -97,35 +97,36 @@ $(".clear-btn").click((e) => {
 });
 
 /* 수량 증감 버튼*/
+let resultNum2 = result.innerText;
 function count(type) {
   const result = document.getElementById("result");
   const pdtprice = document.getElementById("pdt-price");
-  let resultNum = result.innerText;
+  
 
-  console.log(result + pdtprice + resultNum);
+  console.log(result + pdtprice + resultNum2);
 
   if (type === "add") {
-    resultNum = parseInt(resultNum) + 1;
+    resultNum2 = parseInt(resultNum2) + 1;
   } else if (type === "minus") {
-    resultNum = parseInt(resultNum) - 1;
-    console.log(result, pdtprice, resultNum);
+    resultNum2 = parseInt(resultNum2) - 1;
+    console.log(result, pdtprice, resultNum2);
   }
 
-  if (resultNum < 1) {
-    resultNum = 1;
+  if (resultNum2 < 1) {
+    resultNum2 = 1;
   }
-  if (resultNum > stock) {
+  if (resultNum2 > stock) {
     swal(
       "현재 재고 부족으로 " + stock + "개 이상 구매할 수 없습니다.",
       "",
       "error"
     );
-    resultNum = stock;
+    resultNum2 = stock;
   }
 
-  result.innerText = resultNum;
+  result.innerText = resultNum2;
   pdtprice.innerText =
-    (price * parseInt(resultNum)).toLocaleString("ko-KR") + "원";
+    (price * parseInt(resultNum2)).toLocaleString("ko-KR") + "원";
   resultPrice.text(maxPrice());
   resultComma();
 }
@@ -254,6 +255,7 @@ function scrollDelievery() {
 
 // 장바구니
 function cart() {
+
   if (stock == 0) {
     swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
     return;
