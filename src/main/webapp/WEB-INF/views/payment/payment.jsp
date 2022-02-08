@@ -6,6 +6,9 @@
 
  <main>
 ${loginMember }
+${totalPrice }
+${totalPeople }
+${oneClass }
         <section class="title-section">
             <p>주문 / 결제 </p>  
         </section>
@@ -19,17 +22,18 @@ ${loginMember }
 
             <div class="product-list">
 
-                <a href="#"><img src="${contextPath}/resources/images/336286d15b2d8401665f9ec0b4640703.jpg"></a>
+                <a href="#"><img src="${contextPath}/${oneClass.classImgList[0].productImgPath}/${oneClass.classImgList[0].productImgName}"></a>
                 <div>
-                    <a href="#"><p>통밀식빵</p></a>
+                    <a href="#"><p>${oneClass.title}</p></a>
                     <p>
-                        첫 구독일 : 금요일, 2022-02-11 <br>
-                        구독내용 : 2개월동안 X 2주마다 <br>
-                        수량 1개 <br>
+                        지점명 : ${oneClass.title} <br>
+                        수강일 : ${oneClass.createDt } <br>
+                        수업 시간 : ${oneClass.classtime } <br>
+                        신청인원 : ${totalPeople } <br>
                     </p>
                 </div>
                 <div>
-                    <p>6,500원</p>
+                    <p>${totalPrice}</p>
                 </div>
             </div>
 

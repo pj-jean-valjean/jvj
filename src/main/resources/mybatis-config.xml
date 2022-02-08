@@ -21,6 +21,7 @@
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/cart-mapper.xml" />
+		<mapper resource="/mappers/payment-mapper.xml" />
 
 
 	</mappers>
