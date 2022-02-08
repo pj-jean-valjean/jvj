@@ -18,26 +18,28 @@ public class SubVO {
 	private final int productCd = 2;
 	
 	// 구독 상세
-	// 결제 종류 SUB_PAY_NO
-	private int subPayNo;
-	// 결제 종류 SUB_PAY_NM
-	private String subPayName;
 	
-//	// 구독 빵 종류 SUB_TASTE_NO
-//	private int subBreadNo;
-//	// 구독 빵 맛이름 SUB_TASTE_NM
-//	private String subBreadName;
+	// 구독 빵 종류 STORE_BREAD_TASTE_NO
+	private int subBreadNo;
+	// 1.식빵 2.바게트
 	
 	// 구독 맛 종류 SUB_TASTE_NO
 	private int subTasteNo;
-	// 구독 맛 맛이름 SUB_TASTE_NM
 	private String subTasteName;
+	
 	
 	// 커피 옵션 번호 COFFEE_OPTION_NO
 	private int coffeeOptionNo;
-	// 커피 용량 COFFEE_OPTION
-	private int coffeeOption;
-		
+	private int coffeeOptionName;
+	
+	// 결제 종류 SUB_PAY_NO
+	private int subPayNo;
+	private String subPayName;
+	
+	// 배송일
+	private int subDeliveryNo;
+	private int subDeliveryName;
+	
 	
 	//LIKECOUNT
 	private int likecount;
@@ -81,20 +83,12 @@ public class SubVO {
 		this.createDt = createDt;
 	}
 
-	public int getSubPayNo() {
-		return subPayNo;
+	public int getSubBreadNo() {
+		return subBreadNo;
 	}
 
-	public void setSubPayNo(int subPayNo) {
-		this.subPayNo = subPayNo;
-	}
-
-	public String getSubPayName() {
-		return subPayName;
-	}
-
-	public void setSubPayName(String subPayName) {
-		this.subPayName = subPayName;
+	public void setSubBreadNo(int subBreadNo) {
+		this.subBreadNo = subBreadNo;
 	}
 
 	public int getSubTasteNo() {
@@ -121,12 +115,44 @@ public class SubVO {
 		this.coffeeOptionNo = coffeeOptionNo;
 	}
 
-	public int getCoffeeOption() {
-		return coffeeOption;
+	public int getCoffeeOptionName() {
+		return coffeeOptionName;
 	}
 
-	public void setCoffeeOption(int coffeeOption) {
-		this.coffeeOption = coffeeOption;
+	public void setCoffeeOptionName(int coffeeOptionName) {
+		this.coffeeOptionName = coffeeOptionName;
+	}
+
+	public int getSubPayNo() {
+		return subPayNo;
+	}
+
+	public void setSubPayNo(int subPayNo) {
+		this.subPayNo = subPayNo;
+	}
+
+	public String getSubPayName() {
+		return subPayName;
+	}
+
+	public void setSubPayName(String subPayName) {
+		this.subPayName = subPayName;
+	}
+
+	public int getSubDeliveryNo() {
+		return subDeliveryNo;
+	}
+
+	public void setSubDeliveryNo(int subDeliveryNo) {
+		this.subDeliveryNo = subDeliveryNo;
+	}
+
+	public int getSubDeliveryName() {
+		return subDeliveryName;
+	}
+
+	public void setSubDeliveryName(int subDeliveryName) {
+		this.subDeliveryName = subDeliveryName;
 	}
 
 	public int getLikecount() {
@@ -168,11 +194,15 @@ public class SubVO {
 	@Override
 	public String toString() {
 		return "SubVO [productNo=" + productNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
-				+ ", productCd=" + productCd + ", subPayNo=" + subPayNo + ", subPayName=" + subPayName + ", subTasteNo="
-				+ subTasteNo + ", subTasteName=" + subTasteName + ", coffeeOptionNo=" + coffeeOptionNo
-				+ ", coffeeOption=" + coffeeOption + ", likecount=" + likecount + ", likedone=" + likedone
-				+ ", imgPathName=" + imgPathName + ", ratingAgv=" + ratingAgv + "]";
+				+ ", productCd=" + productCd + ", subBreadNo=" + subBreadNo + ", subTasteNo=" + subTasteNo
+				+ ", subTasteName=" + subTasteName + ", coffeeOptionNo=" + coffeeOptionNo + ", coffeeOptionName="
+				+ coffeeOptionName + ", subPayNo=" + subPayNo + ", subPayName=" + subPayName + ", subDeliveryNo="
+				+ subDeliveryNo + ", subDeliveryName=" + subDeliveryName + ", likecount=" + likecount + ", likedone="
+				+ likedone + ", imgPathName=" + imgPathName + ", ratingAgv=" + ratingAgv + "]";
 	}
+
+
+	
 	
 	
 	

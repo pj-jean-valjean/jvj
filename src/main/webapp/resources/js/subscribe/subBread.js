@@ -1,3 +1,37 @@
+// 제출 시 유효성 검사
+function validate(){
+    
+    // 기간(1주, 2주)버튼 선택하지 않았을때
+    if( !$(".period-btn").hasClass('active')){ 
+
+        alert("구독 옵션을 선택해주세요");
+        return false;
+    }
+    // 빵 선택 버튼 선택하지 않았을때
+    if( !$(".bread-btn").hasClass('active')){ 
+
+        alert("빵 종류를 선택해주세요");
+        return false;
+    }
+    
+    // 맛 선택 버튼 선택하지 않았을때
+    if( !$(".taste-btn").hasClass('active')){ 
+
+        alert("맛 종류를 선택해주세요");
+        return false;
+    }
+    // 요일 선택 버튼 선택하지 않았을때
+    if( !$(".delieveryDay-btn").hasClass('active')){ 
+
+        alert("수령 희망일을 선택해주세요");
+        return false;
+    }
+
+    document.subBreadForm.submit();
+}
+
+
+
 const contextPath = getContextPath();
 
 /* 사진교체 */
@@ -32,35 +66,36 @@ $(document).ready(function() {
 $(".period-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
-     document.getElementById("period").innerText 
-     	= $(".period-btn.active").find('span').text();
+    document.getElementById("period").innerText
+        = $(".period-btn.active").find('span').text() + ' / ';
+
 });
 
 $(".bread-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
     document.getElementById("bread").innerText 
-    	= $(".bread-btn.active").find('span').text();
+    	= $(".bread-btn.active").find('span').text()+ ' / ';
 });
 
 $(".taste-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
     document.getElementById("taste").innerText 
-    	= $(".taste-btn.active").find('span').text();
+    	= $(".taste-btn.active").find('span').text()+ ' / ';
 });
 
-/* subCoffee btn*/
-$(".coffee-btn").on("click", function() {
+$(".delieveryDay-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
-    document.getElementById("coffee").innerText 
-    	= $(".coffee-btn.active").find('span').text();
+    document.getElementById("delieveryDay").innerText 
+    	= $(".delieveryDay-btn.active").find('span').text();
 });
+
 
 
 // 버튼 3개가 선택 시 div 변경
-$('.period-btn.active, .bread-btn.active, .taste-btn.active').on('click', function () {
+$('.period-btn.active',' .bread-btn.active', '.taste-btn.active', '.delieveryDay-btn' ).on('click', function () {
 	alert("dfsf");
 });
 
@@ -175,8 +210,3 @@ function returnReviewContent(글번호){
 }
 
 
-
-// 결제페이지 이동
-document.querySelector("#submit-btn").addEventListener("click", function(){
-    location.href = contextPath + "/payment/payment";
-});
