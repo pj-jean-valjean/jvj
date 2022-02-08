@@ -152,7 +152,7 @@ public class CartController {
 	// 작은카트
 	
 	@ResponseBody
-	@GetMapping
+	@GetMapping("selectModalCart")
 	public int selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
 		List<Cart> cartList = service.selectCartList(member);
 		model.addAttribute("cartList", cartList);
