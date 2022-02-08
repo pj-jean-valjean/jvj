@@ -618,7 +618,9 @@ setInterval(getTime, 1000);
                 btnOpenPopup[i].addEventListener('click', function() {
                     cal.style.display = 'block';
                     saveDateBtnthis= this.parentElement.children[1];
-                    displaycal() });
+                    displaycal();
+                    document.getElementsByClassName("calendar")[0].scrollIntoView(true);
+                });
             }
             closecal.addEventListener('click', ()=>{
                 const monthday = document.getElementById("month-day");
