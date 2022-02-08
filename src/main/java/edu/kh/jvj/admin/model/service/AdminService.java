@@ -9,6 +9,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -88,5 +89,7 @@ public interface AdminService {
 	int updateProduct(List<MultipartFile> images, ProductWrite product, String webPath, String serverPath);
 
 	String sendmessage();
+
+	SubsInfo getSubsInfo(Map<String, Integer> dataMap);
 	
 }

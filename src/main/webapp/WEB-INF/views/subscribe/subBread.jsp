@@ -41,7 +41,7 @@
             </div>
             </section>
 
-			<form action="${contextPath}/payment/payment" method="post">
+			
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
@@ -64,103 +64,128 @@
 
                 <div class="bottom-line"></div>
                 
-                <article class="sub-detail">
-                    <div class="sub-title">
-                        <span>구독 옵션</span>
-                        <span></span>
-                    </div>
-                    <div class="period-area btn-area"> 
-                        <button type="button" class="period-btn btn" name="period" value="1">
-                            <span>1주</span>
-                        </button>
-                        <button type="button" class="period-btn btn" name="period" value="2">
-                            <span>2주</span>
-                        </button>
-                        <button type="button" class="period-btn btn" name="period" value="3">
-                            <span>3주</span>
-                        </button>
-                    </div>
-                    <!-- 상태코드 넘어가는 input -->
-                	<input type="hidden" name="periodStatusCode">
-                </article>
-
-                <div class="bottom-line"></div>
-
-                <article class="sub-detail">
-                    <div class="sub-title">
-                        <span>빵 종류</span>
-                        <span></span>
-                    </div>
-                    <div class="bread btn-area"> 
-                        <button type="button" class="bread-btn btn" name="bread" value="1">
-                            <span>식빵</span>
-                        </button>
-                        <button type="button" class="bread-btn btn" name="bread" value="2">
-                            <span>바게트</span>
-                        </button>
-                        <!-- 상태코드 넘어가는 input -->
-                		<input type="hidden" name="breadStatusCode">
-                    </div>
-                </article>
-                <div class="bottom-line"></div>
-
-                <article class="sub-detail">
-                    <div class="sub-title">
-                        <span>맛 종류</span>
-                        <span></span>
-                    </div>
-                    <div class="taste btn-area"> 
-                        <button type="button" class="taste-btn btn" name="taste" value="1">
-                            <span>장발장</span>
-                        </button>
-                        <button type="button" class="taste-btn btn" name="taste" value="2">
-                            <span>녹차코코넛</span>
-                        </button>
-                        <button type="button" class="taste-btn btn" name="taste" value="3">
-                            <span>초코</span>
-                        </button>
-                    </div>
-                    <!-- 상태코드 넘어가는 input -->
-               		<input type="hidden" name="tasteStatusCode">
-                </article>
-                
-                
-
-                <article class="buy-total">
-                    <!-- 선택한 상품 없을경우 -->
-            <!--         <div class="total-area-none">
-                        <span>구독 상품을 선택해주세요.</span>
-                    </div> --> 
-
-                    <!-- 선택한 상품 있을경우 -->
-                    <div class="total-area">
-                        <span id="period">1주</span>+
-                        <span id="bread">식빵</span>+
-                        <span id="taste">장발장</span>
-                    </div>
-                    <div class="buy-count">
-                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-                        <span id="result" >1</span>
-                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
-                    </div>
-                
-                </article>
-				
-                <article class="total-price">
-                    <p>총 구매 금액
-	                    <span id="totalprice" class="showprice">20,000</span>
-	                    <span class="showprice">원</span>
-                    </p>
-                </article>
-
-                <div class="submit-sub">
-                    <button id="submit-btn" class="submit-btn" >
-                        <span>바로 구독 신청</span>
-                    </button>
-                </div>
-            </section>
-        </section>
-    	</form>
+                <!-- ${contextPath}/payment/payment -->
+                <form action="${contextPath}/payment/payment" method="POST"  name="subBreadForm" onsubmit="return validate();">
+	                
+	
+	                <article class="sub-detail">
+	                    <div class="sub-title">
+	                        <span>빵 종류</span>
+	                        <span></span>
+	                    </div>
+	                    <div class="bread btn-area"> 
+	                        <button type="button" class="bread-btn btn" name="bread" value="1">
+	                            <span>식빵</span>
+	                        </button>
+	                        <button type="button" class="bread-btn btn" name="bread" value="2">
+	                            <span>바게트</span>
+	                        </button>
+	                        <!-- 상태코드 넘어가는 input -->
+	                		<input type="hidden" name="chooseBread">
+	                    </div>
+	                </article>
+	                <div class="bottom-line"></div>
+	
+	                <article class="sub-detail">
+	                    <div class="sub-title">
+	                        <span>맛 종류</span>
+	                        <span></span>
+	                    </div>
+	                    <div class="taste btn-area"> 
+	                        <button type="button" class="taste-btn btn" name="taste" value="1">
+	                            <span>장발장</span>
+	                        </button>
+	                        <button type="button" class="taste-btn btn" name="taste" value="2">
+	                            <span>녹차코코넛</span>
+	                        </button>
+	                        <button type="button" class="taste-btn btn" name="taste" value="3">
+	                            <span>초코</span>
+	                        </button>
+	                    </div>
+	                    <!-- 상태코드 넘어가는 input -->
+	               		<input type="hidden" name="chooseTaste">
+	                </article>
+	                
+	                <div class="bottom-line"></div>
+					
+					<article class="sub-detail">
+	                    <div class="sub-title">
+	                        <span>구독 옵션</span>
+	                        <span></span>
+	                    </div>
+	                    <div class="period-area btn-area"> 
+	                        <button type="button" class="period-btn btn" name="period" value="1">
+	                            <span>1주</span>
+	                        </button>
+	                        <button type="button" class="period-btn btn" name="period" value="2">
+	                            <span>2주</span>
+	                        </button>
+							
+							<!--  -->
+							<input type="hidden" name="choosePeriod">
+	                    </div>
+	                </article>
+	
+	                <div class="bottom-line"></div>
+	                
+	                <article class="sub-detail">
+	                    <div class="sub-title">
+	                        <span>수령 희망일</span>
+	                        <span></span>
+	                    </div>
+	                    <div class="taste btn-area"> 
+	                        <button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="1">
+	                            <span>수요일</span>
+	                        </button>
+	                        <button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="2">
+	                            <span>금요일</span>
+	                        </button>
+	                    </div>
+	                    <!-- 상태코드 넘어가는 input -->
+	               		<input type="hidden" name="chooseDeliveryDay">
+	                </article>
+	                
+	                
+	
+	                <article class="buy-total">
+	                    <!-- 선택한 상품 없을경우 -->
+	            <!--         <div class="total-area-none">
+	                        <span>구독 상품을 선택해주세요.</span>
+	                    </div> --> 
+	
+	                    <!-- 선택한 상품 있을경우 -->
+	                    <div class="total-area">
+	                        <span id="bread"></span>
+	                        <span id="taste"></span>
+	                        <span id="period"></span>
+	                        <span id="deliveryDay"></span>
+	                    </div>
+	                    <div class="buy-count">
+	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
+	                        <span id="result" >1</span>
+	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
+	                    </div>
+	                
+	                </article>
+					
+	                <article class="total-price">
+	                
+	                    <p>총 구매 금액
+		                    <span id="totalprice" class="showprice">20,000</span>
+		                    <span class="showprice">원</span>
+	                    </p>
+	                </article>
+	
+	                <div class="submit-sub">
+	                    <button id="submit-btn" class="submit-btn" >
+	                        <span>바로 구독 신청</span>
+	                    </button>
+	                </div>
+	                </form>
+	            </section>
+	            
+	        </section><!-- top부분 section -->
+    	
 
         <!-- contents -->
         <div class="contents-top-line"></div>        

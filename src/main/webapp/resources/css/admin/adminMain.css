@@ -204,6 +204,11 @@
         #uppercate>label{
             width: 160px;
         }
+        .option-subtitle{
+            margin-left: 20px;
+            font-size: 22px;
+            background-color: #A78A6C;
+        }
         /*  정보 조회 라인  */
         .ResultLine>li{
             display: flex;
