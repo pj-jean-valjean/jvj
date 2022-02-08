@@ -346,3 +346,11 @@ transform: rotate(45deg);
     font-size: 20px;
     color: #FFFFFF;
 }
+
+
+
+ 
+/* 이메일 영역 감추기 */
+.newInfo{
+    display: none;
+}

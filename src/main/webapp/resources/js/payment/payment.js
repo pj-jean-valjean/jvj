@@ -26,16 +26,16 @@
 
     /* 정기 배송 현재 날짜 가져오기 */
 
-    let today = new Date();
+    // let today = new Date();
 
-    let year = today.getFullYear();
-    let month = ('0' + (today.getMonth() + 1)).slice(-2);
-    let day = ('0' + today.getDate()).slice(-2);
+    // let year = today.getFullYear();
+    // let month = ('0' + (today.getMonth() + 1)).slice(-2);
+    // let day = ('0' + today.getDate()).slice(-2);
 
-    let dateString = year + '-' + month  + '-' + day;
-    document.querySelector("#calendar-btn").innerHTML = dateString;
+    // let dateString = year + '-' + month  + '-' + day;
+    // document.querySelector("#calendar-btn").innerHTML = dateString;
     
- // 주소
+ 	// 주소
     document.querySelector("#searchAddr").addEventListener("click", function(){
         new daum.Postcode({
             oncomplete: function(data) {
@@ -133,6 +133,14 @@ document.querySelector("#searchAddr").addEventListener("click", function(){
 
 
 
-document.querySelector("#new-addr").addEventListener("click", function(){
-    alert("하아-");
+$(".selectInfo").change(function() {
+
+	console.log($(this).val());
+	if($(this).val() == 1){
+		$(".loginForm").css("display", "block");
+		$(".newInfo").css("display", "none");
+	} else if($(this).val() == 2){
+		$(".loginForm").css("display", "none");
+		$(".newInfo").css("display", "block");
+	}
 });

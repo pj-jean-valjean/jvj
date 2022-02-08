@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp" />
 
 <link rel="stylesheet" href="${contextPath}/resources/css/payment/payment.css">
@@ -60,27 +61,65 @@ ${loginMember }
 
             <div class="orderer-info">
                 <div>
-                    <input type="radio" name="orderer-addr" id="member-addr" checked> 
+                    <input type="radio" name="orderer-addr" class="selectInfo" id="member-addr" value="1" checked> 
                     <label for="member-addr">회원정보와 동일</label>
-                    <input type="radio" name="orderer-addr" id="new-addr"> 
+                    <input type="radio" name="orderer-addr" class="selectInfo" value="2" id="new-addr"> 
                     <label for="new-addr">새로운 배송지</label>
                 </div>
 
             <br>
-
-                <div class="input-info">
-                    <div class="input-info-div">
-                        <div class="p-div"><p>받는 사람<span> *</span></p></div>
-                        <div class="input-div"><input type="text" class="receiver-info" value="${loginMember.memberName}"></div>
-                    </div>
-                    <div class="input-info-div">
+            
+            
+            	<div class="loginForm">
+            	<div class="input-info-div">
+                      <div class="p-div"><p>받는 사람<span> *</span></p></div>
+                      <div class="span-div"><span>${loginMember.memberName}</span></div>
+                </div>
+                
+                <c:if test="${ empty loginMember.memberAddress}">
+                	 <div class="input-info-div">
                         <div class="p-div"><p>주소<span> *</span></p></div>
-                        <div class="input-div"><input type="text"class="receiver-info addr"></div>
+                        <div class="input-div"><input type="text" id="addr1" class="receiver-info addr"></div>
                         <div class="input-div"><button id="searchAddr" class="input-btn" type="button">주소검색</button></div>
                     </div>
                     <div class="input-info-div">
                         <div class="p-div"></div>
+                        <div class="input-div"><input type="text" id="addr2" class="receiver-info"></div>
+                    </div>
+                    <div class="input-info-div">
+                        <div class="p-div"></div>
+                        <div class="input-div"><input type="text"  class="receiver-info"></div>
+                    </div>
+                </c:if>
+                
+                	<div class="input-info-div">
+                        <div class="p-div"><p>휴대폰번호<span> *</span></p></div>
+                 		<div class="span-div"><span>${loginMember.memberPhone}</span></div>
+                 	</div>
+                
+                <div class="input-info-div">
+                      <div class="p-div"><p>이메일<span> *</span></p></div>
+                      <div class="span-div"><span>${loginMember.memberEmail}</span></div>
+                </div>
+            
+            	</div>
+            
+            
+            	<!-- 새로운 배송지 선택시 보이는 div-->
+            	<div class="newInfo">
+                <div class="input-info">
+                    <div class="input-info-div">
+                        <div class="p-div"><p>받는 사람<span> *</span></p></div>
                         <div class="input-div"><input type="text" class="receiver-info"></div>
+                    </div>
+                    <div class="input-info-div">
+                        <div class="p-div"><p>주소<span> *</span></p></div>
+                        <div class="input-div"><input type="text" id="addr1" class="receiver-info addr"></div>
+                        <div class="input-div"><button id="searchAddr" class="input-btn" type="button">주소검색</button></div>
+                    </div>
+                    <div class="input-info-div">
+                        <div class="p-div"></div>
+                        <div class="input-div"><input type="text" id="addr2" class="receiver-info"></div>
                     </div>
                     <div class="input-info-div">
                         <div class="p-div"></div>
@@ -106,18 +145,19 @@ ${loginMember }
 
                     <div class="input-info-div">
                         <div class="p-div"><p>이메일<span> *</span></p></div>
-                        <div class="input-div"><input type="text" class="receiver-info email-input"></div>
-
-                        <span>@</span>
-                        <div class="input-div">
-                            <input type="text" class="receiver-info email-input" id="email-input-select">
-                            <select class="receiver-info" id="email-select">
+                        <div class="input-div hidden-email"><input type="text" class="receiver-info email-input hidden-email"></div>
+                        <span class="hidden-email">@</span>
+                        <div class="input-div hidden-email">
+                            <input type="text" class="receiver-info email-input hidden-email" id="email-input-select">
+                            <select class="receiver-info hidden-email" id="email-select">
                                 <option value="0">직접입력</option>
                                 <option value="1">naver.com</option>
                                 <option value="2">daum.net</option>
                                 <option value="3">gmail.com</option>  
                             </select>
                         </div> 
+                    </div>
+                    </div>
                     </div>
 
                     <div class="input-info-div">
@@ -142,10 +182,9 @@ ${loginMember }
                         <span class="checkmark"></span>
                     </label>
                 </div>
-            </div>
 
 
-             <!-- 정기 배송 정보 -->
+            <!--  정기 배송 정보 
              <div class="orderer-info-title">
                  <p class="listTitle">정기 배송 시작일</p>
             </div>
@@ -159,7 +198,7 @@ ${loginMember }
                         (결제일 : 주기별 배송 시작일의 1일전)</p>
                 
                 </div>
-            </div>
+            </div> -->
  
 
               <!-- 할인/부가결제 -->
@@ -225,7 +264,7 @@ ${loginMember }
                 </div>
            </div>
 
-        <div class="orderer-info-title">
+        <!--  <div class="orderer-info-title">
             <p class="listTitle">결제 수단</p>
         </div>
 
@@ -234,7 +273,7 @@ ${loginMember }
             <div class="payment-select-btn">
                 <button type="button" class="none-border-btn">신용카드</button>
             </div>
-        </div>
+        </div> -->
         <div class="give-flex">
             <div class="payment-select-btn">
                 <button type="button" id="payment-btn" onclick="requestPay()">결제하기</button>
