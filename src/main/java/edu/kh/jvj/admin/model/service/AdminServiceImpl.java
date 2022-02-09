@@ -24,6 +24,9 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.Base64;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -54,6 +57,8 @@ import edu.kh.jvj.store.model.vo.Store;
 public class AdminServiceImpl implements AdminService{
 	
 	private final AdminDAO dao;
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	public AdminServiceImpl(AdminDAO dao) {
 		this.dao = dao;
@@ -133,6 +138,7 @@ public class AdminServiceImpl implements AdminService{
 						try {
 							images.get(imgList.get(i).getImgLevel())
 							.transferTo(new File(serverPath+imgList.get(i).getImgName() ));
+							log.info("Product 이미지 저장 {}", serverPath+imgList.get(i).getImgName());
 						}catch (Exception e) {
 							e.printStackTrace();
 							//파일 변환이 실패할 경우
@@ -493,6 +499,11 @@ public class AdminServiceImpl implements AdminService{
 		String encodeBase64String = new String(Base64.getEncoder().encode(rawHmac));
 		
 		return encodeBase64String;
+	}
+
+	@Override
+	public List<String> selectImgList() {
+		return dao.selectImgList();
 	}
 
 
