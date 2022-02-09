@@ -23,8 +23,8 @@
        </div>
        
        <div class="c-sum-btn">
-           <h3>현재 총 구매 가격 :</h3><h2 class="resultPrice2">0원</h2>
-           <h3 style="float:right;margin-right:97px;" class="bi2" >
+           <h3>현재 총 구매 가격 :</h3><h3 class="resultPrice2">0원</h3>
+           <h3 class="bi2" >
            <a href="${contextPath}/cart" style="color:white;">
            <u class="bi">구매하기</u></a></h3>
        </div>

@@ -64,7 +64,7 @@ z-index:999;
     color:white;
 
     line-height: 2.7;
-    margin-left:26px;
+    margin-left:17px;
 }
 .c-ss-box{
     height:150px;
@@ -140,4 +140,10 @@ margin: 22px 10px 0 10px;
 .bi:hover{
     
     box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+}
+
+.bi2{
+    position:absolute;
+    right:0;
+    margin-right:95px;
 }
