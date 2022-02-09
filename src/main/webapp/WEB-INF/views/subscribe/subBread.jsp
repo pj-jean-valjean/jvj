@@ -459,8 +459,12 @@ DELIVERY / 배송정보
 	
 	
 	
-	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
-</body>
-</html>
+<jsp:include page="../common/footer.jsp" />	
+<script>
+// 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
+const loginMemberNo = "${loginMember.memberNo}";
 
+
+</script>
+
+<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>

@@ -477,9 +477,14 @@ DELIVERY / 배송정보
     </main>
 
 
-	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
+<jsp:include page="../common/footer.jsp" />	
+<script>
+// 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
+const loginMemberNo = "${loginMember.memberNo}";
+
+
+</script>
+
+<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
 <%-- 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
  --%>
-</body>
-</html>
