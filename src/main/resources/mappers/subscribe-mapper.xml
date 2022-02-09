@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="subscribeMapper">
+
+	<resultMap type="Subscribe" id="subscribe_rm">
+		<id property="productNo" column="PRODUCT_NO" />
+
+		<result property="productName" column="PROCUT_NO" />
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productCd" column="PRODUCT_CD" />
+
+		<result property="storeExp" column="STORE_EXP" />
+		<result property="storeAmount" column="MEMBER_ADDR" />
+		<result property="storeMemo" column="STORE_MEMO" />
+
+		<result property="subOptionNo" column="SUB_OPTION_NO" />
+		<result property="subOptionContent" column="SUB_OPTION_CONTENT" />
+		<result property="subOptionCode" column="SUB_OPTION_CD" />
+
+		<result property="likecount" column="LIKECOUNT" />
+
+		<result property="imgPathName" column="PRODUCT_IMG_PATH" />
+		<result property="imgLevel" column="PRODUCT_IMG_LEVEL" />
+
+		<result property="memberNo" column="MEMBER_NO" />
+
+	</resultMap>
+
+
+</mapper>

@@ -19,6 +19,7 @@
 <body>
 
 	<main>
+	
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
@@ -65,7 +66,7 @@
                 <div class="bottom-line"></div>
                 
                 <!-- ${contextPath}/payment/payment -->
-                <form action="${contextPath}/subscribe/subBread" method="POST"  name="subBreadForm" onsubmit="return validate();">
+                <form action="${contextPath}/payment/payment" method="POST"  name="subBreadForm" onsubmit="return validate();">
 	                
 	
 	                <article class="sub-detail">

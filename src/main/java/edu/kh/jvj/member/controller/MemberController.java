@@ -181,7 +181,6 @@ public class MemberController {
 	// 회원 가입
 	@RequestMapping(value="signUp", method = RequestMethod.POST)
 	public String signUp(Member member, Model model, RedirectAttributes ra) {
-
 		int result = service.signUp(member);
 
 		String path = "";
@@ -196,15 +195,27 @@ public class MemberController {
 			Util.swalSetMessage("회원 가입 실패!",  "관리자에 문의해주세요.", "error", model);
 			path = "member/login";
 		}
+
 		return path;
 	}
 
 	// 이메일 중복 검사(ajax)
 	@RequestMapping(value="emailDupCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public int emailDupCheck(String memberEmail) {      
+	public int emailDupCheck(String memberEmail) {   
+		
+		long startMs = System.currentTimeMillis(); 
+		
 		int result = service.emailDupCheck(memberEmail);
+
+		long endMs = System.currentTimeMillis(); // 서비스 종료 시의 ms 값
+		long takeTime = (endMs - startMs);
+		
+		log.info("이메일 중복검사 소요시간 : {} ms", takeTime);
+		
 		return result;
+		
+		
 	}
 
 
