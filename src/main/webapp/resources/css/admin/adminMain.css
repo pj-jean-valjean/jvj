@@ -275,7 +275,17 @@
         .oneMemberResult  > span:first-of-type{
             width: 25%;
         }
-
+        .addSubsOption{
+            height: 90%;
+            width: 250px;
+            text-align: center;
+        }
+        .subOptionCode{
+            width: 100px;
+        }
+        .addOptionLine{
+            background-color: rgb(226, 228, 205)!important;
+        }
         /* 정보 조회 pagination  */
         .pagination{
             justify-content: center!important;

@@ -67,7 +67,7 @@
 				<div class="modifyP">
                     <ul class="eachW">
                         <li><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
-                        <li><a>구독옵션 관리</a></li>
+                        <li><a href="/jvj/admin/board/route/subsOptionManage">구독옵션 관리</a></li>
                     </ul>
                 </div>
 			</div>

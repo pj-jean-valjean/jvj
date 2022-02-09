@@ -1,9 +1,10 @@
 package edu.kh.jvj.payment.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,13 @@ import edu.kh.jvj.payment.model.Service.PaymentService;
 @RequestMapping("/payment/*")
 public class PaymentController {
 	
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private PaymentService service;
 	
-	@RequestMapping(value = "payment", method = RequestMethod.POST)
-	public String payment(HttpSession session, Model model, String carrierList) {
+	@RequestMapping(value = "storePayment", method = RequestMethod.POST)
+	public String storePayment(HttpSession session, Model model, String carrierList) {
 		
 		System.out.println("결제화면" + carrierList);
 		
@@ -31,16 +34,21 @@ public class PaymentController {
 		return "payment/payment";
 	}
 	
-	@RequestMapping(value = "payment", method = RequestMethod.GET)
+	@RequestMapping(value = "classPayment", method = RequestMethod.POST)
 	public String classPayment(HttpSession session, Model model, String totalPrice, String totalPeople, String productNo) {
-		
-		System.out.println("결제화면" + productNo);
 		
 		OnedayClass oneClass = service.getClassSelect(productNo);
 		
-		System.out.println(totalPrice);
-		System.out.println(totalPeople);
+		model.addAttribute("oneClass", oneClass);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("totalPeople", totalPeople);
+		return "payment/payment";
+	}
+	
+	@RequestMapping(value = "subscribePayment", method = RequestMethod.POST)
+	public String subscribePayment(HttpSession session, Model model, String totalPrice, String totalPeople, String productNo) {
 		
+		OnedayClass oneClass = service.getClassSelect(productNo);
 		
 		model.addAttribute("oneClass", oneClass);
 		model.addAttribute("totalPrice", totalPrice);

@@ -19,6 +19,7 @@
 <body>
 
 	<main>
+	
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
@@ -81,7 +82,7 @@
 	                            <span>바게트</span>
 	                        </button>
 	                        <!-- 상태코드 넘어가는 input -->
-	                		<input type="hidden" name="chooseBread">
+	                		<input type="hidden" name="chooseBreadCode">
 	                    </div>
 	                </article>
 	                <div class="bottom-line"></div>
@@ -103,7 +104,7 @@
 	                        </button>
 	                    </div>
 	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseTaste">
+	               		<input type="hidden" name="chooseTasteCode">
 	                </article>
 	                
 	                <div class="bottom-line"></div>
@@ -122,7 +123,7 @@
 	                        </button>
 							
 							<!--  -->
-							<input type="hidden" name="choosePeriod">
+							<input type="hidden" name="choosePeriodCode">
 	                    </div>
 	                </article>
 	
@@ -142,7 +143,7 @@
 	                        </button>
 	                    </div>
 	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseDeliveryDay">
+	               		<input type="hidden" name="chooseDeliveryDayCode">
 	                </article>
 	                
 	                
@@ -177,11 +178,13 @@
 	                </article>
 	
 	                <div class="submit-sub">
-	                    <button id="submit-btn" class="submit-btn" >
-	                        <span>바로 구독 신청</span>
-	                    </button>
+						<button class="submit-btn" 
+							onclick=<c:if test="${ !empty loginMember}"> 'buy();'</c:if>
+							<c:if test="${empty loginMember}">'infoAlert();'</c:if>>
+							<span>바로 구독 신청</span>
+						</button>
 	                </div>
-	                </form>
+	            </form>
 	            </section>
 	            
 	        </section><!-- top부분 section -->
@@ -457,8 +460,12 @@ DELIVERY / 배송정보
 	
 	
 	
-	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
-</body>
-</html>
+<jsp:include page="../common/footer.jsp" />	
+<script>
+// 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
+const loginMemberNo = "${loginMember.memberNo}";
 
+
+</script>
+
+<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>

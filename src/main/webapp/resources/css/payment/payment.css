@@ -354,3 +354,8 @@ transform: rotate(45deg);
 .newInfo{
     display: none;
 }
+
+/* 원데이 클래스 결제 하단부 공백 */
+.space-div{
+	height:100px;
+}

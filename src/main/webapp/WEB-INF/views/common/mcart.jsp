@@ -12,35 +12,27 @@
        </div>
        <div class="c-wrapper">
            <div class="c-s-box">
+           
+           <c:forEach items="${cartList}" var="cart">
+           
                <div class="c-ss-box">
-                   <div class="c-img"></div>
+                   <div class="c-img" style=" background-image: url('${contextPath}${cart.imgPath }');"></div>
                    <div class="c-sss-box">
 
-                       <h4>초코식빵 디럭스 에디션</h4>
+                       <h4>${cart.productName }</h4>
                        
-                       <h2>19,900원</h2>
+                       <h2>${cart.price }원</h2>
                        <button>-</button>
                        <p>1</p>
                        <button>+</button>
                    </div>
-                   <h4>추가 옵션 : 무화과 잼 3 , 카야 잼 4 , 식빵 버터 칼</h4>
+                   <h4>추가 옵션 :<c:forEach items="${cartList}" var="cart2" ><c:if test="${cart2.parentNo eq cart.cartNo}">${cart2.productName} ${cart2.addq} ,</c:if></c:forEach></h4>
                </div>
-               
-               <div class="c-ss-box">
-                <div class="c-img"></div>
-                <div class="c-sss-box">
+                           </c:forEach>
 
-                    <h4>초코식빵 디럭스 에디션</h4>
-                    
-                    <h2>19,900원</h2>
-                    <button>-</button>
-                    <p>1</p>
-                    <button>+</button>
-                </div>
-                <h4>추가 옵션 : 무화과 잼 3 , 카야 잼 4 , 식빵 버터 칼</h4>
-            </div>
            </div>
            
+
        </div>
        
        <div class="c-sum-btn">

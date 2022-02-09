@@ -57,6 +57,13 @@
 		<result property="productImgLevel" column="PRODUCT_IMG_LEVEL" />
 		<result property="productNo" column="PRODUCT_NO" />
 	</resultMap>
+	<resultMap type="edu.kh.jvj.admin.model.vo.SubsOptions" id="suboptions_rm">
+		<id property="suboptionNo" column="SUB_OPTION_NO" />
+		<result property="subOptionName" column="SUB_OPTION_CONTENT" />
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="subOptionCd" column="SUB_OPTION_CD" />
+		<result property="productNo" column="PRODUCT_NO" />
+	</resultMap>
     <resultMap id="subsinfo_rm" extends="product_rm" type="edu.kh.jvj.admin.model.vo.SubsInfo">
      	<collection property="classImgList" column="PRODUCT_NO"
 		javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
@@ -282,5 +289,28 @@
 	    JOIN PRODUCT_CATEGORY PC ON (PR.PRODUCT_CD = PC.PRODUCT_CD)
 	    JOIN STORE_DETAIL SD ON (PR.PRODUCT_NO = SD.PRODUCT_NO)
 	    WHERE PR.PRODUCT_NO = #{productNo}
+	</select>
+	<select id="selectSubsOption" resultMap="suboptions_rm">
+		SELECT SO.* ,PR.PRODUCT_NM FROM SUB_OPTION SO
+		JOIN PRODUCT PR ON (SO.PRODUCT_NO = PR.PRODUCT_NO)
+		WHERE PR.PRODUCT_NO = #{product_No}
+		ORDER BY SUB_OPTION_CD ,SUB_OPTION_NO 
+	</select>
+	<insert id="addSubsOption" >
+		INSERT INTO 
+		SUB_OPTION VALUES (SEQ_SUB_OPTION.NEXTVAL, 
+		#{subOptionName} , #{subOptionCd} , #{productNo})
+	</insert>
+	<delete id="deleteSubsOption" >
+		DELETE FROM SUB_OPTION 
+		WHERE SUB_OPTION_NO = #{suboptionNo}
+	</delete>
+	<update id="changeSubsOption" >
+		UPDATE  SUB_OPTION  SET
+		SUB_OPTION_CONTENT  = #{subOptionName}
+		WHERE SUB_OPTION_NO = #{suboptionNo}
+	</update>
+	<select id="selectImgList" resultType="string">
+		SELECT PRODUCT_IMG_NAME FROM PRODUCT_IMG
 	</select>
 </mapper>

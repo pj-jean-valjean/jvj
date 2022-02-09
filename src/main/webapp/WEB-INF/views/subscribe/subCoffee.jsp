@@ -65,7 +65,7 @@
                 <div class="bottom-line"></div>
                 
                 
-
+			<form method="POST" >
                 <article class="sub-detail">
                     <div class="sub-title">
                         <span>빵 종류</span>
@@ -80,7 +80,7 @@
                         </button>
                 	</div>
                     <!-- 상태코드 넘어가는 input -->
-            		<input type="hidden" name="breadStatusCode">
+            		<input type="hidden" name="chooseBreadCode">
                 </article>
                 
                 <div class="bottom-line"></div>
@@ -102,7 +102,7 @@
                         </button>
                     </div>
                     <!-- 상태코드 넘어가는 input -->
-               		<input type="hidden" name="tasteStatusCode">
+               		<input type="hidden" name="chooseTasteCode">
                 </article>
                 <div class="bottom-line"></div>
 
@@ -119,6 +119,8 @@
                             <span>언더프레셔</span>
                         </button>
                     </div>
+                    <!-- 상태코드 넘어가는 input -->
+               		<input type="hidden" name="chooseCoffeeCode">
                 </article>
                 
                 <div class="bottom-line"></div>
@@ -137,7 +139,7 @@
                         </button>
                     </div>
                     <!-- 상태코드 넘어가는 input -->
-                	<input type="hidden" name="periodStatusCode">
+                	<input type="hidden" name="choosePeriodCode">
                 </article>
 
                 <div class="bottom-line"></div>
@@ -156,7 +158,7 @@
 						</button>
 					</div>
 					<!-- 상태코드 넘어가는 input -->
-					<input type="hidden" name="chooseDeliveryDay">
+					<input type="hidden" name="chooseDeliveryDayCode">
 				</article>
 				
 				<article class="buy-total">
@@ -188,13 +190,16 @@
                 </article>
 
                 <div class="submit-sub">
-                    <button id="submit-btn" class="submit-btn" >
-                        <span>바로 구독 신청</span>
-                    </button>
+					<button class="submit-btn" 
+						onclick=<c:if test="${ !empty loginMember}"> 'buy();'</c:if>
+						<c:if test="${empty loginMember}">'infoAlert();'</c:if>>
+						<span>바로 구독 신청</span>
+					</button>
                 </div>
+            </form>
             </section>
         </section>
-    
+    	
 
         <!-- contents -->
         <div class="contents-top-line"></div>        
@@ -472,9 +477,14 @@ DELIVERY / 배송정보
     </main>
 
 
-	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
+<jsp:include page="../common/footer.jsp" />	
+<script>
+// 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
+const loginMemberNo = "${loginMember.memberNo}";
+
+
+</script>
+
+<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
 <%-- 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
  --%>
-</body>
-</html>

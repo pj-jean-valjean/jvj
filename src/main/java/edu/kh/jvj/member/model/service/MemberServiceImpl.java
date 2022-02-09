@@ -38,8 +38,7 @@ public class MemberServiceImpl implements MemberService{
 	public int signUp(Member member) {
 		
 		// 일반 회원가입
-		if(member.getService() == null) {
-			// 일반회원가입일 때 :null이 아닐때
+		if( (member.getService()).equals("") ) {
 			String encPw = encoder.encode(member.getMemberPw());
 			member.setMemberPw(encPw);
 		} 

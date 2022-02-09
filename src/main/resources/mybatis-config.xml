@@ -11,7 +11,8 @@
 			<typeAlias alias="Coupon" type="edu.kh.jvj.mypage.model.vo.Coupon" />
 			<typeAlias alias="CouponStatus" type="edu.kh.jvj.mypage.model.vo.CouponStatus" />
 			<typeAlias alias="Like" type="edu.kh.jvj.mypage.model.vo.Like" />
-      <typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
+			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
+			<typeAlias alias="Subscribe" type="edu.kh.jvj.subscribe.model.vo.SubVO" />
 	</typeAliases>
 	
 	<mappers>
@@ -21,7 +22,7 @@
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/cart-mapper.xml" />
-		<mapper resource="/mappers/payment-mapper.xml" />
+		<mapper resource="/mappers/subscribe-mapper.xml" />
 
 
 	</mappers>
