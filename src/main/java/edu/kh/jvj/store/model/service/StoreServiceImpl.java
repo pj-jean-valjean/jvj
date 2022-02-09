@@ -79,4 +79,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 
+
+	@Override
+	public int selectAmount(Store store) {
+	
+		return dao.selectAmount(store);
+	}
+
+
 }

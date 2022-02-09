@@ -22,9 +22,8 @@
    	<link rel="stylesheet" href="${contextPath}/resources/css/admin/summernote-bs4.min.css">
     <script src="${contextPath}/resources/js/admin/summernote-bs4.min.js"></script>
     <script src="${contextPath}/resources/js/admin/summernote-ko-KR.js"></script>
-    
-<!--     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
+    <!-- include amcharts -->
+    <script src="${contextPath}/resources/js/admin/Chartbundle.js"></script>
 </head>
 <body>
     <header>
@@ -68,7 +67,7 @@
 				<div class="modifyP">
                     <ul class="eachW">
                         <li><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
-                        <li><a>구독옵션 관리</a></li>
+                        <li><a href="/jvj/admin/board/route/subsOptionManage">구독옵션 관리</a></li>
                     </ul>
                 </div>
 			</div>
@@ -76,10 +75,11 @@
          		<div class="addAdmin">
                     <ul class="eachW">
                         <li><a>관리자 계정 추가</a></li>
+                        <li><a href="/jvj/admin/board/route/couponMake">쿠폰 발급</a></li>
                     </ul>
                 </div></div>
-            <div class="one-admin-func"><a href="/jvj/admin/board/route/productManage">매출 분석</a></div>
-            <div class="one-admin-func">마케팅 업무</div>
+            <div class="one-admin-func"><a href="/jvj/admin/board/route/showSales" id="showChart">매출 분석</a></div>
+            <div class="one-admin-func"><a href="/jvj/admin/board/route/marketing">마케팅 업무</a></div>
             <div class="one-admin-func"><button onclick="sendMessage();" id="msgTest">문자테스트</button></div>
         </aside>
         <section>
@@ -117,5 +117,7 @@
 	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMain.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainMethod.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainChart.js"></script>
+	
 </body>
 </html>

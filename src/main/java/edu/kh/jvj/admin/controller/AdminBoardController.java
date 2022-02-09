@@ -11,6 +11,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,8 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
+import edu.kh.jvj.admin.model.vo.SubsOptions;
 import edu.kh.jvj.notice.model.service.NoticeService;
 import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
@@ -41,6 +45,7 @@ public class AdminBoardController {
 	private final AdminService service;
 	private final NoticeService noticeService;
 	private final OnedayClassService classService;
+	private Logger log = LoggerFactory.getLogger(getClass());
 	@Autowired
 	public AdminBoardController(AdminService service, NoticeService noticeService,OnedayClassService classService) {
 		this.service = service;
@@ -58,6 +63,7 @@ public class AdminBoardController {
 		// 2) 웹 접근 경로(webPath) , 서버 저장 경로 (serverPath)
 		String WebPath = "/resources/images/summernoteImages/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
+		
 		String originalFileName=file.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
@@ -68,9 +74,11 @@ public class AdminBoardController {
 			// contextroot + resources + 저장할 내부 폴더명
 			map.put("url", WebPath+savedFileName);
 			map.put("responseCode", "success");
+			log.info("썸머노트 이미지 저장 {}", WebPath+savedFileName);
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			map.put("responseCode", "error");
+			log.warn("썸머노트 이미지 저장 오류발생");
 			e.printStackTrace();
 		}
 		return gson.toJson(map);
@@ -107,8 +115,9 @@ public class AdminBoardController {
 			 OnedayClass Oneclass = classService.selectOneClass(dataMap); 
 			 returnJson = gson.toJson(Oneclass); 
 		}
-		else {
-			
+		else if(dataMap.get("productcate")==2){
+			SubsInfo subsInfo = service.getSubsInfo(dataMap);
+			returnJson = gson.toJson(subsInfo); 
 		}
 		
 		return returnJson;
@@ -224,4 +233,35 @@ public class AdminBoardController {
 		System.out.println(result);
 		return 0;
 	}
+	
+	//구독옵션 조회하기
+	@PostMapping("selectSubsOption")
+	public List<SubsOptions> selectSubsOption(int productNo) {
+		List<SubsOptions> list = service.selectSubsOption(productNo);
+		
+		return list;
+	}
+	//구독옵션 추가하기
+	@PostMapping("addSubsOption")
+	public int addSubsOption(
+			SubsOptions subsOption) {
+		int result = service.addSubsOption(subsOption);
+		
+		return result;
+	}
+	//구독옵션 삭제하기
+	@PostMapping("deleteSubsOption")
+	public int deleteSubsOption(
+			int suboptionNo) {
+		int result = service.deleteSubsOption(suboptionNo);
+		return result;
+	}
+	//구독옵션명 변경하기
+	@PostMapping("changeSubsOption")
+	public int changeSubsOption(
+			SubsOptions SubsOptions) {
+		int result = service.changeSubsOption(SubsOptions);
+		return result;
+	}
+	
 }

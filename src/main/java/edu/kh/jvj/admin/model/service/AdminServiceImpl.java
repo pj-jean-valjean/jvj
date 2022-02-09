@@ -24,6 +24,9 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.Base64;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +48,8 @@ import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SendSmsResponseDto;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SmsRequestDto;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
+import edu.kh.jvj.admin.model.vo.SubsOptions;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -52,13 +57,15 @@ import edu.kh.jvj.store.model.vo.Store;
 public class AdminServiceImpl implements AdminService{
 	
 	private final AdminDAO dao;
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	public AdminServiceImpl(AdminDAO dao) {
 		this.dao = dao;
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public int insertProduct(List<MultipartFile> images, ProductWrite product, String webPath,String serverPath) {
 		int result = 0;
 		//1 개행문자 처리
@@ -131,6 +138,7 @@ public class AdminServiceImpl implements AdminService{
 						try {
 							images.get(imgList.get(i).getImgLevel())
 							.transferTo(new File(serverPath+imgList.get(i).getImgName() ));
+							log.info("Product 이미지 저장 {}", serverPath+imgList.get(i).getImgName());
 						}catch (Exception e) {
 							e.printStackTrace();
 							//파일 변환이 실패할 경우
@@ -225,7 +233,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	//상품 update
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public int updateProduct(List<MultipartFile> images, ProductWrite product, String webPath, String serverPath) {
 		int result = 0;
 		//1 개행문자 처리
@@ -329,7 +337,38 @@ public class AdminServiceImpl implements AdminService{
 			
 		return result;
 	}
+//	구독상품 수정 전 조회
+	@Override
+	public SubsInfo getSubsInfo(Map<String, Integer> dataMap) {
+		return dao.getSubsInfo(dataMap);
+	}	
+	//구독옵션조회
+	@Override
+	public List<SubsOptions> selectSubsOption(int productNo) {
+		return dao.selectSubsOption(productNo);
+	}
 	
+	//구독옵션 추가
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int addSubsOption(SubsOptions subsOption) {
+		int result = dao.addSubsOption(subsOption);
+		return result;
+	}
+	//구독옵션 삭제
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteSubsOption(int suboptionNo) {
+		int result = dao.deleteSubsOption(suboptionNo);
+		return result;
+	}
+	//구독옵션 변경
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int changeSubsOption(SubsOptions subsOptions){
+		int result = dao.changeSubsOption(subsOptions);
+		return result;
+	}
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	   public static String XSS(String param) {
 	      String result = param;
@@ -460,6 +499,15 @@ public class AdminServiceImpl implements AdminService{
 		String encodeBase64String = new String(Base64.getEncoder().encode(rawHmac));
 		
 		return encodeBase64String;
-	}	
+	}
+
+	@Override
+	public List<String> selectImgList() {
+		return dao.selectImgList();
+	}
+
+
+
+
 }
 

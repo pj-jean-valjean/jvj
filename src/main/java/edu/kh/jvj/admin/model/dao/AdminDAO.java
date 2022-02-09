@@ -13,6 +13,8 @@ import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
+import edu.kh.jvj.admin.model.vo.SubsOptions;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -162,8 +164,29 @@ public class AdminDAO {
 	public int deleteStoreDiscount(ProductWrite product) {
 		return sqlSession.delete("adminMapper.deleteStoreDiscount",product);
 	}
-	
-	
 
+	public SubsInfo getSubsInfo(Map<String, Integer> dataMap) {
+		return sqlSession.selectOne("adminMapper.getSubsInfo",dataMap);
+	}
+
+	public List<SubsOptions> selectSubsOption(int productNo) {
+		return sqlSession.selectList("adminMapper.selectSubsOption",productNo);
+	}
+
+	public int addSubsOption(SubsOptions subsOption) {
+		return sqlSession.insert("adminMapper.addSubsOption", subsOption);
+	}
+
+	public int deleteSubsOption(int suboptionNo) {
+		return sqlSession.delete("adminMapper.deleteSubsOption", suboptionNo);
+	}
+
+	public int changeSubsOption(SubsOptions subsOptions) {
+		return sqlSession.delete("adminMapper.changeSubsOption", subsOptions);
+	}
+
+	public List<String> selectImgList() {
+		return sqlSession.selectList("adminMapper.selectImgList");
+	}
 	
 }
