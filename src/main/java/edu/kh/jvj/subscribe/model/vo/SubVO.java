@@ -2,55 +2,33 @@ package edu.kh.jvj.subscribe.model.vo;
 
 public class SubVO {
 	
-	//PROCUT_NO
-	private int productNo;
 	
-	//PRODUCT_NM
-	private String title;
-		
-	//PRODUCT_PRICE
-	private int price;
+	private int productNo; 				// PROCUT_NO
+	private String productName;			// PRODUCT_NM
+	private int price;					// PRODUCT_PRICE
+	private String createDt;			// CREATE_DT
+	private final int productCd = 2;	// PRODUCT_CD
 	
-	//CREATE_DT
-	private String createDt;
+	private String storeExp;			// STORE_EXP
+	private int storeAmount;			// STORE_AMOUNT
+	private String storeMemo;			// STORE_MEMO
 	
-	//PRODUCT_CD
-	private final int productCd = 2;
+	private int subOptionNo;			// SUB_OPTION_NO
+	private String subOptionContent;	//SUB_OPTION_CONTENT
+	private int subOptionCode;			// SUB_OPTION_CD	
 	
-	// 구독 상세
+	private int likecount;				//LIKECOUNT
+	private int likedone;				//LIKEDONE
 	
-	// 구독 빵 종류 STORE_BREAD_TASTE_NO
-	private int subBreadNo;
-	// 1.식빵 2.바게트
+	private String imgPathName;			//PRODUCT_IMG_PATH
 	
-	// 구독 맛 종류 SUB_TASTE_NO
-	private int subTasteNo;
-	private String subTasteName;
-	
-	
-	// 커피 옵션 번호 COFFEE_OPTION_NO
-	private int coffeeOptionNo;
-	private int coffeeOptionName;
-	
-	// 결제 종류 SUB_PAY_NO
-	private int subPayNo;
-	private String subPayName;
-	
-	// 배송일
-	private int subDeliveryNo;
-	private int subDeliveryName;
-	
-	
-	//LIKECOUNT
-	private int likecount;
-	//LIKEDONE
-	private int likedone;
-	//PRODUCT_IMG_PATH
-	private String imgPathName;
-	
-	//RATING_AVG
-	private double ratingAgv;
+	private double ratingAgv;			//RATING_AVG
 
+	private int memberNo;				// 회원번호 MEMBER_NO
+
+	
+	public SubVO(){}
+	
 	public int getProductNo() {
 		return productNo;
 	}
@@ -59,12 +37,12 @@ public class SubVO {
 		this.productNo = productNo;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public int getPrice() {
@@ -83,76 +61,52 @@ public class SubVO {
 		this.createDt = createDt;
 	}
 
-	public int getSubBreadNo() {
-		return subBreadNo;
+	public String getStoreExp() {
+		return storeExp;
 	}
 
-	public void setSubBreadNo(int subBreadNo) {
-		this.subBreadNo = subBreadNo;
+	public void setStoreExp(String storeExp) {
+		this.storeExp = storeExp;
 	}
 
-	public int getSubTasteNo() {
-		return subTasteNo;
+	public int getStoreAmount() {
+		return storeAmount;
 	}
 
-	public void setSubTasteNo(int subTasteNo) {
-		this.subTasteNo = subTasteNo;
+	public void setStoreAmount(int storeAmount) {
+		this.storeAmount = storeAmount;
 	}
 
-	public String getSubTasteName() {
-		return subTasteName;
+	public String getStoreMemo() {
+		return storeMemo;
 	}
 
-	public void setSubTasteName(String subTasteName) {
-		this.subTasteName = subTasteName;
+	public void setStoreMemo(String storeMemo) {
+		this.storeMemo = storeMemo;
 	}
 
-	public int getCoffeeOptionNo() {
-		return coffeeOptionNo;
+	public int getSubOptionNo() {
+		return subOptionNo;
 	}
 
-	public void setCoffeeOptionNo(int coffeeOptionNo) {
-		this.coffeeOptionNo = coffeeOptionNo;
+	public void setSubOptionNo(int subOptionNo) {
+		this.subOptionNo = subOptionNo;
 	}
 
-	public int getCoffeeOptionName() {
-		return coffeeOptionName;
+	public String getSubOptionContent() {
+		return subOptionContent;
 	}
 
-	public void setCoffeeOptionName(int coffeeOptionName) {
-		this.coffeeOptionName = coffeeOptionName;
+	public void setSubOptionContent(String subOptionContent) {
+		this.subOptionContent = subOptionContent;
 	}
 
-	public int getSubPayNo() {
-		return subPayNo;
+	public int getSubOptionCode() {
+		return subOptionCode;
 	}
 
-	public void setSubPayNo(int subPayNo) {
-		this.subPayNo = subPayNo;
-	}
-
-	public String getSubPayName() {
-		return subPayName;
-	}
-
-	public void setSubPayName(String subPayName) {
-		this.subPayName = subPayName;
-	}
-
-	public int getSubDeliveryNo() {
-		return subDeliveryNo;
-	}
-
-	public void setSubDeliveryNo(int subDeliveryNo) {
-		this.subDeliveryNo = subDeliveryNo;
-	}
-
-	public int getSubDeliveryName() {
-		return subDeliveryName;
-	}
-
-	public void setSubDeliveryName(int subDeliveryName) {
-		this.subDeliveryName = subDeliveryName;
+	public void setSubOptionCode(int subOptionCode) {
+		this.subOptionCode = subOptionCode;
 	}
 
 	public int getLikecount() {
@@ -187,21 +141,30 @@ public class SubVO {
 		this.ratingAgv = ratingAgv;
 	}
 
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	public int getProductCd() {
 		return productCd;
 	}
 
 	@Override
 	public String toString() {
-		return "SubVO [productNo=" + productNo + ", title=" + title + ", price=" + price + ", createDt=" + createDt
-				+ ", productCd=" + productCd + ", subBreadNo=" + subBreadNo + ", subTasteNo=" + subTasteNo
-				+ ", subTasteName=" + subTasteName + ", coffeeOptionNo=" + coffeeOptionNo + ", coffeeOptionName="
-				+ coffeeOptionName + ", subPayNo=" + subPayNo + ", subPayName=" + subPayName + ", subDeliveryNo="
-				+ subDeliveryNo + ", subDeliveryName=" + subDeliveryName + ", likecount=" + likecount + ", likedone="
-				+ likedone + ", imgPathName=" + imgPathName + ", ratingAgv=" + ratingAgv + "]";
+		return "SubVO [productNo=" + productNo + ", productName=" + productName + ", price=" + price + ", createDt="
+				+ createDt + ", productCd=" + productCd + ", storeExp=" + storeExp + ", storeAmount=" + storeAmount
+				+ ", storeMemo=" + storeMemo + ", subOptionNo=" + subOptionNo + ", subOptionContent=" + subOptionContent
+				+ ", subOptionCode=" + subOptionCode + ", likecount=" + likecount + ", likedone=" + likedone
+				+ ", imgPathName=" + imgPathName + ", ratingAgv=" + ratingAgv + ", memberNo=" + memberNo + "]";
 	}
-
-
+	
+	
+	
+	
 	
 	
 	

@@ -65,7 +65,7 @@
                 <div class="bottom-line"></div>
                 
                 <!-- ${contextPath}/payment/payment -->
-                <form action="${contextPath}/payment/payment" method="POST"  name="subBreadForm" onsubmit="return validate();">
+                <form action="${contextPath}/subscribe/subBread" method="POST"  name="subBreadForm" onsubmit="return validate();">
 	                
 	
 	                <article class="sub-detail">
@@ -81,7 +81,7 @@
 	                            <span>바게트</span>
 	                        </button>
 	                        <!-- 상태코드 넘어가는 input -->
-	                		<input type="hidden" name="chooseBread">
+	                		<input type="hidden" name="chooseBreadCode">
 	                    </div>
 	                </article>
 	                <div class="bottom-line"></div>
@@ -103,7 +103,7 @@
 	                        </button>
 	                    </div>
 	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseTaste">
+	               		<input type="hidden" name="chooseTasteCode">
 	                </article>
 	                
 	                <div class="bottom-line"></div>
@@ -122,7 +122,7 @@
 	                        </button>
 							
 							<!--  -->
-							<input type="hidden" name="choosePeriod">
+							<input type="hidden" name="choosePeriodCode">
 	                    </div>
 	                </article>
 	
@@ -142,7 +142,7 @@
 	                        </button>
 	                    </div>
 	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseDeliveryDay">
+	               		<input type="hidden" name="chooseDeliveryDayCode">
 	                </article>
 	                
 	                
@@ -177,11 +177,13 @@
 	                </article>
 	
 	                <div class="submit-sub">
-	                    <button id="submit-btn" class="submit-btn" >
-	                        <span>바로 구독 신청</span>
-	                    </button>
+						<button class="submit-btn" 
+							onclick=<c:if test="${ !empty loginMember}"> 'buy();'</c:if>
+							<c:if test="${empty loginMember}">'infoAlert();'</c:if>>
+							<span>바로 구독 신청</span>
+						</button>
 	                </div>
-	                </form>
+	            </form>
 	            </section>
 	            
 	        </section><!-- top부분 section -->
