@@ -69,6 +69,18 @@
 		javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 		select="selectProductImageList" />
     </resultMap>
+    <resultMap id="makecoupon_rm" type="edu.kh.jvj.admin.model.vo.MadeCoupon">
+     	<id property="couponNo" column="MCOUPON_NO" />
+		<result property="couponName" column="MCOUPON_NM" />
+		<result property="discountPer" column="DISCOUNT_PER" />
+		<result property="createDate" column="CREATE_DT" />
+		<result property="expireDate" column="EXPIRE_DT" />
+		<result property="adminNo" column="MEMBER_NO" />
+		<result property="couponStatusCode" column="MCOU_STATUS_CD" />
+		<result property="couponLimit" column="MCOUPON_LIMIT" />
+		<result property="hashName" column="HASHNAME" />
+		<result property="noticeNo" column="NOTICE_NO" />
+    </resultMap>
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -102,10 +114,36 @@
 	
 	<!-- 공지사항 인서트 -->
 	<insert id="insertNotice">
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="noticeNo">
+ 			SELECT SEQ_NOTICE_NO.NEXTVAL FROM DUAL
+  		</selectKey>
 		INSERT INTO NOTICE_BOARD VALUES(
-			SEQ_NOTICE_NO.NEXTVAL , #{title}, #{editordata}, DEFAULT , #{loginMember} ,#{noticecate}
+			#{noticeNo} , #{noticeTitle}, #{editordata}, DEFAULT , #{loginAdmin} ,#{noticeCd}
 		)
 	</insert>
+	<!-- 프로모션 발급쿠폰 인서트 -->
+	<insert id="addMakeCoupons">
+		INSERT INTO MAKECOUPON
+		SELECT SEQ_MCOUPON_NO.NEXTVAL, A.* FROM 
+		<foreach collection="list" item="coup" 
+			open="(" close=") A"  separator=" UNION ALL ">
+		SELECT #{coup.couponName} MCOUPON_NM , #{coup.discountPer} DISCOUNT_PER, SYSDATE CREATE_DT
+		, #{coup.expireDate} EXPIRE_DT
+		, #{coup.adminNo} MEMBER_NO , 1 
+		, #{coup.couponLimit} MCOUPON_LIMIT , '공지쿠폰' HASHNAME , #{coup.noticeNo} NOTICE_NO
+		FROM DUAL
+		</foreach>		
+	</insert>
+	<!-- 프로모션 상세 쿠폰조회 -->
+	<select id="selectCoupons" resultMap="makecoupon_rm">
+		SELECT MCOUPON_NO, MCOUPON_NM, DISCOUNT_PER , 
+		TO_CHAR(CREATE_DT , 'YYYY-MM-DD') CREATE_DT,
+		TO_CHAR(EXPIRE_DT , 'YYYY-MM-DD') EXPIRE_DT,
+		MCOU_STATUS_CD , MCOUPON_LIMIT
+		FROM MAKECOUPON 
+		WHERE NOTICE_NO = #{noticeNo}
+		ORDER BY DISCOUNT_PER DESC
+	</select>
 	<!-- 공지사항 업데이트 -->
 	<update id="updateNotice">
 			UPDATE NOTICE_BOARD SET
@@ -170,6 +208,22 @@
 		JOIN NOTICE_CATEGORY USING (NOTICE_CD)
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
+	
+	<!-- 관리자 발급쿠폰 정보 -->
+	<select id="getMadeCoupon" resultMap="makecoupon_rm">
+		SELECT MCOUPON_NM , DISCOUNT_PER,
+		TO_CHAR(CREATE_DT , 'YYYY-MM-DD') CREATE_DT,
+		TO_CHAR(EXPIRE_DT , 'YYYY-MM-DD') EXPIRE_DT,
+		MCOU_STATUS_CD,  MCOUPON_LIMIT
+		FROM MAKECOUPON
+		WHERE MCOUPON_NO = #{noticeNo}
+	</select>
+	<!-- 회원에 쿠폰 증정 -->
+	<insert id="insertCouponToMember">
+		INSERT INTO COUPON VALUES(
+			SEQ_USERCOUPON.NEXTVAL, #{couponName}, ${discountPer}/100 , #{createDate},#{expireDate}, 1, #{adminNo}
+		)
+	</insert>
 	<!-- 회원 검색 -->
 	<select id="searchMember" resultMap="member_rm">
 		SELECT 
@@ -313,4 +367,11 @@
 	<select id="selectImgList" resultType="string">
 		SELECT PRODUCT_IMG_NAME FROM PRODUCT_IMG
 	</select>
+	<insert id="makingCoupon">
+	INSERT INTO MAKECOUPON VALUES(
+		SEQ_MAKECOUPON.NEXTVAL,
+		#{couponName} , #{discountPer} , SYSDATE , #{expireDate} , #{adminNo} , 1 , 
+		#{couponLimit} , #{hashName}
+	)
+	</insert>
 </mapper>

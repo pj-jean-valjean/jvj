@@ -139,31 +139,168 @@ setInterval(getTime, 1000);
             funcName.setAttribute("class", "oneLine");
             funcName.innerHTML="<h2>"+writename+"</h2>"
             
-             //이름
+             //카테고리
             const noticecate = document.createElement("div");
-            noticecate.setAttribute("class", "oneLine");
+            noticecate.setAttribute("class", "oneLine noticecate");
             noticecate.innerHTML="<label class='labels'>카테고리</label>"+
-            "<select name='noticecate'>"+
-            "<option value='1'>프로모션</option>"+
+            "<select name='noticeCd'>"+
             "<option value='2'>공지사항</option>" +
+            "<option value='1'>프로모션</option>"+
             "<option value='3'>이벤트</option>" +
             "</select>";
             //제목
             const title = document.createElement("div");
             title.setAttribute("class", "oneLine");
-            title.innerHTML="<label class='labels'>제목</label><input type='text' name='title'>";
+            title.innerHTML="<label class='labels'>제목</label><input type='text' name='noticeTitle'>";
+            const loginAdmin = document.createElement("div");
+            loginAdmin.innerHTML="<input type='hidden' name='loginAdmin' value='"+adminNo+"'>";
 
             //썸머노트
             const div4 = document.createElement("div");
             div4.setAttribute("class", "oneLine contnote");
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
 
-            $("#writerForm").append(funcName,title,noticecate,div4,subcanBTN());
+            $("#writerForm").append(funcName,title,loginAdmin,noticecate,div4,subcanBTN());
             notesummer();
             //썸머노트 실행
             const submit = document.querySelector(".admin-write-btn");
             submit.removeAttribute("onclick")
             submit.setAttribute("onclick", "submitNotice()");
+            document.querySelector("select[name='noticeCd']").addEventListener("change",function(){
+                if(this.value == 1){
+                    const addwritecoupon = document.createElement("div");
+                    addwritecoupon.setAttribute("class", "oneLine addcoupons couponbtn");
+                    addwritecoupon.innerHTML="<label class='labels'>&nbsp;</label><button type='button' class='opencal' onclick='addCouponSelector();couponbtnremove();'>쿠폰추가</button>" ;
+                    document.querySelector(".noticecate").after(addwritecoupon);
+                    calmodal();
+                }
+                else{
+                    $(".addcoupons").remove();
+                }
+            })
+
+        }
+        function addCouponSelector(){
+            const parent = document.querySelector(".contnote");
+            const couponName = document.createElement("div");
+            couponName.setAttribute("class", "oneLine addcoupons");
+            couponName.innerHTML="<label class='labels'>쿠폰명</label><input type='text' name='couponName'>"+"<button type='button' class='opencal removecoupon' onclick='removecoupon(this);'>-쿠폰삭제</button>";
+
+            const couponDate = document.createElement("div");
+            couponDate.setAttribute("class", "oneLine addcoupons");
+            couponDate.innerHTML="<label class='labels'>만료날짜</label>"+
+            "<input type='text' id='expiredate' name='expireDate' readonly placeholder='만료일을 선택해주세요'>"+
+            "<button type='button' class='opencal selectdate'>만료일 설정</button>";
+            
+            const discountPer = document.createElement("div");
+            discountPer.setAttribute("class", "oneLine addcoupons");
+            discountPer.innerHTML="<label class='labels'>할인율</label><input type='number' name='discountPer'>";
+            //개수제한
+            const couponLimit = document.createElement("div");
+            couponLimit.setAttribute("class", "oneLine addcoupons");
+            couponLimit.innerHTML="<label class='labels'>개수제한</label><input type='number' name='couponLimit'>";
+            const addwritecoupon = document.createElement("div");
+            addwritecoupon.setAttribute("class", "oneLine addcoupons couponbtn");
+            addwritecoupon.innerHTML="<label class='labels'>&nbsp;</label><button type='button' class='opencal' onclick='addCouponSelector();couponbtnremove();'>+쿠폰추가</button>" 
+            
+            parent.before(couponName,couponDate,discountPer,couponLimit,addwritecoupon);
+            calmodal();
+        }
+        function couponbtnremove(){
+            $(".couponbtn")[0].remove();
+        }s
+        function removecoupon(btn){
+            btn.parentElement.nextElementSibling.remove();
+            btn.parentElement.nextElementSibling.remove();
+            btn.parentElement.nextElementSibling.remove();
+            btn.parentElement.remove();
+        }
+        //공지사항 등록
+        function submitNotice(){
+            if(document.querySelector("input[name='noticeTitle']").value.trim().length==0){
+                alert("제목을 입력해주세요!");
+                document.querySelector("input[name='noticeTitle']").focus();
+                return;
+            }
+            const form = $("#writerForm"); 
+            const formData = new FormData(form[0]);
+            const cate = document.querySelector("select[name='noticeCd']").value;
+            
+            if(cate==1 && !validateCoupon()){
+                return;
+            }   
+                $.ajax({
+                    url : contextPath+"/admin/board/noticeWrite",
+                    type : "POST",
+                    data : formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success : function(result){
+                        alert("등록 성공!");
+    
+                        noticeboardWriter('공지사항 등록');
+                    },
+                    error: function(result){
+                        alert("오류 발생");
+                    }
+                })
+        }
+        function validateCoupon(){
+            const couponName = document.querySelectorAll("input[name='couponName'");
+            const expireDate = document.querySelectorAll("input[name='expireDate'");
+            const discountPer = document.querySelectorAll("input[name='discountPer'");
+            const couponLimit = document.querySelectorAll("input[name='couponLimit'");
+            let validateName = true;
+            couponName.forEach((each)=>{
+                if(each.value.trim().length==0){
+                    validateName=false;
+                    return ;
+                }
+            })
+            if(!validateName) 
+            {
+                alert("쿠폰이름을 입력해주세요");
+                return false;
+            }
+
+            let validateexpireDate = true;
+            expireDate.forEach((each)=>{
+                if(each.value.trim().length==0){
+                    validateexpireDate=false;
+                    return;
+                }
+            })
+            if(!validateexpireDate)             {
+                alert("쿠폰 만료일을 입력해주세요");
+                return false;
+            }
+
+            let validatediscountPer = true;
+            discountPer.forEach((each)=>{
+                if(each.value.trim().length==0){
+                    validatediscountPer=false;
+                    return;
+                }
+            })
+            if(!validatediscountPer)             {
+                alert("쿠폰할인율을 입력해주세요");
+                return false;
+            }
+
+            let validatecouponLimit = true;
+            couponLimit.forEach((each)=>{
+                if(each.value.trim().length==0){
+                    validatecouponLimit=false;
+                    return;
+                }
+            })
+            if(!validatecouponLimit)             {
+                alert("쿠폰수를 입력해주세요");
+                return false;
+            }
+
+            return true;
         }
         //-----------------------------------------------------------------//
 
@@ -289,106 +426,14 @@ setInterval(getTime, 1000);
             const div4 = document.createElement("div");
             div4.setAttribute("class", "oneLine contnote");
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
-            /* 
-            const div5 = document.createElement("div");
-            div5.className= "oneLine";
-            div5.setAttribute("id", "uppercate");
-            div5.innerHTML="<label class='labels'>상품 대분류</label>"+
-            "<label class='labels'>식빵세트 <input type='radio' name='breadCoffee' value='bread'></label>"+
-            "<label class='labels'>식빵&커피 세트 <input type='radio' name='breadCoffee' value='coffee'></label>";
-
-            const subsoption = document.createElement("div");
-            subsoption.className= "oneLine";
-            subsoption.innerHTML="<label class='labels'>구독 옵션</label>"+
-            "<input type='text' name='inputsubsoption' class='options'><button type='button' class='addBreadType subsN'>구독 옵션 추가</button>";
-            const div6 = document.createElement("div");
-            div6.className= "oneLine";
-            div6.innerHTML="<label class='labels'>빵 종류</label>"+
-            "<input type='text' name='inputbread' class='options'><button type='button' class='addBreadType breadN'>빵 종류 추가</button>";
-            const div7 = document.createElement("div");
-            div7.className= "oneLine";
-            div7.innerHTML="<label class='labels'>맛 종류</label>"+
-            "<input type='text' name='inputtaste' class='options'><button type='button' class='addBreadType tasteN'>맛 추가</button>";
-            const writecate = document.createElement("input");
-            writecate.setAttribute("type", "hidden");
-            writecate.setAttribute("name", "writecate");
-            writecate.setAttribute("value", "2");
-            $("#writerForm").append(div5,subsoption,div6,div7,div4,subcanBTN(),writecate); */
             $("#writerForm").append(div4,subcanBTN());
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
-/*             addE();
-            addTaste(); */
         }
         //-----------------------------------------------------------------//
-        //용량추가
-        function addE(){
-            $("input[name='breadCoffee']").on("change",function(){
-                if(this.value=='coffee'){
-                    const addcoffee = document.createElement("div");
-                    addcoffee.setAttribute("class", "oneLine addCoffee");
-                    addcoffee.innerHTML="<label class='labels'>커피 용량</label>"+
-                    "<input type='text' name='inputcoffeeoption' class='options'><button type='button' class='addBreadType coffeeN'>커피용량 추가</button>";
-                    $("#uppercate").next().next().next().after(addcoffee);
 
-                    document.querySelector(".coffeeN").addEventListener("click",function(){
-                        const input = this.previousElementSibling;
-                        if(input.value.trim().length>0){
-                            const optiontags = document.createElement("span");
-                            optiontags.className="coffee-type tagspan";
-                            optiontags.innerText = input.value;
-                            optiontags.style.cursor= "pointer";
-                            optiontags.addEventListener("click", function(){
-                                if(confirm("삭제하시겠습니까?")){
-                                    this.remove();
-                                }
-                            })
-                            this.parentElement.append(optiontags);
-                            input.value="";
-                        }
-                    });
-
-                    const addtags = document.querySelectorAll(".addCoffee > .tagspan");
-                    for(let i =0 ; i<addtags.length ; i++){
-                        addtags[i].addEventListener("click", function(){
-                            if(confirm("삭제하시겠습니까?")){
-                                this.remove();
-                            }
-                        })
-                    }
-                }
-                else{
-                    $(".addCoffee").remove();
-                }
-            })
-        }
-        //커피용량 빵종류 맛종류 추가 func
-        function addTaste(){
-            const addSubsOptionBtn = document.querySelectorAll(".addBreadType");
-            for(let i=0 ; i<addSubsOptionBtn.length ; i++){
-                addSubsOptionBtn[i].addEventListener("click", function(){
-                    const input = addSubsOptionBtn[i].previousElementSibling;
-                    if(input.value.trim().length>0){
-                        const optiontags = document.createElement("span");
-                        if(i==0)  optiontags.className="subs-type tagspan";
-                        else if(i==1) optiontags.className = "bread-type tagspan";
-                        else if(i==2) optiontags.className = "taste-type tagspan";
-                        optiontags.innerText = input.value;
-                        optiontags.style.cursor= "pointer";
-                        optiontags.addEventListener("click", function(){
-                            if(confirm("삭제하시겠습니까?")){
-                                this.remove();
-                            }
-                        })
-                        addSubsOptionBtn[i].parentElement.append(optiontags);
-                        input.value="";
-                        const addtags = document.querySelectorAll(".tagspan");
-                    }
-                })
-            }
-        }
         //4-4.클래스 상품 
         //사진 1장 / 제목 / 가격 / 지점 / 가능수강일 /  
         function makeClassPWritePage(){
@@ -619,7 +664,6 @@ setInterval(getTime, 1000);
                     cal.style.display = 'block';
                     saveDateBtnthis= this.parentElement.children[1];
                     displaycal();
-                    document.getElementsByClassName("calendar")[0].scrollIntoView(true);
                 });
             }
             closecal.addEventListener('click', ()=>{
@@ -760,6 +804,7 @@ setInterval(getTime, 1000);
                     let showday = ""+count;
                     if(count<10){showday = '0'+showday}
                     saveDateBtnthis.value = tmonth.innerText+"-"+showday;
+
                     classCheckObj.classdate = true;
                     $("#closecal").click();
                 })
@@ -882,31 +927,6 @@ setInterval(getTime, 1000);
             })
         }
 
-        function submitNotice(){
-            if(document.querySelector("input[name='title']").value.trim().length==0){
-                alert("제목을 입력해주세요!");
-                document.querySelector("input[name='title']").focus();
-                return;
-            }
-            const form = $("#writerForm"); 
-            const formData = new FormData(form[0]);
-            $.ajax({
-                url : contextPath+"/admin/board/noticeWrite",
-                type : "POST",
-                data : formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success : function(result){
-                    alert("등록 성공!");
-
-                    noticeboardWriter('공지사항 등록');
-                },
-                error: function(result){
-                    alert("오류 발생");
-                }
-            })
-        }
         
         function addOptionProduct(){
 
