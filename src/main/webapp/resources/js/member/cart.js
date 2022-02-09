@@ -110,10 +110,21 @@ function updateCart() {
     success: function (result) {
       if (result > 0) {
         swal({
-          title: "재고 부족",
-          text: "현재 상품 수량이 재고 수량보다 많아, 장바구니에 다시 담아주시길 바랍니다.",
+          title: "장바구니 비우기",
+          text: "장바구니 목록을 모두 비우시겠습니까 ?",
           icon: "info",
-          buttons: "확인",
+          closeOnClickOutside:false,
+
+          buttons: {
+            cancle: {
+              text: '안비우기',
+              value : false
+            },
+            confirm : {
+              text:'비우기',
+              value : true
+            }
+          }   
         }).then((value) => {
           // 확인눌렀을때 실행
           if (value) {

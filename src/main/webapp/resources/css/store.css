@@ -27,7 +27,7 @@
   
 }
 .main-category>li:hover{
-
+  transform: translate3d(0, 2px, 0);
   border-bottom:1px solid;
 }
 
@@ -74,7 +74,9 @@ float:left;
   background-size :cover;
   border-radius: 20px;
 }
-
+.pdt-img:hover{
+  transform: translate3d(0, 2px, 0);
+}
 .pdt-box{
 
   margin-right: 15px;

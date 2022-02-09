@@ -11,6 +11,7 @@
 		<result property="parentNo" column="CART_NO2" />
 		<result property="imgPath" column="IMGPATH" />
 		<result property="discountPer" column="DISCOUNT_PER" />
+		<result property="amount" column="STORE_AMOUNT" />
 
 	</resultMap>
 
@@ -53,6 +54,12 @@
 	WHERE MEMBER_NO = #{memberNo}
 	GROUP BY PRODUCT_NO
 	</select>
+	<!-- 장바구니 중복 목록을 합쳐서 상품번호와 수량를 가져옴 -->
+	<select id="selectProductOne" resultMap="cart_rm">
+	SELECT PRODUCT_NO,SUM(ADD_Q) ADD_Q FROM CART
+	WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
+	GROUP BY PRODUCT_NO
+	</select>
 	<!--  재고확인 -->
 	<select id="selectAmount" resultType="_int">
 	SELECT STORE_AMOUNT FROM STORE_DETAIL
@@ -64,4 +71,24 @@
 	WHERE PRODUCT_NO = #{productNo} 
 	AND MEMBER_NO = #{memberNo}
 	</delete>
+	<delete id="deleteAllCart">
+	DELETE FROM CART
+	WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
+	
+	<update id="plusAddq">
+	UPDATE CART SET ADD_Q = ADD_Q + 1
+	WHERE CART_NO = #{cartNo} AND MEMBER_NO = #{memberNo}
+	</update>
+	<update id="minusAddq">
+	UPDATE CART SET ADD_Q = ADD_Q - 1
+	WHERE CART_NO = #{cartNo}
+	</update>
+	
+	<select id="selectPdtAmount" resultMap="cart_rm">
+	SELECT PRODUCT_NO,STORE_AMOUNT FROM CART
+	LEFT JOIN STORE_DETAIL USING(PRODUCT_NO)
+	WHERE CART_NO = #{cartNo}
+	</select>
 </mapper>
