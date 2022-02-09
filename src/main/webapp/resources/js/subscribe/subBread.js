@@ -21,12 +21,14 @@ function validate(){
         return false;
     }
     // 요일 선택 버튼 선택하지 않았을때
-    if( !$(".delieveryDay-btn").hasClass('active')){ 
+    if( !$(".deliveryDay-btn").hasClass('active')){ 
 
         alert("수령 희망일을 선택해주세요");
         return false;
     }
-
+	
+	// 로그인인 경우
+	
     document.subBreadForm.submit();
 }
 
@@ -61,50 +63,52 @@ $(document).ready(function() {
 });
 
 
-/*----------------------- 버튼 이름 받아오기 ------------------------*/
-// 기간, 빵, 맛, 종류 버튼 선택  
-$(".period-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-    
-    document.getElementById("period").innerText
-        = $(".period-btn.active").find('span').text() + ' / ';
-
-});
-
+/*----------------------- 버튼 이름 받아오기,input hidden 값 넘기기 ------------------------*/
+// 빵
 $(".bread-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
     document.getElementById("bread").innerText 
     	= $(".bread-btn.active").find('span').text()+ ' / ';
+    	
+    $("input[name='chooseBreadCode").val($(this).val());
 });
 
+// 맛
 $(".taste-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
     document.getElementById("taste").innerText 
     	= $(".taste-btn.active").find('span').text()+ ' / ';
+    	
+     $("input[name='chooseTasteCode").val($(this).val());
 });
 
-$(".delieveryDay-btn").on("click", function() {
+// 구독 기간 (1주 2주)
+$(".period-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
-    document.getElementById("delieveryDay").innerText 
-    	= $(".delieveryDay-btn.active").find('span').text();
+    document.getElementById("period").innerText
+        = $(".period-btn.active").find('span').text() + ' / ';
+	$("input[name='choosePeriodCode").val($(this).val());
+});
+
+// 수령 희망일 
+$(".deliveryDay-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("deliveryDay").innerText 
+    	= $(".deliveryDay-btn.active").find('span').text();
+    	
+    $("input[name='chooseDeliveryDayCode").val($(this).val());
 });
 
 
 
 // 버튼 3개가 선택 시 div 변경
-$('.period-btn.active',' .bread-btn.active', '.taste-btn.active', '.delieveryDay-btn' ).on('click', function () {
+/*$('.period-btn.active',' .bread-btn.active', '.taste-btn.active', '.deliveryDay-btn' ).on('click', function () {
 	alert("dfsf");
-});
-
-
-
-
-
-
-
+});*/
 
 
 /*----------------------- 수량 증감 버튼 -----------------------*/
@@ -133,6 +137,31 @@ function minusCount(){
 	    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
     }
 }
+
+// 구독 상품 바로결제
+function buy() {
+	location.href = contextPath + "/payment/payment";
+}
+
+// 로그인 안했을때
+function infoAlert() {
+  swal({
+    title: "로그인 후 이용가능합니다.",
+    icon: "info",
+    buttons: "확인",
+  }).then((value) => {
+    if (value) {
+      location.href = contextPath + "/member/login";
+    }
+  });
+}
+
+
+
+
+
+
+
 
 
 /* 스크롤 - 페이지 내 이동 */

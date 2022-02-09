@@ -195,7 +195,7 @@ main{
 }
 
 
-.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active, .coffee-btn.active, .delieveryDay-btn{
+.btn:hover, .period-btn.active, .bread-btn.active, .taste-btn.active, .coffee-btn.active, .deliveryDay-btn{
     background-color: #A78A6C;
     color: white; 
     transition: 0.3s;
