@@ -23,6 +23,7 @@
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/cart-mapper.xml" />
 		<mapper resource="/mappers/subscribe-mapper.xml" />
+		<mapper resource="/mappers/payment-mapper.xml" />
 
 
 	</mappers>

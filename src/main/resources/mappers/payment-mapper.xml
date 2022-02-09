@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="paymentMapper">
+	
+	
+	<resultMap type="edu.kh.jvj.onedayclass.model.vo.OnedayClass" id="onedayclass_detail">
+		<id property="productNo" column="PRODUCT_NO" />
+		<result property="title" column="PRODUCT_NM" />
+		<result property="price" column="PRODUCT_PRICE" />
+		<result property="classDt" column="CLASS_DT" />
+		<result property="classMaxPpl" column="CLASS_MAX_PPL" />
+		<result property="placeCd" column="PLACE_CODE" />
+		<result property="contents" column="CLASS_EXP" />
+		<result property="classtime" column="CLASS_TIME" />
+		<result property="placeName" column="PLACE_NM" />
+		<result property="placeAddr" column="PLACE_ADDR" />
+		<result property="nowPeople" column="CLASS_ADD_PPL" />
+		<collection property="classImgList" column="PRODUCT_NO"
+				javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
+				 select="selectProductImageList" />
+	</resultMap>
+	<resultMap type="edu.kh.jvj.onedayclass.model.vo.ProductImage" id="productImg_rm">
+		<id property="productImgNo" column="PRODUCT_IMG_NO" />
+		<result property="productImgPath" column="PRODUCT_IMG_PATH" />
+		<result property="productImgName" column="PRODUCT_IMG_NAME" />
+		<result property="productImgLevel" column="PRODUCT_IMG_LEVEL" />
+		<result property="productNo" column="PRODUCT_NO" />
+	</resultMap>
+	
+	<select id="selectProductImageList" resultMap="productImg_rm">
+		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
+		ORDER BY PRODUCT_IMG_LEVEL 
+	</select>
+	
+	<select id="getClassSelect" resultMap="onedayclass_detail">
+		SELECT 
+		PRODUCT_NO, PRODUCT_NM , PRODUCT_PRICE, PLACE_CODE , PLACE_NM, PLACE_ADDR ,CLASS_ADD_PPL,
+		TO_CHAR(CLASS_DT, 'YYYY-MM-DD') CLASS_DT , CLASS_TIME , CLASS_MAX_PPL ,CLASS_EXP
+		FROM PRODUCT
+		JOIN CLASS_DETAIL USING (PRODUCT_NO)
+		JOIN CLASS_PLACE USING (PLACE_CODE)
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+</mapper>
