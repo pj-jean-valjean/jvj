@@ -68,6 +68,40 @@ public class CartServiceImpl implements CartService {
 		return dao.updateCart(cart2);
 	}
 
+	@Transactional
+	@Override
+	public int deleteAllCart(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteAllCart(memberNo);
+	}
+
+	@Override
+	@Transactional
+	public int plusAddq(Cart cart) {
+		
+		return dao.plusAddq(cart);
+	}
+
+	@Override
+	public Cart selectPdtAmount(Cart cart) {
+		
+		return dao.selectPdtAmount(cart);
+		
+	}
+
+	@Override
+	public Cart selectProductOne(Cart cart2) {
+		// TODO Auto-generated method stub
+		return dao.selectProductOne(cart2);
+	}
+
+	@Override
+	@Transactional
+	public int minusAddq(int cartNo) {
+		
+		return dao.minusAddq(cartNo);
+	}
+
 	
 
 }

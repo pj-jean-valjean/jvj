@@ -287,7 +287,17 @@ function cart() {
     },
     success: function (result) {
       if (result > 0) {
+        mx();
         swal("상품이 장바구니에 추가되었습니다.", "", "success");
+        bigBox.innerHTML = "";
+        
+
+        if(cartOpenDefaultOne==0){
+          selectModalCart();
+
+          $(".resultPrice2")[0].textContent =
+          mxprice.toLocaleString("ko-KR") + "원";
+        }
       } else {
         swal("오류", "관리자에게 문의하세요", "error");
       }

@@ -23,5 +23,15 @@ public interface CartService {
 
 	int updateCart(Cart cart2);
 
+	int deleteAllCart(int memberNo);
+
+	int plusAddq(Cart cart);
+
+	Cart selectPdtAmount(Cart cart);
+
+	Cart selectProductOne(Cart cart2);
+
+	int minusAddq(int cartNo);
+
 
 }

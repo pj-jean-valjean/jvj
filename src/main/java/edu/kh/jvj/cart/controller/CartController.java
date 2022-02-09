@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+
 import edu.kh.jvj.cart.model.service.CartService;
 import edu.kh.jvj.cart.model.vo.Carrier;
 import edu.kh.jvj.cart.model.vo.Cart;
@@ -100,13 +102,7 @@ public class CartController {
 				cart2.setMemberNo(memberNo); // 회원번호
 
 				int addSub = service.addSub(cart2);
-				if (addSub > 0) {
-					System.out.println((i + 1) + "번째 옵션 성공");
 
-				} else {
-					System.out.println((i + 1) + "번째 옵션 실패");
-
-				}
 			}
 
 		}
@@ -117,8 +113,7 @@ public class CartController {
 	@PostMapping("deleteCart")
 	@ResponseBody
 	public int deleteCart(int cartNo, @ModelAttribute("loginMember") Member member, Cart cart) {
-		System.out.println(cartNo);
-		System.out.println(member.getMemberNo());
+
 		cart.setCartNo(cartNo);
 		cart.setMemberNo(member.getMemberNo());
 		int result = service.deleteCart(cart);
@@ -134,7 +129,7 @@ public class CartController {
 		int memberNo = member.getMemberNo();
 		int result = 0;
 		List<Cart> productList = service.selectProductList(memberNo);
-		System.out.println(productList);
+	
 		for (Cart pdt : productList) {
 			int amount = service.selectAmount(pdt.getProductNo());
 
@@ -152,10 +147,62 @@ public class CartController {
 	// 작은카트
 	
 	@ResponseBody
-	@GetMapping("selectModalCart")
-	public int selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+	@PostMapping("selectModalCart")
+	public String selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+		int result = 0;
 		List<Cart> cartList = service.selectCartList(member);
-		model.addAttribute("cartList", cartList);
-		return 0;
+		if(!cartList.isEmpty()) {
+			result = 1;
+		}
+	
+		
+		return new Gson().toJson(cartList) ;
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteAllCart")
+	public int deleteAllCart(@ModelAttribute("loginMember") Member member, Cart cart) {
+		
+		int result = service.deleteAllCart(member.getMemberNo()) ;
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("plusAddq")
+	public int plusAddq(@ModelAttribute("loginMember") Member member, int cartNo, Cart cart) {
+		
+		int result = 0;
+		cart.setCartNo(cartNo);
+		cart.setMemberNo(member.getMemberNo());
+		Cart cart2 = service.selectPdtAmount(cart);
+		cart2.setMemberNo(member.getMemberNo());
+		Cart cart3 = service.selectProductOne(cart2);
+		if( cart2.getAmount() >=cart3.getAddq()+1) {
+			 result = service.plusAddq(cart);
+		}
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("minusAddq")
+	public int minusAddq( int cartNo, Cart cart) {
+		
+		int result = service.minusAddq(cartNo);
+		
+		return result;
+	}
+	@ResponseBody
+	@PostMapping("calc")
+	public int calc(@ModelAttribute("loginMember") Member member) {
+		int result = 0;
+		List<Cart> cartList = service.selectCartList(member);
+		System.out.println(cartList);
+		
+		for(Cart cart : cartList ) {
+			result += cart.getPrice() * (100-cart.getDiscountPer())/100 * cart.getAddq();
+		}
+		return result;
 	}
 }
