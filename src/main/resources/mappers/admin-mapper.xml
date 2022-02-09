@@ -310,4 +310,7 @@
 		SUB_OPTION_CONTENT  = #{subOptionName}
 		WHERE SUB_OPTION_NO = #{suboptionNo}
 	</update>
+	<select id="selectImgList" resultType="string">
+		SELECT PRODUCT_IMG_NAME FROM PRODUCT_IMG
+	</select>
 </mapper>

@@ -184,5 +184,9 @@ public class AdminDAO {
 	public int changeSubsOption(SubsOptions subsOptions) {
 		return sqlSession.delete("adminMapper.changeSubsOption", subsOptions);
 	}
+
+	public List<String> selectImgList() {
+		return sqlSession.selectList("adminMapper.selectImgList");
+	}
 	
 }

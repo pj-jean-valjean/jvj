@@ -100,5 +100,7 @@ public interface AdminService {
 	int deleteSubsOption(int suboptionNo);
 
 	int changeSubsOption(SubsOptions subsOptions);
+
+	List<String> selectImgList();
 	
 }
