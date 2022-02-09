@@ -245,15 +245,18 @@ function scrollDelievery(){
 }); */
 // 결제 페이지 이동
 function reconfirim(){
+    if(loginNo==''){
+        alert("로그인 후 가능합니다");
+        return false;
+    }
     if(nownum==0){
         alert("수강 인원을 선택해주세요");
         return false;
     }
     if(confirm("현재 정보로 클래스를 신청하시겠습니까?")){
         const totalprice= $("#totalprice").text();
-        const totalPeople= $("#ppl").text()
-        alert(totalprice);
-        alert(totalPeople);
+        const totalPeople= $("#ppl").text();
+        
         $("#hiddenTotalprice").val(totalprice);
         $("#hiddenTotalPeople").val(totalPeople);
         return true;
