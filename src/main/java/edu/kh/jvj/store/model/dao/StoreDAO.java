@@ -65,4 +65,9 @@ public class StoreDAO {
 		return mybatis.selectOne("storeMapper.selectAmount",store);
 	}
 
+	public int selectpdtCount(Store store) {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("storeMapper.selectpdtCount",store);
+	}
+
 }

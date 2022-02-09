@@ -118,8 +118,13 @@
 		STORE_DETAIL USING(PRODUCT_NO)
 		WHERE PRODUCT_NO IN (1427,1429,1428)
 	</select>
+	
+	<select id="selectpdtCount" resultType="_int">
+	SELECT COUNT(ADD_Q) FROM CART
+        WHERE PRODUCT_NO = #{storeNo} AND MEMBER_NO= #{memberNo}
+	</select>
 	<!-- 재고확인 -->
-	<select id="selectAmount" resultType="int">
+	<select id="selectAmount" resultType="_int">
 		SELECT SUM(ADD_Q) FROM CART
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{storeNo}
 		GROUP BY PRODUCT_NO
