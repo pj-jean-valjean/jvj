@@ -128,6 +128,7 @@
                 	<!-- <input type="hidden" name="periodStatusCode"> -->
                     <input id="hiddenTotalprice" type="hidden" name="totalPrice">
                     <input id="hiddenTotalPeople" type="hidden" name="totalPeople">
+                    <input id="categoryCode" type="hidden" name="categoryCode" value="3">
                     <input type="hidden" value="${productNo}" name="productNo">
                     <button id="submit-btn" class="submit-btn" type="submit">
                         <span>클래스 신청</span>

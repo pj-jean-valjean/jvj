@@ -3,6 +3,8 @@
         const routepath = '/jvj/admin/board/route/';
        /* router 구현 */
         const routes = [
+            { path: routepath+'showSales', component: function(){
+                drawing(); } },
                 /* 조회 업무 */
             { path: routepath+'searchMember', component: function(){
                 memberInfo();firstMemberSearch();} },
@@ -39,14 +41,17 @@
                 modifyThisNotice();
             } },
             { path: routepath+'modifyProduct', component: function(){
-                if(productcate==3){makeClassModyfy();}
-                else if(productcate==1){makeStoreModyfy();}
+                if(productcate==3){makeClassModify();}
+                else if(productcate==1){makeStoreModify();}
+                else if(productcate==2){makeSubsModify();}
                 else {
                     alert("준비중입니다"+productcate)
                     location.href='main';
                 }
             } },
-            
+                /* 기타업무 */
+                { path: routepath+'couponMake', component: function(){
+                    couponMake();} },
         ];
         
 		function render(path){
@@ -148,10 +153,8 @@
                     if(httpRequest.status ===200){
                         
                         const resultData = httpRequest.response;
-
                         const memberList = JSON.parse(resultData.memberList);
                         const page = JSON.parse(resultData.pagination);
-
                         const parentUl = document.getElementsByClassName("ResultLine")[0];
                         parentUl.innerHTML = '<li class="resultTitle oneMemberResult"><span class="oneMemberInfo">아이디</span><span class="oneMemberInfo">닉네임</span><span class="oneMemberInfo">이름</span><span class="oneMemberInfo">가입일</span><span class="oneMemberInfo">누적구매금액</span><span class="oneMemberInfo">탈퇴여부</span></li>';
                         if(memberList.length ==0){
@@ -172,9 +175,14 @@
                             "<span class='oneMemberInfo'>"+oneLi.enrollDt+"</span>"+
                             "<span class='oneMemberInfo'>"+"100000"+"</span>";
                             if(oneLi.statusCode ==1) inner+="<span class='oneMemberInfo'>"+"정상"+"</span>";
-                            else  inner+="<span class='oneMemberInfo'>"+"탈퇴"+"</span>";
+                            else  inner+="<span class='oneMemberInfo'>"+"탈퇴"+"</span>"
                             li.innerHTML = inner;
                             parentUl.append(li);
+                            const memNo = document.createElement("input");
+                            memNo.type = "hidden";
+                            memNo.value = oneLi.memberNo;
+                            memNo.name = "memberNo";
+                            li.append(memNo);
                         }
                         cate = resultData.cate;
                         search = resultData.search;
@@ -415,7 +423,6 @@
                 }
             }
         }
-
         /* 공지사항 수정 동작 */
         function modifyThisNotice(){
                 const goback = document.createElement("button");
@@ -560,7 +567,11 @@
                             const li = document.createElement("li");
                             li.className = "oneMemberResult";
                             if(product.writecate == 3){
-                                titleAtag="<a target='_blank' href="+contextPath+"/onedayclass/view/"+product.productNo+">"+
+                                titleAtag="<a target='_blank' href="+contextPath+"/subscribe/subBread/>"+
+                                product.title+"</a>"
+                            }
+                            else if(product.writecate == 2){
+                                titleAtag="<a target='_blank' href="+contextPath+"/store/info/"+product.productNo+">"+
                                 product.title+"</a>"
                             }
                             else if(product.writecate == 1){
@@ -611,25 +622,34 @@
             }
         }
 
-        function makeClassModyfy(){
+        function makeClassModify(){
             commonWriter('클래스 상품 수정'); makeClassPWritePage();
-
             const reload = document.createElement("button");
             reload.setAttribute("type", "button");
-            reload.setAttribute("onclick","makeClassModyfy();loadProductDetail();");
+            reload.setAttribute("onclick","makeClassModify();loadProductDetail();");
             reload.innerText = "다시불러오기";
             document.querySelector("#writerForm").prepend(reload);
             doplusUpdateBtn();
             /* 카테고리에 따라 상품 정보를 불러온다 */
             loadProductDetail();
-
         }
-        function makeStoreModyfy(){
-            commonWriter('일반 상품 등록'); makeNormalPWritePage();
+        function makeStoreModify(){
+            commonWriter('일반 상품 수정'); makeNormalPWritePage();
             const reload = document.createElement("button");
             reload.type="button";
             reload.innerText = "다시불러오기";
-            reload.setAttribute("onclick","makeStoreModyfy();loadProductDetail();");
+            reload.setAttribute("onclick","makeStoreModify();loadProductDetail();");
+            document.querySelector("#writerForm").prepend(reload);
+            doplusUpdateBtn();
+            /* 카테고리에 따라 상품 정보를 불러온다 */
+            loadProductDetail();
+        }
+        function makeSubsModify(){
+            commonWriter('구독 상품 수정'); makeSubscribePWritePage();
+            const reload = document.createElement("button");
+            reload.type="button";
+            reload.innerText = "다시불러오기";
+            reload.setAttribute("onclick","makeSubsModify();loadProductDetail();");
             document.querySelector("#writerForm").prepend(reload);
             doplusUpdateBtn();
             /* 카테고리에 따라 상품 정보를 불러온다 */
@@ -689,6 +709,7 @@
                             return;
                         }
                         let nowimglist='';
+                        /* 이미지처리 */
                         for(let i = 0 ; i<resultData.classImgList.length ; i++){
                             showImgs[resultData.classImgList[i].productImgLevel].setAttribute("src", contextPath+resultData.classImgList[i].productImgPath+resultData.classImgList[i].productImgName)
                             filecheck[resultData.classImgList[i].productImgLevel] = 1;
@@ -696,6 +717,7 @@
                         } 
                         for(ch of filecheck){ nowimglist+= (''+ch);}
                         document.getElementsByName("currentImageCheck")[0].value=nowimglist;
+                        /* 일반상품 */
                         if(productcate==1){
                             document.getElementsByName("title")[0].value = resultData.storeName;
                             document.getElementsByName("detailcontents")[0].value = resultData.memo;
@@ -717,6 +739,17 @@
                             document.querySelector(".note-editable").innerHTML = resultData.storeExp; 
                             document.querySelector("textarea[name='editordata']").innerHTML = resultData.storeExp; 
                         }
+                        /* 구독상품 */
+                        else if(productcate==2){
+                            document.getElementsByName("title")[0].value = resultData.title;
+                            document.getElementsByName("price")[0].value = resultData.price;
+                            if(document.querySelector(".note-placeholder") !=null){
+                                document.querySelector(".note-placeholder").innerText=""; 
+                            }
+                            document.querySelector(".note-editable").innerHTML = resultData.storeExp; 
+                            document.querySelector("textarea[name='editordata']").innerHTML = resultData.contents; 
+                        }
+                        /* 클래스상품 */
                         else if(productcate==3){
                             document.getElementsByName("title")[0].value = resultData.title;
                             document.getElementsByName("price")[0].value = resultData.price;
@@ -734,7 +767,6 @@
                             }
                             document.querySelector(".note-editable").innerHTML = resultData.contents; 
                             document.querySelector("textarea[name='editordata']").innerHTML = resultData.contents; 
-
                         }
                     }
                     else{
@@ -894,4 +926,36 @@
                     console.log("오류 "+status);
                 }
             })
+        }
+
+        //-----------------------------------------------------------------//
+        /* 쿠폰발급 */
+        function couponMake(){
+            contentbox.innerHTML="";
+            //이름
+            const funcName = document.createElement("div");
+            funcName.setAttribute("class", "oneLine");
+            funcName.innerHTML="<h2>"+"쿠폰 프로모션 생성 메뉴"+"</h2>"
+            //제목
+            const title = document.createElement("div");
+            title.setAttribute("class", "oneLine");
+            title.innerHTML="<label class='labels'>제목</label><input type='text' name='title'>";
+
+            const couponDate = document.createElement("div");
+            couponDate.setAttribute("class", "oneLine");
+            couponDate.innerHTML="<label class='labels'>만료날짜</label>"+
+            "<input type='text' id='classdate' name='couponDate' readonly placeholder='만료일을 선택해주세요'>"+
+            "<button type='button' class='opencal selectdate'>만료일 설정</button>";
+            
+            const discountPer = document.createElement("div");
+            discountPer.setAttribute("class", "oneLine");
+            discountPer.innerHTML="<label class='labels'>할인율</label><input type='number' name='discountPer'>";
+            
+            //개수제한
+            const couponLimit = document.createElement("div");
+            couponLimit.setAttribute("class", "oneLine");
+            couponLimit.innerHTML="<label class='labels'>개수제한</label><input type='number' name='discountPer'><span> (미작성시 무한)</span>";
+
+            contentbox.append(funcName,title,couponDate,discountPer,couponLimit);
+            calmodal();
         }

@@ -15,7 +15,6 @@ function getTime(){
     clock.innerHTML = ampm+`${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}`
 }
 setInterval(getTime, 1000);
-
         //check 변수
         let firstdone = true;
         let selectMonth = 0;
@@ -290,7 +289,7 @@ setInterval(getTime, 1000);
             const div4 = document.createElement("div");
             div4.setAttribute("class", "oneLine contnote");
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
-            
+            /* 
             const div5 = document.createElement("div");
             div5.className= "oneLine";
             div5.setAttribute("id", "uppercate");
@@ -314,13 +313,14 @@ setInterval(getTime, 1000);
             writecate.setAttribute("type", "hidden");
             writecate.setAttribute("name", "writecate");
             writecate.setAttribute("value", "2");
-            $("#writerForm").append(div5,subsoption,div6,div7,div4,subcanBTN(),writecate);
+            $("#writerForm").append(div5,subsoption,div6,div7,div4,subcanBTN(),writecate); */
+            $("#writerForm").append(div4,subcanBTN());
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
             showImg();
-            addE();
-            addTaste();
+/*             addE();
+            addTaste(); */
         }
         //-----------------------------------------------------------------//
         //용량추가

@@ -45,6 +45,7 @@ import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SendSmsResponseDto;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SmsRequestDto;
+import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -329,7 +330,10 @@ public class AdminServiceImpl implements AdminService{
 			
 		return result;
 	}
-	
+	@Override
+	public SubsInfo getSubsInfo(Map<String, Integer> dataMap) {
+		return dao.getSubsInfo(dataMap);
+	}	
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	   public static String XSS(String param) {
 	      String result = param;
@@ -460,6 +464,8 @@ public class AdminServiceImpl implements AdminService{
 		String encodeBase64String = new String(Base64.getEncoder().encode(rawHmac));
 		
 		return encodeBase64String;
-	}	
+	}
+
+
 }
 

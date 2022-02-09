@@ -66,7 +66,7 @@ public class CartController {
 			
 		}
 		System.out.println(carrierList);
-		model.addAttribute(carrierList);
+		model.addAttribute("carrierList",carrierList);
 		model.addAttribute("cartList", cartList);
 
 		return "member/cart";
@@ -147,5 +147,15 @@ public class CartController {
 			}
 		}
 		return result;
+	}
+	
+	// 작은카트
+	
+	@ResponseBody
+	@GetMapping("selectModalCart")
+	public int selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+		List<Cart> cartList = service.selectCartList(member);
+		model.addAttribute("cartList", cartList);
+		return 0;
 	}
 }

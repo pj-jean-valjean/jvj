@@ -22,4 +22,6 @@ public interface StoreService {
 
 	List<Store> advantage();
 
+	int selectAmount(Store store);
+
 }
