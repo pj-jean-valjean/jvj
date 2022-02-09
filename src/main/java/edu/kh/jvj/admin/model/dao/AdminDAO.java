@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.jvj.admin.model.vo.Admin;
+import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.admin.model.vo.SubsOptions;
+import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -52,8 +54,8 @@ public class AdminDAO {
 	 * @param noticeMap
 	 * @return
 	 */
-	public int insertNotice(Map<String, String> noticeMap) {
-		return sqlSession.insert("adminMapper.insertNotice",noticeMap);
+	public int insertNotice(Notice notices) {
+		return sqlSession.insert("adminMapper.insertNotice",notices);
 	}
 
 	/** 스토어 삽입
@@ -187,6 +189,15 @@ public class AdminDAO {
 
 	public List<String> selectImgList() {
 		return sqlSession.selectList("adminMapper.selectImgList");
+	}
+
+	public int makingCoupon(MadeCoupon mCoupon) {
+		
+		return sqlSession.insert("adminMapper.makingCoupon", mCoupon);
+	}
+
+	public int addMakeCoupons(List<MadeCoupon> couponList) {
+		return sqlSession.insert("adminMapper.addMakeCoupons", couponList);
 	}
 	
 }

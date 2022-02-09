@@ -334,7 +334,7 @@
         }
         .calendar{
             position: absolute; 
-            top: 800px; right: calc(50%  - 250px); 
+            top: 600px; right: calc(50%  - 250px); 
             background-color: white;
         }
         .calhead{

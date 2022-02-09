@@ -37,49 +37,49 @@
             <div class="one-admin-func">▶조회 업무
             	<div class="each-querybox">
                     <ul class="eachW">
-                        <li><a href="/jvj/admin/board/route/searchMember">회원 정보 조회</a></li>
-                        <li><a href="/jvj/admin/board/route/subsMember">구독 회원 조회</a></li>
-                        <li><a href="/jvj/admin/board/route/searchOrder">주문 조회</a></li>
+                        <li><a href="${contextPath}/admin/board/route/searchMember">회원 정보 조회</a></li>
+                        <li><a href="${contextPath}/admin/board/route/subsMember">구독 회원 조회</a></li>
+                        <li><a href="${contextPath}/admin/board/route/searchOrder">주문 조회</a></li>
                         <li><a>원데이 클래스 회원 조회</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="one-admin-func">▶게시글 작성
+            <div class="one-admin-func">▶상품 등록 및 공지 작성
                 <div class="eachWriter">
                     <ul class="eachW">
-                        <li><a href="/jvj/admin/board/route/noticeWriter">공지사항 작성</a></li>
-                        <li><a href="/jvj/admin/board/route/storeSubmit">일반 상품 등록</a></li>
-                        <li><a href="/jvj/admin/board/route/subsSubmit">구독 상품 등록</a></li>
-                        <li><a href="/jvj/admin/board/route/classSubmit">클래스 상품 등록</a></li>
-                        <li><a href="/jvj/admin/board/route/optionSubmit">추가옵션상품 등록</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="one-admin-func">▶글 관리
-                <div class="each-article">
-                    <ul class="eachW">
-                        <li><a href="/jvj/admin/board/route/reviewManage">리뷰 관리</a></li>
-                        <li><a href="/jvj/admin/board/route/noticeManage">공지사항 수정</a></li>
+                        <li><a href="${contextPath}/admin/board/route/noticeWriter">공지사항 작성</a></li>
+                        <li><a href="${contextPath}/admin/board/route/storeSubmit">일반 상품 등록</a></li>
+                        <li><a href="${contextPath}/admin/board/route/subsSubmit">구독 상품 등록</a></li>
+                        <li><a href="${contextPath}/admin/board/route/classSubmit">클래스 상품 등록</a></li>
+                        <li><a href="${contextPath}/admin/board/route/optionSubmit">추가옵션상품 등록</a></li>
                     </ul>
                 </div>
             </div>
 			<div class="one-admin-func">▶상품 /구독옵션 관리
 				<div class="modifyP">
                     <ul class="eachW">
-                        <li><a href="/jvj/admin/board/route/productManage">상품 관리</a></li>
-                        <li><a href="/jvj/admin/board/route/subsOptionManage">구독옵션 관리</a></li>
+                        <li><a href="${contextPath}/admin/board/route/productManage">상품 관리</a></li>
+                        <li><a href="${contextPath}/admin/board/route/subsOptionManage">구독옵션 관리</a></li>
                     </ul>
                 </div>
 			</div>
+            <div class="one-admin-func">▶공지 및 리뷰 관리
+                <div class="each-article">
+                    <ul class="eachW">
+                        <li><a href="${contextPath}/admin/board/route/reviewManage">리뷰 관리</a></li>
+                        <li><a href="${contextPath}/admin/board/route/noticeManage">공지사항 수정</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="one-admin-func">▶기타업무
          		<div class="addAdmin">
                     <ul class="eachW">
                         <li><a>관리자 계정 추가</a></li>
-                        <li><a href="/jvj/admin/board/route/couponMake">쿠폰 발급</a></li>
+                        <li><a href="${contextPath}/admin/board/route/couponMake">쿠폰 발급</a></li>
                     </ul>
                 </div></div>
-            <div class="one-admin-func"><a href="/jvj/admin/board/route/showSales" id="showChart">매출 분석</a></div>
-            <div class="one-admin-func"><a href="/jvj/admin/board/route/marketing">마케팅 업무</a></div>
+            <div class="one-admin-func"><a href="${contextPath}/admin/board/route/showSales" id="showChart">매출 분석</a></div>
+            <div class="one-admin-func"><a href="${contextPath}/admin/board/route/marketing">마케팅 업무</a></div>
             <div class="one-admin-func"><button onclick="sendMessage();" id="msgTest">문자테스트</button></div>
         </aside>
         <section>
@@ -114,6 +114,7 @@
         </main>
 	<script>
 		const contextPath = "${contextPath}"
+		const adminNo ="${loginAdmin.memberNo}"
 	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMain.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainMethod.js"></script>
