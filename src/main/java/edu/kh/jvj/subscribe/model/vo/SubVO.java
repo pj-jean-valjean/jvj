@@ -1,34 +1,37 @@
 package edu.kh.jvj.subscribe.model.vo;
 
 public class SubVO {
-	
-	
-	private int productNo; 				// PROCUT_NO
-	private String productName;			// PRODUCT_NM
-	private int price;					// PRODUCT_PRICE
-	private String createDt;			// CREATE_DT
-	private final int productCd = 2;	// PRODUCT_CD
-	
-	private String storeExp;			// STORE_EXP
-	private int storeAmount;			// STORE_AMOUNT
-	private String storeMemo;			// STORE_MEMO
-	
-	private int subOptionNo;			// SUB_OPTION_NO
-	private String subOptionContent;	//SUB_OPTION_CONTENT
-	private int subOptionCode;			// SUB_OPTION_CD	
-	
-	private int likecount;				//LIKECOUNT
-	private int likedone;				//LIKEDONE
-	
-	private String imgPathName;			//PRODUCT_IMG_PATH
-	
-	private double ratingAgv;			//RATING_AVG
 
-	private int memberNo;				// 회원번호 MEMBER_NO
+	// 상품
+	private int productNo; // PROCUT_NO
+	private String productName; // PRODUCT_NM
+	private int productPrice; // PRODUCT_PRICE
+	private String createDt; // CREATE_DT
+	private final int productCd = 2; // PRODUCT_CD
 
-	
-	public SubVO(){}
-	
+	// 상품 상세(STORE_DETAIL)
+	private String storeExp; // STORE_EXP NULL
+	private int storeAmount; // STORE_AMOUNT NOT NULL
+	private String storeMemo; // STORE_MEMO NULL
+
+	// 옵션(SUB_OPTION)
+	private int subOptionNo; // SUB_OPTION_NO
+	private String subOptionContent; // SUB_OPTION_CONTENT
+	private int subOptionCode; // SUB_OPTION_CD
+
+	private int likecount; // LIKECOUNT
+	private int likedone; //
+
+	private String imgPathName; // PRODUCT_IMG_PATH
+	private String imgLevel; // PRODUCT_IMG_LEVEL
+
+	private double ratingAgv; // RATING_AVG
+
+	private int memberNo; // 회원번호 MEMBER_NO
+
+	public SubVO() {
+	}
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -45,12 +48,12 @@ public class SubVO {
 		this.productName = productName;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getProductPrice() {
+		return productPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
 
 	public String getCreateDt() {
@@ -133,6 +136,14 @@ public class SubVO {
 		this.imgPathName = imgPathName;
 	}
 
+	public String getImgLevel() {
+		return imgLevel;
+	}
+
+	public void setImgLevel(String imgLevel) {
+		this.imgLevel = imgLevel;
+	}
+
 	public double getRatingAgv() {
 		return ratingAgv;
 	}
@@ -155,19 +166,12 @@ public class SubVO {
 
 	@Override
 	public String toString() {
-		return "SubVO [productNo=" + productNo + ", productName=" + productName + ", price=" + price + ", createDt="
-				+ createDt + ", productCd=" + productCd + ", storeExp=" + storeExp + ", storeAmount=" + storeAmount
-				+ ", storeMemo=" + storeMemo + ", subOptionNo=" + subOptionNo + ", subOptionContent=" + subOptionContent
-				+ ", subOptionCode=" + subOptionCode + ", likecount=" + likecount + ", likedone=" + likedone
-				+ ", imgPathName=" + imgPathName + ", ratingAgv=" + ratingAgv + ", memberNo=" + memberNo + "]";
+		return "SubVO [productNo=" + productNo + ", productName=" + productName + ", productPrice=" + productPrice
+				+ ", createDt=" + createDt + ", productCd=" + productCd + ", storeExp=" + storeExp + ", storeAmount="
+				+ storeAmount + ", storeMemo=" + storeMemo + ", subOptionNo=" + subOptionNo + ", subOptionContent="
+				+ subOptionContent + ", subOptionCode=" + subOptionCode + ", likecount=" + likecount + ", likedone="
+				+ likedone + ", imgPathName=" + imgPathName + ", imgLevel=" + imgLevel + ", ratingAgv=" + ratingAgv
+				+ ", memberNo=" + memberNo + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
