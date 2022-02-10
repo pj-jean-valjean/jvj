@@ -67,22 +67,33 @@ public class NoticeController {
 	public int giveCoupon(int madeCouponNo, int memberNo, Model model) {
 		//정보조회
 		MadeCoupon madeCoupon= service.getMadeCoupon(madeCouponNo); 
+		madeCoupon.setAdminNo(memberNo);
+		madeCoupon.setCouponNo(madeCouponNo);
 		int result = -1;
-		if(madeCoupon.getCouponLimit()>0) {
+		int countGetCoupon = service.countGetCoupon(madeCoupon);
+		//재고가 있고 회원의 해당 쿠폰 발급횟수가 2회 이하면
+		if(madeCoupon.getCouponLimit()>0 && countGetCoupon<3) {
 			//해당회원에 쿠폰 증정
-			madeCoupon.setAdminNo(memberNo);
 			result = service.insertCouponToMember(madeCoupon);
+			service.insertCouponHistory(madeCoupon);
 			if(result>0) {
 				//발급쿠폰 재고 차감
 				result = service.deductionCoupon(madeCouponNo);
 				if(result>0) {
 					result= madeCoupon.getCouponLimit()-1;
+					if(result==0) {
+						service.ChangeCouponStatus(madeCouponNo);
+					}
 				}
 			}
 			else {
-				//이미 쿠폰 발급
-				result = -1;
+				//에러
+				result = -3;
 			}
+		}
+		else if(madeCoupon.getCouponLimit()>0 && countGetCoupon>=3) {
+			//발급 가능 수량(3) 초과
+			result = -1;
 		}
 		else {
 			//쿠폰 소진

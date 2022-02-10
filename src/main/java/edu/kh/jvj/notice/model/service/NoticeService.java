@@ -38,4 +38,13 @@ public interface NoticeService {
 
 
 	int deductionCoupon(int madeCouponNo);
+
+
+	void ChangeCouponStatus(int madeCouponNo);
+
+
+	int countGetCoupon(MadeCoupon madeCoupon);
+
+
+	void insertCouponHistory(MadeCoupon madeCoupon);
 }

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
         body{
-            width: 100vw;
+            width: 100%;
             margin: 0 auto;
         }
         section{
@@ -58,6 +58,12 @@
             height: 60px;
             line-height: 60px;
             border-bottom: 1px solid #eee;
+        }
+        .header-notice{
+        	background : #B7B7B7;
+        }
+        .one-line-notice:nth-of-type(2n+3){
+        	background : #eee
         }
         .one-line-notice>span{
             display: block;

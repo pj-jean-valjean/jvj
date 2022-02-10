@@ -46,5 +46,14 @@ public class NoticeDAO {
 	public int deductionCoupon(int madeCouponNo) {
 		return sqlSession.update("adminMapper.deductionCoupon", madeCouponNo);
 	}
+	public void ChangeCouponStatus(int madeCouponNo) {
+		sqlSession.update("adminMapper.ChangeCouponStatus", madeCouponNo);
+	}
+	public int countGetCoupon(MadeCoupon madeCoupon) {
+		return sqlSession.selectOne("adminMapper.countGetCoupon",madeCoupon);
+	}
+	public void insertCouponHistory(MadeCoupon madeCoupon) {
+		sqlSession.insert("adminMapper.insertCouponHistory",madeCoupon);
+	}
 	
 }

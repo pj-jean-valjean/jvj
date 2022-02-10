@@ -57,6 +57,9 @@
                 /* 기타업무 */
                 { path: routepath+'couponMake', component: function(){
                     couponMake();} },
+                /* 마케팅 업무 */
+                { path: routepath+'sendCouponToMember', component: function(){
+                    sendCouponToMember();} },
         ];
         
 		function render(path){
@@ -1175,4 +1178,8 @@
                     }
                 }) 
             }
+        }
+
+        function sendCouponToMember(){
+            
         }

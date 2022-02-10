@@ -263,7 +263,6 @@ public class AdminBoardController {
 	@PostMapping("makingCoupon")
 	public int makingCoupon(MadeCoupon mCoupon) {
 		int result = service.makingCoupon(mCoupon);
-		
 		return 0;
 	}
 }

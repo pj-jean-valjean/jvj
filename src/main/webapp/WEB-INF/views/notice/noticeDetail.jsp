@@ -98,6 +98,13 @@
 	   .coupon-btn:hover{
 	   	cursor : pointer;
 	   }
+	   
+	   .soldout > .coupon-exp>span:first-of-type{
+	   		text-decoration : line-through;
+	   }
+	   .soldout > .coupon-exp>span:last-of-type{
+	   		text-decoration : line-through;
+	   }
         </style>
 </head>
 <body>
@@ -116,15 +123,23 @@
                     </div>
                     <div class="coupon-area">
                     	<c:forEach items="${coupons}" var="onecou">
-	                    <div class="notice-coupon">
 	                    	<c:if test="${onecou.couponLimit ==0}">
 		                        <c:set var="soldout" value="soldout" />
 	                    	</c:if>
-		                        <div class="coupon-exp  ${soldout }">
+	                    	<c:if test="${onecou.couponLimit !=0}">
+		                        <c:set var="soldout" value="" />
+	                    	</c:if>
+	                    <div class="notice-coupon   ${soldout }">
+		                        <div class="coupon-exp">
 	                        	<span>  ${onecou.couponName} ${onecou.discountPer}% 할인</span>
 	                        	<input type="hidden" value="${onecou.couponNo}" name="couponNo">
 	                        	<input type="hidden" value="${onecou.couponStatusCode}" name="couponStatusCode">
-	                        	<span> 남은수량 ${onecou.couponLimit} 매</span>
+	                        	<c:if test="${onecou.couponLimit ==0}">
+		                       <span> 쿠폰이 모두 소진되었습니다!</span>
+	                    		</c:if>
+	                        	<c:if test="${onecou.couponLimit !=0}">
+		                        <span> 남은수량 ${onecou.couponLimit} 매 (1인 최대 3매)</span>
+	                    		</c:if>
 	                        	<span> ${onecou.createDate} ~ ${onecou.expireDate} 사용가능 </span>
 	                        </div>
 	                        <div class="coupon-btn"  onclick="giveCoupon(this)">
@@ -154,10 +169,7 @@
 				return;
 			}
 			const status = document.getElementsByName("couponStatusCode")[0].value;
-			
-			
 			if(status==1){
-				
 				const madeCouponNo = btn.previousElementSibling.children[1].value;
 				const stockspan = btn.previousElementSibling.children[3];
 				$.ajax({
@@ -171,16 +183,25 @@
 					success : function(result){
 						if(result>=0){
 							alert("발급성공! 마이페이지에서 확인해주세요");
-							//location.reload();
 							let stock = result;
-							stockspan.innerText =" 남은수량 "+result+" 매"; 
+							if(result>0) {
+								stockspan.innerText =" 남은수량 "+result+" 매"; 
+							}
+							else if(result==0) {
+								stockspan.innerText ="쿠폰이 모두 소진되었습니다!"; 
+								document.queryselector(".coupon-exp").className="coupon-exp  soldout";
+							}
+						}
+						else if(result==-1){
+							alert("1인당 최대 발급 수량 초과! 마이페이지에서 확인해주세요")
 						}
 						else if(result==-2){
 							alert("쿠폰이 모두 소진되었습니다! ");
 							location.reload();
 						}
 						else{
-							alert("쿠폰을 이미 발급받으셨습니다! 마이페이지에서 확인해주세요")
+							alert("error! ");
+							location.reload();
 						}
 					},
 					error : function(){

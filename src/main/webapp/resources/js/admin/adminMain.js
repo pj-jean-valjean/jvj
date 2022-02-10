@@ -238,7 +238,6 @@ setInterval(getTime, 1000);
                     cache: false,
                     success : function(result){
                         alert("등록 성공!");
-                        
                         noticeboardWriter('공지사항 등록');
                     },
                     error: function(result){

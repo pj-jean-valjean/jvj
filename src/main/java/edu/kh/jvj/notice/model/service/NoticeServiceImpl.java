@@ -38,12 +38,12 @@ public class NoticeServiceImpl implements NoticeService{
 	public List<MadeCoupon> selectCoupons(int noticeNo) {
 		return dao.selectCoupons(noticeNo);
 	}
-
+	
 	@Override
 	public MadeCoupon getMadeCoupon(int madeCouponNo) {
 		return dao.getMadeCoupon(madeCouponNo);
 	}
-
+	
 	@Override
 	public int insertCouponToMember(MadeCoupon madeCoupon) {
 		//회원이 사용가능한 해당 쿠폰 받은적 있는지 검사 필요
@@ -54,6 +54,21 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int deductionCoupon(int madeCouponNo) {
 		return dao.deductionCoupon(madeCouponNo);
+	}
+
+	@Override
+	public void ChangeCouponStatus(int madeCouponNo) {
+		dao.ChangeCouponStatus(madeCouponNo);
+	}
+
+	@Override
+	public int countGetCoupon(MadeCoupon madeCoupon) {
+		return dao.countGetCoupon(madeCoupon);
+	}
+
+	@Override
+	public void insertCouponHistory(MadeCoupon madeCoupon) {
+		dao.insertCouponHistory(madeCoupon);
 	}
 	
 	

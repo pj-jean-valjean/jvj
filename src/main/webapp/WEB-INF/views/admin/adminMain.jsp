@@ -74,12 +74,19 @@
             <div class="one-admin-func">▶기타업무
          		<div class="addAdmin">
                     <ul class="eachW">
-                        <li><a>관리자 계정 추가</a></li>
                         <li><a href="${contextPath}/admin/board/route/couponMake">쿠폰 발급</a></li>
                     </ul>
-                </div></div>
+                </div>
+            </div>
+            <div class="one-admin-func">▶마케팅 업무
+                <div class="addAdmin">
+                    <ul class="eachW">
+                        <li><a href="${contextPath}/admin/board/route/sendCouponToMember">문자로 쿠폰 발송</a></li>
+                        <li><a href="${contextPath}/admin/board/route/marketing">이메일 발송</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="one-admin-func"><a href="${contextPath}/admin/board/route/showSales" id="showChart">매출 분석</a></div>
-            <div class="one-admin-func"><a href="${contextPath}/admin/board/route/marketing">마케팅 업무</a></div>
             <div class="one-admin-func"><button onclick="sendMessage();" id="msgTest">문자테스트</button></div>
         </aside>
         <section>
