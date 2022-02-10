@@ -95,4 +95,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 
+
+	@Override
+	public int expiredSale() {
+		// TODO Auto-generated method stub
+		return dao.expiredSale();
+	}
+
+
 }

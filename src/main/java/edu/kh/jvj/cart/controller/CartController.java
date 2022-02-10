@@ -75,7 +75,53 @@ public class CartController {
 
 		return "member/cart";
 	}
+	
+	@ResponseBody
+	@PostMapping("toPayment")
+	public String toPayment(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+		
+		
+		List<Cart> cartList = service.selectCartList(member);
+	
+		List<Carrier> carrierList = new ArrayList<Carrier>();
+		
+		for (Cart cart2 : cartList) {
+			int sum = 0;
+			if (cart2.getParentNo() == 0) {
+				Carrier carrier = new Carrier();
+				sum += cart2.getPrice() * cart2.getAddq() * (100 - cart2.getDiscountPer()) / 100;
+				// 가격을 더한다
 
+				carrier.setMainProductNo(cart2.getProductNo());
+				carrier.setMainQ(cart2.getAddq());
+				carrier.setMemberNo(member.getMemberNo());
+				carrier.setDiscountPer(cart2.getDiscountPer());
+
+				List<Option> optionList = new ArrayList<Option>();
+
+				for (Cart cart3 : cartList) {
+					if (cart3.getParentNo() == cart2.getCartNo()) {
+						Option op = new Option();
+						sum += cart3.getPrice() * cart3.getAddq() * (100 - cart3.getDiscountPer()) / 100;
+						op.setOptionName(cart3.getProductName());
+						op.setOptionNo(cart3.getProductNo());
+						op.setOptionQ(cart3.getAddq());
+						optionList.add(op);
+
+					}
+				}
+				carrier.setOptionList(optionList);
+
+				carrier.setSumPrice(sum);
+				carrierList.add(carrier);
+	
+			}
+
+		}
+		return new Gson().toJson(carrierList);
+	}
+	
+	
 	@PostMapping("addCart")
 	@ResponseBody
 	public int addCart(int storeNo, int addq, String arrays, String adStock, String adPrice,

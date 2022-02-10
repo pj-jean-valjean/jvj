@@ -129,6 +129,10 @@
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{storeNo}
 		GROUP BY PRODUCT_NO
 	</select>
-
+	<!-- 세일 만료 -->
+	<delete id="expiredSale">
+	DELETE FROM DISCOUNT
+       WHERE (DISCOUNT_END_DT-SYSDATE) <![CDATA[<]]> 0
+	</delete>
 
 </mapper>
