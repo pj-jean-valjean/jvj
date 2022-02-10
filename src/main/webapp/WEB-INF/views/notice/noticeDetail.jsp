@@ -45,6 +45,12 @@
             width: 15%;
             font-weight: bold;
         }
+        #notice-content >p{
+        	width :100%;
+        }
+        #notice-content >p>img{
+        	width :100%!important;
+        }
         #gotolist{
             background: #A78A6C;
             border: 3px solid #A78A6C;

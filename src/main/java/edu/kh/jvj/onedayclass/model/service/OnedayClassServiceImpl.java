@@ -43,8 +43,12 @@ public class OnedayClassServiceImpl implements OnedayClassService{
 
 	@Override
 	public int likecheck(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
 		return dao.likecheck(map);
+	}
+
+	@Override
+	public int doUpdateOverdueClass() {
+		return dao.doUpdateOverdueClass();
 	}
 	
 	

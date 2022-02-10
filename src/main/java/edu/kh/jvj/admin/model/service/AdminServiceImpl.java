@@ -530,7 +530,6 @@ public class AdminServiceImpl implements AdminService{
 	public int makingCoupon(MadeCoupon mCoupon) {
 		String ranName ="jvj"+ UUID.randomUUID();
 		mCoupon.setHashName(ranName);
-		System.out.println(mCoupon);
 		return dao.makingCoupon(mCoupon);
 	}
 

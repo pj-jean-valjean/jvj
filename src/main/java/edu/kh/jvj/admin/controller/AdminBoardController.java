@@ -155,6 +155,11 @@ public class AdminBoardController {
 			) {
 		int result =0;
 		result = service.insertNotice(notices);
+		
+		if(result>0) {
+			result = notices.getNoticeNo();
+		}
+		
 		return result;
 	}
 	
@@ -193,8 +198,6 @@ public class AdminBoardController {
 	public Map<String, String> noticeSelect(
 			@RequestBody Map<String,String> dataMap
 			){
-		
-		System.out.println(dataMap);
 		Pagination page = noticeService.countNotice(dataMap);
 		page.setLimit(15);
 		page.setPageSize(10);
@@ -263,6 +266,6 @@ public class AdminBoardController {
 	@PostMapping("makingCoupon")
 	public int makingCoupon(MadeCoupon mCoupon) {
 		int result = service.makingCoupon(mCoupon);
-		return 0;
+		return result;
 	}
 }

@@ -75,7 +75,7 @@
             height: 1200px;
             display: flex;
             flex-wrap:wrap;
-            justify-content:center;
+            justify-content:left;
             margin-top: 15px;
         }
         .newOneclassInfo{

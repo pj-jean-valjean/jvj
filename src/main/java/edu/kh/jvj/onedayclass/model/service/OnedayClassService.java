@@ -29,5 +29,7 @@ public interface OnedayClassService {
 	int undolike(Map<String, Integer> map);
 
 	int likecheck(Map<String, Integer> map);
+
+	int doUpdateOverdueClass();
 	
 }
