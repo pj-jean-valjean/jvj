@@ -238,7 +238,10 @@ setInterval(getTime, 1000);
                     cache: false,
                     success : function(result){
                         alert("등록 성공!");
+                        const goUrl = contextPath + '/notice/view?noticeNo='+result;
+                        window.open(goUrl, '공지사항', ''+result); 
                         noticeboardWriter('공지사항 등록');
+
                     },
                     error: function(result){
                         alert("오류 발생");
@@ -425,7 +428,11 @@ setInterval(getTime, 1000);
             const div4 = document.createElement("div");
             div4.setAttribute("class", "oneLine contnote");
             div4.innerHTML="<label class='labels'>내용</label><textarea id='summernote' name='editordata'></textarea>";
-            $("#writerForm").append(div4,subcanBTN());
+            const writecate = document.createElement("input");
+            writecate.setAttribute("type", "hidden");
+            writecate.setAttribute("name", "writecate");
+            writecate.setAttribute("value", "2");
+            $("#writerForm").append(div4,writecate,subcanBTN());
             //썸머노트 실행
             notesummer();
             //이미지 함수 실행
@@ -883,6 +890,10 @@ setInterval(getTime, 1000);
         }
         function submitProduct(){
             const cate = document.querySelector("input[name='writecate']").value;
+            if(cate==2){
+                alert("허가가 필요합니다!");
+                return;
+            }
             if(!validate(parseInt(cate))){
                 return;
             };

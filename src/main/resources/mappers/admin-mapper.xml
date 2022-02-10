@@ -239,6 +239,7 @@
 		<if test="cate == 3">
 			AND MEMBER_NICKNAME LIKE '%'||#{search}||'%'
 		</if>
+		ORDER BY ENROLL_DT DESC
 	</select>
 	<!-- 옵션상품 추가 -->
 	<insert id="insertOptionP">

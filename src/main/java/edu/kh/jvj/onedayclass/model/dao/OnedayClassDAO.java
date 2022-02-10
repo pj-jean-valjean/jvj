@@ -52,6 +52,10 @@ public class OnedayClassDAO {
 	public int likecheck(Map<String, Integer> map) {
 		return sqlSession.selectOne("classListMapper.likecheck", map);
 	}
+
+	public int doUpdateOverdueClass() {
+		return sqlSession.update("classListMapper.doUpdateOverdueClass");
+	}
 	
 	
 	
