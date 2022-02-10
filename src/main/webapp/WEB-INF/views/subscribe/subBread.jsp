@@ -29,10 +29,10 @@ subVOImgList ${subVOImgList}
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="${contextPath}/subscribe/subMain">정기 구독</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="${contextPath}/subscribe/subBread">빵 세트</a>
+                <a href="${contextPath}/subscribe/subBread">${subVOList[0].productName}</a>
             </section>     
             
-            	<section class="product-thumbnail">
+            <section class="product-thumbnail">
 
                 <article class="main-img-area">
                     <c:if test="${subVOImgList[0].productImgLevel == 0}"> 
@@ -43,25 +43,22 @@ subVOImgList ${subVOImgList}
                 </article>
           
             	<div>
-		                     
-	            <c:forEach items="${subVOImgList}" var="imginfo">
-	            
-            		<c:if test="${imginfo.productImgLevel == 0}"> 
-		                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
-            		</c:if>
-            		<c:if test="${imginfo.productImgLevel == 1}"> 
-		                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
-            		</c:if>
-            		<c:if test="${imginfo.productImgLevel == 2}"> 
-		                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
-            		</c:if>
-            		<c:if test="${imginfo.productImgLevel == 3}"> 
-		                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
-            		</c:if>
-            		
-            	
-	            </c:forEach>
-            	
+		            <c:forEach items="${subVOImgList}" var="imginfo">
+		            
+	            		<c:if test="${imginfo.productImgLevel == 0}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 1}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 2}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 3}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		
+		            </c:forEach>
             	</div>
             </section>
             
@@ -103,7 +100,6 @@ subVOImgList ${subVOImgList}
 		                        </button>
 		                        </c:if>
 		                     </c:forEach>  
-	                        
 	                    </div>
 	                </article>
 	                <div class="bottom-line"></div>
@@ -179,7 +175,7 @@ subVOImgList ${subVOImgList}
 	                    </div>
 	                    <div class="buy-count">
 	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-	                        <span id="result">0</span>
+	                        <span id="result">1</span>
 	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
 	                    </div>
 	                   
@@ -195,12 +191,11 @@ subVOImgList ${subVOImgList}
 	                </article>
 	                <div class="submit-sub">
 	                
-                		<button class="submit-btn" id="submit-btn" onclick="return reconfirm();">
+                		<button class="submit-btn" id="submit-btn" >
 							<span>바로 구독 신청</span>
 						</button>
 	                		
 	                </div>
-	                <%-- onsubmit="return reconfirm();" --%>
 	                
 					<!-- 
 					선택한 버튼의 subOptionNo 값이 넘어감

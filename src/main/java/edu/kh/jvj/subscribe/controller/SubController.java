@@ -42,12 +42,12 @@ public class SubController {
 //		return "/subscribe/subBread";
 //	}
 //	
-	// 빵, 커피 상세페이지
-	@GetMapping("subCoffee")
-	public String subCoffee() {
-		return "/subscribe/subCoffee";
-	}
-	
+//	// 빵, 커피 상세페이지
+//	@GetMapping("subCoffee")
+//	public String subCoffee() {
+//		return "/subscribe/subCoffee";
+//	}
+//	
 	
 	
 	// 빵 상세 조회
@@ -68,6 +68,8 @@ public class SubController {
 		if(subVOList != null) {
 			model.addAttribute("subVOList", subVOList);
 			model.addAttribute("subVOImgList", subVOImgList);
+
+			return "subscribe/subBread";
 		} else {
 			
 		}
@@ -75,6 +77,33 @@ public class SubController {
 		log.info("빵 상세 조회 로딩 소요시간 : {} ms", takeTime);
 		
 		return "subscribe/subBread";
+	}
+	
+	// 커피 상세 조회
+	@GetMapping("subCoffee")
+	public String subCoffee(SubVO subVO, Model model) {
+		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
+		Map<String , Integer> map = new HashMap<>();
+		
+		map.put("productNo", 1438);
+		
+		List<SubVO> subVOList = service.selectSubBread(map);
+		List<ProductImage> subVOImgList = service.selectProductImageList(map);
+		
+		long endMs = System.currentTimeMillis(); // 서비스 종료 시의 ms 값
+		long takeTime = (endMs - startMs);
+		
+		
+		if(subVOList != null) {
+			model.addAttribute("subVOList", subVOList);
+			model.addAttribute("subVOImgList", subVOImgList);
+		} else {
+			
+		}
+		
+		log.info("빵 상세 조회 로딩 소요시간 : {} ms", takeTime);
+		
+		return "subscribe/subCoffee";
 	}
 	
 	
