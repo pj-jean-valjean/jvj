@@ -208,7 +208,7 @@ setInterval(getTime, 1000);
         }
         function couponbtnremove(){
             $(".couponbtn")[0].remove();
-        }s
+        }
         function removecoupon(btn){
             btn.parentElement.nextElementSibling.remove();
             btn.parentElement.nextElementSibling.remove();
@@ -238,7 +238,6 @@ setInterval(getTime, 1000);
                     cache: false,
                     success : function(result){
                         alert("등록 성공!");
-    
                         noticeboardWriter('공지사항 등록');
                     },
                     error: function(result){
