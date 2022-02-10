@@ -1,6 +1,7 @@
 package edu.kh.jvj.subscribe.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.jvj.subscribe.model.service.SubService;
+import edu.kh.jvj.subscribe.model.vo.ProductImage;
 import edu.kh.jvj.subscribe.model.vo.SubVO;
 
 
@@ -34,12 +36,12 @@ public class SubController {
 		return "/subscribe/subMain";
 	}
 
-	// 빵 상세페이지
-	@GetMapping("subBread")
-	public String subBread() {
-		return "/subscribe/subBread";
-	}
-	
+//	// 빵 상세페이지
+//	@GetMapping("subBread")
+//	public String subBread() {
+//		return "/subscribe/subBread";
+//	}
+//	
 	// 빵, 커피 상세페이지
 	@GetMapping("subCoffee")
 	public String subCoffee() {
@@ -49,26 +51,25 @@ public class SubController {
 	
 	
 	// 빵 상세 조회
-	@RequestMapping(value="subBread", method = RequestMethod.POST)
-	public String subBread(@PathVariable("productNo") int productNo, Model model) {
-		Map<String , Integer> map = new HashMap<>();
-				
-		map.put("productNo", productNo);
-		
+	@GetMapping("subBread")
+	public String subBread(SubVO subVO, Model model) {
 		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
+		Map<String , Integer> map = new HashMap<>();
 		
-		SubVO subVO = service.selectSubBread(map);
+		map.put("productNo", 1437);
+		
+		List<SubVO> subVOList = service.selectSubBread(map);
+		List<ProductImage> subVOImgList = service.selectProductImageList(map);
 		
 		long endMs = System.currentTimeMillis(); // 서비스 종료 시의 ms 값
 		long takeTime = (endMs - startMs);
 		
-		if(subVO != null) {
-			subVO.setProductNo(productNo);
-			
-			model.addAttribute("subVO", subVO);
-			model.addAttribute("productNo", productNo);
+		
+		if(subVOList != null) {
+			model.addAttribute("subVOList", subVOList);
+			model.addAttribute("subVOImgList", subVOImgList);
 		} else {
-			model.addAttribute("message", "구독 상품에 접근할 수 없습니다.");
+			
 		}
 		
 		log.info("빵 상세 조회 로딩 소요시간 : {} ms", takeTime);

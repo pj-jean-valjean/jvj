@@ -1,5 +1,9 @@
 package edu.kh.jvj.subscribe.model.vo;
 
+import java.util.List;
+
+import edu.kh.jvj.onedayclass.model.vo.ProductImage;
+
 public class SubVO {
 
 	// 상품
@@ -7,7 +11,7 @@ public class SubVO {
 	private String productName; // PRODUCT_NM
 	private int productPrice; // PRODUCT_PRICE
 	private String createDt; // CREATE_DT
-	private final int productCd = 2; // PRODUCT_CD
+	private final int productCode = 2; // PRODUCT_CD
 
 	// 상품 상세(STORE_DETAIL)
 	private String storeExp; // STORE_EXP NULL
@@ -22,9 +26,10 @@ public class SubVO {
 	private int likecount; // LIKECOUNT
 	private int likedone; //
 
-	private String imgPathName; // PRODUCT_IMG_PATH
-	private String imgLevel; // PRODUCT_IMG_LEVEL
-
+	
+	private String imgPathName;	//PRODUCT_IMG_PATH
+	private List<ProductImage> subImgList;	//이미지
+	
 	private double ratingAgv; // RATING_AVG
 
 	private int memberNo; // 회원번호 MEMBER_NO
@@ -136,12 +141,12 @@ public class SubVO {
 		this.imgPathName = imgPathName;
 	}
 
-	public String getImgLevel() {
-		return imgLevel;
+	public List<ProductImage> getSubImgList() {
+		return subImgList;
 	}
 
-	public void setImgLevel(String imgLevel) {
-		this.imgLevel = imgLevel;
+	public void setSubImgList(List<ProductImage> subImgList) {
+		this.subImgList = subImgList;
 	}
 
 	public double getRatingAgv() {
@@ -160,18 +165,22 @@ public class SubVO {
 		this.memberNo = memberNo;
 	}
 
-	public int getProductCd() {
-		return productCd;
+	public int getProductCode() {
+		return productCode;
 	}
 
 	@Override
 	public String toString() {
 		return "SubVO [productNo=" + productNo + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", createDt=" + createDt + ", productCd=" + productCd + ", storeExp=" + storeExp + ", storeAmount="
-				+ storeAmount + ", storeMemo=" + storeMemo + ", subOptionNo=" + subOptionNo + ", subOptionContent="
-				+ subOptionContent + ", subOptionCode=" + subOptionCode + ", likecount=" + likecount + ", likedone="
-				+ likedone + ", imgPathName=" + imgPathName + ", imgLevel=" + imgLevel + ", ratingAgv=" + ratingAgv
-				+ ", memberNo=" + memberNo + "]";
+				+ ", createDt=" + createDt + ", productCode=" + productCode + ", storeExp=" + storeExp
+				+ ", storeAmount=" + storeAmount + ", storeMemo=" + storeMemo + ", subOptionNo=" + subOptionNo
+				+ ", subOptionContent=" + subOptionContent + ", subOptionCode=" + subOptionCode + ", likecount="
+				+ likecount + ", likedone=" + likedone + ", imgPathName=" + imgPathName + ", subImgList=" + subImgList
+				+ ", ratingAgv=" + ratingAgv + ", memberNo=" + memberNo + "]";
 	}
+
+	
+	
+	
 
 }
