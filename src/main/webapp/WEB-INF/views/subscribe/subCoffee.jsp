@@ -21,38 +21,60 @@
 <body>
 
 	<main>
+	${subVOList}
+	<hr>
+	${subVOImgList}
+	
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="${contextPath}/subscribe/subMain">정기 구독</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="${contextPath}/subscribe/subCoffee">빵 & 커피 세트</a>
-            </section>     
+                <a href="${contextPath}/subscribe/subCoffee">${subVOList[0].productName}</a>
+            </section>  
+               
 			<section class="product-thumbnail">
+
                 <article class="main-img-area">
-                    <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
+                    <c:if test="${subVOImgList[0].productImgLevel == 0}"> 
+	                    <img class="main-thumbnail"  
+	                    src="${contextPath}${subVOImgList[0].productImgPath}${subVOImgList[0].productImgName}" 
+	                    alt="sub-bread-main">
+            		</c:if>
                 </article>
-            <div>
-                
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-coffee-main.jpg" alt="sub-coffee-main">
-            </div>
+          
+            	<div>
+		            <c:forEach items="${subVOImgList}" var="imginfo">
+		            
+	            		<c:if test="${imginfo.productImgLevel == 0}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 1}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 2}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 3}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		
+		            </c:forEach>
+            	</div>
             </section>
 
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
-                        <span>빵 & 커피 세트</span>
+                        <span>${subVOList[0].productName}</span>
                         <div class="heart-btn">
 							<div class="heart-content">
 								<div class="heart"></div>
 							</div>
 						</div>
                     </div>
-                    <span class="price">25,000원</span>
+                    <span class="price">${subVOList[0].productPrice} 원</span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -65,22 +87,21 @@
                 <div class="bottom-line"></div>
                 
                 
-			<form method="POST" >
+			 <form action="${contextPath}/payment/payment" method="GET"  name="subCoffeeForm" onsubmit="return reconfirim();">
                 <article class="sub-detail">
                     <div class="sub-title">
                         <span>빵 종류</span>
                         <span></span>
                     </div>
-                    <div class="bread btn-area"> 
-                        <button type="button" class="bread-btn btn" name="bread" value="1">
-                            <span>식빵</span>
-                        </button>
-                        <button type="button" class="bread-btn btn" name="bread" value="2">
-                            <span>바게트</span>
-                        </button>
-                	</div>
-                    <!-- 상태코드 넘어가는 input -->
-            		<input type="hidden" name="chooseBreadCode">
+                    <div class="bread btn-area">
+						<c:forEach items="${subVOList}" var="sub" begin="0" end="1">
+							<c:if test="${sub.subOptionCode eq 31}">
+								<button type="button" class="bread-btn btn" name="bread" value="${sub.subOptionNo}">
+									<span>${sub.subOptionContent}</span>
+								</button>
+							</c:if>
+						</c:forEach>
+					</div>
                 </article>
                 
                 <div class="bottom-line"></div>
@@ -91,18 +112,14 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="taste-btn btn" name="taste" value="1">
-                            <span>장발장</span>
-                        </button>
-                        <button type="button" class="taste-btn btn" name="taste" value="2">
-                            <span>녹차코코넛</span>
-                        </button>
-                        <button type="button" class="taste-btn btn" name="taste" value="3">
-                            <span>초코</span>
-                        </button>
+                        <c:forEach items="${subVOList}" var="sub" begin="2" end="4"> 
+                   			<c:if test="${sub.subOptionCode eq 32}">
+                   				<button type="button" class="taste-btn btn" name="taste" value="${sub.subOptionNo}">
+	                            	<span>${sub.subOptionContent}</span>
+	                        </button>
+	                        </c:if>
+	                     </c:forEach> 
                     </div>
-                    <!-- 상태코드 넘어가는 input -->
-               		<input type="hidden" name="chooseTasteCode">
                 </article>
                 <div class="bottom-line"></div>
 
@@ -112,15 +129,14 @@
                         <span></span>
                     </div>
                     <div class="taste btn-area"> 
-                        <button type="button" class="coffee-btn btn" name="coffee" value="1">
-                            <span>로우키</span>
-                        </button>
-                        <button type="button" class="coffee-btn btn" name="coffee" value="2">
-                            <span>언더프레셔</span>
-                        </button>
+                        <c:forEach items="${subVOList}" var="sub" begin="5" end="6">
+							<c:if test="${sub.subOptionCode eq 33}">
+								<button type="button" class="taste-btn btn" name="taste" value="${sub.subOptionNo}">
+									<span>${sub.subOptionContent}</span>
+								</button>
+							</c:if>
+						</c:forEach>
                     </div>
-                    <!-- 상태코드 넘어가는 input -->
-               		<input type="hidden" name="chooseCoffeeCode">
                 </article>
                 
                 <div class="bottom-line"></div>
@@ -131,15 +147,14 @@
                         <span></span>
                     </div>
                     <div class="period-area btn-area"> 
-                        <button type="button" class="period-btn btn" name="period" value="1">
-                            <span>1주</span>
-                        </button>
-                        <button type="button" class="period-btn btn" name="period" value="2">
-                            <span>2주</span>
-                        </button>
+                        <c:forEach items="${subVOList}" var="sub" begin="5" end="6">
+							<c:if test="${sub.subOptionCode eq 34}">
+								<button type="button" class="period-btn btn" name="period" value="${sub.subOptionNo}">
+									<span>${sub.subOptionContent}</span>
+								</button>
+							</c:if>
+						</c:forEach>
                     </div>
-                    <!-- 상태코드 넘어가는 input -->
-                	<input type="hidden" name="choosePeriodCode">
                 </article>
 
                 <div class="bottom-line"></div>
@@ -150,15 +165,14 @@
 						<span></span>
 					</div>
 					<div class="taste btn-area">
-						<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="1">
-							<span>수요일</span>
-						</button>
-						<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="2">
-							<span>금요일</span>
-						</button>
+						<c:forEach items="${subVOList}" var="sub" begin="7" end="8">
+							<c:if test="${sub.subOptionCode eq 35}">
+								<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="${sub.subOptionNo}">
+									<span>${sub.subOptionContent}</span>
+								</button>
+							</c:if>
+						</c:forEach>
 					</div>
-					<!-- 상태코드 넘어가는 input -->
-					<input type="hidden" name="chooseDeliveryDayCode">
 				</article>
 				
 				<article class="buy-total">
@@ -184,7 +198,7 @@
 				
                 <article class="total-price">
                     <p>총 구매 금액
-	                    <span id="totalprice" class="showprice">25,000</span>
+	                    <span id="totalprice" class="showprice">0</span>
 	                    <span class="showprice">원</span>
                     </p>
                 </article>

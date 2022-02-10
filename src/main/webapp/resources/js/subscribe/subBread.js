@@ -105,10 +105,6 @@ $(".deliveryDay-btn").on("click", function() {
 
 
 
-// 버튼 3개가 선택 시 div 변경
-/*$('.period-btn.active',' .bread-btn.active', '.taste-btn.active', '.deliveryDay-btn' ).on('click', function () {
-	alert("dfsf");
-});*/
 
 
 /*----------------------- 수량 증감 버튼 -----------------------*/
