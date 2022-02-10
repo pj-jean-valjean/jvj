@@ -84,11 +84,11 @@ function paging(list) {
           i.price +
           " </h2> ";
         smallBox.innerHTML +=
-          "<h2 style='display:inline-block; width:30px;'>" +
-          (i.price * (100 - i.discountPer)) / 100 +
+          "<h2 style='float:right; width:137px;'>" +
+          ((i.price * (100 - i.discountPer)) / 100).toLocaleString("ko-KR") + "원" +
           "</h2><br>";
       } else {
-        smallBox.innerHTML += "<h2>" + i.price + "</h2>";
+        smallBox.innerHTML += "<h2>" + (i.price).toLocaleString("ko-KR") + "원" + "</h2>";
       }
 
       smallBox.innerHTML +=
@@ -167,13 +167,15 @@ function deleteAllCart() {
               am.finished.then(() => {
                 am.reverse();
                 bigBox.innerHTML = "";
+              }).then(()=>{
+                mx();
               });
 
-              mx();
+              
             }
             
           },
-        });
+        })
         am.reverse();
       } else {
         cartOpenDefaultOne = 0;
@@ -279,7 +281,7 @@ function minusAddq(cartNo) {
                 
                 }
               }
-              mx();
+             mx();
             }
           },
           error: function (err) {

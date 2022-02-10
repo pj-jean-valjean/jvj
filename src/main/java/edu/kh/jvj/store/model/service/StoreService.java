@@ -24,4 +24,6 @@ public interface StoreService {
 
 	int selectAmount(Store store);
 
+	int selectpdtCount(Store store);
+
 }

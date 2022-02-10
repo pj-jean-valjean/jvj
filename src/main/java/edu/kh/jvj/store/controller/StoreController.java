@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,12 +106,20 @@ public class StoreController {
 	// 스토어 재고확인 ( 만들다맘 )
 	@PostMapping("selectAmount")
 	@ResponseBody
-	public int selectAmount(HttpSession session, int storeNo,Store store) {
+	public int selectAmount(@ModelAttribute("loginMember") Member member, int storeNo,Store store) {
+		int  result = 0;
+		int memberNo =member.getMemberNo();
 		
-		int memberNo =( (Member)session.getAttribute("loginMember")).getMemberNo();
 		store.setMemberNo(memberNo);
 		store.setStoreNo(storeNo);
-		int result = service.selectAmount(store);
+		int pdtCount = service.selectpdtCount(store);
+		if( pdtCount>0) {
+			store.setStock(storeNo);
+			result = service.selectAmount(store);
+		}else if(pdtCount == 0){
+			result = 1;
+		}
+		
 		
 		System.out.println(result);
 		
