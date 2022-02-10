@@ -1,3 +1,11 @@
+
+const contextPath = getContextPath();
+
+/* 사진교체 */
+window.onload = function(){
+    changeImg();
+    reviewDetail();
+}
 // 제출 시 유효성 검사
 function validate(){
     
@@ -15,7 +23,7 @@ function validate(){
         alert("맛 종류를 선택해주세요");
         return false;
     } 
-    // 맛 선택 버튼 선택하지 않았을때
+    // 커피 선택 버튼 선택하지 않았을때
     if( !$(".coffee-btn").hasClass('active')){ 
 
         alert("커피 종류를 선택해주세요");
@@ -34,18 +42,10 @@ function validate(){
         return false;
     }
 
-    document.subBreadForm.submit();
+    document.subCoffeeForm.submit();
 }
 
 
-
-const contextPath = getContextPath();
-
-/* 사진교체 */
-window.onload = function(){
-    changeImg();
-    reviewDetail();
-}
 
 const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
 function changeImg(){
@@ -89,25 +89,6 @@ $(".taste-btn").on("click", function() {
      $("input[name='chooseTasteCode").val($(this).val());
 });
 
-// 구독 기간 (1주 2주)
-$(".period-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-    
-    document.getElementById("period").innerText
-        = $(".period-btn.active").find('span').text() + ' / ';
-	$("input[name='choosePeriodCode").val($(this).val());
-});
-
-// 수령 희망일 
-$(".deliveryDay-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-    
-    document.getElementById("deliveryDay").innerText 
-    	= $(".deliveryDay-btn.active").find('span').text();
-    	
-    $("input[name='chooseDeliveryDayCode").val($(this).val());
-});
-
 // 커피
 $(".coffee-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
@@ -118,11 +99,33 @@ $(".coffee-btn").on("click", function() {
     $("input[name='chooseCoffeeCode").val($(this).val());
 });
 
+// 구독 기간 (1주 2주)
+$(".period-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("period").innerText
+        = $(".period-btn.active").find('span').text() + ' / ';
+	$("input[name='choosePeriodCode").val($(this).val());
+	
+});
+
+// 수령 희망일 
+$(".deliveryDay-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("deliveryDay").innerText 
+    	= $(".deliveryDay-btn.active").find('span').text();
+    	
+    $("input[name='chooseDeliveryDayCode").val($(this).val());
+    
+    
+});
+
+
 
 // 버튼 3개가 선택 시 div 변경
-/*$('.period-btn.active',' .bread-btn.active', '.taste-btn.active', '.deliveryDay-btn' ).on('click', function () {
-	alert("dfsf");
-});*/
+// 버튼 전부 클릭 완료 시 div 보여주기 
+
 
 
 /*----------------------- 수량 증감 버튼 -----------------------*/
@@ -152,48 +155,6 @@ function minusCount(){
     }
 }
 
-
-
-
-// 구독 상품 바로결제
-function buy() {
-	location.href = contextPath + "/payment/payment";
-}
-
-// 로그인 안했을때
-function infoAlert() {
-  swal({
-    title: "로그인 후 이용가능합니다.",
-    icon: "info",
-    buttons: "확인",
-  }).then((value) => {
-    if (value) {
-      location.href = contextPath + "/member/login";
-    }
-  });
-}
-
-
-
-
-/* 스크롤 - 페이지 내 이동 */
-function scrollExp(){
-	document.querySelector('#contents-exp').scrollIntoView();	
-	
-	
-	/*
-	
-	var location = document.querySelector('#contents-exp').offsetTop;
-	var menuHeight = document.querySelector(".detail-contents").offsetHeight;
-	window.scrollTo({top:location - menuHeight, behavior:'smooth'});*/
-}
-function scrollReview(){
-	document.querySelector('#contents-review').scrollIntoView();
-	
-}
-function scrollDelievery(){
-	document.querySelector('#contents-delievery').scrollIntoView();
-}
 
 
 
@@ -245,9 +206,49 @@ function reviewDetail(){
     리뷰 list 시 constent span 에  value=글번호 넣어놓기
     or display none으로 글번호 작성
 */
-function returnReviewContent(글번호){
-    /* ajax */
+/*function returnReviewContent(글번호){
+    // ajax 
     return ajax;
+}*/
+
+
+
+
+
+// 결제 페이지 이동 ---------------------------------------------------------
+function reconfirim(){
+    if(loginMemberNo==''){
+        alert("로그인 후 가능합니다");
+        return false;
+    }
+    if(resultNum==0){
+        alert("구매 수량을 선택해주세요");
+        return false;
+    }
+    if(loginMemberNo !='' && resultNum !=0){
+        $("#totalAmount").val(resultNum);
+        $("#hiddenTotalPrice").val(totalprice.innerText);
+        return true;
+    } else{
+        return false;
+    }
 }
 
-
+/* 스크롤 - 페이지 내 이동 */
+function scrollExp(){
+	document.querySelector('#contents-exp').scrollIntoView();	
+	
+	
+	/*
+	
+	var location = document.querySelector('#contents-exp').offsetTop;
+	var menuHeight = document.querySelector(".detail-contents").offsetHeight;
+	window.scrollTo({top:location - menuHeight, behavior:'smooth'});*/
+}
+function scrollReview(){
+	document.querySelector('#contents-review').scrollIntoView();
+	
+}
+function scrollDelievery(){
+	document.querySelector('#contents-delievery').scrollIntoView();
+}

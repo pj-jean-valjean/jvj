@@ -68,6 +68,8 @@ public class SubController {
 		if(subVOList != null) {
 			model.addAttribute("subVOList", subVOList);
 			model.addAttribute("subVOImgList", subVOImgList);
+
+			return "subscribe/subBread";
 		} else {
 			
 		}

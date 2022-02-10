@@ -128,10 +128,10 @@
                         <span>커피 종류</span>
                         <span></span>
                     </div>
-                    <div class="taste btn-area"> 
+                    <div class="coffee btn-area"> 
                         <c:forEach items="${subVOList}" var="sub" begin="5" end="6">
 							<c:if test="${sub.subOptionCode eq 33}">
-								<button type="button" class="taste-btn btn" name="taste" value="${sub.subOptionNo}">
+								<button type="button" class="coffee-btn btn" name="coffee" value="${sub.subOptionNo}">
 									<span>${sub.subOptionContent}</span>
 								</button>
 							</c:if>
@@ -147,7 +147,7 @@
                         <span></span>
                     </div>
                     <div class="period-area btn-area"> 
-                        <c:forEach items="${subVOList}" var="sub" begin="5" end="6">
+                        <c:forEach items="${subVOList}" var="sub" begin="7" end="8">
 							<c:if test="${sub.subOptionCode eq 34}">
 								<button type="button" class="period-btn btn" name="period" value="${sub.subOptionNo}">
 									<span>${sub.subOptionContent}</span>
@@ -165,7 +165,7 @@
 						<span></span>
 					</div>
 					<div class="taste btn-area">
-						<c:forEach items="${subVOList}" var="sub" begin="7" end="8">
+						<c:forEach items="${subVOList}" var="sub" begin="9" end="10">
 							<c:if test="${sub.subOptionCode eq 35}">
 								<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="${sub.subOptionNo}">
 									<span>${sub.subOptionContent}</span>
@@ -204,12 +204,31 @@
                 </article>
 
                 <div class="submit-sub">
-					<button class="submit-btn" 
-						onclick=<c:if test="${ !empty loginMember}"> 'buy();'</c:if>
-						<c:if test="${empty loginMember}">'infoAlert();'</c:if>>
+					<button class="submit-btn" id="submit-btn" >
 						<span>바로 구독 신청</span>
 					</button>
                 </div>
+                
+                <!-- 
+					선택한 버튼의 subOptionNo 값이 넘어감
+					
+					chooseBreadCode : 빵
+					chooseTasteCode : 맛
+					choosePeriodCode : 구독 기간
+					chooseDeliveryDayCode : 수령 희망일
+					totalAmount : 최종 수량
+					
+					-->
+						<input type="hidden" id="chooseBreadCode" name="chooseBreadCode">
+						<input type="hidden" id="chooseTasteCode" name="chooseTasteCode">
+						<input type="hidden" id="choosePeriodCode" name="choosePeriodCode">
+						<input type="hidden" id="chooseDeliveryDayCode" name="chooseDeliveryDayCode">
+						<input type="hidden" id="chooseCoffeeCode" name="chooseCoffeeCode">
+						<input type="hidden" id="hiddentotalAmount" name="hiddentotalAmount">
+						<input type="hidden" id="hiddenTotalPrice" name="hiddenTotalPrice">
+						
+						<input type="hidden" id="memberNo" name="memberNo" value="${loginMember.memberNo}">
+						<input type="hidden" id="productNo" name="productNo" value="${subVOList[0].productNo}">
             </form>
             </section>
         </section>

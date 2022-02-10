@@ -196,7 +196,6 @@ subVOImgList ${subVOImgList}
 						</button>
 	                		
 	                </div>
-	                <%-- onsubmit="return reconfirm();" --%>
 	                
 					<!-- 
 					선택한 버튼의 subOptionNo 값이 넘어감

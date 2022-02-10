@@ -1,3 +1,107 @@
+
+const contextPath = getContextPath();
+
+/* 사진교체 */
+window.onload = function(){
+    changeImg();
+    reviewDetail();
+    likeCheck();
+}
+function likecheck(){
+    if(loginNo=="") return;
+    $.ajax({
+        url: contextPath+'subscribe/likecheck',
+        method: 'post',
+        data : {
+            "loginMemberNo" : loginMemberNo,
+            "productNo" : productNo
+        },
+        success: function(result){
+            console.log(result);
+            if(result>0){
+                hearttoggle()
+                likedone = 1;
+            }
+        },
+        error : function(){
+
+        }
+    })
+}
+function hearttoggle(){
+    const hearts = $('.heart-btn');
+    hearts.children().toggleClass("heart-active");
+    hearts.children().next().toggleClass("heart-active");
+    hearts.children().children().toggleClass("heart-active");
+}
+
+//좋아요 함수
+$('.heart-btn').click(function() {
+	if (loginMemberNo == '') {
+		alert("로그인 후 이용해주세요!");
+		return;
+	}
+	if (likedone == 1) {
+		if (confirm("좋아요를 취소하시겠어요?")) {
+			likeCancle();
+		}
+		else return;
+	}
+	else {
+		doLike();
+	}
+});
+
+function doLike(){
+	$.ajax({
+		url: contextPath + '/subscribe/likeSub',
+		method: 'post',
+		data: {
+			"loginMemberNo": loginMemberNo,
+			"productNo": productNo
+		},
+		success: function(result) {
+			if (result > 0) {
+				hearttoggle()
+				likedone = 1;
+			}
+			else {
+				alert("이미 좋아요를 누르셨어요!");
+			}
+		},
+		error: function() {
+
+		}
+	})
+}
+
+function likeCancle() {
+	$.ajax({
+		url: contextPath + '/subscribe/undolike',
+		method: 'post',
+		data: {
+			"loginNo": loginNo,
+			"productNo": productNo
+		},
+		success: function(result) {
+			if (result > 0) {
+				hearttoggle()
+				likedone = 0;
+			}
+		},
+		error: function() {
+			alert("취소실패");
+		}
+	})
+}
+
+
+
+
+
+
+
+
 // 제출 시 유효성 검사
 function validate(){
     
@@ -32,16 +136,7 @@ function validate(){
     document.subBreadForm.submit();
 }
 
-
-
-const contextPath = getContextPath();
-
-/* 사진교체 */
-window.onload = function(){
-    changeImg();
-    reviewDetail();
-}
-
+// 사진 교체
 const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
 function changeImg(){
     const subImgs = document.querySelectorAll(".img-margin");
@@ -82,6 +177,15 @@ $(".taste-btn").on("click", function() {
     	= $(".taste-btn.active").find('span').text()+ ' / ';
     	
      $("input[name='chooseTasteCode").val($(this).val());
+});
+
+// 커피 
+$(".coffee-btn").on("click", function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    
+    document.getElementById("period").innerText
+        = $(".period-btn.active").find('span').text() + ' / ';
+	$("input[name='choosePeriodCode").val($(this).val());
 });
 
 // 구독 기간 (1주 2주)
@@ -135,51 +239,6 @@ function minusCount(){
 }
 
 
-// 결제 페이지 이동
-function reconfirim(){
-    if(loginMemberNo==''){
-        alert("로그인 후 가능합니다");
-        return false;
-    }
-    if(resultNum==0){
-        alert("구매 수량을 선택해주세요");
-        return false;
-    }
-    if(loginMemberNo !='' && resultNum !=0){
-        const totalAmount= $("#result").text();
-        const totalPrice= $("#totalprice").text();
-        
-        $("#totalAmount").val(totalAmount);
-        $("#hiddenTotalPrice").val(totalPrice);
-        return true;
-    } else{
-        return false;
-    }
-}
-
-
-
-/* 스크롤 - 페이지 내 이동 */
-function scrollExp(){
-	document.querySelector('#contents-exp').scrollIntoView();	
-	
-	
-	/*
-	
-	var location = document.querySelector('#contents-exp').offsetTop;
-	var menuHeight = document.querySelector(".detail-contents").offsetHeight;
-	window.scrollTo({top:location - menuHeight, behavior:'smooth'});*/
-}
-function scrollReview(){
-	document.querySelector('#contents-review').scrollIntoView();
-	
-}
-function scrollDelievery(){
-	document.querySelector('#contents-delievery').scrollIntoView();
-}
-
-
-
 
 
 
@@ -228,9 +287,51 @@ function reviewDetail(){
     리뷰 list 시 constent span 에  value=글번호 넣어놓기
     or display none으로 글번호 작성
 */
-function returnReviewContent(글번호){
-    /* ajax */
+/*function returnReviewContent(글번호){
+    // ajax 
     return ajax;
+}
+*/
+
+
+
+
+// 결제 페이지 이동
+function reconfirim(){
+    if(loginMemberNo==''){
+        alert("로그인 후 가능합니다");
+        return false;
+    }
+    if(resultNum == 0){
+        alert("구매 수량을 선택해주세요");
+        return false;
+    }
+    if(loginMemberNo !='' && resultNum !=0){
+        $("#totalAmount").val(resultNum);
+        $("#hiddenTotalPrice").val(totalprice.innerText);
+        return true;
+    } else{
+        return false;
+    }
 }
 
 
+
+/* 스크롤 - 페이지 내 이동 */
+function scrollExp(){
+	document.querySelector('#contents-exp').scrollIntoView();	
+	
+	
+	/*
+	
+	var location = document.querySelector('#contents-exp').offsetTop;
+	var menuHeight = document.querySelector(".detail-contents").offsetHeight;
+	window.scrollTo({top:location - menuHeight, behavior:'smooth'});*/
+}
+function scrollReview(){
+	document.querySelector('#contents-review').scrollIntoView();
+	
+}
+function scrollDelievery(){
+	document.querySelector('#contents-delievery').scrollIntoView();
+}
