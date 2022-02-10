@@ -18,5 +18,12 @@ public interface SubService {
 
 	List<ProductImage> selectProductImageList(Map<String, Integer> map);
 
+	// 좋아요
+	int likeSub(Map<String, Integer> map);
+
+	int undolike(Map<String, Integer> map);
+
+	int likecheck(Map<String, Integer> map);
+
 
 }

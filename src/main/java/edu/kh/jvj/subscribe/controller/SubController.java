@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.jvj.subscribe.model.service.SubService;
@@ -36,19 +38,6 @@ public class SubController {
 		return "/subscribe/subMain";
 	}
 
-//	// 빵 상세페이지
-//	@GetMapping("subBread")
-//	public String subBread() {
-//		return "/subscribe/subBread";
-//	}
-//	
-//	// 빵, 커피 상세페이지
-//	@GetMapping("subCoffee")
-//	public String subCoffee() {
-//		return "/subscribe/subCoffee";
-//	}
-//	
-	
 	
 	// 빵 상세 조회
 	@GetMapping("subBread")
@@ -104,6 +93,46 @@ public class SubController {
 		log.info("빵 상세 조회 로딩 소요시간 : {} ms", takeTime);
 		
 		return "subscribe/subCoffee";
+	}
+	
+	// 좋아요
+	@PostMapping("likeSub")
+	@ResponseBody
+	public int likeclass(int loginMember, int productNo) {
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginMember", loginMember);
+		map.put("productNo", productNo);
+
+		int result = service.likeSub(map);
+
+		return result;
+	}
+	
+	@PostMapping("undolike")
+	@ResponseBody
+	public int undolike(int loginMember, int productNo) {
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginMember", loginMember);
+		map.put("productNo", productNo);
+
+		int result = service.undolike(map);
+		return result;
+	}
+
+	@PostMapping("likecheck")
+	@ResponseBody
+	public int likecheck(int loginMember, int productNo) {
+		System.out.println(loginMember);
+		System.out.println(productNo);
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginMember", loginMember);
+		map.put("productNo", productNo);
+
+		int result = service.likecheck(map);
+		System.out.println("why?" + result);
+		return result;
 	}
 	
 	

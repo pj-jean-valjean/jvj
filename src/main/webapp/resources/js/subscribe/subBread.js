@@ -1,19 +1,20 @@
-
 const contextPath = getContextPath();
 
+let likedone=0;
 /* 사진교체 */
 window.onload = function(){
     changeImg();
     reviewDetail();
-    likeCheck();
+    likecheck();
 }
+
 function likecheck(){
-    if(loginNo=="") return;
+    if(loginMember=="") return;
     $.ajax({
-        url: contextPath+'subscribe/likecheck',
+        url: 'likecheck',
         method: 'post',
         data : {
-            "loginMemberNo" : loginMemberNo,
+            "loginMember" : loginMember,
             "productNo" : productNo
         },
         success: function(result){
@@ -26,8 +27,9 @@ function likecheck(){
         error : function(){
 
         }
-    })
+    });
 }
+
 function hearttoggle(){
     const hearts = $('.heart-btn');
     hearts.children().toggleClass("heart-active");
@@ -35,15 +37,16 @@ function hearttoggle(){
     hearts.children().children().toggleClass("heart-active");
 }
 
+
 //좋아요 함수
 $('.heart-btn').click(function() {
-	if (loginMemberNo == '') {
+	if (loginMember == "") {
 		alert("로그인 후 이용해주세요!");
 		return;
 	}
 	if (likedone == 1) {
 		if (confirm("좋아요를 취소하시겠어요?")) {
-			likeCancle();
+			likeCancel();
 		}
 		else return;
 	}
@@ -54,10 +57,10 @@ $('.heart-btn').click(function() {
 
 function doLike(){
 	$.ajax({
-		url: contextPath + '/subscribe/likeSub',
+		url: 'likeSub',
 		method: 'post',
 		data: {
-			"loginMemberNo": loginMemberNo,
+			"loginMember": loginMember,
 			"productNo": productNo
 		},
 		success: function(result) {
@@ -75,12 +78,12 @@ function doLike(){
 	})
 }
 
-function likeCancle() {
+function likeCancel() {
 	$.ajax({
-		url: contextPath + '/subscribe/undolike',
+		url: 'undolike',
 		method: 'post',
 		data: {
-			"loginNo": loginNo,
+			"loginMember": loginMember,
 			"productNo": productNo
 		},
 		success: function(result) {
@@ -95,7 +98,17 @@ function likeCancle() {
 	})
 }
 
-
+// 사진 교체
+const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
+function changeImg(){
+    const subImgs = document.querySelectorAll(".img-margin");
+    const thumb = document.querySelector(".main-thumbnail");
+    for(let i = 0; i< subImgs.length ; i++){
+        subImgs[i].addEventListener("click", function(){
+            thumb.setAttribute("src",subImgs[i].getAttribute("src"))
+        })
+    }
+}
 
 
 
@@ -136,26 +149,7 @@ function validate(){
     document.subBreadForm.submit();
 }
 
-// 사진 교체
-const tempThumb = document.querySelector(".main-thumbnail").getAttribute("src");
-function changeImg(){
-    const subImgs = document.querySelectorAll(".img-margin");
-    const thumb = document.querySelector(".main-thumbnail");
-    for(let i = 0; i< subImgs.length ; i++){
-        subImgs[i].addEventListener("click", function(){
-            thumb.setAttribute("src",subImgs[i].getAttribute("src"))
-        })
-    }
-}
 
-//좋아요 함수
-$(document).ready(function() {
-	$('.heart-content').click(function() {
-		$(this).toggleClass("heart-active");
-		$(this).next().toggleClass("heart-active");
-		$(this).children().toggleClass("heart-active");
-	});
-});
 
 
 /*----------------------- 버튼 이름 받아오기,input hidden 값 넘기기 ------------------------*/
@@ -166,7 +160,7 @@ $(".bread-btn").on("click", function() {
     document.getElementById("bread").innerText 
     	= $(".bread-btn.active").find('span').text()+ ' / ';
     	
-    $("input[name='chooseBreadCode").val($(this).val());
+    $("input[name='chooseBreadCode']").attr('value', $(this).val());
 });
 
 // 맛
@@ -176,17 +170,10 @@ $(".taste-btn").on("click", function() {
     document.getElementById("taste").innerText 
     	= $(".taste-btn.active").find('span').text()+ ' / ';
     	
-     $("input[name='chooseTasteCode").val($(this).val());
+     $("input[name=''chooseTasteCode'']").attr('value', $(this).val());
 });
 
-// 커피 
-$(".coffee-btn").on("click", function() {
-    $(this).addClass('active').siblings().removeClass('active');
-    
-    document.getElementById("period").innerText
-        = $(".period-btn.active").find('span').text() + ' / ';
-	$("input[name='choosePeriodCode").val($(this).val());
-});
+
 
 // 구독 기간 (1주 2주)
 $(".period-btn").on("click", function() {
@@ -194,7 +181,8 @@ $(".period-btn").on("click", function() {
     
     document.getElementById("period").innerText
         = $(".period-btn.active").find('span').text() + ' / ';
-	$("input[name='choosePeriodCode").val($(this).val());
+        
+	$("input[name='choosePeriodCode']").attr('value', $(this).val());
 });
 
 // 수령 희망일 
@@ -204,7 +192,7 @@ $(".deliveryDay-btn").on("click", function() {
     document.getElementById("deliveryDay").innerText 
     	= $(".deliveryDay-btn.active").find('span').text();
     	
-    $("input[name='chooseDeliveryDayCode").val($(this).val());
+    $("input[name='chooseDeliveryDayCode']").attr('value', $(this).val());
 });
 
 
@@ -298,7 +286,7 @@ function reviewDetail(){
 
 // 결제 페이지 이동
 function reconfirim(){
-    if(loginMemberNo==''){
+    if(loginMember==''){
         alert("로그인 후 가능합니다");
         return false;
     }

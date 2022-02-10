@@ -95,9 +95,9 @@ subVOImgList ${subVOImgList}
 	                    <div class="bread btn-area"> 
 		                    <c:forEach items="${subVOList}" var="sub" begin="0" end="1"> 
 	                   			<c:if test="${sub.subOptionCode eq 31}">
-	                   				<button type="button" class="bread-btn btn" name="bread" value="${sub.subOptionNo}">
+	                   				<button type="button" class="bread-btn btn" name="bread-btn" id="bread-btn" value="${sub.subOptionNo}">
 		                            	<span>${sub.subOptionContent}</span>
-		                        </button>
+		                        	</button>
 		                        </c:if>
 		                     </c:forEach>  
 	                    </div>
@@ -112,7 +112,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="taste btn-area"> 
 	                        <c:forEach items="${subVOList}" var="sub" begin="2" end="4"> 
 	                   			<c:if test="${sub.subOptionCode eq 32}">
-	                   				<button type="button" class="taste-btn btn" name="taste" value="${sub.subOptionNo}">
+	                   				<button type="button" class="taste-btn btn" name="taste"  id="taste-btn" value="${sub.subOptionNo}">
 		                            	<span>${sub.subOptionContent}</span>
 		                        </button>
 		                        </c:if>
@@ -131,7 +131,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="period-area btn-area">
 							<c:forEach items="${subVOList}" var="sub" begin="5" end="6">
 								<c:if test="${sub.subOptionCode eq 34}">
-									<button type="button" class="period-btn btn" name="period" value="${sub.subOptionNo}">
+									<button type="button" class="period-btn btn" name="period" id="period-btn" value="${sub.subOptionNo}">
 										<span>${sub.subOptionContent}</span>
 									</button>
 								</c:if>
@@ -150,7 +150,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="deliveryDay-area btn-area">
 							<c:forEach items="${subVOList}" var="sub" begin="7" end="8">
 								<c:if test="${sub.subOptionCode eq 35}">
-									<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="${sub.subOptionNo}">
+									<button type="button" class="deliveryDay-btn btn" name="deliveryDay" id="deliveryDay-btn" value="${sub.subOptionNo}">
 										<span>${sub.subOptionContent}</span>
 									</button>
 								</c:if>
@@ -175,7 +175,7 @@ subVOImgList ${subVOImgList}
 	                    </div>
 	                    <div class="buy-count">
 	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-	                        <span id="result">1</span>
+	                        <span id="result">0</span>
 	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
 	                    </div>
 	                   
@@ -191,7 +191,7 @@ subVOImgList ${subVOImgList}
 	                </article>
 	                <div class="submit-sub">
 	                
-                		<button class="submit-btn" id="submit-btn" >
+                		<button class="submit-btn" id="submit-btn" onclick="return reconfirim();">
 							<span>바로 구독 신청</span>
 						</button>
 	                		
@@ -494,7 +494,7 @@ DELIVERY / 배송정보
 <jsp:include page="../common/footer.jsp" />	
 <script>
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
-const loginMemberNo = "${loginMember.memberNo}";
+const loginMember = "${loginMember.memberNo}";
 
 </script>
 
