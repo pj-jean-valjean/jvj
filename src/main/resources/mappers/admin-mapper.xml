@@ -374,4 +374,9 @@
 		#{couponLimit} , #{hashName}
 	)
 	</insert>
+	<update id="deductionCoupon">
+		UPDATE MAKECOUPON SET
+		MCOUPON_LIMIT = MCOUPON_LIMIT -1
+		WHERE MCOUPON_NO = #{madeCouponNo}
+	</update>
 </mapper>

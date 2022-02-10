@@ -60,17 +60,34 @@ public class NoticeController {
 		model.addAttribute("cate",cate);
 		model.addAttribute("noticeNo",noticeNo);
 		model.addAttribute("cp",cp);
-		
 		return "/notice/noticeDetail";
 	}
 	@PostMapping("giveCoupon")
 	@ResponseBody
-	public Integer giveCoupon(int madeCouponNo, int memberNo) {
-		
+	public int giveCoupon(int madeCouponNo, int memberNo, Model model) {
+		//정보조회
 		MadeCoupon madeCoupon= service.getMadeCoupon(madeCouponNo); 
-		madeCoupon.setAdminNo(memberNo);
-		int result = service.insertCouponToMember(madeCoupon);
-		
+		int result = -1;
+		if(madeCoupon.getCouponLimit()>0) {
+			//해당회원에 쿠폰 증정
+			madeCoupon.setAdminNo(memberNo);
+			result = service.insertCouponToMember(madeCoupon);
+			if(result>0) {
+				//발급쿠폰 재고 차감
+				result = service.deductionCoupon(madeCouponNo);
+				if(result>0) {
+					result= madeCoupon.getCouponLimit()-1;
+				}
+			}
+			else {
+				//이미 쿠폰 발급
+				result = -1;
+			}
+		}
+		else {
+			//쿠폰 소진
+			result = -2;
+		}
 		return result;
 	}
 }

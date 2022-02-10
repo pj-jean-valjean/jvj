@@ -46,7 +46,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int insertCouponToMember(MadeCoupon madeCoupon) {
+		//회원이 사용가능한 해당 쿠폰 받은적 있는지 검사 필요
+		
 		return dao.insertCouponToMember(madeCoupon);
+	}
+
+	@Override
+	public int deductionCoupon(int madeCouponNo) {
+		return dao.deductionCoupon(madeCouponNo);
 	}
 	
 	

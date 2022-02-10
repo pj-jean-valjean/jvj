@@ -124,7 +124,7 @@
 	                        	<span>  ${onecou.couponName} ${onecou.discountPer}% 할인</span>
 	                        	<input type="hidden" value="${onecou.couponNo}" name="couponNo">
 	                        	<input type="hidden" value="${onecou.couponStatusCode}" name="couponStatusCode">
-	                        	<span> 선착순 ${onecou.couponLimit}명</span>
+	                        	<span> 남은수량 ${onecou.couponLimit} 매</span>
 	                        	<span> ${onecou.createDate} ~ ${onecou.expireDate} 사용가능 </span>
 	                        </div>
 	                        <div class="coupon-btn"  onclick="giveCoupon(this)">
@@ -154,19 +154,34 @@
 				return;
 			}
 			const status = document.getElementsByName("couponStatusCode")[0].value;
+			
+			
 			if(status==1){
-				const status = document.getElementsByName("couponStatusCode")[0].value;
 				
-				madeCouponNo = btn.previousElementSibling.children[1].value;
+				const madeCouponNo = btn.previousElementSibling.children[1].value;
+				const stockspan = btn.previousElementSibling.children[3];
 				$.ajax({
 					url: "giveCoupon" ,
 					type: "POST",
+					async: false,
 					data : {
 						"madeCouponNo" : madeCouponNo,
 						"memberNo"  : loginNo
 					},
 					success : function(result){
-						alert("발급성공!");
+						if(result>=0){
+							alert("발급성공! 마이페이지에서 확인해주세요");
+							//location.reload();
+							let stock = result;
+							stockspan.innerText =" 남은수량 "+result+" 매"; 
+						}
+						else if(result==-2){
+							alert("쿠폰이 모두 소진되었습니다! ");
+							location.reload();
+						}
+						else{
+							alert("쿠폰을 이미 발급받으셨습니다! 마이페이지에서 확인해주세요")
+						}
 					},
 					error : function(){
 						

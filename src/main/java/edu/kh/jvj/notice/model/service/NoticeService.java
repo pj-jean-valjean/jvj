@@ -35,4 +35,7 @@ public interface NoticeService {
 	MadeCoupon getMadeCoupon(int madeCouponNo);
 
 	int insertCouponToMember(MadeCoupon madeCoupon);
+
+
+	int deductionCoupon(int madeCouponNo);
 }
