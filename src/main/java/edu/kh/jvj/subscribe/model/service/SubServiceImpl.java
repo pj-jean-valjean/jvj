@@ -32,6 +32,23 @@ public class SubServiceImpl implements SubService{
 	public List<ProductImage> selectProductImageList(Map<String, Integer> map) {
 		return dao.selectProductImageList(map);
 	}
+	
+	
+	// 좋아요
+	@Override
+	public int likeSub(Map<String, Integer> map) {
+		return dao.likeSub(map);
+	}
+
+	@Override
+	public int undolike(Map<String, Integer> map) {
+		return dao.undolike(map);
+	}
+
+	@Override
+	public int likecheck(Map<String, Integer> map) {
+		return dao.likecheck(map);
+	}
 
 	
 

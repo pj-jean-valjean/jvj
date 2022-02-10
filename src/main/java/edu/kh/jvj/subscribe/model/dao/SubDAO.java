@@ -32,4 +32,18 @@ public class SubDAO {
 	public List<ProductImage> selectProductImageList(Map<String, Integer> map) {
 		return sqlSession.selectList("subscribeMapper.selectProductImageList", map);
 	}
+	
+	
+	// 좋아요
+	public int likeSub(Map<String, Integer> map) {
+		return sqlSession.insert("subscribeMapper.likeSub", map);
+	}
+
+	public int undolike(Map<String, Integer> map) {
+		return sqlSession.selectOne("subscribeMapper.undolike", map);
+	}
+
+	public int likecheck(Map<String, Integer> map) {
+		return sqlSession.update("subscribeMapper.likecheck", map);
+	}
 }

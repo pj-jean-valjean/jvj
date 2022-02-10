@@ -76,7 +76,7 @@ $(".bread-btn").on("click", function() {
     document.getElementById("bread").innerText 
     	= $(".bread-btn.active").find('span').text()+ ' / ';
     	
-    $("input[name='chooseBreadCode").val($(this).val());
+    $("input[name='chooseBreadCode']").attr('value', $(this).val());
 });
 
 // 맛
@@ -86,7 +86,7 @@ $(".taste-btn").on("click", function() {
     document.getElementById("taste").innerText 
     	= $(".taste-btn.active").find('span').text()+ ' / ';
     	
-     $("input[name='chooseTasteCode").val($(this).val());
+     $("input[name='chooseTasteCode']").attr('value', $(this).val());
 });
 
 // 커피
@@ -96,7 +96,7 @@ $(".coffee-btn").on("click", function() {
     document.getElementById("coffee").innerText 
     	= $(".coffee-btn.active").find('span').text();
     	
-    $("input[name='chooseCoffeeCode").val($(this).val());
+    $("input[name='chooseCoffeeCode']").attr('value', $(this).val());
 });
 
 // 구독 기간 (1주 2주)
@@ -105,7 +105,7 @@ $(".period-btn").on("click", function() {
     
     document.getElementById("period").innerText
         = $(".period-btn.active").find('span').text() + ' / ';
-	$("input[name='choosePeriodCode").val($(this).val());
+	$("input[name='choosePeriodCode']").attr('value', $(this).val());
 	
 });
 
@@ -116,7 +116,7 @@ $(".deliveryDay-btn").on("click", function() {
     document.getElementById("deliveryDay").innerText 
     	= $(".deliveryDay-btn.active").find('span').text();
     	
-    $("input[name='chooseDeliveryDayCode").val($(this).val());
+    $("input[name='chooseDeliveryDayCode']").attr('value', $(this).val());
     
     
 });

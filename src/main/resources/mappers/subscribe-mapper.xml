@@ -49,5 +49,21 @@
         JOIN SUB_OPTION USING (PRODUCT_NO)	
 		WHERE PRODUCT_NO = ${productNo}
 	</select>
-
+	
+	
+	<insert id="likeSub">
+		INSERT INTO "LIKE" VALUES(
+			#{productNo}, #{loginMember}
+		)
+	</insert>
+	<delete id="undolike">
+		DELETE FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginMember}
+	</delete>
+	<select id="likecheck" resultType="_int">
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE PRODUCT_NO = #{productNo}
+		AND MEMBER_NO = #{loginMember}
+	</select>
 </mapper>

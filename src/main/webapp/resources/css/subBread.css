@@ -565,7 +565,7 @@ main{
 	color: #000;
 }
 
-.heart.heart-active {
+.heart-active {
 	animation: animate .8s steps(28) 1;
 	background-position: right;
 	position: relative;
