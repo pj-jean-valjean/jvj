@@ -33,19 +33,17 @@
 }
 .j-pmbtn{
     
-    display: inline-block;
+    
     cursor: pointer;
-    width:14px;
-    height: 14px;
-    line-height: 0.7;
-    text-align: center;
-    background-color: #d3c5b6;
-    border-radius: 10px;
+    
 }
 .j-pmbtn:active,.x-btn:active{
     
-    padding:1px;
+    transform: translate3d(0, 2px, 0);
+	text-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
 }
+
+
 .x-btn{
     float:right; background:#d3c5b6;width:20px;height:20px;
     margin:0 20px;
