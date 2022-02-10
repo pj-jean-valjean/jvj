@@ -138,29 +138,28 @@ function minusCount(){
     }
 }
 
-// 구독 상품 바로결제
-function buy() {
-	location.href = contextPath + "/payment/payment";
-}
 
-// 로그인 안했을때
-function infoAlert() {
-  swal({
-    title: "로그인 후 이용가능합니다.",
-    icon: "info",
-    buttons: "확인",
-  }).then((value) => {
-    if (value) {
-      location.href = contextPath + "/member/login";
+// 결제 페이지 이동
+function reconfirim(){
+    if(loginMemberNo==''){
+        alert("로그인 후 가능합니다");
+        return false;
     }
-  });
+    if(resultNum==0){
+        alert("구매 수량을 선택해주세요");
+        return false;
+    }
+    if(loginMemberNo !='' && resultNum !=0){
+        const totalAmount= $("#result").text();
+        const totalPrice= $("#totalprice").text();
+        
+        $("#totalAmount").val(totalAmount);
+        $("#hiddenTotalPrice").val(totalPrice);
+        return true;
+    } else{
+        return false;
+    }
 }
-
-
-
-
-
-
 
 
 
