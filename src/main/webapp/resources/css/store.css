@@ -27,7 +27,7 @@
   
 }
 .main-category>li:hover{
-  transform: translate3d(0, 2px, 0);
+  
   border-bottom:1px solid;
 }
 

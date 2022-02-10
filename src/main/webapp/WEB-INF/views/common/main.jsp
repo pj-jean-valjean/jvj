@@ -13,6 +13,8 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 
 </head>
 <body>
@@ -44,7 +46,9 @@
 
 	</div>
 	<div class="main-wrapper">
-
+<svg id="morph" height="100vh" widht="100vw" viewbox="0 0 1921 1083" preserveAspectRatio="none">
+    <path class="morph" d="M0,0V-.384s151.27.01,385.2.01c362.84.355,235.588,1.411,478.055.083s285.457-.149,598.429.15,459.139.317,459.139.317V0H0Z" fill="rgb(233, 199, 97)"></path>
+</svg>
 		<div class="story">
 			<div data-aos="fade-up" data-aos-duration="1000">
 				<div class="store">
@@ -56,7 +60,7 @@
 							용도로 사용하는 빵을 케시판(消しパン: 지움빵)이라 부르는데, 이에 대응하여 실제로 먹는 빵을 쇼쿠판(食パン:
 							먹음빵)이라 부르던 데서 나왔다는 설이 대표적이다.</p>
 						<h1>35,000원</h1>
-						<div class="moreBtn"  onclick="location.href='http://localhost:8080/jvj/store?cp=1&ct=1&op=0'">+ 더보기</div>
+						<div class="moreBtn" >+ 더보기</div>
 					</div>
 				</div>
 			</div>
@@ -68,7 +72,7 @@
 							그 자리를 꿰차게 되었다. 캉파뉴는 발효 과정과 만드는 시간, 과정이 바게트보다 까다롭고 오래 걸린다. 반면 바게트는 캉파뉴보다 만들기 쉬웠고, 먹기도 편하고 운반하는 데도 더
 							유리했다.</p>
 						<h1>35,000원</h1>
-						<div class="moreBtn"  onclick="location.href='http://localhost:8080/jvj/store?cp=1&ct=2&op=0'">+ 더보기</div>
+						<div class="moreBtn">+ 더보기</div>
 					</div>
 					<div class="store-pdt pdt2-img"></div>
 
@@ -185,6 +189,31 @@
           prevEl: ".swiper-button-prev",
         },
       });
+    const morphing = anime({
+        targets: '.morph',
+        d: [
+            {value: 'M0,0V520.616s151.27-180.99,385.2-180.99c362.84,22.355,235.588,316.411,478.055,349.083s285.457-232.149,598.429-319.85,459.139,194.317,459.139,194.317V0Z'},
+            {value: 'M0,0V1080.616s151.27.01,385.2.01c362.84.355,235.588-.589,478.055.083s285.457.851,598.429.15,459.139.317,459.139.317V0Z'}
+        ],
+        easing: 'easeInOutQuint',
+        duration: 1300,
+        loop: false,
+        autoplay: false
+    });
+    const btn = document.getElementsByClassName('moreBtn')[0];
+    btn.addEventListener('click', function() {
+        morphing.restart();
+        morphing.finished.then(() => {
+        	location.href='http://localhost:8080/jvj/store?cp=1&ct=1&op=0';
+          });
+    });
+    const btn2 = document.getElementsByClassName('moreBtn')[1];
+    btn2.addEventListener('click', function() {
+        morphing.restart();
+        morphing.finished.then(() => {
+        	location.href='http://localhost:8080/jvj/store?cp=1&ct=2&op=0';
+          });
+    });
     </script>
 	<jsp:include page="../common/footer.jsp" />
 </body>

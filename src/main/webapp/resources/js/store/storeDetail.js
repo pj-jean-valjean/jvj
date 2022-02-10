@@ -259,7 +259,7 @@ function cart() {
   }
   selectAmount();
   console.log("result= " + resulty);
-  if(resulty+suryang>=stock){
+  if(resulty+suryang>stock){
     swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
     return;
     
