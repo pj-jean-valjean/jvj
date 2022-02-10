@@ -126,7 +126,7 @@
 				<div class="fake-hr"></div>
 			</div>
 			<div class="class-wrapper">
-				<div class="class-wrap bigclass class-img0"></div>
+				<div class="class-wrap bigclass class-img0" onclick="location.href='onedayclass/list'"></div>
 				<div class="class-wrap">
 					<div class="smallclass class-img2"></div>
 					<div class="class-article">
@@ -202,18 +202,30 @@
     });
     const btn = document.getElementsByClassName('moreBtn')[0];
     btn.addEventListener('click', function() {
-        morphing.restart();
-        morphing.finished.then(() => {
-        	location.href='http://localhost:8080/jvj/store?cp=1&ct=1&op=0';
-          });
+
+        	location.href='store?cp=1&ct=1&op=0';
+
     });
     const btn2 = document.getElementsByClassName('moreBtn')[1];
     btn2.addEventListener('click', function() {
-        morphing.restart();
-        morphing.finished.then(() => {
-        	location.href='http://localhost:8080/jvj/store?cp=1&ct=2&op=0';
-          });
+      
+        	location.href='store?cp=1&ct=2&op=0';
+
     });
+    $('.subs-img1').on('click',()=>{
+    	 morphing.restart();
+         morphing.finished.then(() => {
+    	location.href='subscribe/subBread';
+         	
+           });
+    });
+    $('.subs-img2').on('click',()=>{
+    	 morphing.restart();
+         morphing.finished.then(() => {
+    	location.href='subscribe/subCoffee';
+           });
+    });
+    $('.swiper-pagination-bullet').css('background','#564334');
     </script>
 	<jsp:include page="../common/footer.jsp" />
 </body>

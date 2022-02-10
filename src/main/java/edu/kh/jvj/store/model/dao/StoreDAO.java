@@ -70,4 +70,9 @@ public class StoreDAO {
 		return mybatis.selectOne("storeMapper.selectpdtCount",store);
 	}
 
+	public int expiredSale() {
+		
+		return mybatis.delete("storeMapper.expiredSale");
+	}
+
 }

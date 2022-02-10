@@ -26,4 +26,6 @@ public interface StoreService {
 
 	int selectpdtCount(Store store);
 
+	int expiredSale();
+
 }

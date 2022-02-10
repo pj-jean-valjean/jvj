@@ -70,7 +70,7 @@
 							<c:if test="${cart2.parentNo eq cart.cartNo}">
 
 								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName}
-									${cart2.price}원 * ${cart2.addq}</h4>
+									${cart2.price}원 x ${cart2.addq}</h4>
 								<input class="optionPrice" type="hidden"
 									value="${cart2.price * cart2.addq *(100-cart2.discountPer)/100} ">
 
@@ -109,11 +109,11 @@
 		</div>
 	</div>
 	<form action="#" method="POST" name="requestForm">
-		<input type="hidden" name="carrierList" value="${carrierList}">
+		<input type="hidden" name="carrierList" value="">
 	</form>
 	<script>
 	const specialContextPath = '${contextPath}';
-	const carrierList = '${carrierList}';
+	//const carrierList = '${carrierList}';
 	</script>
 	<script src="${contextPath}/resources/js/member/cart.js"> </script>
 	<jsp:include page="../common/footer.jsp" />
