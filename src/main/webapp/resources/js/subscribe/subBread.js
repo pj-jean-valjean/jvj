@@ -12,10 +12,10 @@ function likecheck(){
     if(loginMember=="") return;
     $.ajax({
         url: 'likecheck',
-        method: 'post',
+        type: 'post',
         data : {
             "loginMember" : loginMember,
-            "productNo" : productNo
+            "productNo" : productNo.value
         },
         success: function(result){
             console.log(result);
@@ -58,10 +58,10 @@ $('.heart-btn').click(function() {
 function doLike(){
 	$.ajax({
 		url: 'likeSub',
-		method: 'post',
+		type: 'post',
 		data: {
 			"loginMember": loginMember,
-			"productNo": productNo
+			"productNo": productNo.value
 		},
 		success: function(result) {
 			if (result > 0) {
@@ -81,10 +81,10 @@ function doLike(){
 function likeCancel() {
 	$.ajax({
 		url: 'undolike',
-		method: 'post',
+		type: 'post',
 		data: {
 			"loginMember": loginMember,
-			"productNo": productNo
+			"productNo": productNo.value
 		},
 		success: function(result) {
 			if (result > 0) {
@@ -118,31 +118,10 @@ function changeImg(){
 // 제출 시 유효성 검사
 function validate(){
     
-    // 기간(1주, 2주)버튼 선택하지 않았을때
-    if( !$(".period-btn").hasClass('active')){ 
-
-        alert("구독 옵션을 선택해주세요");
+   if($(".bread-btn.active").length == 0) { // 공개여부의 값이 없다면
+		alert("구매 수량을 선택해주세요");
         return false;
-    }
-    // 빵 선택 버튼 선택하지 않았을때
-    if( !$(".bread-btn").hasClass('active')){ 
-
-        alert("빵 종류를 선택해주세요");
-        return false;
-    }
-    
-    // 맛 선택 버튼 선택하지 않았을때
-    if( !$(".taste-btn").hasClass('active')){ 
-
-        alert("맛 종류를 선택해주세요");
-        return false;
-    }
-    // 요일 선택 버튼 선택하지 않았을때
-    if( !$(".deliveryDay-btn").hasClass('active')){ 
-
-        alert("수령 희망일을 선택해주세요");
-        return false;
-    }
+	}
 	
 	// 로그인인 경우
 	
@@ -170,7 +149,7 @@ $(".taste-btn").on("click", function() {
     document.getElementById("taste").innerText 
     	= $(".taste-btn.active").find('span').text()+ ' / ';
     	
-     $("input[name=''chooseTasteCode'']").attr('value', $(this).val());
+     $("input[name='chooseTasteCode']").attr('value', $(this).val());
 });
 
 
@@ -286,21 +265,29 @@ function reviewDetail(){
 
 // 결제 페이지 이동
 function reconfirim(){
-    if(loginMember==''){
+   if(!$(".bread-btn.active")[0]){ 
+	alert("선택해줘")
+	}else{
+		console.log("선택되어있음: ", $(".bread-btn.active"))
+	}
+	
+	if(loginMember==''){
         alert("로그인 후 가능합니다");
         return false;
     }
+	
     if(resultNum == 0){
         alert("구매 수량을 선택해주세요");
         return false;
     }
-    if(loginMemberNo !='' && resultNum !=0){
+    if(loginMember !='' && resultNum !=0 && $(".bread-btn.active")[0]){
         $("#totalAmount").val(resultNum);
         $("#hiddenTotalPrice").val(totalprice.innerText);
         return true;
     } else{
         return false;
     }
+ 	
 }
 
 
