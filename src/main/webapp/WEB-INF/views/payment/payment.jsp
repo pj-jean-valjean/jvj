@@ -23,14 +23,14 @@
                 <div>
                     <a href="#"><p>${oneClass.title}</p></a>
                     <p>
-                        지점명 : ${oneClass.title}<br>
-                        수강일 : ${oneClass.classDt } <br>
-                        수업 시간 : ${oneClass.classtime } <br>
-                        신청인원 : ${totalPeople } <br>
+                        지점명 : <span class="classTitle">${oneClass.title}</span><br>
+                        수강일 : <span class="classDt">${oneClass.classDt }</span> <br>
+                        수업 시간 :<span class="classtime"> ${oneClass.classtime }</span> <br>
+                        신청인원 : <span class="totalPeople">${totalPeople }</span> <br>
                     </p>
                 </div>
                 <div>
-                    <p>${oneClass.price}원</p>
+                    <p class="classPrice">${oneClass.price}원</p>
                 </div>
             </div>
 			</c:if>
@@ -384,7 +384,11 @@
 	<script src="${contextPath}/resources/js/payment/payment.js"></script>
   
   <script>
-  
+  	const productCd = "${oneClass.productCd}"
+  	const productNo = "${oneClass.productNo}"
+  	const loginMember = "${loginMember.memberNo}"
+  </script>
+  <script>
   document.querySelector("#payment-btn").addEventListener("click", function(){
     requestPay();
   });
@@ -430,6 +434,8 @@
 	  function (rsp) {
 	  		console.log(rsp);
 	  	if (rsp.success) {
+	  		const result_imp_uid = rsp.imp_uid;
+	  		saveOrderInfo();
 	  		var msg = '결제가 완료되었습니다.';
 		  		msg += '고유ID : ' + rsp.imp_uid;
 		  		msg += '상점 거래ID : ' + rsp.merchant_uid; // !!! merchant_uid 결제 ID !!!
@@ -443,7 +449,7 @@
 	  });
 	
 	  }
-  
   </script>
+  <script type="text/javascript" src="${contextPath}/resources/js/payment/paymentDbFunction.js"></script>
 
   

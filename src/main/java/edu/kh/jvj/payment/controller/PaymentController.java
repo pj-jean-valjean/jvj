@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.Service.PaymentService;
+import edu.kh.jvj.payment.model.vo.Payment;
 
 @Controller
 @RequestMapping("/payment/*")
@@ -57,6 +60,17 @@ public class PaymentController {
 	
 	@RequestMapping(value = "paymentResult", method = RequestMethod.GET)
 	public String paymentResult() {
+		return "payment/paymentResult";
+	}
+	
+	
+	@PostMapping("savePaymentInfo")
+	public String savePaymentInfo(@ModelAttribute Payment payInfo){
+		
+		System.out.println(payInfo);
+		
+		int result = service.insertPaymentInfo(payInfo);
+		
 		return "payment/paymentResult";
 	}
 }

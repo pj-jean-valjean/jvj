@@ -41,5 +41,42 @@
 		JOIN CLASS_PLACE USING (PLACE_CODE)
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
+	<insert id="insertPaymentInfo">
 	
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="purchaseNo">
+ 			SELECT SEQ_PURCHASE_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO PURCHASE VALUES(
+		    #{purchaseNo}, 
+		    #{productCd},
+		    #{productNo},
+		    #{totalPrice},
+		    DEFAULT ,
+		    SYSDATE ,
+		    DEFAULT ,
+		    #{memberNo}
+			)
+	</insert>
+	<insert id="insertOrderListInfo">
+	  		<selectKey order="BEFORE" resultType="_int" keyProperty="orderNo">
+ 			SELECT SEQ_PURCHASE_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO "ORDER" VALUES(
+		    #{orderNo}, 
+		    #{purchaseNo},
+		    #{productNo},
+		    #{amount},
+		    NULL ,
+		    #{totalPrice} ,
+		    #{memberNo}
+			)
+	</insert>
+	<insert id="insertOrderOptionInfo">
+		INSERT INTO "ORDER_OPTION" VALUES(
+			SEQ_ORDER_OPTION_NO.NEXTVAL,
+			 #{orderNo},
+			 #{productOption},
+			 #{amount}
+		)
+	</insert>
 </mapper>
