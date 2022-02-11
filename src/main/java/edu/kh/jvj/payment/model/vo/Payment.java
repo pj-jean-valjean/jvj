@@ -33,7 +33,7 @@ public class Payment {
 	
 	private int amount;
 	
-	private String store_imp_uid;
+	private String result_merchant_uid;
 	
 	
 	
@@ -45,12 +45,12 @@ public class Payment {
 		this.orderNo = orderNo;
 	}
 
-	public String getStore_imp_uid() {
-		return store_imp_uid;
+	public String getResult_merchant_uid() {
+		return result_merchant_uid;
 	}
 
-	public void setStore_imp_uid(String store_imp_uid) {
-		this.store_imp_uid = store_imp_uid;
+	public void setResult_merchant_uid(String result_merchant_uid) {
+		this.result_merchant_uid = result_merchant_uid;
 	}
 
 	public int getProductNo() {
@@ -143,10 +143,13 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [purchaseNo=" + purchaseNo + ", productCd=" + productCd + ", totalPrice=" + totalPrice
-				+ ", paymentStatus=" + paymentStatus + ", paymentDt=" + paymentDt + ", refundDt=" + refundDt
-				+ ", memberNo=" + memberNo + ", productName=" + productName + ", productOption=" + productOption
-				+ ", amount=" + amount + "]";
+		return "Payment [purchaseNo=" + purchaseNo + ", orderNo=" + orderNo + ", productCd=" + productCd
+				+ ", totalPrice=" + totalPrice + ", paymentStatus=" + paymentStatus + ", paymentDt=" + paymentDt
+				+ ", refundDt=" + refundDt + ", memberNo=" + memberNo + ", productNo=" + productNo + ", productName="
+				+ productName + ", productOption=" + productOption + ", amount=" + amount + ", store_imp_uid="
+				+ result_merchant_uid + "]";
 	}
+	
+	
 	
 }

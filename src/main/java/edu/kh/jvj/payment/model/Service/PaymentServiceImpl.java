@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.dao.PaymentDAO;
+import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
+import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
@@ -39,9 +41,16 @@ public class PaymentServiceImpl implements PaymentService{
 			result = dao.insertOrderOptionInfo(payInfo);
 				
 			//API 결제 키 저장
+			result = dao.insertAPIorderKey(payInfo);
 				
 		}
 		return result;
 	}
+
+	@Override
+	public List<OrderSubsOption> getOptionsList(String getOptionSearch) {
+		return dao.getOptionsList(getOptionSearch);
+	}
+
 
 }

@@ -26,7 +26,10 @@
 		<result property="productImgLevel" column="PRODUCT_IMG_LEVEL" />
 		<result property="productNo" column="PRODUCT_NO" />
 	</resultMap>
-	
+	<resultMap type="edu.kh.jvj.payment.model.vo.OrderSubsOption" id="optionList_rm">
+		<id property="optionNo" column="SUB_OPTION_NO" />
+		<result property="optioanName" column="SUB_OPTION_CONTENT" />
+	</resultMap>
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -79,4 +82,17 @@
 			 #{amount}
 		)
 	</insert>
+	<insert id="insertAPIorderKey">
+		INSERT INTO "NORMAL_PAYMENT" VALUES(
+			SEQ_NORMAL_PAYMENT_NO.NEXTVAL,
+			 #{purchaseNo},
+			 #{result_merchant_uid}
+		)
+	</insert>
+	
+	<select id="getOptionsList" resultMap="optionList_rm">
+		SELECT SUB_OPTION_NO , SUB_OPTION_CONTENT  FROM SUB_OPTION
+		WHERE SUB_OPTION_NO IN ( ${getOptionSearch} )
+		ORDER BY  SUB_OPTION_NO DESC
+	</select>
 </mapper>

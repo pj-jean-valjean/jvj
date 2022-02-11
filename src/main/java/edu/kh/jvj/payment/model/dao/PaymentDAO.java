@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
+import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 
 @Repository
@@ -43,5 +45,19 @@ public class PaymentDAO {
 	public int insertOrderOptionInfo(Payment payInfo) {
 		return sqlSession.insert("paymentMapper.insertOrderOptionInfo", payInfo);
 	}
+
+
+
+	public int insertAPIorderKey(Payment payInfo) {
+		return sqlSession.insert("paymentMapper.insertAPIorderKey", payInfo);
+	}
+
+
+
+	public List<OrderSubsOption> getOptionsList(String getOptionSearch) {
+		return sqlSession.selectList("paymentMapper.getOptionsList", getOptionSearch);
+	}
+
+
 
 }
