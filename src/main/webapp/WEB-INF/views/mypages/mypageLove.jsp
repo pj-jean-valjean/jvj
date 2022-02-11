@@ -67,17 +67,17 @@
 	                    
 	                    <c:otherwise>
 	                    
-	                    	<c:forEach items="${likeList}" var="likeList">
+	                    	<c:forEach items="${likeList}" var="like">
 	                    	
 		                        <ul class="tbname">
 		                        
-		                            <li><img src="${contextPath}/${likeList.productImagePath}/${likeList.productImageName}" alt=""></li>
-		                            <li>${likeList.productName} 
+		                            <li><img src="${contextPath}/${like.productImagePath}/${like.productImageName}" alt=""></li>
+		                            <li>${like.productName} 
 		                            </li>
-		                            <li>${likeList.productPrice}</li>
+		                            <li>${like.productPrice}</li>
 		                            <li>
 			                           <button class="p-btn" id="btn-pur" >바로 구매</button>
-			                           <button class="p-btn" id="btn-cc" >좋아요 삭제</button>
+			                           <button class="p-btn" id="btn-cc"  onclick="cancelLike(${like.productNo})">좋아요 삭제</button>
 		                            </li>
 		                        </ul>
 	                        </c:forEach>
@@ -126,13 +126,11 @@
         </article>
         
         
-               
     </section>
     </main>
     	
     <script>
 	    const contextPath = "${contextPath}";
-		const productNo = ${likeList.productNo};
 			
 	</script> 
 	

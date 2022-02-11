@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -109,22 +110,15 @@ public class MypageController {
 	}
 	
 	// 마이페이지 좋아요 취소
+	@ResponseBody
 	@RequestMapping(value = "deletelike", method = RequestMethod.POST) 
-	public String cancelLike(Like like, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra
-			) {
+	public int cancelLike(Like like, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
 		
 		like.setMemberNo(loginMember.getMemberNo());
 		like.setProductNo(productNo);
 		
-		int result =  service.cancleLike(like);
+		return  service.cancleLike(like);
 		
-		if(result>0) {
-			Util.swalSetMessage("좋아요가 취소되었습니다", null, "success", ra);
-		}else {
-			Util.swalSetMessage("오류 : 관리자 문의바랍니다.", null, "error", ra);
-		}
-		
-		return "redirect:/";
 	}
 
 	// 내 정보 조회 화면 전환
