@@ -501,6 +501,7 @@ DELIVERY / 배송정보
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
 const loginMember = "${loginMember.memberNo}";
 
+
 function chooseBtn(){
 	
 	// 빵 버튼 제외 모두 비활성화
@@ -585,7 +586,7 @@ function reconfirim(){
 	if (loginMember != '' && resultNum != 0 && $(".bread-btn.active")[0]
 			&& $(".taste-btn.active")[0] && $(".period-btn.active")[0]
 			&& $(".deliveryDay-btn.active")[0]) {
-		$("#totalAmount").val(resultNum);
+		$("#hiddentotalAmount").val(resultNum);
 		$("#hiddenTotalPrice").val(totalprice.innerText);
 		return true;
 	} else {
