@@ -72,7 +72,7 @@ public class MypageServiceInpl implements MypageService {
 		return dao.memberUpdate(member);
 	}
 	
-	// 회원 정보 수정(비밀번호)
+	// 비밀번호 수정
 	@Override
 	public int updatePw(Map<String, String> map) {
 		
@@ -80,17 +80,18 @@ public class MypageServiceInpl implements MypageService {
 		
 		int pwUpdate = 0;
 		
-		if(encoder.matches(map.get("nowPwd"), decodePw)) {
+		if(encoder.matches(map.get("memberPw"), decodePw)) {
 			
-			String encPw = encoder.encode(map.get("modifyPwd1"));
+			String encPw = encoder.encode(map.get("modifyPw"));
 			
-			map.put("modifyPwd1", encPw);
+			map.put("modifyPw", encPw);
 			
 			pwUpdate = dao.modifyPassword(map);
 		}
 		
 		return pwUpdate;
 	}
+
 
 	
 	

@@ -18,12 +18,12 @@
 </head>
 <body>
 	<main>
+    
+
+    <section style="margin-top:60px" >
     <div class="titleText">
         <span>보유한 쿠폰 목록</span>
     </div>
-
-    <section style="margin-top:60px" >
-    
     
     <jsp:include page="mypageMenu.jsp"/>	
     
@@ -65,7 +65,7 @@
 						<td colspan="5" 
 						style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
 						font-size:20px; font-weight:bold; margin-left: auto; margin-right: auto; text-align:center;
-						padding-top:236px; padding-bottom:236px;">
+						padding-top:298px; padding-bottom:371px; margin-bottum">
 						보유중인 쿠폰이 존재하지 않습니다.</td>
 					  </tr>       
                 	</c:when>
@@ -102,7 +102,6 @@
 
 
         <article>
-        
             <div class="page">
                 <ul class="pagination">
                 

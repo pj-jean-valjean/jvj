@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
+import edu.kh.jvj.mypage.model.vo.Product;
 
 @Controller
 @RequestMapping("mypage/*")
@@ -62,6 +65,8 @@ public class MypageController {
 		return "mypages/reviewWrite";
 	}
 	
+	
+	
 	// 마이페이지 쿠폰
 	@GetMapping("coupon")
 	public String mypageCoupon( Coupon coupon,
@@ -86,7 +91,7 @@ public class MypageController {
 	
 	
 	// 마이페이지 좋아요
-	@GetMapping("love")
+	@RequestMapping(value = "love", method = RequestMethod.GET)
 	public String mypageLove(@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
 			Model model, @ModelAttribute("loginMember") Member loginMember, 
 			Like like) {
@@ -104,19 +109,19 @@ public class MypageController {
 	}
 	
 	// 마이페이지 좋아요 취소
-	@PostMapping("cancellike")
-	public String cancelLike(@ModelAttribute("loginMember") Member loginMember, Like like,RedirectAttributes ra
+	@RequestMapping(value = "deletelike", method = RequestMethod.POST) 
+	public String cancelLike(Like like, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra
 			) {
-	
+		
 		like.setMemberNo(loginMember.getMemberNo());
+		like.setProductNo(productNo);
 		
-		int result = service.cancleLike(like);
+		int result =  service.cancleLike(like);
 		
-		if( result > 0){
-			Util.swalSetMessage("좋아요가 삭제되었습니다.", null, "success", ra);
-			
+		if(result>0) {
+			Util.swalSetMessage("좋아요가 취소되었습니다", null, "success", ra);
 		}else {
-			Util.swalSetMessage("오류 발생, 관리자에게 문의 해주십시오.", null, "error", ra);
+			Util.swalSetMessage("오류 : 관리자 문의바랍니다.", null, "error", ra);
 		}
 		
 		return "redirect:/";
@@ -132,46 +137,61 @@ public class MypageController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String mypageInfo(@ModelAttribute("loginMember") Member loginMember, 
 							@RequestParam Map<String, String> param, 
-							Member member, RedirectAttributes ra,
-							String nowPwd, String modifyPwd1) {
-		
+							Member member, RedirectAttributes ra, Model model
+							) {
 		member.setMemberNo(loginMember.getMemberNo());
-		member.setMemberNickname(param.get("nickname"));
+		member.setService(loginMember.getService());
+		member.setMemberNickname(param.get("memberNickname"));
 		member.setMemberAddress(param.get("updateAddress"));
 		member.setMemberPhone(param.get("updatePhone"));
-		
+		member.setMemberName(param.get("memberName"));
 		
 		int result = service.memberUpdate(member);
 		
 		
+		if (result > 0) {
+			Util.swalSetMessage("회원 정보 수정 성공", "회원정보가 변경되었습니다", "success", ra);
+			 member.setMemberNickname(param.get("memberNickname"));
+			 member.setMemberAddress(param.get("updateAddress"));
+			 member.setMemberPhone(param.get("updatePhone"));
+			 member.setMemberName(param.get("memberName"));
+		} else {
+			Util.swalSetMessage("회원 정보 수정 실패", "관리자에게 문의해주세요", "error", ra);
+		}
+		return "redirect:/mypage/info";
+	}
+	
+	
+	
+	// 비밀번호 변경 페이지 이동
+	@RequestMapping(value = "password", method = RequestMethod.GET)
+	public String modifyPwPage() {
+		
+		return "mypages/mypageModifyPw";
+	}
+	
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	public String modifyPw(@ModelAttribute("loginMember") Member loginMember, 
+							Member member, RedirectAttributes ra,
+							String memberPw, String modifyPw1) {
+		
 		 Map<String, String> map = new HashMap<String, String>(); 
 		 map.put("memberNo",loginMember.getMemberNo() + ""); 
-		 map.put("nowPwd", nowPwd);
-		 map.put("modifyPwd1", modifyPwd1);
+		 map.put("memberPw", memberPw);
+		 map.put("modifyPw", modifyPw1);
 		  
 		 int pwUpdate = service.updatePw(map);
 		 
-		
-		if (result > 0 && pwUpdate > 0) {
-			
-			Util.swalSetMessage("회원 정보 수정 성공", "회원정보가 변경되었습니다", "success", ra);
-			
-			member.setMemberNickname(param.get("nickname"));
-			loginMember.setMemberAddress(param.get("updateAddress"));
-			loginMember.setMemberPhone(param.get("updatePhone"));
-			
-			return "redirect:info";
-			
-		} else {
-			
-			Util.swalSetMessage("회원 정보 수정 실패", "관리자에게 문의해주세요", "error", ra);
-			
-			return "redirect:main";
-		}
-		
-		
-		
+		 if (pwUpdate > 0) {
+				Util.swalSetMessage("회원 정보 수정 성공", "비밀번호가 변경되었습니다", "success", ra);
+				return "redirect:info";
+				
+			} else {
+				Util.swalSetMessage("회원 정보 수정 실패", "관리자에게 문의해주세요", "error", ra);
+				return "redirect:main";
+			}
 	}
+
 	
 	
 	

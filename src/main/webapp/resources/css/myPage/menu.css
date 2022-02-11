@@ -4,6 +4,7 @@
     height: 5px; 
     background-color: rgba(167, 138, 108, 1); 
     margin-bottom: 20px;
+    
 }
 
 .divNav{
@@ -12,13 +13,15 @@
     font-size: 23px;
     margin-right: 5px;
     position: absolute;
-    margin-top: 40px;
+    margin-top:40px;
+    
 }
 
 .divNav>ul{
     list-style: none; 
     margin: 0; 
     padding: 0;
+    
 }
 
 .divNav>ul>li:first-child{

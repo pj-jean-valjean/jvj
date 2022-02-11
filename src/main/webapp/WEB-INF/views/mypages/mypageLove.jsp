@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
 
@@ -24,16 +24,26 @@
    
 
     <section>
-    <jsp:include page="mypageMenu.jsp"/>	
+    <div class="divNav">
+        <div id="hr"></div>
+        <ul>
+        	<li class="topText ">회원 관리</li>
+        	<li class="subText"><a href="main">마이 페이지</a></li>
+        	<li class="subText mbText"><a href="info">회원 정보</a></li>
+        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+        </ul>
+        <ul>
+        	<li class="topText mTopText">쇼핑정보</li>
+        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+            <li class="subText"><a href="class">수강 신청 내역</a></li>
+            <li class="subText"><a href="love">좋아요 내역</a></li>
+            <li class="subText"><a href="review">작성한 리뷰 내역</a></li>
+        </ul>
+    </div> 	
        
 		<article>
-            <article>
-
-                <div class="toDay">
-                    <span>최근 주문하신 내역입니다.</span>
-                    <button type="button" class="dateBtn">오늘</button>
-                </div>
-    
+            <article style="height:800px">
                 <div class="mainTable">
                     <div class="tList thList">
                         <ul class="tname">
@@ -43,6 +53,7 @@
                             <li></li>
                         </ul>
                     </div>
+                    
                     <div class="tList tbList">
                     
                     <c:choose>
@@ -57,13 +68,16 @@
 	                    <c:otherwise>
 	                    
 	                    	<c:forEach items="${likeList}" var="likeList">
+	                    	
 		                        <ul class="tbname">
+		                        
 		                            <li><img src="${contextPath}/${likeList.productImagePath}/${likeList.productImageName}" alt=""></li>
-		                            <li>${likeList.productName}</li>
+		                            <li>${likeList.productName} 
+		                            </li>
 		                            <li>${likeList.productPrice}</li>
 		                            <li>
-		                                <button class="p-btn" id="btn-pur" onclick="paymentForm();">바로 구매</button>
-		                                <button class="p-btn" id="btn-cc" onclick="deleteList();">좋아요 삭제</button>
+			                           <button class="p-btn" id="btn-pur" >바로 구매</button>
+			                           <button class="p-btn" id="btn-cc" >좋아요 삭제</button>
 		                            </li>
 		                        </ul>
 	                        </c:forEach>
@@ -82,32 +96,31 @@
                 <ul class="pagination">
                 
                 <c:if test="${paginationLike.startPage != 1}">
-                    <li><a href="#" class="first pagi">&lt;&lt;</a></li> 
-                    <li><a href="#" class="previous pagi">&lt;</a></li> 
+                    <li><a href="love?cp=1" class="first pagi">&lt;&lt;</a></li> 
+                    <li><a href="love?cp=${pagination.prevPage}" class="previous pagi">&lt;</a></li> 
 				</c:if>
 				
-                    <li class="pagiList"><a class="pagiLink" href="#">1</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">2</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">3</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">4</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">5</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">6</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">7</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">8</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">9</a></li>
-                    <li class="pagiList"><a class="pagiLink2" href="#">10</a></li>
-                
-                    <li><a href="#" class="next pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a></li> 
-                    <li><a href="#" class="last pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-                            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                    </a></li> 
+				<c:forEach begin="${paginationLike.startPage}" end="${paginationLike.endPage}" step="1"  var="l">
+					<c:choose>
+						<c:when test="${l == paginationLike.currentPage}">
+							<li class="pagiList"><a class="pagiLink">${l}</a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li class="pagiList"><a class="pagiLink" href="love?cp=${l}">${l}</a></li>
+						</c:otherwise>
+						
+					</c:choose>
+				
+				
+				</c:forEach>
+                   
+                	<c:if test="${paginationLike.endPage != paginationLike.maxPage }">
+                	
+                    <li> <a href="love?cp=${paginationLike.nextPage}" class="next pagi">&gt;</a></li> 
+                    <li><a href="love?cp=${paginationLike.maxPage}" class="last pagi">&gt;&gt;</a></li> 
+                    </c:if>
+                    
                 </ul>
             </div>  
         </article>
@@ -116,23 +129,15 @@
                
     </section>
     </main>
-	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript">
+    	
+    <script>
+	    const contextPath = "${contextPath}";
+		const productNo = ${likeList.productNo};
+			
+	</script> 
 	
-		/* function paymentForm(){
-			document.requestForm.action = "#";
-			document.requestForm.method = "POST";
-			document.requestForm.submit();
-		} */
-		function deleteList(){
-			if(confirm("좋아요를 취소 하시겠습니까?")){
-				document.requestForm.action = "../cancellike";
-				document.requestForm.method = "POST";
-				document.requestForm.submit();
-			}	
-		}
-	</script>
-
-</style>
+	<jsp:include page="../common/footer.jsp" />	
+	<script src="${contextPath}/resources/js/mypage/myPageLike.js"></script> 
+	
 </body>
 </html>

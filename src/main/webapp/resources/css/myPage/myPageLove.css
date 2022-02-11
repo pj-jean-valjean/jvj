@@ -1,4 +1,4 @@
-section{margin-top: 60px}
+section{margin-top: 90px}
 article{margin-left: 200px;}
 
 /* 타이틀 */
@@ -9,6 +9,7 @@ article{margin-left: 200px;}
     color: rgba(86, 67, 52, 1);
     font-size: 27pt; 
     font-weight: bold;
+    margin-left:400px;
 }
 
 /* 페이지 네이션 */
@@ -76,18 +77,6 @@ article{margin-left: 200px;}
     text-align: right;
 }
 
-.toDay{
-    width: 900px;
-    margin-bottom: 10px;
-    display: inline-block;
-    text-align: right;
-}
-.toDay>span{ 
-    font-size: 14px;
-    font-weight: bold;
-    color: rgba(167, 138, 108, 1);
-    text-align: right;
-}
 .dateBtn{
     color: rgba(167, 138, 108, 1);
     background-color: white;
@@ -211,3 +200,44 @@ article{margin-left: 200px;}
     height: 20px;
     
 }
+
+/* info nav */
+#hr{
+    width: 280px; 
+    height: 5px; 
+    background-color: rgba(167, 138, 108, 1); 
+    margin-bottom: 20px;
+    
+}
+
+.divNav{
+    width: 24%; 
+    display: inline-block; 
+    font-size: 23px;
+    margin-right: 5px;
+    position: absolute;
+    
+}
+
+.divNav>ul{
+    list-style: none; 
+    margin: 0; 
+    padding: 0;
+    
+}
+
+#p-form{
+	float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.divNav>ul>li:first-child{
+    font-weight: bold; 
+    font-size: 25px;
+} 
+
+
+.divNav .subText{ margin-top: 20px;}
+.divNav .topText{ margin-bottom: 10px;}
+.divNav .mTopText{ margin-top: 55px;}
