@@ -15,6 +15,8 @@
 
             <hr>
 			
+			
+			<!-- 원데이 클래스 용 주문 확인 -->
 			<c:if test="${ oneClass.productCd eq 3 }">
             <div class="product-list">
                 <a href="#"><img src="${contextPath}/${oneClass.classImgList[0].productImgPath}/${oneClass.classImgList[0].productImgName}"></a>
@@ -34,6 +36,11 @@
 			</c:if>
 			
 			
+			
+			
+			<!-- 각 스토어마다 변수명이 달라서 화면을 나눠놨습니다. 
+				스토어 용 주문내역 확인
+			-->
             <%-- <c:if test="${ }">
             <hr>
 
@@ -53,9 +60,13 @@
                 </div>
             </div>
             
-            </c:if>
+            </c:if>--%>
             
             
+            
+            
+            <!-- 정기구독용 주문내역확인 -->
+            <%--  
             <c:if test="${ }">
             <hr>
 
@@ -77,6 +88,7 @@
             
             </c:if> --%>
 
+
             <!-- 주문자 정보 -->
             <div class="orderer-info-title">
                 <p class="listTitle">주문자 정보</p>
@@ -86,6 +98,10 @@
 
             <div class="orderer-info">
             
+            
+            <!-- 이부분은 원데이 클래스를 제외한 두 스토어에서 사용되는 항목입니다.
+            	배송지 정보 입력하는 부분입니다.
+             -->
             <c:if test="${ oneClass.productCd ne 3 }">
                 <div>
                     <input type="radio" name="orderer-addr" class="selectInfo" id="member-addr" value="1" checked> 
@@ -98,7 +114,6 @@
             
             
             	
-                
                 
                 <!-- 원데이 클래스 회원 정보 -->
                 <c:if test="${  oneClass.productCd eq 3 }">
@@ -239,6 +254,9 @@
                 </div>
 
 
+
+
+			<!--  해당 부분은 사용되지 않습니다!!  -->
             <!--  정기 배송 정보 
              <div class="orderer-info-title">
                  <p class="listTitle">정기 배송 시작일</p>
@@ -255,7 +273,7 @@
                 </div>
             </div> -->
  
-
+			
               <!-- 할인/부가결제 -->
             <!-- <div class="orderer-info-title">
                 <p class="listTitle">할인/부가결제</p>
@@ -283,7 +301,11 @@
                     </div>
                 </div>
             </div> -->
-              <!-- 최종 결제 금액 -->
+            
+            
+            
+            
+              <!-- 최종 결제 금액 을 표시하는 부분 -->
 				
 			<!-- 
             <div class="orderer-info-title">
@@ -320,6 +342,9 @@
                 </div>
            </div>
 
+
+
+		<!-- 해당 부분은 사용되지 않습니다!  -->
         <!--  <div class="orderer-info-title">
             <p class="listTitle">결제 수단</p>
         </div>
@@ -330,6 +355,11 @@
                 <button type="button" class="none-border-btn">신용카드</button>
             </div>
         </div> -->
+        
+        
+        
+        
+        
         <div class="give-flex">
             <div class="payment-select-btn">
                 <button type="button" id="payment-btn">결제하기</button>

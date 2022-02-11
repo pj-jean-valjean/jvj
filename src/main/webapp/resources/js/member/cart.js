@@ -79,7 +79,7 @@ function buyit() {
     success: function (result) {
       document.getElementsByName('carrierList')[0].value = result;
       console.log(document.getElementsByName('carrierList')[0].value);
-      document.requestForm.action = specialContextPath + "/payment/payment";
+      document.requestForm.action = specialContextPath + "/payment/storePayment";
       document.requestForm.method = "POST";
       document.requestForm.submit();
       

@@ -86,7 +86,7 @@ subVOImgList ${subVOImgList}
                 <div class="bottom-line"></div>
                 
                 <!-- ${contextPath}/payment/payment -->
-                <form action="${contextPath}/payment/payment" method="GET"  name="subBreadForm">
+                <form action="${contextPath}/payment/subscribePayment" method="POST"  name="subBreadForm">
 	                <article class="sub-detail">
 	                    <div class="sub-title">
 	                        <span>빵 종류</span>
