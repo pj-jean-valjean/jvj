@@ -86,7 +86,7 @@ subVOImgList ${subVOImgList}
                 <div class="bottom-line"></div>
                 
                 <!-- ${contextPath}/payment/payment -->
-                <form action="${contextPath}/payment/payment" method="GET"  name="subBreadForm" onsubmit="return reconfirim();">
+                <form action="${contextPath}/payment/payment" method="GET"  name="subBreadForm">
 	                <article class="sub-detail">
 	                    <div class="sub-title">
 	                        <span>빵 종류</span>
@@ -95,9 +95,14 @@ subVOImgList ${subVOImgList}
 	                    <div class="bread btn-area"> 
 		                    <c:forEach items="${subVOList}" var="sub" begin="0" end="1"> 
 	                   			<c:if test="${sub.subOptionCode eq 31}">
-	                   				<button type="button" class="bread-btn btn" name="bread-btn" id="bread-btn" value="${sub.subOptionNo}">
+	                   				<button type="button" class="bread-btn btn" name="bread-btn" value="${sub.subOptionNo}">
 		                            	<span>${sub.subOptionContent}</span>
 		                        	</button>
+		                        	<%--
+             		                   	<input  type="radio" class="bread-btn btn" name="bread-btn" id="bread-btn" value="${sub.subOptionNo}">
+		                            	<label for=>${sub.subOptionContent}</label>
+		                        	
+		                        	 --%>
 		                        </c:if>
 		                     </c:forEach>  
 	                    </div>
@@ -112,7 +117,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="taste btn-area"> 
 	                        <c:forEach items="${subVOList}" var="sub" begin="2" end="4"> 
 	                   			<c:if test="${sub.subOptionCode eq 32}">
-	                   				<button type="button" class="taste-btn btn" name="taste"  id="taste-btn" value="${sub.subOptionNo}">
+	                   				<button type="button" class="taste-btn btn" name="taste"  value="${sub.subOptionNo}">
 		                            	<span>${sub.subOptionContent}</span>
 		                        </button>
 		                        </c:if>
@@ -131,7 +136,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="period-area btn-area">
 							<c:forEach items="${subVOList}" var="sub" begin="5" end="6">
 								<c:if test="${sub.subOptionCode eq 34}">
-									<button type="button" class="period-btn btn" name="period" id="period-btn" value="${sub.subOptionNo}">
+									<button type="button" class="period-btn btn" name="period"  value="${sub.subOptionNo}">
 										<span>${sub.subOptionContent}</span>
 									</button>
 								</c:if>
@@ -150,7 +155,7 @@ subVOImgList ${subVOImgList}
 	                    <div class="deliveryDay-area btn-area">
 							<c:forEach items="${subVOList}" var="sub" begin="7" end="8">
 								<c:if test="${sub.subOptionCode eq 35}">
-									<button type="button" class="deliveryDay-btn btn" name="deliveryDay" id="deliveryDay-btn" value="${sub.subOptionNo}">
+									<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="${sub.subOptionNo}">
 										<span>${sub.subOptionContent}</span>
 									</button>
 								</c:if>

@@ -40,10 +40,10 @@ public class SubDAO {
 	}
 
 	public int undolike(Map<String, Integer> map) {
-		return sqlSession.selectOne("subscribeMapper.undolike", map);
+		return sqlSession.delete("subscribeMapper.undolike", map);
 	}
 
 	public int likecheck(Map<String, Integer> map) {
-		return sqlSession.update("subscribeMapper.likecheck", map);
+		return sqlSession.selectOne("subscribeMapper.likecheck", map);
 	}
 }

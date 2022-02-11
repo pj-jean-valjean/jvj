@@ -21,10 +21,7 @@
 <body>
 
 	<main>
-	${subVOList}
-	<hr>
-	${subVOImgList}
-	
+
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
@@ -190,7 +187,7 @@
                     </div>
                     <div class="buy-count">
                         <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-                        <span id="result" >1</span>
+                        <span id="result" >0</span>
                         <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
                     </div>
                 
@@ -204,7 +201,7 @@
                 </article>
 
                 <div class="submit-sub">
-					<button class="submit-btn" id="submit-btn" >
+					<button class="submit-btn" id="submit-btn"  onclick="return reconfirim();">
 						<span>바로 구독 신청</span>
 					</button>
                 </div>
@@ -513,11 +510,11 @@ DELIVERY / 배송정보
 <jsp:include page="../common/footer.jsp" />	
 <script>
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
-const loginMemberNo = "${loginMember.memberNo}";
+const loginMember = "${loginMember.memberNo}";
 
 
 </script>
 
-<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
-<%-- 	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script>
- --%>
+<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script> 
+<%--  	<script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>--%>
+
