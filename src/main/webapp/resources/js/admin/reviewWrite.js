@@ -28,7 +28,7 @@
                 return false;
             }
         }}
-        document.getElementsByName("review-title")[0].addEventListener("input", function(){
+        document.getElementsByName("title")[0].addEventListener("input", function(){
             if(this.value.trim().length>0){
                 reviewCheckObj.title= true;
             }
@@ -37,8 +37,8 @@
             }
         })
         
-        $("input[name='review-point']").on("change", function(){
-            if($("input[name='review-point']").is(":checked")){
+        $("input[name='point']").on("change", function(){
+            if($("input[name='point']").is(":checked")){
                 reviewCheckObj.point= true;
         }
         else{
