@@ -6,7 +6,81 @@ window.onload = function(){
     changeImg();
     reviewDetail();
     likecheck();
+    chooseBtn();
 }
+
+function chooseBtn(){
+	// 빵 버튼 제외 모두 비활성화
+	$(".btn").not(".bread-btn").attr("disabled", true);
+	
+	// 빵
+	$(".bread-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("bread").innerText 
+	    	= $(".bread-btn.active").find('span').text()+ ' / ';
+	    	
+	    $("input[name='chooseBreadCode']").attr('value', $(this).val());
+	    
+	    // 맛 선택 버튼 활성
+	    $(".taste-btn").attr("disabled", false);
+	    
+	});
+	
+	// a맛 버튼 선택 시 
+	$(".taste-btn").on("click", function() {
+		$(this).addClass('active').siblings().removeClass('active');
+
+		document.getElementById("taste").innerText
+			= $(".taste-btn.active").find('span').text() + ' / ';
+
+		$("input[name='chooseTasteCode']").attr('value', $(this).val());
+
+		// 기간 선택 버튼 활성
+		$(".coffee-btn").attr("disabled", false);
+	
+	});
+	
+	// 커피 버튼 선택 시 
+	$(".coffee-btn").on("click", function() {
+		$(this).addClass('active').siblings().removeClass('active');
+
+		document.getElementById("coffee").innerText
+			= $(".coffee-btn.active").find('span').text() + ' / ';
+
+		$("input[name='chooseCoffeeCode']").attr('value', $(this).val());
+
+		// 기간 선택 버튼 활성
+		$(".period-btn").attr("disabled", false);
+	
+	});
+
+	
+	// 구독 기간 (1주 2주)
+	$(".period-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("period").innerText
+	        = $(".period-btn.active").find('span').text() + ' / ';
+	        
+		$("input[name='choosePeriodCode']").attr('value', $(this).val());
+		
+		// 기간 선택 버튼 활성
+		$(".deliveryDay-btn").attr("disabled", false);
+	});
+	
+	// 수령 희망일 
+	$(".deliveryDay-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("deliveryDay").innerText 
+	    	= $(".deliveryDay-btn.active").find('span').text();
+	    	
+	    $("input[name='chooseDeliveryDayCode']").attr('value', $(this).val());
+	});
+}
+
+
 
 function likecheck(){
     if(loginMember=="") return;
