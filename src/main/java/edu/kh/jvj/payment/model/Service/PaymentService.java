@@ -3,7 +3,9 @@ package edu.kh.jvj.payment.model.Service;
 import java.util.List;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
+import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 public interface PaymentService {
 
@@ -20,5 +22,9 @@ public interface PaymentService {
 	 * @return
 	 */
 	int insertPaymentInfo(Payment payInfo);
+
+	List<OrderSubsOption> getOptionsList(String getOptionSearch);
+	
+	
 
 }

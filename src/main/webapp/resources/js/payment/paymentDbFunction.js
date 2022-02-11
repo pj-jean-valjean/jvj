@@ -9,13 +9,13 @@ const orderInfoObject ={
     "memberNo" : loginMember,
     "shippingAddr" : "",
     "usedCouponNo" : "",
-    "store_imp_uid" : "",
+    "result_merchant_uid" : "",
 }
 
 
 
 //결제성공 시 메서드
-function saveOrderInfo(){
+function saveOrderInfo(result_merchant_uid){
     //클래스의 경우
     if(productCd==3){
         orderInfoObject.productCd = 3;
@@ -32,6 +32,7 @@ function saveOrderInfo(){
         const won = document.getElementsByClassName("classPrice")[0].innerText;
         orderInfoObject.totalPrice =  won.substr(0, won.length -1);
         orderInfoObject.productNo = productNo;
+        orderInfoObject.result_merchant_uid = result_merchant_uid;
     }
 
 

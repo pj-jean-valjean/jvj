@@ -12,12 +12,11 @@
         <!-- 주문 내역 -->
         <section>
             <p class="listTitle">주문 내역 확인</p>
-
             <hr>
 			
 			
 			<!-- 원데이 클래스 용 주문 확인 -->
-			<c:if test="${ oneClass.productCd eq 3 }">
+			<c:if test="${ productcate eq 3 }">
             <div class="product-list">
                 <a href="#"><img src="${contextPath}/${oneClass.classImgList[0].productImgPath}/${oneClass.classImgList[0].productImgName}"></a>
                 <div>
@@ -33,6 +32,7 @@
                     <p class="classPrice">${oneClass.price}원</p>
                 </div>
             </div>
+            	<c:set var="totalP" value="${oneClass.price}" />
 			</c:if>
 			
 			
@@ -66,27 +66,25 @@
             
             
             <!-- 정기구독용 주문내역확인 -->
-            <%--  
-            <c:if test="${ }">
-            <hr>
-
+            <c:if test="${ productcate eq 1}">
             <div class="product-list">
 
-                <a href="#"><img src="${contextPath}/resources/images/140673cf2ef31196c0744a90952e7711.jpg"></a>
+                <a href="#"><img src="${contextPath}${oneSubsOrder.classImgList[0].productImgPath}${oneSubsOrder.classImgList[0].productImgName}"></a>
                 <div>
-                    <a href="#"><p>녹차코코넛식빵</p></a>
-                    <p>
-                        첫 구독일 : 금요일, 2022-02-11 <br>
-                        구독내용 : 2개월동안 X 2주마다 <br>
-                        수량 1개 <br>
+                    <a href="#"><p>${oneSubsOrder.title}</p></a>
+                    <p> 첫 구독일 : ${oneSubsOrder.optionList[0].optioanName} , 2022-02-11 <br>
+                        구독내용 : ${oneSubsOrder.optionList[2].optioanName} /  ${oneSubsOrder.optionList[3].optioanName} 
+                        <c:if test="${!empty oneSubsOrder.optionList[4]}">  / ${oneSubsOrder.optionList[4].optioanName} </c:if> / 2개월동안 X ${oneSubsOrder.optionList[1].optioanName} 마다 <br>
+                        수량 ${oneSubsOrder.totalAmount}개 <br>
                     </p>
+                    <input type="hidden" value="${oneSubsOrder.optionList[0].optioanName} / ${oneSubsOrder.optionList[1].optioanName} / ${oneSubsOrder.optionList[2].optioanName} / ${oneSubsOrder.optionList[3].optioanName} ">
                 </div>
                 <div>
-                    <p>7,000원</p>
+                    <p>${oneSubsOrder.totalPrice}원</p>
                 </div>
             </div>
-            
-            </c:if> --%>
+            <c:set var="totalP" value="${oneSubsOrder.totalPrice}" />
+            </c:if> 
 
 
             <!-- 주문자 정보 -->
@@ -338,7 +336,7 @@
             <div class="price-container">
                 <div class="price-flex">
                     <div class="p-div"><p>총 결제 금액</p></div>
-                    <div class="price-won"><p>${totalPrice }원</p></div>
+                    <div class="price-won"><p>${totalP }원</p></div>
                 </div>
            </div>
 
@@ -384,8 +382,8 @@
 	<script src="${contextPath}/resources/js/payment/payment.js"></script>
   
   <script>
-  	const productCd = "${oneClass.productCd}"
-  	const productNo = "${oneClass.productNo}"
+  	const productCd = "${productcate}"
+  	const productNo = "${productNo}"
   	const loginMember = "${loginMember.memberNo}"
   </script>
   <script>
@@ -434,8 +432,8 @@
 	  function (rsp) {
 	  		console.log(rsp);
 	  	if (rsp.success) {
-	  		const result_imp_uid = rsp.imp_uid;
-	  		saveOrderInfo();
+	  		const result_merchant_uid = rsp.merchant_uid;
+	  		saveOrderInfo(result_merchant_uid);
 	  		var msg = '결제가 완료되었습니다.';
 		  		msg += '고유ID : ' + rsp.imp_uid;
 		  		msg += '상점 거래ID : ' + rsp.merchant_uid; // !!! merchant_uid 결제 ID !!!
