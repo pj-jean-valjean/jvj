@@ -1,10 +1,14 @@
 package edu.kh.jvj.payment.model.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
 import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
+import edu.kh.jvj.payment.model.vo.RegualrPayInfo;
+import edu.kh.jvj.payment.model.vo.RegularPaySuccessSave;
 import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 public interface PaymentService {
@@ -24,6 +28,14 @@ public interface PaymentService {
 	int insertPaymentInfo(Payment payInfo);
 
 	List<OrderSubsOption> getOptionsList(String getOptionSearch);
+
+	int getPerchaseSeq();
+
+	int saveRegularPayKey(RegualrPayInfo rpi);
+
+	KaKaoPayKey getKaKaoTid(String partner_order_id);
+
+	int saveRegularSuccess(RegularPaySuccessSave saveRegularSuccess);
 	
 	
 

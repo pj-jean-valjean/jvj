@@ -68,16 +68,16 @@
             <!-- 정기구독용 주문내역확인 -->
             <c:if test="${ productcate eq 1}">
             <div class="product-list">
-
+			<c:if test="${!empty oneSubsOrder.optionList[4]}">  <c:set var="optionNo4" value="/ ${oneSubsOrder.optionList[4].optioanName} " /> </c:if> 
                 <a href="#"><img src="${contextPath}${oneSubsOrder.classImgList[0].productImgPath}${oneSubsOrder.classImgList[0].productImgName}"></a>
                 <div>
-                    <a href="#"><p>${oneSubsOrder.title}</p></a>
+                    <a href="#"><p class="titlesubs">${oneSubsOrder.title}</p></a>
                     <p> 첫 구독일 : ${oneSubsOrder.optionList[0].optioanName} , 2022-02-11 <br>
                         구독내용 : ${oneSubsOrder.optionList[2].optioanName} /  ${oneSubsOrder.optionList[3].optioanName} 
-                        <c:if test="${!empty oneSubsOrder.optionList[4]}">  / ${oneSubsOrder.optionList[4].optioanName} </c:if> / 2개월동안 X ${oneSubsOrder.optionList[1].optioanName} 마다 <br>
+                        / 2개월동안 X ${oneSubsOrder.optionList[1].optioanName} 마다 <br>
                         수량 ${oneSubsOrder.totalAmount}개 <br>
                     </p>
-                    <input type="hidden" value="${oneSubsOrder.optionList[0].optioanName} / ${oneSubsOrder.optionList[1].optioanName} / ${oneSubsOrder.optionList[2].optioanName} / ${oneSubsOrder.optionList[3].optioanName} ">
+                    <input type="hidden" value="${oneSubsOrder.optionList[0].optioanName} / ${oneSubsOrder.optionList[1].optioanName} / ${oneSubsOrder.optionList[2].optioanName} / ${oneSubsOrder.optionList[3].optioanName} ${optionNo4}" name="totalOption">
                 </div>
                 <div>
                     <p>${oneSubsOrder.totalPrice}원</p>
@@ -360,7 +360,12 @@
         
         <div class="give-flex">
             <div class="payment-select-btn">
+            	<c:if test="${productcate != 1}">
                 <button type="button" id="payment-btn">결제하기</button>
+                </c:if>
+            	<c:if test="${productcate == 1}">
+                <button type="button" id="kakaoPay">정기결제하기</button>
+                </c:if>
             </div>
         </div>
 
@@ -385,11 +390,16 @@
   	const productCd = "${productcate}"
   	const productNo = "${productNo}"
   	const loginMember = "${loginMember.memberNo}"
+  	const memberId = "${loginMember.memberEmail}"
+  	const amount ="${oneSubsOrder.totalAmount}";
+  	const totalprice = "${totalP}"
   </script>
   <script>
-  document.querySelector("#payment-btn").addEventListener("click", function(){
-    requestPay();
-  });
+  if(document.querySelector("#payment-btn") != null){
+	  document.querySelector("#payment-btn").addEventListener("click", function(){
+	    requestPay();
+	  });
+  }
   function requestPay() {
 	  var IMP = window.IMP; // 생략가능
 	  IMP.init('imp64541030');
@@ -414,7 +424,7 @@
 	  
 	  //결제창에서 보여질 이름
 	  
-	  amount: ${oneClass.price} * ${totalPeople } ,
+	  amount: totalprice,
 	  
 	  //가격
 	  buyer_email: '${loginMember.memberEmail}',
@@ -447,6 +457,7 @@
 	  });
 	
 	  }
+  
   </script>
   <script type="text/javascript" src="${contextPath}/resources/js/payment/paymentDbFunction.js"></script>
 
