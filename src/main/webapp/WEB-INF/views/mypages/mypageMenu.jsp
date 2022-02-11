@@ -15,7 +15,8 @@
         <ul>
         	<li class="topText ">회원 관리</li>
         	<li class="subText"><a href="main">마이 페이지</a></li>
-        	<li class="subText mbText"><a href="info">회원 정보</a></li>
+        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+        	<li class="subText mbText"><a href="password">비밀번호 변경</a></li>
         	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
         </ul>
         <ul>

@@ -46,7 +46,7 @@ public interface MypageService {
 	List<Like> getLikeList(Pagination2 paginationLike, Like like);
 
 	/** 좋아요 취소
-	 * @param like
+	 * @param map
 	 * @return
 	 */
 	int cancleLike(Like like);
@@ -62,6 +62,10 @@ public interface MypageService {
 	 * @return
 	 */
 	int updatePw(Map<String, String> map);
+	
+	
+
+
 
 
 	

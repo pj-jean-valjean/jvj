@@ -80,7 +80,7 @@ public class MypageDAO {
 
 
 	/** 좋아요 취소
-	 * @param like
+	 * @param map
 	 * @return
 	 */
 	public int cancleLike(Like like) {
@@ -93,12 +93,13 @@ public class MypageDAO {
 	 * @return
 	 */
 	public int memberUpdate(Member member) {
-		return sqlSession.update("mypageMapper.memberUpdate",member);
+		return sqlSession.update("mypageMapper.memberUpdate", member);
 	}
 
 
+
 	/** 암호화된 비밀번호 조회
-	 * @param memberNo
+	 * @param map
 	 * @return
 	 */
 	public String selectDecodePw(String memberNo) {
@@ -114,6 +115,17 @@ public class MypageDAO {
 	public int modifyPassword(Map<String, String> map) {
 		return sqlSession.update("mypageMapper.modifyPassword", map);
 	}
+
+
+
+
+
+
+	
+
+	
+
+
 
 
 
