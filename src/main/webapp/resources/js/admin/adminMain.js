@@ -14,6 +14,22 @@ function getTime(){
     const seconds = time.getSeconds();
     clock.innerHTML = ampm+`${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}`
 }
+function dodouble(){
+    $.ajax({
+        url : contextPath+"/admin/board/"+ "dodouble",
+        type : "post",
+        data : {
+            
+        },
+        success : function(){
+            alert("done");
+        },
+        error : function (){
+
+        }
+
+    })
+}
 setInterval(getTime, 1000);
         //check 변수
         let firstdone = true;

@@ -103,7 +103,6 @@ main{
     flex-direction: column;
     width: 80px;
     height: 80px;
-    margin-left: 20px;
 }
 #kakao-link-btn{
     width: 100%;

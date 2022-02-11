@@ -38,7 +38,6 @@ public class PaymentController {
 	public String classPayment(HttpSession session, Model model, String totalPrice, String totalPeople, String productNo) {
 		
 		OnedayClass oneClass = service.getClassSelect(productNo);
-		
 		model.addAttribute("oneClass", oneClass);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("totalPeople", totalPeople);

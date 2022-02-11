@@ -11,7 +11,7 @@ function likecheck(){
     if(loginNo=="") return;
     $.ajax({
         url: contextPath+'/onedayclass/likecheck',
-        method: 'post',
+        type: 'post',
         data : {
             "loginNo" : loginNo,
             "productNo" : productNo
@@ -107,7 +107,6 @@ function likecheck(){
     - document.querySelector(".product_detail > form>article:nth-child(11) > div.subdetail-content > span > span:nth-child(1)").innerText;
     const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
     
-  
     //인원 증감
     function plusppl(){
         if(possibleppl>nownum){
@@ -154,7 +153,6 @@ function showMaps(){
                     // 지도를 생성합니다    
                     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-                    console.log('x: '+result[0].x +' y: '+result[0].y);
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     // 결과값으로 받은 위치를 마커로 표시합니다
                     var marker = new kakao.maps.Marker({
@@ -188,13 +186,16 @@ function hideMaps(){
     function kakaoShare() {
         const productNo = document.getElementsByName("productNo")[0].value;
         const title = document.querySelector(".category-title>span").innerText;
-        const url =contextPath+'/onedayclass/view/'+productNo;
+        const url = 'http://localhost:8080/'+contextPath+'/onedayclass/view/'+productNo;
+        const mainurl = document.querySelector(".main-thumbnail").getAttribute("src");
+        console.log(contextPath);
+        console.log(url);
         Kakao.Link.sendDefault({
             objectType: 'feed',
             content: {
             title: '장발장만의 특별한 원데이클래스를 함께 즐기세요!',
             description: title,
-            imageUrl: '카카오공유하기 시 썸네일 이미지 경로',
+            imageUrl: mainurl,
             link: {
                 mobileWebUrl: url,
                 webUrl: url,
