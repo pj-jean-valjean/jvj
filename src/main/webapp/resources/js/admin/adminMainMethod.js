@@ -1094,6 +1094,9 @@
             })  
         }
         function addSubsOption(btn){
+            alert("허가가 필요합니다");
+            return;
+/* 
             if(confirm("추가하시겠습니까?")){
                 let SubsProductNo = btn.parentElement.previousElementSibling.previousElementSibling;
                 let subOptionName = SubsProductNo.previousElementSibling.previousElementSibling.children[0].value;
@@ -1119,7 +1122,7 @@
                     }
                 }) 
             }
-            else return;
+            else return; */
         }
         function deleteSubsOption(btn){
             if(confirm("삭제하시겠습니까?")){

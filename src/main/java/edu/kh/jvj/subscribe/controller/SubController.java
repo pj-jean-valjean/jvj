@@ -129,7 +129,7 @@ public class SubController {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("loginMember", loginMember);
 		map.put("productNo", productNo);
-
+		
 		int result = service.likecheck(map);
 		System.out.println("why?" + result);
 		return result;

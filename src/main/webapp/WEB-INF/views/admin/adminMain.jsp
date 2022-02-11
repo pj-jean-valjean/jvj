@@ -81,8 +81,7 @@
             <div class="one-admin-func">▶마케팅 업무
                 <div class="addAdmin">
                     <ul class="eachW">
-                        <li><a href="${contextPath}/admin/board/route/sendCouponToMember">전체 회원에 문자메세지</a></li>
-                        <li><a href="${contextPath}/admin/board/route/marketing">이메일 발송</a></li>
+                        <li><a href="${contextPath}/admin/board/route/sendCouponToMember">전체 회원 SMS</a></li>
                     </ul>
                 </div>
             </div>

@@ -199,5 +199,5 @@ public class AdminDAO {
 	public int addMakeCoupons(List<MadeCoupon> couponList) {
 		return sqlSession.insert("adminMapper.addMakeCoupons", couponList);
 	}
-	
+
 }

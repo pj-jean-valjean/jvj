@@ -197,7 +197,7 @@
 		WHERE NOTICE_TITLE LIKE '%'||#{search}||'%' 
 		<if test="cate != 0">
 			AND  NOTICE_CD = #{cate} 
-		  </if>
+		</if>
 		ORDER BY NOTICE_CREATE_DT DESC
 	</select>
 	<!-- 공지사항 상세 -->
