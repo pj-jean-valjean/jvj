@@ -609,7 +609,7 @@ function reconfirim(){
 			&& $(".taste-btn.active")[0] && $(".coffee-btn.active")[0]
 			&& $(".period-btn.active")[0] && $(".deliveryDay-btn.active")[0]) {
 		
-		$("#totalAmount").val(resultNum);
+		$("#hiddentotalAmount").val(resultNum);
 		$("#hiddenTotalPrice").val(totalprice.innerText);
 		return true;
 	} else {
