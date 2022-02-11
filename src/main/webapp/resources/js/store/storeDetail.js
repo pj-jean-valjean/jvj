@@ -316,10 +316,61 @@ function buy() {
   if (stock == 0) {
     swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
     return;
-  } else {
-    // 결제 페이지 이동
-    location.href = contextPath + "/payment/payment";
   }
+  selectAmount();
+  console.log("result= " + resulty);
+  if (resulty + suryang > stock) {
+    swal("오류", "현재 상품은 재고가 부족하여 구매하실 수 없습니다.", "error");
+    return;
+  }
+  const options = $(".choose-option");
+  const totalresult = $(".total-result");
+  console.log(totalresult.length);
+  let arrays = "";
+
+  for (let i = 0; i < totalresult.length; i++) {
+    console.log(options[i].style.display);
+    if (options[i].style.display == "block") {
+      arrays += totalresult[i].textContent;
+    } else {
+      arrays += "0";
+    }
+    arrays += ",";
+  }
+  console.log(arrays);
+  $.ajax({
+    url: contextPath + "/cart/addCart",
+    type: "POST",
+    data: {
+      storeNo: storeNo,
+      addq: result.innerText,
+      arrays: arrays,
+      adPrice: adPrice + "",
+      adStock: adStock + "",
+    },
+    success: function (result) {
+      if (result > 0) {
+        mx();
+      
+        bigBox.innerHTML = "";
+
+        if (cartOpenDefaultOne == 0) {
+          selectModalCart();
+
+          $(".resultPrice2")[0].textContent =
+            mxprice.toLocaleString("ko-KR") + "원";
+
+            location.href= contextPath + "/cart";
+        }
+      } else {
+        swal("오류", "관리자에게 문의하세요", "error");
+      }
+    },
+    error: function (err, message) {
+      console.log(err);
+      console.log(message);
+    },
+  });
 }
 
 // 로그인 안했을때

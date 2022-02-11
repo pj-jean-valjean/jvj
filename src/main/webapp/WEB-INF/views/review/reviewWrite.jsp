@@ -27,43 +27,43 @@
         <section>
             <article>
                 <h1 id="classpname">리뷰 작성</h1>
-                <form action="" method="get" onsubmit="return validate();">
+                <form action="writeReview" method="post" onsubmit="return validate();">
                 <div id="notice-info">
                     <div id="notice-title">
                         <span>제목</span>
-                        <input type="text" name="review-title" placeholder="제목을 입력해주세요">
+                        <input type="text" name="title" placeholder="제목을 입력해주세요">
                     </div>
                     <div id="notice-create-dt">
                         <span>평점</span>
-                        <label><input type="radio" name="review-point" value="5">
+                        <label><input type="radio" name="point" value="5">
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         </label>
-                        <label><input type="radio" name="review-point" value="4">
+                        <label><input type="radio" name="point" value="4">
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gray"></i>
                         </label>
-                        <label><input type="radio" name="review-point" value="3">
+                        <label><input type="radio" name="point" value="3">
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gold"></i>
                         <i class="fas fa-star gray"></i>
                         <i class="fas fa-star gray"></i>
                         </label>
-                        <label><input type="radio" name="review-point" value="2">
+                        <label><input type="radio" name="point" value="2">
                             <i class="fas fa-star gold"></i>
                             <i class="fas fa-star gold"></i>
                             <i class="fas fa-star gray"></i>
                             <i class="fas fa-star gray"></i>
                             <i class="fas fa-star gray"></i>
                         </label>
-                        <label><input type="radio" name="review-point" value="1">
+                        <label><input type="radio" name="point" value="1">
                             <i class="fas fa-star gold"></i>
                             <i class="fas fa-star gray"></i>
                             <i class="fas fa-star gray"></i>
@@ -72,12 +72,12 @@
                         </label>
                     </div>
                     <div id="notice-content">
-                        <textarea id='summernote' name='editordata'></textarea>
+                        <textarea id='summernote' name='content'></textarea>
                     </div>
                     <span id="rvbtns">
-                        <button type="button" id="gotolist" class="rvbtn">목록으로</button>
+                        <button type="button" id="gotolist" class="rvbtn" onclick="window.history.back();">목록으로</button>
                         <button type="submit" id="submitrv" class="rvbtn">등록</button>
-                        <button type="reset" id="canclerv" class="rvbtn">취소</button>
+                        <button type="reset" id="canclerv" class="rvbtn" onclick="window.history.back();">취소</button>
                     </span>
                     </div>
                 </form>
