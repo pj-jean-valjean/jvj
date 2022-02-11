@@ -10,7 +10,6 @@ public class Product {
 	private Date createDate;
 	private int productCode;
 	
-	
 	public Product() {}
 	
 	

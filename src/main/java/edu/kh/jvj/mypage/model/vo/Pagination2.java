@@ -5,7 +5,7 @@ public class Pagination2 {
 	private int currentPage; // 현재 페이지 번호
 	private int listCount; // 전체 상품수
 	
-	private int limit = 5; // 한페이지에 보여지는 상품수
+	private int limit = 6; // 한페이지에 보여지는 상품수
 	private int pageSize = 10; // 보여질 페이지 번호 갯수
 	
 	private int maxPage; // 마지막 페이지

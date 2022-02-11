@@ -45,6 +45,8 @@
 	 	<result property="enrollDate" 			column="ENROLL_DT"/>
 	 	<result property="statusCode" 			column="STATUS_CD"/>
 	 	<result property="gradeCode" 			column="GRADE_CD"/>
+	 	<result property="service" 				column="MEMBER_SERVICE"/>
+	 	<result property="memberId" 			column="MEMBER_ID"/>
 	 </resultMap>
 
 
@@ -55,7 +57,7 @@
 	</select>
 	
 	<select id="selectCouponList" resultMap="coupon_rm">
-		SELECT COUPON_NO, COUPON_NM, DISCOUNT_PER, PROVIDE_DT, EXPIRE_DT, COUPON.COU_STATUS_CD, COU_STATUS_NM, MEMBER_NO
+		SELECT COUPON_NO, COUPON_NM, (DISCOUNT_PER *100), PROVIDE_DT, EXPIRE_DT, COUPON.COU_STATUS_CD, COU_STATUS_NM, MEMBER_NO
 		FROM COUPON
 		JOIN COUPON_STATUS ON(COUPON.COU_STATUS_CD = COUPON_STATUS.COU_STATUS_CD)
 		WHERE MEMBER_NO = #{memberNo}
@@ -72,7 +74,7 @@
 	<select id="getLikeCount" resultType="_int">
 		SELECT COUNT(*) FROM "LIKE"  
 	</select>
-	
+	<!-- 회원 목록 좋아요 조회 -->
 	<select id="getLikeList" resultMap="like_rm">
 		SELECT PRODUCT_NO, MEMBER_NO, 
 		PRODUCT_NM, PRODUCT_PRICE, PRODUCT_CD, 
@@ -82,7 +84,7 @@
 		LEFT JOIN PRODUCT_IMG USING(PRODUCT_NO)
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
-	
+	<!-- 좋아요 취소 -->
 	<delete id="cancleLike" parameterType="_int">
 		DELETE FROM "LIKE"
 		WHERE MEMBER_NO = #{memberNo}
@@ -91,18 +93,44 @@
 	
 	<!-- 회원 번호 수정-->
 	<update id="memberUpdate" parameterType="Member">
-		UPDATE MEMBER SET 
-	 	MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
-	 	WHERE MEMBER_NO = #{memberNo}
+	
+		<choose>
+		
+			<when test="service == 'naver'">
+				UPDATE MEMBER SET 
+				MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				WHERE MEMBER_NO = #{memberNo}
+				AND MEMBER_SERVICE = #{service}
+			</when>
+			
+			<when test="service == 'kakao'">
+				UPDATE MEMBER SET 
+				MEMBER_NAME = #{memberName}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				WHERE MEMBER_NO = #{memberNo}
+				AND MEMBER_SERVICE = #{service}
+			</when>
+			
+			<otherwise>
+				UPDATE MEMBER SET 
+				MEMBER_NICKNAME = #{memberNickname}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				WHERE MEMBER_NO = #{memberNo}
+			</otherwise>
+				
+		</choose>
 	</update>
+	
 	
 	<!-- 암호화된 비밀번호 조회 -->
 	<select id="selectDecodePw" resultType="string">
-		SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_NO = #{memberNo}
+		SELECT MEMBER_PW 
+		FROM MEMBER 
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_SERVICE IS NULL
 	</select>
 	
 	<update id="modifyPassword" parameterType="map">
-		UPDATE MEMBER SET MEMBER_PW = #{modifyPwd1}
+		UPDATE MEMBER SET 
+		MEMBER_PW = #{modifyPw}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
