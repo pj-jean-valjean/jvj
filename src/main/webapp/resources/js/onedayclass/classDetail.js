@@ -186,7 +186,7 @@ function hideMaps(){
     function kakaoShare() {
         const productNo = document.getElementsByName("productNo")[0].value;
         const title = document.querySelector(".category-title>span").innerText;
-        const url = 'http://localhost:8080/'+contextPath+'/onedayclass/view/'+productNo;
+        const url = location.href;
         const mainurl = document.querySelector(".main-thumbnail").getAttribute("src");
         console.log(contextPath);
         console.log(url);

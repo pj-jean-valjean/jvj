@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.payment.model.vo.Payment;
 
 
 @Repository
@@ -23,6 +24,24 @@ public class PaymentDAO {
 	 */
 	public OnedayClass getClassSelect(String productNo) {
 		return sqlSession.selectOne("paymentMapper.getClassSelect", productNo);
+	}
+
+
+
+	public int insertPaymentInfo(Payment payInfo) {
+		return sqlSession.insert("paymentMapper.insertPaymentInfo", payInfo);
+	}
+
+
+
+	public int insertOrderListInfo(Payment payInfo) {
+		return sqlSession.insert("paymentMapper.insertOrderListInfo", payInfo);
+	}
+
+
+
+	public int insertOrderOptionInfo(Payment payInfo) {
+		return sqlSession.insert("paymentMapper.insertOrderOptionInfo", payInfo);
 	}
 
 }
