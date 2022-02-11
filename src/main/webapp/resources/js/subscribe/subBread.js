@@ -6,7 +6,10 @@ window.onload = function(){
     changeImg();
     reviewDetail();
     likecheck();
+    chooseBtn();
 }
+
+
 
 function likecheck(){
     if(loginMember=="") return;
@@ -132,7 +135,7 @@ function validate(){
 
 
 /*----------------------- 버튼 이름 받아오기,input hidden 값 넘기기 ------------------------*/
-// 빵
+/*// 빵
 $(".bread-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
@@ -140,9 +143,9 @@ $(".bread-btn").on("click", function() {
     	= $(".bread-btn.active").find('span').text()+ ' / ';
     	
     $("input[name='chooseBreadCode']").attr('value', $(this).val());
-});
+});*/
 
-// 맛
+/*// 맛
 $(".taste-btn").on("click", function() {
     $(this).addClass('active').siblings().removeClass('active');
     
@@ -151,7 +154,7 @@ $(".taste-btn").on("click", function() {
     	
      $("input[name='chooseTasteCode']").attr('value', $(this).val());
 });
-
+*/
 
 
 // 구독 기간 (1주 2주)
@@ -262,25 +265,41 @@ function reviewDetail(){
 
 
 
-
+/*
 // 결제 페이지 이동
 function reconfirim(){
-   if(!$(".bread-btn.active")[0]){ 
-	alert("선택해줘")
-	}else{
-		console.log("선택되어있음: ", $(".bread-btn.active"))
-	}
-	
 	if(loginMember==''){
         alert("로그인 후 가능합니다");
         return false;
     }
 	
+	if (!$(".bread-btn.active")[0]) {
+		alert("빵 종류를 선택해주세요.")
+		return false;
+	}
+	
+	if (!$(".taste-btn.active")[0]) {
+		alert("맛 종류를 선택해주세요.")
+		return false;
+	}
+	
+	if (!$(".period-btn.active")[0]) {
+		alert("구독 옵션을 선택해주세요.")
+		return false;
+	}
+	if (!$(".deliveryDay-btn.active")[0]) {
+		alert("수령 희망일을 선택해주세요.")
+		return false;
+	}
+	
     if(resultNum == 0){
         alert("구매 수량을 선택해주세요");
         return false;
     }
-    if(loginMember !='' && resultNum !=0 && $(".bread-btn.active")[0]){
+    if(loginMember !='' && resultNum !=0 
+    	&& $(".bread-btn.active")[0] && $(".taste-btn.active")[0]
+    	&& $(".period-btn.active")[0] && $(".deliveryDay-btn.active")[0]
+    	){
         $("#totalAmount").val(resultNum);
         $("#hiddenTotalPrice").val(totalprice.innerText);
         return true;
@@ -289,7 +308,7 @@ function reconfirim(){
     }
  	
 }
-
+*/
 
 
 /* 스크롤 - 페이지 내 이동 */

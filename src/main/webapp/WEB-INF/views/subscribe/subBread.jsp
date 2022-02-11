@@ -180,7 +180,7 @@ subVOImgList ${subVOImgList}
 	                    </div>
 	                    <div class="buy-count">
 	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-	                        <span id="result">0</span>
+	                        <span id="result">1</span>
 	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
 	                    </div>
 	                   
@@ -190,7 +190,7 @@ subVOImgList ${subVOImgList}
 	                <article class="total-price">
 	                
 	                    <p>총 구매 금액
-		                    <span id="totalprice" class="showprice">0</span>
+		                    <span id="totalprice" class="showprice">10</span>
 		                    <span class="showprice">원</span>
 	                    </p>
 	                </article>
@@ -501,6 +501,97 @@ DELIVERY / 배송정보
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
 const loginMember = "${loginMember.memberNo}";
 
+function chooseBtn(){
+	
+	// 빵 버튼 제외 모두 비활성화
+	$(".btn").not(".bread-btn").attr("disabled", true);
+	/* $(".btn").not(".bread-btn").css("background-color", "gray").css("color","lightgray"); */
+	
+	// 빵
+	$(".bread-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("bread").innerText 
+	    	= $(".bread-btn.active").find('span').text()+ ' / ';
+	    	
+	    $("input[name='chooseBreadCode']").attr('value', $(this).val());
+	    
+	    // 맛 선택 버튼 활성
+	    $(".taste-btn").attr("disabled", false);
+		/* $(".taste-btn").eq(3).css("background-color", "gray").css("color","lightgray"); */
+	});
+	
+	// a맛 버튼 선택 시 
+	$(".taste-btn").on("click", function() {
+		 $(this).addClass('active').siblings().removeClass('active');
+		/*$(this).addClass("active");
+		$(this).siblings().removeClass("active"); */
+		
+		
+		document.getElementById("taste").innerText
+			= $(".taste-btn.active").find('span').text() + ' / ';
+
+		$("input[name='chooseTasteCode']").attr('value', $(this).val());
+
+		// 기간 선택 버튼 활성
+		$(".period-btn").attr("disabled", false);
+		
+	});
+
+	
+	// 구독 기간 (1주 2주)
+	$(".period-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("period").innerText
+	        = $(".period-btn.active").find('span').text() + ' / ';
+	        
+		$("input[name='choosePeriodCode']").attr('value', $(this).val());
+		
+		// 기간 선택 버튼 활성
+		$(".deliveryDay-btn").attr("disabled", false);
+	});
+	
+	// 수령 희망일 
+	$(".deliveryDay-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("deliveryDay").innerText 
+	    	= $(".deliveryDay-btn.active").find('span').text();
+	    	
+	    $("input[name='chooseDeliveryDayCode']").attr('value', $(this).val());
+	});
+}
+
+
+//결제 페이지 이동
+function reconfirim(){
+	if(loginMember==''){
+		alert("로그인 후 가능합니다");
+		return false;
+ 	}
+	
+	if ( !$(".bread-btn.active")[0] || !$(".taste-btn.active")[0]
+ 		|| !$(".period-btn.active")[0] || !$(".deliveryDay-btn.active")[0]) { // 빵 버튼이 선택되지 않은경우
+		alert("옵션을 선택해주세요");
+		return false;
+	}
+
+	if (resultNum == 0) {
+		alert("구매 수량을 선택해주세요");
+		return false;
+	}
+	
+	if (loginMember != '' && resultNum != 0 && $(".bread-btn.active")[0]
+			&& $(".taste-btn.active")[0] && $(".period-btn.active")[0]
+			&& $(".deliveryDay-btn.active")[0]) {
+		$("#totalAmount").val(resultNum);
+		$("#hiddenTotalPrice").val(totalprice.innerText);
+		return true;
+	} else {
+		return false;
+	}
+}
 </script>
 
 <script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
