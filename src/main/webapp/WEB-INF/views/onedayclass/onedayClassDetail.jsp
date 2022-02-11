@@ -35,7 +35,7 @@
                 </div>
             </section>
             <section class="product_detail">
-            	<form action="${contextPath}/payment/payment" method="GET" onsubmit="return reconfirim();">
+            	<form action="${contextPath}/payment/classPayment" method="POST" onsubmit="return reconfirim();">
                 <article class="category_product">
                     <div class="category-title">
                         <span>${Oneclass.title}</span>
