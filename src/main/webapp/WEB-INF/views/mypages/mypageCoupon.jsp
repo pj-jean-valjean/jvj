@@ -71,20 +71,10 @@
                 	</c:when>
                 	
                 	
-                	<%-- <fmt:parseDate value="${couponList.provideDate}" pattern="yyyy-MM-dd" var="provideDate" />
-					<fmt:parseDate value="${couponList.expireDate}" pattern="yyyy-MM-dd" var="expireDate"/>
-
-                	
-                	<c:when test="${provideDate == expireDate}">
-                					<td style="text-decoration: line-through;">${couponList.couponName}</td>
-			                        <td style="text-decoration: line-through;">${couponList.discountPer}</td>
-			                        <td style="text-decoration: line-through;">${couponList.provideDate}</td>
-			                        <td style="text-decoration: line-through;">${couponList.expireDate}</td>
-			                        <td style="text-decoration: line-through;">${couponList.couponStatusName}</td>
-                	</c:when> --%>
-                	
                 	<c:otherwise>
 		                	<c:forEach items="${couponList}" var="couponList">
+		                	
+		                	<c:if test="${couponList.couponStatusCode == 1}">
 			                	<tr class="tb-tbd">
 			                        <td>${couponList.couponName}</td>
 			                        <td>${couponList.discountPer}</td>
@@ -92,6 +82,28 @@
 			                        <td>${couponList.expireDate}</td>
 			                        <td>${couponList.couponStatusName}</td>
 			                    </tr>
+			                </c:if> 
+			                  
+			                <c:if test="${couponList.couponStatusCode == 2}">
+		                		<tr class="tb-tbd">
+			                	<td class="dontCoupon">${couponList.couponName}</td>
+						        <td class="dontCoupon">${couponList.discountPer}</td>
+						        <td class="dontCoupon">${couponList.provideDate}</td>
+						        <td class="dontCoupon">${couponList.expireDate}</td>
+						        <td class="dontCoupon">${couponList.couponStatusName}</td>
+					        	</tr>
+                			</c:if>
+                			
+			                <c:if test="${couponList.couponStatusCode == 3}">
+		                		<tr class="tb-tbd">
+			                	<td class="dontCoupon">${couponList.couponName}</td>
+						        <td class="dontCoupon">${couponList.discountPer}</td>
+						        <td class="dontCoupon">${couponList.provideDate}</td>
+						        <td class="dontCoupon">${couponList.expireDate}</td>
+						        <td class="dontCoupon">${couponList.couponStatusName}</td>
+					        	</tr>
+                			</c:if>
+                			
 		                    </c:forEach>
                 	</c:otherwise>
                 </c:choose>

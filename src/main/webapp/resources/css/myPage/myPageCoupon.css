@@ -151,3 +151,8 @@ table{
 }
 
 .sectionBody{margin-top: 60px;}
+
+
+.dontCoupon{
+	text-decoration: line-through; background: rgba(246, 246, 246, 1);
+}
