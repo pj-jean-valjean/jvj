@@ -119,6 +119,7 @@ cursor: pointer;
 }
 .minus-btn2:hover,.add-btn2:hover{
     transform: translate3d(0, 2px, 0);
+    
 }
 .add-btn2{
 
