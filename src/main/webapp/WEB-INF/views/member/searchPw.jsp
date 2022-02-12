@@ -23,7 +23,7 @@
 
 					<span>@</span>
 					<div class="input-div">
-						<input type="text" class="member-info email-input"  name="email" id="email-input-select" maxlength="20" required> 
+						<input type="text" class="member-info email-input"  name="email" id="email-input-select" maxlength="20"  required> 
 						<select class="member-info" id="email-select">
 							<option value="0">직접입력</option>
 							<option value="1">naver.com</option>
@@ -36,13 +36,13 @@
 					<div class="input-div">
 						<button type="button" class="email-check-btn" id="sendEmail">이메일 인증</button>
 						<span id="count-down-timer"></span>
+						<!-- 버튼 클릭 유효성 검사 확인 -->
+						<p class="check-p" id="checkEmail"></p>
+						<!-- 이메일 중복검사 -->
+						<p class="check-p" id="dupEmail"></p>
 					</div>
 				</div>
 				
-				<!-- 이메일 중복검사 -->
-				<p class="check-p" id="dupEmail"></p>
-				<!-- 버튼 클릭 유효성 검사 확인 -->
-				<p class="check-p" id="checkEmail"></p>
 				</div>
 
 				<div class="input-info">
@@ -56,9 +56,9 @@
 						<div class="input-div">
 							<button type="button" class="email-check-btn" id="check-email-Authentication">이메일 인증 확인</button>
 							<input type="hidden" id="certificationYN" value="false">
-						</div>
 						<!-- 인증번호 확인 유효성검사 -->
-						<p class="check-p" id="check-email-Authentication"></p>
+						<p class="check-p" id="checkAuthentication"></p>
+						</div>
 					</div>
 				</div>
 				
