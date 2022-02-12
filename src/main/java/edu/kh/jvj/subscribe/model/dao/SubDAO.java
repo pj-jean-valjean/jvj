@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.jvj.subscribe.model.vo.ProductImage;
+import edu.kh.jvj.subscribe.model.vo.SearchVO;
 import edu.kh.jvj.subscribe.model.vo.SubVO;
 
 @Repository
@@ -45,5 +46,11 @@ public class SubDAO {
 
 	public int likecheck(Map<String, Integer> map) {
 		return sqlSession.selectOne("subscribeMapper.likecheck", map);
+	}
+
+	
+	// 검색
+	public List<SearchVO> search(SearchVO search) {
+		return sqlSession.selectList("subscribeMapper.search", search);
 	}
 }

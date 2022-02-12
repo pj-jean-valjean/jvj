@@ -84,6 +84,101 @@ header{
 	margin-left: 10px;
 }
 
+/* 모달 */
+
+/* 모달 영역----------------------------------------------------- */
+/*
+    수정한 부분 css파일에 포함할것
+    지금은 보이고 안보이고 정도
+    움직이는걸로 바꾸고 싶으면 transform 했던거 찾아서 변경
+*/    
+.modal-area{
+	position : fixed;    
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 15px; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal-overlay{
+    width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.modal-content{
+	position : absolute;
+	padding: 300px 100%;
+	top: 0px;
+	text-align: center;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	background-color: white;
+	z-index: 10;
+	display: -webkit-inline-box;
+}
+
+.hidden{
+	display: none;
+}
+
+
+
+.btn-cancel{
+    background: #8a8a8a;
+    color: #ffffff;
+    width: 80px;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    
+    margin-right: 10px;
+}
+
+.btn-submit{
+    background: #3278FE;
+    color: white;
+    width: 80px;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    font-size: 15px;
+}
+
+
+
+
+/* 취소, 출간 버튼 */
+.set-btns{
+    float: right;
+    margin-right: 5px;
+}
+
+/* --- 모달 영역 끝 ----- */
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* //////////////////////////////////////////////////////////////////////// */
 /* 반응형 */
 /* @media screen and (max-width:1023px){

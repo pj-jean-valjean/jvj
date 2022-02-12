@@ -13,6 +13,7 @@
 			<typeAlias alias="Like" type="edu.kh.jvj.mypage.model.vo.Like" />
 			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
 			<typeAlias alias="Subscribe" type="edu.kh.jvj.subscribe.model.vo.SubVO" />
+			<typeAlias alias="Search" type="edu.kh.jvj.subscribe.model.vo.SearchVO" />
 			<typeAlias alias="Review" type="edu.kh.jvj.review.model.vo.Review" />
 	</typeAliases>
 	
