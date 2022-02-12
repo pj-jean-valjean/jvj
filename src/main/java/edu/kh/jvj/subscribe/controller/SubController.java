@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+
 import edu.kh.jvj.subscribe.model.service.SubService;
 import edu.kh.jvj.subscribe.model.vo.ProductImage;
+import edu.kh.jvj.subscribe.model.vo.SearchVO;
 import edu.kh.jvj.subscribe.model.vo.SubVO;
 
 
@@ -135,6 +138,17 @@ public class SubController {
 		return result;
 	}
 	
+	
+	
+
+	// 검색창
+	@ResponseBody
+	@RequestMapping(value = "main/search", method = RequestMethod.GET)
+	public String search(SearchVO search) {
+		List<SearchVO> list = service.search(search);
+		
+		return new Gson().toJson(list);
+	}
 	
 	
 

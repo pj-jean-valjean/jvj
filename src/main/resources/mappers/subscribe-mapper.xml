@@ -34,6 +34,15 @@
 		<result property="productNo" column="PRODUCT_NO" />
 	</resultMap>
 	
+	
+	<resultMap type="Search" id="search_rm">
+		<id property="productNo" column="PRODUCT_NO" />
+
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productCode" column="PRODUCT_CD" />
+	</resultMap>
+	
 	<!-- 구독 이미지 조회 -->
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG 
@@ -56,6 +65,7 @@
 			${productNo}, ${loginMember}
 		)
 	</insert>
+	
 	<delete id="undolike">
 		DELETE FROM "LIKE"
 		WHERE PRODUCT_NO = ${productNo}
@@ -66,4 +76,13 @@
 		WHERE PRODUCT_NO = ${productNo}
 		AND MEMBER_NO = ${loginMember}
 	</select>
+	
+	
+	<select id="search" resultMap="search_rm">
+		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE
+		FROM PRODUCT 
+		WHERE PRODUCT_NM LIKE #{sv} ||'%'
+	</select>
+	
+	
 </mapper>

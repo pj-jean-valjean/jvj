@@ -204,7 +204,7 @@ public class MypageController {
 			path = "/";
 
 		} else { // 실패
-			Util.swalSetMessage("회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.", "error", ra);
+			Util.swalSetMessage("회원 탈퇴 실패", "다시 시도해주시길 바랍니다.", "error", ra);
 			path = "secession";
 		}
 		

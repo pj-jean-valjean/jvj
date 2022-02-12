@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.jvj.subscribe.model.dao.SubDAO;
 import edu.kh.jvj.subscribe.model.vo.ProductImage;
+import edu.kh.jvj.subscribe.model.vo.SearchVO;
 import edu.kh.jvj.subscribe.model.vo.SubVO;
 
 @Service
@@ -48,6 +49,15 @@ public class SubServiceImpl implements SubService{
 	@Override
 	public int likecheck(Map<String, Integer> map) {
 		return dao.likecheck(map);
+	}
+
+	
+	
+	
+	// 검색
+	@Override
+	public List<SearchVO> search(SearchVO search) {
+		return dao.search(search);
 	}
 
 	

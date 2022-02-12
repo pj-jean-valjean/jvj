@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.jvj.subscribe.model.vo.ProductImage;
+import edu.kh.jvj.subscribe.model.vo.SearchVO;
 import edu.kh.jvj.subscribe.model.vo.SubVO;
 
 public interface SubService {
@@ -24,6 +25,14 @@ public interface SubService {
 	int undolike(Map<String, Integer> map);
 
 	int likecheck(Map<String, Integer> map);
+
+	
+	
+	/** 검색
+	 * @param search
+	 * @return
+	 */
+	List<SearchVO> search(SearchVO search);
 
 
 }
