@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewMapper">
+	<resultMap type="Review" id="review_rm">
+		<id property="orderNo" column="ORDER_NO" />
+		<result property="productNo" column="PRODUCT_NO" />
+		<result property="title" column="REVIEW_TITLE" />
+		<result property="point" column="REVIEW_POINT" />
+		<result property="content" column="REVIEW_CONTENT" />
+		<result property="date" column="REVIEW_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="categoryNo" column="PRODUCT_CD" />
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="writer" column="MEMBER_NICKNAME" />
+	</resultMap>
 
+	<select id="selectOrder" resultMap="review_rm">
+		SELECT PRODUCT_NO,ORDER_NO,PRODUCT_NM,PRODUCT_CD FROM "ORDER"
+		LEFT JOIN
+		PRODUCT USING (PRODUCT_NO)
+		WHERE MEMBER_NO = #{memberNo} AND
+		(SELECT
+		COUNT(PRODUCT_NO) FROM PRODUCT_REVIEW
+		LEFT JOIN "ORDER" USING
+		(PRODUCT_NO)
+		WHERE PRODUCT_REVIEW.MEMBER_NO = #{memberNo})  <![CDATA[<]]>
+		(SELECT COUNT(PRODUCT_NO) FROM "ORDER"
+		WHERE MEMBER_NO = #{memberNo})
+		AND PRODUCT_NO NOT IN (1427,1428,1429)
+	</select>
+	<select id="selectImgPath" resultType="string">
+		SELECT PRODUCT_IMG_PATH ||
+		PRODUCT_IMG_NAME "IMGPATH" FROM PRODUCT_IMG WHERE
+		PRODUCT_NO =
+		#{productNo} AND PRODUCT_IMG_LEVEL = 0
+	</select>
+	<insert id="writeReview">
+		INSERT INTO PRODUCT_REVIEW VALUES(
+		#{productNo},#{memberNo},#{title},#{point},#{content},DEFAULT,DEFAULT
+		)
+	</insert>
+	<select id="selectReviewList" resultMap="review_rm">
+		SELECT
+		PRODUCT_NO,
+		MEMBER_NO,
+		REVIEW_TITLE,
+		REVIEW_POINT,
+		REVIEW_CONTENT,
+		REVIEW_DATE,
+		MEMBER_NICKNAME FROM PRODUCT_REVIEW
+		NATURAL JOIN MEMBER
+		WHERE PRODUCT_NO = #{no} AND REVIEW_STATUS_CD = 0
+		<choose>
+		<when test="sr==1">ORDER BY 4</when>
+		<when test="sr==2">ORDER BY 4 DESC</when>
+		<otherwise>
+		ORDER BY REVIEW_DATE
+		</otherwise>
+		</choose>
+
+	</select>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT_REVIEW
+		WHERE REVIEW_STATUS_CD = 0 
+		AND PRODUCT_NO = #{no}
+	</select>
+	
+	
 </mapper>
