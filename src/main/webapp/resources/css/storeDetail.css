@@ -648,3 +648,10 @@ footer{
  .n-option1,.n-option2,.n-option3{
      display:block;
  }
+.review-title{
+    cursor: pointer;
+}
+.review-content{
+    cursor:pointer;
+    height: 400px;
+}

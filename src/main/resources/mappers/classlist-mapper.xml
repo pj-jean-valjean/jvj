@@ -100,4 +100,10 @@
 		WHERE PRODUCT_NO = #{productNo}
 		AND MEMBER_NO = #{loginNo}
 	</select>
+	<update id="doUpdateOverdueClass">
+		UPDATE CLASS_DETAIL SET
+		CLASS_STATUS_CD = 3
+		WHERE CLASS_DT &lt; SYSDATE
+		 AND CLASS_STATUS_CD !=3
+	</update>
 </mapper>

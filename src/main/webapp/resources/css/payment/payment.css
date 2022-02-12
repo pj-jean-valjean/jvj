@@ -346,3 +346,16 @@ transform: rotate(45deg);
     font-size: 20px;
     color: #FFFFFF;
 }
+
+
+
+ 
+/* 이메일 영역 감추기 */
+.newInfo{
+    display: none;
+}
+
+/* 원데이 클래스 결제 하단부 공백 */
+.space-div{
+	height:100px;
+}

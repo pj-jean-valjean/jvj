@@ -3,22 +3,19 @@ package edu.kh.jvj.admin.model.service;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -28,28 +25,24 @@ import java.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
 import edu.kh.jvj.admin.model.dao.AdminDAO;
 import edu.kh.jvj.admin.model.vo.Admin;
+import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.MessagesRequestDto;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
-import edu.kh.jvj.admin.model.vo.SendSmsResponseDto;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SmsRequestDto;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.admin.model.vo.SubsOptions;
+import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -158,19 +151,34 @@ public class AdminServiceImpl implements AdminService{
 	// 공지사항 작성
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int insertNotice(String title, String noticecate, String editordata, int loginAdmin) {
+	public int insertNotice(Notice notices) {
 		
-		title= XSS(title);
-		Map<String, String> noticeMap = new HashMap<String, String>();
+		notices.setNoticeTitle(XSS(notices.getNoticeTitle()));
+
+		int result = dao.insertNotice(notices); 
 		
-		noticeMap.put("title", title);
-		noticeMap.put("noticecate", noticecate);
-		noticeMap.put("editordata", editordata);
-		noticeMap.put("loginMember", loginAdmin+"");
+		if(result>0 && notices.getCouponName() != null) {
+			List<MadeCoupon> couponList = new ArrayList<MadeCoupon>();
+			for(int i = 0 ; i< notices.getCouponName().length ; i++) {
+				MadeCoupon coupons = new MadeCoupon();
+				coupons.setCouponLimit(notices.getCouponLimit()[i]);
+				coupons.setExpireDate(notices.getExpireDate()[i]);
+				coupons.setAdminNo(notices.getLoginAdmin());
+				coupons.setDiscountPer(notices.getDiscountPer()[i]);
+				coupons.setCouponName(notices.getCouponName()[i]);
+				coupons.setNoticeNo(notices.getNoticeNo());
+				couponList.add(coupons);
+			}
+			result = dao.addMakeCoupons(couponList);
+		}
 		
-		 return dao.insertNotice(noticeMap); 
+		
+		 return result;
 	}
 	@Override
+	
+	
+	
 	@Transactional(rollbackFor = Exception.class)
 	public int updateNotice(String title, String noticecate, String editordata, String noticeNo) {
 		title= XSS(title);
@@ -501,13 +509,19 @@ public class AdminServiceImpl implements AdminService{
 		return encodeBase64String;
 	}
 
+	// 이미지 스케쥴러
 	@Override
 	public List<String> selectImgList() {
 		return dao.selectImgList();
 	}
-
-
-
+	
+	//쿠폰 추가
+	@Override
+	public int makingCoupon(MadeCoupon mCoupon) {
+		String ranName ="jvj"+ UUID.randomUUID();
+		mCoupon.setHashName(ranName);
+		return dao.makingCoupon(mCoupon);
+	}
 
 }
 

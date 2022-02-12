@@ -16,7 +16,7 @@ public class OnedayClass {
 	private String createDt;
 	
 	//PRODUCT_CD
-	private final int productCd = 3;
+	private int productCd = 3;
 	
 	//--클래스 상세
 	//CLASS_DT
@@ -46,6 +46,10 @@ public class OnedayClass {
 
 	public void setNowPeople(String nowPeople) {
 		this.nowPeople = nowPeople;
+	}
+
+	public void setProductCd(int productCd) {
+		this.productCd = productCd;
 	}
 
 	//LIKECOUNT

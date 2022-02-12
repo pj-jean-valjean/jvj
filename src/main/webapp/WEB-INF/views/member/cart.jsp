@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/cart.css">
 </head>
 <body>
+
 	<div class="j-wrapper">
 		<h1 style="margin: 35px 0; color: #564334">장바구니</h1>
 		<div class="hr"></div>
@@ -33,51 +34,58 @@
 		<div class="hr" style="height: 5px; margin: 20px 0 30px 0"></div>
 
 		<c:forEach items="${cartList}" var="cart">
-			
-				<c:if test="${cart.parentNo eq 0}">
 
-					<div class="inline-block items">
-						<input type="hidden" value="${cart.cartNo}">
-						<div
-							style="width: 486px; height: 195px; border-right: 1px solid #d3c5b6;"
-							class="inline-block">
-							<h4 class="x-btn">x</h4>
-							<div class="j-img"
-								style="background-image: url('${contextPath}${cart.imgPath }');"></div>
-							<div>
+			<c:if test="${cart.parentNo eq 0}">
+		
+				<div class="inline-block items">
+					<input type="hidden" value="${cart.cartNo}">
+					<div
+						style="width: 486px; height: 195px; border-right: 1px solid #d3c5b6;"
+						class="inline-block">
+						<h4 class="x-btn">x</h4>
+						<div class="j-img"
+							style="background-image: url('${contextPath}${cart.imgPath }');"></div>
+						<div>
 
-								<h4 style="margin-bottom: 25px;">${cart.productName }</h4>
-								<c:if test="${cart.discountPer ne 0}"><h5 style="margin-bottom: 15px; display: inline-block; text-decoration:line-through; color:gray">${cart.price}</h5></c:if> 
-								<h3 style="display: inline-block" class="productPrice">${cart.price * (100-cart.discountPer)/100}</h3>
-								
-								<br>
-								<div class="j-pmbtn">-</div>
-								<h4 class="addq" style="display: inline-block; margin: 0 20px;">${cart.addq}</h4>
-								<div class="j-pmbtn">+</div>
-							</div>
-						</div>
-						
-						<div
-							style="width: 330px; margin: 0 40px; height: 195px; border-right: 1px solid #d3c5b6;"
-							class="inline-block option-box">
-						<c:forEach items="${cartList}" var="cart2">	
-							<c:if test="${cart2.parentNo eq cart.cartNo}">
-					
-								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName} ${cart2.price}원 * ${cart2.addq}</h4>
-								<input class="optionPrice" type ="hidden" value="${cart2.price * cart2.addq *(100-cart2.discountPer)/100} ">
-								
+							<h4 style="margin-bottom: 25px;">${cart.productName }</h4>
+							<c:if test="${cart.discountPer ne 0}">
+								<h5
+									style="margin-bottom: 15px; display: inline-block; text-decoration: line-through; color: gray">${cart.price}</h5>
 							</c:if>
-							</c:forEach>
-						</div>
-						<div style="width: 204px; height: 195px; text-align: center;">
-							<h2 class="cartSumPrice" style="margin-top: 80px">1000원</h2>
+							<h3 style="display: inline-block" class="productPrice">${cart.price * (100-cart.discountPer)/100}</h3>
 
+							<br> 
+							
+							<img>x
+							<h4 class="addq"
+								style="display: inline-block; margin: 0 20px; vertical-align: top;"> ${cart.addq}</h4>
+							<img >
 						</div>
-						
 					</div>
-					<div class="hr" style="height: 1px; margin: 30px 0 30px 0"></div>
-				</c:if>
-			
+
+					<div
+						style="width: 330px; margin: 0 40px; height: 195px; border-right: 1px solid #d3c5b6;"
+						class="inline-block option-box">
+						<c:forEach items="${cartList}" var="cart2">
+							<c:if test="${cart2.parentNo eq cart.cartNo}">
+
+								<h4 style="margin: 10px 0 25px 60px;">${cart2.productName}
+									${cart2.price}원 x ${cart2.addq}</h4>
+								<input class="optionPrice" type="hidden"
+									value="${cart2.price * cart2.addq *(100-cart2.discountPer)/100} ">
+
+							</c:if>
+						</c:forEach>
+					</div>
+					<div style="width: 204px; height: 195px; text-align: center;">
+						<h2 class="cartSumPrice" style="margin-top: 80px">1000원</h2>
+
+					</div>
+
+				</div>
+				<div class="hr" style="height: 1px; margin: 30px 0 30px 0"></div>
+			</c:if>
+		
 		</c:forEach>
 
 		<div class="j-notice">
@@ -90,20 +98,22 @@
 		</div>
 		<div class="j-sum inline-block">
 			<p>
-				총 주문 금액 <b class="resultPrice">0원</b> + 배송비 <b class="taxPrice">3,000원</b> =
+				총 주문 금액 <b class="resultPrice">0원</b> + 배송비 <b class="taxPrice">3,000원</b>
+				=
 			</p>
-			<h1>총 결제 금액 </h1> <h1  class="lastMaxPrice"> 0원</h1>
+			<h1>총 결제 금액</h1>
+			<h1 class="lastMaxPrice">0원</h1>
 		</div>
 		<div class="j-buy" onclick="buyit()">
 			<h2>구매하기</h2>
 		</div>
 	</div>
 	<form action="#" method="POST" name="requestForm">
-	<input type="hidden" name="carrierList" value="${carrierList}">
+		<input type="hidden" name="carrierList" value="">
 	</form>
 	<script>
 	const specialContextPath = '${contextPath}';
-	const carrierList = '${carrierList}';
+	//const carrierList = '${carrierList}';
 	</script>
 	<script src="${contextPath}/resources/js/member/cart.js"> </script>
 	<jsp:include page="../common/footer.jsp" />

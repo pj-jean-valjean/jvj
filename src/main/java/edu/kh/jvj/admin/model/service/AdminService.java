@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.jvj.admin.model.vo.Admin;
+import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
 import edu.kh.jvj.admin.model.vo.SubsOptions;
+import edu.kh.jvj.notice.model.vo.Notice;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Store;
 
@@ -33,7 +35,7 @@ public interface AdminService {
 	 * @param editordata
 	 * @return result
 	 */
-	int insertNotice(String title, String noticecate, String editordata, int loginMember);
+	int insertNotice(Notice notices);
 	int updateNotice(String title, String noticecate, String editordata, String noticeNo);
 
 	/** findMatchedAdminIdPw
@@ -102,5 +104,7 @@ public interface AdminService {
 	int changeSubsOption(SubsOptions subsOptions);
 
 	List<String> selectImgList();
+
+	int makingCoupon(MadeCoupon mCoupon);
 	
 }

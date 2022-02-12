@@ -87,4 +87,20 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 
+
+	@Override
+	public int selectpdtCount(Store store) {
+		// TODO Auto-generated method stub
+		return dao.selectpdtCount(store);
+	}
+
+
+
+	@Override
+	public int expiredSale() {
+		// TODO Auto-generated method stub
+		return dao.expiredSale();
+	}
+
+
 }

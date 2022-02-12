@@ -35,7 +35,7 @@
                 </div>
             </section>
             <section class="product_detail">
-            	<form action="${contextPath}/payment/payment" method="GET" onsubmit="return reconfirim();">
+            	<form action="${contextPath}/payment/classPayment" method="POST" onsubmit="return reconfirim();">
                 <article class="category_product">
                     <div class="category-title">
                         <span>${Oneclass.title}</span>
@@ -44,7 +44,13 @@
 							<div class="contentss">
 								<div class="heart"></div>
 							</div>
-							<div class="text">Like it</div>
+							<div class="text">클래스 <br> 좋아요</div>
+						</div>
+						<div class="kakaolink">
+						    <a id="kakao-link-btn" href="javascript:kakaoShare()">
+						    	<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+						    </a>
+						    <span id="kakaolink-text" class="text">카톡으로 <br>공유하기</span>
 						</div>
                     </div>
                 </article>
@@ -409,6 +415,8 @@ DELIVERY / 배송정보
 		const productNo = "${productNo}"
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=551a4828db4bdc904ebb55328c53c9ae&libraries=services,clusterer,drawing"></script>
+	<!--  kakao sdk  -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classDetail.js"></script>
 </body>
 </html>

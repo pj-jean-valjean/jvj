@@ -1,6 +1,6 @@
 
 
-        const routepath = '/jvj/admin/board/route/';
+        const routepath = contextPath+'/admin/board/route/';
        /* router 구현 */
         const routes = [
             { path: routepath+'showSales', component: function(){
@@ -57,6 +57,9 @@
                 /* 기타업무 */
                 { path: routepath+'couponMake', component: function(){
                     couponMake();} },
+                /* 마케팅 업무 */
+                { path: routepath+'sendCouponToMember', component: function(){
+                    sendCouponToMember();} },
         ];
         
 		function render(path){
@@ -214,18 +217,18 @@
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine subscribe-search");
             searchDiv.innerHTML="<select>"+
-            "<option>구독상품1</option>"+
-            "<option>구독상품2</option>"+
+            "<option value='1437'>빵 세트</option>"+
+            "<option value='1438'>빵 & 커피 세트</option>"+
             "</select>";
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo notice-title'>구독상품명</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
+                "<span class='oneMemberInfo'>구독상품명</span>"+
+                "<span class='oneMemberInfo notice-title'>아이디</span>"+
                 "<span class='oneMemberInfo'>닉네임</span>"+
                 "<span class='oneMemberInfo'>구독시작일</span>"+
-                "<span class='oneMemberInfo'>구독회차</span>"+
+                "<span class='oneMemberInfo notice-title'>상세 옵션</span>"+
                 "<span class='oneMemberInfo'>구독중 여부</span>"+
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
@@ -296,7 +299,7 @@
             enterfunc();
         }
         //-----------------------------------------------------------------//
-
+        
         //글관리2- 공지사항 관리
         function modifyWrite(){
 
@@ -941,6 +944,11 @@
         /* 쿠폰발급 */
         function couponMake(){
             contentbox.innerHTML="";
+
+            const adminwriteform = document.createElement("form")
+            adminwriteform.setAttribute("id","writerForm");
+            adminwriteform.setAttribute("method","POST");
+
             //이름
             const funcName = document.createElement("div");
             funcName.setAttribute("class", "oneLine");
@@ -948,12 +956,12 @@
             //제목
             const title = document.createElement("div");
             title.setAttribute("class", "oneLine");
-            title.innerHTML="<label class='labels'>제목</label><input type='text' name='title'>";
+            title.innerHTML="<label class='labels'>제목</label><input type='text' name='couponName'>";
 
             const couponDate = document.createElement("div");
             couponDate.setAttribute("class", "oneLine");
             couponDate.innerHTML="<label class='labels'>만료날짜</label>"+
-            "<input type='text' id='classdate' name='couponDate' readonly placeholder='만료일을 선택해주세요'>"+
+            "<input type='text' id='expiredate' name='expireDate' readonly placeholder='만료일을 선택해주세요'>"+
             "<button type='button' class='opencal selectdate'>만료일 설정</button>";
             
             const discountPer = document.createElement("div");
@@ -963,19 +971,56 @@
             //개수제한
             const couponLimit = document.createElement("div");
             couponLimit.setAttribute("class", "oneLine");
-            couponLimit.innerHTML="<label class='labels'>개수제한</label><input type='number' name='discountPer'><span> (미작성시 무한)</span>";
-            /*  subcanBTN()
-            const adminwriteform = document.createElement("form")
-            adminwriteform.setAttribute("id","writerForm");
-            adminwriteform.setAttribute("enctype"," );
-            adminwriteform.setAttribute("method","POST"); */
+            couponLimit.innerHTML="<label class='labels'>개수제한</label><input type='number' name='couponLimit'>";
 
-            
-            contentbox.append(funcName,title,couponDate,discountPer,couponLimit);
+            const hiddenadminNo = document.createElement("input");
+            hiddenadminNo.type= "hidden";
+            hiddenadminNo.value= adminNo ;
+            hiddenadminNo.name = "adminNo";
+            adminwriteform.append(funcName,title,discountPer,couponLimit,couponLimit,couponDate,hiddenadminNo,subcanBTN());
+            contentbox.append(adminwriteform);
+
+            document.querySelector(".admin-write-btn").setAttribute("onclick","makingCoupon();");
+
             calmodal();
         }
+            function validateCoupon(){
+                const test1=    document.querySelector("input[name='couponName']").value.trim().length;
+                const test2=    document.querySelector("input[name='expireDate']").value.trim().length;
+                const test3=    document.querySelector("input[name='discountPer']").value.trim().length;
+                const test4=    document.querySelector("input[name='couponLimit']").value.trim().length;
+                if(test1==0 || test2==0 || test3 ==0 || test4 ==0){
+                    alert("쿠폰 정보를 입력해주세요!")
+                    return false;
+                }
+                else return true;
+            }
+            function makingCoupon(){
+                const form = $("#writerForm"); 
+                const formData = new FormData(form[0]);
+
+                $.ajax({
+                    url : contextPath+"/admin/board/makingCoupon",
+                    data : formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    type:"post",
+                    success : function(result){
+                        if(result>0){
+
+                        }
+                    },
+                    error:function(request, status, error){
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+                })
+            }
+
+
 
         //----------------------------------------------------------------------------------------
+        /* 구독옵션 */
         function subsOptionManage(){
             contentbox.innerHTML="";
             const funcName = document.createElement("div");
@@ -1009,7 +1054,6 @@
                 },
                 dataType : "json",
                 success : function(result){
-                    console.log(result);
                     const ul = document.querySelector(".ResultLine");
                     ul.innerHTML =
                     "<li class='resultTitle oneMemberResult'>"+
@@ -1049,11 +1093,10 @@
                 }
             })  
         }
-        
-        function changeSubsOption(){
-            
-        }
         function addSubsOption(btn){
+            alert("허가가 필요합니다");
+            return;
+/* 
             if(confirm("추가하시겠습니까?")){
                 let SubsProductNo = btn.parentElement.previousElementSibling.previousElementSibling;
                 let subOptionName = SubsProductNo.previousElementSibling.previousElementSibling.children[0].value;
@@ -1074,12 +1117,12 @@
                             selectSubsOption(SubsProductNo.value)
                         }
                     },
-                    error : function(){
-                        alert("옵션 추가 중 에러발생")
+                    error:function(request, status, error){
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     }
                 }) 
             }
-            else return;
+            else return; */
         }
         function deleteSubsOption(btn){
             if(confirm("삭제하시겠습니까?")){
@@ -1138,4 +1181,8 @@
                     }
                 }) 
             }
+        }
+
+        function sendCouponToMember(){
+            
         }

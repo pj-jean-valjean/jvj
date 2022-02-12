@@ -3,6 +3,8 @@ package edu.kh.jvj.cart.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import edu.kh.jvj.cart.model.service.CartService;
 import edu.kh.jvj.cart.model.vo.Carrier;
@@ -35,43 +39,89 @@ public class CartController {
 		for (Cart cart2 : cartList) {
 			int sum = 0;
 			if (cart2.getParentNo() == 0) {
-			Carrier carrier = new Carrier();
-			sum += cart2.getPrice() * cart2.getAddq() * (100-cart2.getDiscountPer())/100;
-			// 가격을 더한다
-			
-			carrier.setMainProductNo(cart2.getProductNo());
-			carrier.setMainQ(cart2.getAddq());
-			carrier.setMemberNo(member.getMemberNo());
-			carrier.setDiscountPer(cart2.getDiscountPer());
-			
+				Carrier carrier = new Carrier();
+				sum += cart2.getPrice() * cart2.getAddq() * (100 - cart2.getDiscountPer()) / 100;
+				// 가격을 더한다
+
+				carrier.setMainProductNo(cart2.getProductNo());
+				carrier.setMainQ(cart2.getAddq());
+				carrier.setMemberNo(member.getMemberNo());
+				carrier.setDiscountPer(cart2.getDiscountPer());
+
 				List<Option> optionList = new ArrayList<Option>();
-				
+
 				for (Cart cart3 : cartList) {
 					if (cart3.getParentNo() == cart2.getCartNo()) {
 						Option op = new Option();
-						sum+=cart3.getPrice() * cart3.getAddq() * (100-cart3.getDiscountPer())/100;
+						sum += cart3.getPrice() * cart3.getAddq() * (100 - cart3.getDiscountPer()) / 100;
 						op.setOptionName(cart3.getProductName());
 						op.setOptionNo(cart3.getProductNo());
 						op.setOptionQ(cart3.getAddq());
 						optionList.add(op);
-						
+
 					}
 				}
 				carrier.setOptionList(optionList);
-			
-			carrier.setSumPrice(sum);
-			carrierList.add(carrier);
-			System.out.println(carrier);
+
+				carrier.setSumPrice(sum);
+				carrierList.add(carrier);
+				System.out.println(carrier);
 			}
-			
+
 		}
 		System.out.println(carrierList);
-		model.addAttribute("carrierList",carrierList);
+		model.addAttribute("carrierList", carrierList);
 		model.addAttribute("cartList", cartList);
 
 		return "member/cart";
 	}
+	
+	@ResponseBody
+	@PostMapping("toPayment")
+	public String toPayment(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+		
+		
+		List<Cart> cartList = service.selectCartList(member);
+	
+		List<Carrier> carrierList = new ArrayList<Carrier>();
+		
+		for (Cart cart2 : cartList) {
+			int sum = 0;
+			if (cart2.getParentNo() == 0) {
+				Carrier carrier = new Carrier();
+				sum += cart2.getPrice() * cart2.getAddq() * (100 - cart2.getDiscountPer()) / 100;
+				// 가격을 더한다
 
+				carrier.setMainProductNo(cart2.getProductNo());
+				carrier.setMainQ(cart2.getAddq());
+				carrier.setMemberNo(member.getMemberNo());
+				carrier.setDiscountPer(cart2.getDiscountPer());
+
+				List<Option> optionList = new ArrayList<Option>();
+
+				for (Cart cart3 : cartList) {
+					if (cart3.getParentNo() == cart2.getCartNo()) {
+						Option op = new Option();
+						sum += cart3.getPrice() * cart3.getAddq() * (100 - cart3.getDiscountPer()) / 100;
+						op.setOptionName(cart3.getProductName());
+						op.setOptionNo(cart3.getProductNo());
+						op.setOptionQ(cart3.getAddq());
+						optionList.add(op);
+
+					}
+				}
+				carrier.setOptionList(optionList);
+
+				carrier.setSumPrice(sum);
+				carrierList.add(carrier);
+	
+			}
+
+		}
+		return new Gson().toJson(carrierList);
+	}
+	
+	
 	@PostMapping("addCart")
 	@ResponseBody
 	public int addCart(int storeNo, int addq, String arrays, String adStock, String adPrice,
@@ -100,13 +150,7 @@ public class CartController {
 				cart2.setMemberNo(memberNo); // 회원번호
 
 				int addSub = service.addSub(cart2);
-				if (addSub > 0) {
-					System.out.println((i + 1) + "번째 옵션 성공");
 
-				} else {
-					System.out.println((i + 1) + "번째 옵션 실패");
-
-				}
 			}
 
 		}
@@ -117,8 +161,7 @@ public class CartController {
 	@PostMapping("deleteCart")
 	@ResponseBody
 	public int deleteCart(int cartNo, @ModelAttribute("loginMember") Member member, Cart cart) {
-		System.out.println(cartNo);
-		System.out.println(member.getMemberNo());
+
 		cart.setCartNo(cartNo);
 		cart.setMemberNo(member.getMemberNo());
 		int result = service.deleteCart(cart);
@@ -134,7 +177,7 @@ public class CartController {
 		int memberNo = member.getMemberNo();
 		int result = 0;
 		List<Cart> productList = service.selectProductList(memberNo);
-		System.out.println(productList);
+
 		for (Cart pdt : productList) {
 			int amount = service.selectAmount(pdt.getProductNo());
 
@@ -148,14 +191,71 @@ public class CartController {
 		}
 		return result;
 	}
-	
+
 	// 작은카트
-	
+
 	@ResponseBody
-	@GetMapping("selectModalCart")
-	public int selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+	@PostMapping("selectModalCart")
+	public String selectModalCart(@ModelAttribute("loginMember") Member member, Cart cart, Model model) {
+		int result = 0;
 		List<Cart> cartList = service.selectCartList(member);
-		model.addAttribute("cartList", cartList);
-		return 0;
+		if (!cartList.isEmpty()) {
+			result = 1;
+		}
+
+		return new Gson().toJson(cartList);
+	}
+
+	@ResponseBody
+	@PostMapping("deleteAllCart")
+	public int deleteAllCart(@ModelAttribute("loginMember") Member member, Cart cart) {
+
+		int result = service.deleteAllCart(member.getMemberNo());
+		return result;
+	}
+
+	@ResponseBody
+	@PostMapping("plusAddq")
+	public int plusAddq(@ModelAttribute("loginMember") Member member, int cartNo, Cart cart) {
+
+		int result = 0;
+		cart.setCartNo(cartNo);
+		cart.setMemberNo(member.getMemberNo());
+		Cart cart2 = service.selectPdtAmount(cart);
+		cart2.setMemberNo(member.getMemberNo());
+		Cart cart3 = service.selectProductOne(cart2);
+		if (cart2.getAmount() >= cart3.getAddq() + 1) {
+			result = service.plusAddq(cart);
+		}
+
+		return result;
+	}
+
+	@ResponseBody
+	@PostMapping("minusAddq")
+	public int minusAddq(int cartNo, Cart cart) {
+
+		int result = service.minusAddq(cartNo);
+
+		return result;
+	}
+
+	@ResponseBody
+	@PostMapping("calc")
+	public int calc(HttpSession session, Member member) {
+
+		int result = 0;
+
+		if (session.getAttribute("loginMember") != null) {
+			member = (Member) session.getAttribute("loginMember");
+
+			List<Cart> cartList = service.selectCartList(member);
+			System.out.println(cartList);
+
+			for (Cart cart : cartList) {
+				result += cart.getPrice() * (100 - cart.getDiscountPer()) / 100 * cart.getAddq();
+			}
+		}
+		return result;
 	}
 }

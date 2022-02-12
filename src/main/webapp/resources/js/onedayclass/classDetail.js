@@ -11,7 +11,7 @@ function likecheck(){
     if(loginNo=="") return;
     $.ajax({
         url: contextPath+'/onedayclass/likecheck',
-        method: 'post',
+        type: 'post',
         data : {
             "loginNo" : loginNo,
             "productNo" : productNo
@@ -103,12 +103,10 @@ function likecheck(){
         })
     }
 }
-
     const possibleppl = document.querySelector(".product_detail >form> article:nth-child(11) > div.subdetail-content > span > span:nth-child(3)").innerText
     - document.querySelector(".product_detail > form>article:nth-child(11) > div.subdetail-content > span > span:nth-child(1)").innerText;
     const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
     
-  
     //인원 증감
     function plusppl(){
         if(possibleppl>nownum){
@@ -155,7 +153,6 @@ function showMaps(){
                     // 지도를 생성합니다    
                     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-                    console.log('x: '+result[0].x +' y: '+result[0].y);
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     // 결과값으로 받은 위치를 마커로 표시합니다
                     var marker = new kakao.maps.Marker({
@@ -179,6 +176,46 @@ function hideMaps(){
     document.getElementById("cal").style.display = "none";
     document.getElementById('map').innerHTML="";
 }
+
+
+  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('551a4828db4bdc904ebb55328c53c9ae');
+
+    // SDK 초기화 여부를 판단합니다.
+    console.log(Kakao.isInitialized());
+    function kakaoShare() {
+        const productNo = document.getElementsByName("productNo")[0].value;
+        const title = document.querySelector(".category-title>span").innerText;
+        const url = location.href;
+        const mainurl = document.querySelector(".main-thumbnail").getAttribute("src");
+        console.log(contextPath);
+        console.log(url);
+        Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+            title: '장발장만의 특별한 원데이클래스를 함께 즐기세요!',
+            description: title,
+            imageUrl: mainurl,
+            link: {
+                mobileWebUrl: url,
+                webUrl: url,
+            },
+            },
+            buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                mobileWebUrl: url,
+                webUrl: url,
+                },
+            },
+            ],
+            // 카카오톡 미설치 시 카카오톡 설치 경로이동
+            installTalk: true,
+        })
+    }
+
+
 
 /* 상세리뷰 토글check */
 let reviewtoggle = false;

@@ -92,6 +92,12 @@ public class MypageServiceInpl implements MypageService {
 		return pwUpdate;
 	}
 
+	// 회원 탈퇴
+	@Override
+	public int secession(int memberNo) {
+		return dao.secession(memberNo);
+	}
+
 
 	
 	

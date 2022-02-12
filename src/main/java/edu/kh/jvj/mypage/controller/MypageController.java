@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.jvj.common.Util;
@@ -187,6 +188,28 @@ public class MypageController {
 	}
 
 	
+	// 일반 회원 탈퇴
+	@RequestMapping(value = "secession", method = RequestMethod.GET)
+	public String secession(@ModelAttribute("loginMember") Member loginMember,
+			SessionStatus status, RedirectAttributes ra) {
+		
+		int result = service.secession(loginMember.getMemberNo());
+		
+		String path = null;
+
+		if (result > 0) { // 성공
+			Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
+			status.setComplete(); // 세션만료
+
+			path = "/";
+
+		} else { // 실패
+			Util.swalSetMessage("회원 탈퇴 실패", "다시 시도해주시길 바랍니다.", "error", ra);
+			path = "secession";
+		}
+		
+		return "redirect:" + path;
+	}
 	
 	
 }

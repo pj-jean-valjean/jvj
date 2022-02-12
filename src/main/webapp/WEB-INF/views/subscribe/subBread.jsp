@@ -17,42 +17,63 @@
  	
 </head>
 <body>
-
 	<main>
+<%-- <hr>
+subVOList  => ${subVOList}
+<hr>
+subVOImgList ${subVOImgList}
+<hr> --%>
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
                 <a href="${contextPath}/subscribe/subMain">정기 구독</a>
                 <img src="${contextPath}/resources/images/common/expand_less.png" alt="expand_less">
-                <a href="${contextPath}/subscribe/subBread">빵 세트</a>
+                <a href="${contextPath}/subscribe/subBread">${subVOList[0].productName}</a>
             </section>     
             
             <section class="product-thumbnail">
-                <article class="main-img-area">
-                    <img class="main-thumbnail" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                </article>
-            <div>
-                
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-                <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
-            </div>
-            </section>
 
-			
+                <article class="main-img-area">
+                    <c:if test="${subVOImgList[0].productImgLevel == 0}"> 
+	                    <img class="main-thumbnail"  
+	                    src="${contextPath}${subVOImgList[0].productImgPath}${subVOImgList[0].productImgName}" 
+	                    alt="sub-bread-main">
+            		</c:if>
+                </article>
+          
+            	<div>
+		            <c:forEach items="${subVOImgList}" var="imginfo">
+		            
+	            		<c:if test="${imginfo.productImgLevel == 0}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 1}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 2}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		<c:if test="${imginfo.productImgLevel == 3}"> 
+			                <img class="sub-img img-margin" src="${contextPath}${imginfo.productImgPath}${imginfo.productImgName}" alt="sub-bread-main">
+	            		</c:if>
+	            		
+		            </c:forEach>
+            	</div>
+            </section>
+            
+            
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
-                        <span>빵 세트</span>
+                        <span>${subVOList[0].productName}</span>
 						<div class="heart-btn">
 							<div class="heart-content">
 								<div class="heart"></div>
 							</div>
 						</div>
 					</div>
-                    <span class="price" name="price">20,000원</span>
+                    <span class="price" name="price"> ${subVOList[0].productPrice} 원 </span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -65,23 +86,25 @@
                 <div class="bottom-line"></div>
                 
                 <!-- ${contextPath}/payment/payment -->
-                <form action="${contextPath}/subscribe/subBread" method="POST"  name="subBreadForm" onsubmit="return validate();">
-	                
-	
+                <form action="${contextPath}/payment/subscribePayment" method="POST"  name="subBreadForm">
 	                <article class="sub-detail">
 	                    <div class="sub-title">
 	                        <span>빵 종류</span>
 	                        <span></span>
 	                    </div>
 	                    <div class="bread btn-area"> 
-	                        <button type="button" class="bread-btn btn" name="bread" value="1">
-	                            <span>식빵</span>
-	                        </button>
-	                        <button type="button" class="bread-btn btn" name="bread" value="2">
-	                            <span>바게트</span>
-	                        </button>
-	                        <!-- 상태코드 넘어가는 input -->
-	                		<input type="hidden" name="chooseBreadCode">
+		                    <c:forEach items="${subVOList}" var="sub" begin="0" end="1"> 
+	                   			<c:if test="${sub.subOptionCode eq 31}">
+	                   				<button type="button" class="bread-btn btn" name="bread-btn" value="${sub.subOptionNo}">
+		                            	<span>${sub.subOptionContent}</span>
+		                        	</button>
+		                        	<%--
+             		                   	<input  type="radio" class="bread-btn btn" name="bread-btn" id="bread-btn" value="${sub.subOptionNo}">
+		                            	<label for=>${sub.subOptionContent}</label>
+		                        	
+		                        	 --%>
+		                        </c:if>
+		                     </c:forEach>  
 	                    </div>
 	                </article>
 	                <div class="bottom-line"></div>
@@ -92,18 +115,15 @@
 	                        <span></span>
 	                    </div>
 	                    <div class="taste btn-area"> 
-	                        <button type="button" class="taste-btn btn" name="taste" value="1">
-	                            <span>장발장</span>
-	                        </button>
-	                        <button type="button" class="taste-btn btn" name="taste" value="2">
-	                            <span>녹차코코넛</span>
-	                        </button>
-	                        <button type="button" class="taste-btn btn" name="taste" value="3">
-	                            <span>초코</span>
-	                        </button>
+	                        <c:forEach items="${subVOList}" var="sub" begin="2" end="4"> 
+	                   			<c:if test="${sub.subOptionCode eq 32}">
+	                   				<button type="button" class="taste-btn btn" name="taste"  value="${sub.subOptionNo}">
+		                            	<span>${sub.subOptionContent}</span>
+		                        </button>
+		                        </c:if>
+		                     </c:forEach> 
 	                    </div>
-	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseTasteCode">
+	                   
 	                </article>
 	                
 	                <div class="bottom-line"></div>
@@ -113,17 +133,16 @@
 	                        <span>구독 옵션</span>
 	                        <span></span>
 	                    </div>
-	                    <div class="period-area btn-area"> 
-	                        <button type="button" class="period-btn btn" name="period" value="1">
-	                            <span>1주</span>
-	                        </button>
-	                        <button type="button" class="period-btn btn" name="period" value="2">
-	                            <span>2주</span>
-	                        </button>
+	                    <div class="period-area btn-area">
+							<c:forEach items="${subVOList}" var="sub" begin="5" end="6">
+								<c:if test="${sub.subOptionCode eq 34}">
+									<button type="button" class="period-btn btn" name="period"  value="${sub.subOptionNo}">
+										<span>${sub.subOptionContent}</span>
+									</button>
+								</c:if>
+							</c:forEach>
 							
-							<!--  -->
-							<input type="hidden" name="choosePeriodCode">
-	                    </div>
+						</div>
 	                </article>
 	
 	                <div class="bottom-line"></div>
@@ -133,16 +152,15 @@
 	                        <span>수령 희망일</span>
 	                        <span></span>
 	                    </div>
-	                    <div class="taste btn-area"> 
-	                        <button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="1">
-	                            <span>수요일</span>
-	                        </button>
-	                        <button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="2">
-	                            <span>금요일</span>
-	                        </button>
-	                    </div>
-	                    <!-- 상태코드 넘어가는 input -->
-	               		<input type="hidden" name="chooseDeliveryDayCode">
+	                    <div class="deliveryDay-area btn-area">
+							<c:forEach items="${subVOList}" var="sub" begin="7" end="8">
+								<c:if test="${sub.subOptionCode eq 35}">
+									<button type="button" class="deliveryDay-btn btn" name="deliveryDay" value="${sub.subOptionNo}">
+										<span>${sub.subOptionContent}</span>
+									</button>
+								</c:if>
+							</c:forEach>
+						</div>
 	                </article>
 	                
 	                
@@ -162,30 +180,49 @@
 	                    </div>
 	                    <div class="buy-count">
 	                        <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-	                        <span id="result" >1</span>
+	                        <span id="result">1</span>
 	                        <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
 	                    </div>
+	                   
 	                
 	                </article>
 					
 	                <article class="total-price">
 	                
 	                    <p>총 구매 금액
-		                    <span id="totalprice" class="showprice">20,000</span>
+		                    <span id="totalprice" class="showprice">10</span>
 		                    <span class="showprice">원</span>
 	                    </p>
 	                </article>
-	
 	                <div class="submit-sub">
-						<button class="submit-btn" 
-							onclick=<c:if test="${ !empty loginMember}"> 'buy();'</c:if>
-							<c:if test="${empty loginMember}">'infoAlert();'</c:if>>
+	                
+                		<button class="submit-btn" id="submit-btn" onclick="return reconfirim();">
 							<span>바로 구독 신청</span>
 						</button>
+	                		
 	                </div>
-	            </form>
+	                
+					<!-- 
+					선택한 버튼의 subOptionNo 값이 넘어감
+					
+					chooseBreadCode : 빵
+					chooseTasteCode : 맛
+					choosePeriodCode : 구독 기간
+					chooseDeliveryDayCode : 수령 희망일
+					totalAmount : 최종 수량
+					
+					-->
+						<input type="hidden" id="chooseBreadCode" name="chooseBreadCode">
+						<input type="hidden" id="chooseTasteCode" name="chooseTasteCode">
+						<input type="hidden" id="choosePeriodCode" name="choosePeriodCode">
+						<input type="hidden" id="chooseDeliveryDayCode" name="chooseDeliveryDayCode">
+						<input type="hidden" id="hiddentotalAmount" name="hiddentotalAmount">
+						<input type="hidden" id="hiddenTotalPrice" name="hiddenTotalPrice">
+						
+						<input type="hidden" id="memberNo" name="memberNo" value="${loginMember.memberNo}">
+						<input type="hidden" id="productNo" name="productNo" value="${subVOList[0].productNo}">
+					</form>
 	            </section>
-	            
 	        </section><!-- top부분 section -->
     	
 
@@ -462,9 +499,100 @@ DELIVERY / 배송정보
 <jsp:include page="../common/footer.jsp" />	
 <script>
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
-const loginMemberNo = "${loginMember.memberNo}";
+const loginMember = "${loginMember.memberNo}";
 
 
+function chooseBtn(){
+	
+	// 빵 버튼 제외 모두 비활성화
+	$(".btn").not(".bread-btn").attr("disabled", true);
+	/* $(".btn").not(".bread-btn").css("background-color", "gray").css("color","lightgray"); */
+	
+	// 빵
+	$(".bread-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("bread").innerText 
+	    	= $(".bread-btn.active").find('span').text()+ ' / ';
+	    	
+	    $("input[name='chooseBreadCode']").attr('value', $(this).val());
+	    
+	    // 맛 선택 버튼 활성
+	    $(".taste-btn").attr("disabled", false);
+		/* $(".taste-btn").eq(3).css("background-color", "gray").css("color","lightgray"); */
+	});
+	
+	// a맛 버튼 선택 시 
+	$(".taste-btn").on("click", function() {
+		 $(this).addClass('active').siblings().removeClass('active');
+		/*$(this).addClass("active");
+		$(this).siblings().removeClass("active"); */
+		
+		
+		document.getElementById("taste").innerText
+			= $(".taste-btn.active").find('span').text() + ' / ';
+
+		$("input[name='chooseTasteCode']").attr('value', $(this).val());
+
+		// 기간 선택 버튼 활성
+		$(".period-btn").attr("disabled", false);
+		
+	});
+
+	
+	// 구독 기간 (1주 2주)
+	$(".period-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("period").innerText
+	        = $(".period-btn.active").find('span').text() + ' / ';
+	        
+		$("input[name='choosePeriodCode']").attr('value', $(this).val());
+		
+		// 기간 선택 버튼 활성
+		$(".deliveryDay-btn").attr("disabled", false);
+	});
+	
+	// 수령 희망일 
+	$(".deliveryDay-btn").on("click", function() {
+	    $(this).addClass('active').siblings().removeClass('active');
+	    
+	    document.getElementById("deliveryDay").innerText 
+	    	= $(".deliveryDay-btn.active").find('span').text();
+	    	
+	    $("input[name='chooseDeliveryDayCode']").attr('value', $(this).val());
+	});
+}
+
+
+//결제 페이지 이동
+function reconfirim(){
+	if(loginMember==''){
+		alert("로그인 후 가능합니다");
+		return false;
+ 	}
+	
+	if ( !$(".bread-btn.active")[0] || !$(".taste-btn.active")[0]
+ 		|| !$(".period-btn.active")[0] || !$(".deliveryDay-btn.active")[0]) { // 빵 버튼이 선택되지 않은경우
+		alert("옵션을 선택해주세요");
+		return false;
+	}
+
+	if (resultNum == 0) {
+		alert("구매 수량을 선택해주세요");
+		return false;
+	}
+	
+	if (loginMember != '' && resultNum != 0 && $(".bread-btn.active")[0]
+			&& $(".taste-btn.active")[0] && $(".period-btn.active")[0]
+			&& $(".deliveryDay-btn.active")[0]) {
+		$("#hiddentotalAmount").val(resultNum);
+		$("#hiddenTotalPrice").val(totalprice.innerText);
+		return true;
+	} else {
+		return false;
+	}
+}
 </script>
 
 <script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>

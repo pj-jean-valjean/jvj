@@ -21,7 +21,9 @@
             <article>
             <%-- <div>${pagination }</div> --%>
                 <div id="pathline"><a href="${contextPath}">HOME</a>&gt;<a href="${contextPath}/notice/list">공지사항</a></div>
-                <h1 id="classpname" style="font-size: 40px;">공지사항</h1>
+                <h1 id="classpname" style="font-size: 40px;">
+                <a href="${contextPath}/notice/list">공지사항</a> | 
+                </h1>
                 <div id="align-div">
                     <select id='selectcate'>
                         <option value="0"  <c:if test="${cate == '0'}"> selected</c:if>>전체</option>

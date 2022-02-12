@@ -36,11 +36,9 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int signUp(Member member) {
-		System.out.println(member.getService());
 		
 		// 일반 회원가입
 		if( (member.getService()).equals("") ) {
-			// 일반회원가입일 때 
 			String encPw = encoder.encode(member.getMemberPw());
 			member.setMemberPw(encPw);
 		} 

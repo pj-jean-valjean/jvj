@@ -55,6 +55,31 @@ public class CartDAO {
 		return mybatis.delete("cartMapper.updateCart",cart2);
 	}
 
+	public int deleteAllCart(int memberNo) {
+	
+		return mybatis.delete("cartMapper.deleteAllCart",memberNo);
+	}
+
+	public int plusAddq(Cart cart) {
+		
+		return mybatis.update("cartMapper.plusAddq",cart);
+	}
+
+	public Cart selectPdtAmount(Cart cart) {
+		return mybatis.selectOne("cartMapper.selectPdtAmount",cart);
+		
+	}
+
+	public Cart selectProductOne(Cart cart2) {
+		
+		return mybatis.selectOne("cartMapper.selectProductOne",cart2);
+	}
+
+	public int minusAddq(int cartNo) {
+
+		return mybatis.update("cartMapper.minusAddq",cartNo);
+	}
+
 	
 
 }

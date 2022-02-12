@@ -14,6 +14,8 @@ public class Cart {
 	private String imgPath;// 이미지 경로
 	private int parentNo; // 부모상품번호
 	private int discountPer; // 할인율
+	private int amount; // 재고
+	
 	public Cart() {
 		// TODO Auto-generated constructor stub
 	}
@@ -97,14 +99,24 @@ public class Cart {
 	public void setDiscountPer(int discountPer) {
 		this.discountPer = discountPer;
 	}
+	
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
 	@Override
 	public String toString() {
 		return "Cart [cartNo=" + cartNo + ", productNo=" + productNo + ", addq=" + addq + ", memberNo=" + memberNo
 				+ ", optSetNum=" + Arrays.toString(optSetNum) + ", productName=" + productName + ", price=" + price
-				+ ", imgPath=" + imgPath + ", parentNo=" + parentNo + ", discountPer=" + discountPer + "]";
+				+ ", imgPath=" + imgPath + ", parentNo=" + parentNo + ", discountPer=" + discountPer + ", amount="
+				+ amount + "]";
 	}
 
+	
 	
 
 

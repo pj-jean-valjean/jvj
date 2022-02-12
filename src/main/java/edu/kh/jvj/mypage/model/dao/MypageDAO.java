@@ -117,6 +117,15 @@ public class MypageDAO {
 	}
 
 
+	/** 일반회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	public int secession(int memberNo) {
+		return sqlSession.update("mypageMapper.secession", memberNo);
+	}
+
+
 
 
 

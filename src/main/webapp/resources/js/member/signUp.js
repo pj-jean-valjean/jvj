@@ -213,6 +213,7 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 				document.querySelector('#count-down-timer').style.display ="none"; 
 				
 				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
+				$("#email-Authentication").css("background-color", "white");
 				
 				document.getElementById("certificationYN").value = "true";
 				
@@ -463,8 +464,9 @@ $(".phone").on("input", function(){
 
 });
 
-// 주소
+  // 주소
 document.querySelector("#searchAddr").addEventListener("click", function(){
+	
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.

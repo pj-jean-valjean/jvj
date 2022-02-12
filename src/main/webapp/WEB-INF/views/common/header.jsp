@@ -71,16 +71,78 @@
 
                 
                 <li>
-                    <input class="nav-search" type="text" list="search-options" maxlength="20">
-                    <datalist class="search-options" id="search-options">
-                        <option value="장발장 바게트" />
-                        <option value="장발장 식빵" />
-                        <option value="초코 식빵" />
-                        <option value="로우키 커피" />
-                    </datalist>
+                	<!-- <form action="searchList" method="GET" id="searchForm"> -->
+	                    <select class="search-options" id="searchOptions" name="sk">
+	                        <option value="장발장 바게트" />
+	                        <option value="장발장 식빵" />
+	                        <option value="초코 식빵" />
+	                        <option value="로우키 커피" />
+	                    </select>
+	                    <input type="text" name="sv" class="nav-search" id="searchOptions" list="searchOptions" maxlength="20">
+                    <!-- </form> -->
                 </li>
             </ul>
         </section>
-    </header>
+        
+        <!-- modal -->
+		<button type="button" class="btn-submit"  id="open" onclick="search();">모달나오기</button>
+		<div class="modal-area hidden">
+			<div class="modal-overlay"> </div>
+			<div class="modal-content">
+				
+                
+				<div >검색어 </div>
+				<table>
+					<p>상품명</p>
+					<p>내용</p>
+					<p>가격</p>
 
+
+				</table>
+				<button>x</button>
+			</div>
+			
+		</div>
+
+	</header>
+
+	<script>
 	
+		const contextPath = "${contextPath}";
+		
+		const btnSubmit = document.getElementById("open");
+		const modal = document.querySelector(".modal-area");
+		const overlay = modal.querySelector(".modal-overlay");
+		const closeBtn = modal.querySelector("button");
+		
+		const openModal = () => {
+			modal.classList.remove("hidden");
+			
+			
+		}
+		const closeModal = () => {
+			modal.classList.add("hidden");
+		}
+		overlay.addEventListener("click", closeModal);
+		closeBtn.addEventListener("click", closeModal);
+		btnSubmit.addEventListener("click", openModal);
+		
+		function search(){
+			const sv = $("#searchOptions").val();
+			
+			$.ajax({
+				url: contextPath + "/subscribe/main/search",
+				dataType : "json",
+				data : {"sv" : sv},
+				success:function(list){
+					/* 데이터값 가져오기*/
+					console.log("list"+list);
+				
+				}	
+				
+			});
+		}	
+
+	</script>
+	</body>
+	</html>

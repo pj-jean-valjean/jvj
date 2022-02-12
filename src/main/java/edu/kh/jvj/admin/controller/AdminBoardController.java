@@ -14,10 +14,8 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import edu.kh.jvj.admin.model.service.AdminService;
-import edu.kh.jvj.admin.model.vo.Admin;
+import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
@@ -119,7 +117,6 @@ public class AdminBoardController {
 			SubsInfo subsInfo = service.getSubsInfo(dataMap);
 			returnJson = gson.toJson(subsInfo); 
 		}
-		
 		return returnJson;
 	}
 	//관리자 상품 수정
@@ -130,17 +127,14 @@ public class AdminBoardController {
 		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		service.updateProduct(images, Product, WebPath , serverPath); 
-		
 		return Product.getProductNo();
 	}
-	
 	//관리자 상품등록 ajax
 	@PostMapping("productWrite")
 	public int productWrite(
 			@RequestParam(value="images", required=false) List<MultipartFile> images,
 			ProductWrite Product, HttpSession session
 			) {
-		
 		String WebPath = "/resources/images/thumbimgs/"; //DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(WebPath);
 		int result = service.insertProduct(images, Product, WebPath , serverPath); 
@@ -153,11 +147,15 @@ public class AdminBoardController {
 	
 	//공지사항 작성 ajax
 	@PostMapping("noticeWrite")
-	public int noticeWrite(String title,	String noticecate,
-			String editordata, @ModelAttribute(value="loginAdmin") Admin loginAdmin
+	public int noticeWrite(Notice notices
 			) {
 		int result =0;
-		result = service.insertNotice(title, noticecate, editordata, loginAdmin.getMemberNo());
+		result = service.insertNotice(notices);
+		
+		if(result>0) {
+			result = notices.getNoticeNo();
+		}
+		
 		return result;
 	}
 	
@@ -196,8 +194,6 @@ public class AdminBoardController {
 	public Map<String, String> noticeSelect(
 			@RequestBody Map<String,String> dataMap
 			){
-		
-		System.out.println(dataMap);
 		Pagination page = noticeService.countNotice(dataMap);
 		page.setLimit(15);
 		page.setPageSize(10);
@@ -261,6 +257,11 @@ public class AdminBoardController {
 	public int changeSubsOption(
 			SubsOptions SubsOptions) {
 		int result = service.changeSubsOption(SubsOptions);
+		return result;
+	}
+	@PostMapping("makingCoupon")
+	public int makingCoupon(MadeCoupon mCoupon) {
+		int result = service.makingCoupon(mCoupon);
 		return result;
 	}
 	
