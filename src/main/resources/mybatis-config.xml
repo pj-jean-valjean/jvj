@@ -13,8 +13,12 @@
 			<typeAlias alias="Like" type="edu.kh.jvj.mypage.model.vo.Like" />
 			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
 			<typeAlias alias="Subscribe" type="edu.kh.jvj.subscribe.model.vo.SubVO" />
+			<typeAlias alias="Review" type="edu.kh.jvj.review.model.vo.Review" />
+      <typeAlias alias="Chat" type="edu.kh.jvj.chat.model.vo.Chat" />
+      <typeAlias alias="ChatMessage" type="edu.kh.jvj.chat.model.vo.ChatMessage" />
 			<typeAlias alias="Search" type="edu.kh.jvj.subscribe.model.vo.SearchVO" />
 			<typeAlias alias="Review" type="edu.kh.jvj.review.model.vo.Review" />
+
 	</typeAliases>
 	
 	<mappers>
@@ -27,6 +31,7 @@
 		<mapper resource="/mappers/subscribe-mapper.xml" />
 		<mapper resource="/mappers/payment-mapper.xml" />
 		<mapper resource="/mappers/review-mapper.xml" />
+		<mapper resource="/mappers/chatting-mapper.xml" />
 
 
 	</mappers>
