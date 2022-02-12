@@ -62,6 +62,12 @@ public interface MypageService {
 	 * @return
 	 */
 	int updatePw(Map<String, String> map);
+
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return
+	 */
+	int secession(int memberNo);
 	
 	
 
