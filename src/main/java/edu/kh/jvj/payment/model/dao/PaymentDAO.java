@@ -99,7 +99,12 @@ public class PaymentDAO {
 	public List<RegualrPayInfo> getRegularPayList() {
 		return sqlSession.selectList("paymentMapper.getRegularPayList");
 	}
-	
+
+
+
+	public int updatePayStatement(int partner_order_id) {
+		return sqlSession.update("paymentMapper.updatePayStatement",partner_order_id);
+	}
 
 
 }

@@ -129,7 +129,7 @@
 	<insert id="saveTempOrder">
 		INSERT INTO PURCHASE VALUES(
 			${partner_order_id} , #{productCd} , #{productNo}
-			, #{totalPrice} , DEFAULT , DEFAULT , DEFAULT , ${memberNo}
+			, #{totalPrice} , 'N' , DEFAULT , DEFAULT , ${memberNo}
 		)
 	</insert>
 	<insert id="saveRegularPayKey">
@@ -153,6 +153,11 @@
 		UPDATE KAKAO_REGULARPAY_KEY SET 
 		REGULAR_KEY = #{sid},
 		TERMS = #{payTerm}
+	</update>
+	<update id="updatePayStatement">
+		UPDATE PURCHASE SET 
+		PAYMENT_STATUS = 'Y'
+		WHERE PURCHASE_NO =  ${partner_order_id}
 	</update>
 	
 	<select id="selectPayInfo" resultMap="payment_rm">

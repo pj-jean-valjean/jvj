@@ -154,16 +154,10 @@ public class PaymentController {
 				+ "&cancel_url=http://localhost:8080/jvj/subscribe/subBread";
 		
 		OutputStream output = kapayconn.getOutputStream();
-		//전달해주는 객체 생성
 		DataOutputStream daoutput = new DataOutputStream(output);
-		//데이터 주는애
 		
 		daoutput.writeBytes(parameter);
-		//데이터 넣어줌
-		
-		//가지고있는걸 전달하고 데이터 포기
 		daoutput.close();
-		//close 하면 flush 하고 끝내기때문
 		
 		int result = kapayconn.getResponseCode();
 		//통신 결과 반환받음
@@ -244,14 +238,15 @@ public class PaymentController {
 			
 			if(result==200) {
 				RegularPaySuccessSave saveRegularSuccess = new Gson().fromJson(abc, RegularPaySuccessSave.class);
-				
-				String option = saveRegularSuccess.getItem_name();
-				String[] options = option.split(" / ");
-				saveRegularSuccess.setPayTerm(options[1].charAt(0)-48);
-				//결제 텀
-				
-				//결제정보 UPDATE 함
-				result = service.saveRegularSuccess(saveRegularSuccess);
+				if(saveRegularSuccess.getPayment_method_type().equals("MONEY")) {
+						String option = saveRegularSuccess.getItem_name();
+						String[] options = option.split(" / ");
+						saveRegularSuccess.setPayTerm(options[1].charAt(0)-48);
+						//결제 텀
+						
+						//결제정보 UPDATE 함
+						result = service.saveRegularSuccess(saveRegularSuccess);
+				}
 			}
 			return abc;
 			

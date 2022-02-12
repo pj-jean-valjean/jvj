@@ -83,6 +83,9 @@ public class PaymentServiceImpl implements PaymentService{
 		
 			//1. 상품번호 , 합계금액, 회원번호 가져오기
 		Payment searchpay = dao.selectPayInfo(saveRegularSuccess.getPartner_order_id());
+		//거래정보 Y로 업데이트
+		result = dao.updatePayStatement(saveRegularSuccess.getPartner_order_id());
+		
 		//상세 정보 저장
 		searchpay.setPurchaseNo(saveRegularSuccess.getPartner_order_id());
 		searchpay.setAmount(Integer.parseInt(saveRegularSuccess.getQuantity()));

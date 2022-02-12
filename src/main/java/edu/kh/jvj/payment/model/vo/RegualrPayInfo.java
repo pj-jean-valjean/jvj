@@ -1,7 +1,7 @@
 package edu.kh.jvj.payment.model.vo;
 
 public class RegualrPayInfo {
-	private  int productCd =1   ;
+	private  int productCd =2   ;
 	private  int productNo    ;
 	private  String  productName       ;
 	private  String  productOption    ;   
