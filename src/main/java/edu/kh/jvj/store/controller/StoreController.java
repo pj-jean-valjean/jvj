@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.review.model.service.ReviewService;
+import edu.kh.jvj.review.model.vo.Review;
+import edu.kh.jvj.review.model.vo.RvSearch;
 import edu.kh.jvj.store.model.service.StoreService;
 import edu.kh.jvj.store.model.vo.Pagination;
 import edu.kh.jvj.store.model.vo.Search;
@@ -31,6 +34,9 @@ public class StoreController {
 	
 	@Autowired
 	private StoreService service;
+	@Autowired
+	private ReviewService rService;
+	
 	
 	@GetMapping("")
 	public String storeForward(@RequestParam(value="cp",required=false,defaultValue ="1")
@@ -77,7 +83,8 @@ public class StoreController {
 		return result;
 	}	
 	@GetMapping("info/{no}")
-	public String detailForward(Model model,@PathVariable("no") int no,HttpSession session,Store store) {
+	public String detailForward(Model model,@PathVariable("no") int no,HttpSession session,Store store,@RequestParam(value="sr",required=false,defaultValue ="0")int sr ,
+			@RequestParam(value="cp",required=false,defaultValue ="1")int cp) {
 		
 		// 스토어 상세조회
 		if(session.getAttribute("loginMember") != null) {
@@ -95,7 +102,23 @@ public class StoreController {
 		
 		// 추가옵션 상품 가져오기
 		List<Store> advantage = service.advantage();
-		System.out.println(store1);
+
+///////////////////////////////////////////////////////////////////////		
+		
+		// 리뷰 가져오기 ( no 에 상품 번호 넣기 , 클래스 파라미터에 RvSearch 가져오기)
+		Pagination pagination = rService.getPagination(cp,no);
+		RvSearch search = new RvSearch();
+		search.setCp(cp);
+		search.setNo(no);
+		search.setSr(sr);
+		List<Review> reviewList = rService.selectReviewList(pagination,search);
+		if(!reviewList.isEmpty()) {
+			model.addAttribute("reviewList",reviewList);
+			model.addAttribute("pagination",pagination);
+			model.addAttribute("search",search);
+		}
+		
+///////////////////////////////////////////////////////////////////////	
 		model.addAttribute("store",store1);
 		model.addAttribute("advantage",advantage);
 		model.addAttribute("imgLevel", imgLevelList);

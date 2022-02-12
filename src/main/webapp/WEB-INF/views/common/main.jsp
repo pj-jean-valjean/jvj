@@ -47,7 +47,7 @@
 	</div>
 	<div class="main-wrapper">
 <svg id="morph" height="100vh" widht="100vw" viewbox="0 0 1921 1083" preserveAspectRatio="none">
-    <path class="morph" d="M0,0V-.384s151.27.01,385.2.01c362.84.355,235.588,1.411,478.055.083s285.457-.149,598.429.15,459.139.317,459.139.317V0H0Z" fill="rgb(233, 199, 97)"></path>
+    <path class="morph" d="M0,0V-.384s151.27.01,385.2.01c362.84.355,235.588,1.411,478.055.083s285.457-.149,598.429.15,459.139.317,459.139.317V0H0Z" fill="#ffbd51"></path>
 </svg>
 		<div class="story">
 			<div data-aos="fade-up" data-aos-duration="1000">
