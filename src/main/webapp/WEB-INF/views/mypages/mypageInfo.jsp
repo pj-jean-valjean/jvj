@@ -184,7 +184,14 @@
               
               <div class="subBtn">
                     <button type="submit" id="infoUpdate" >회원 정보 수정</button><br>
-                    <button type="button" id="infoDelete">계정 연동 해지하기</button>
+                    <c:choose>
+                    	<c:when test="${!empty loginMember.service}">
+		                    <button type="button" id="snsInfoDelete">계정 연동 해지하기</button>
+                    	</c:when>
+                    	<c:otherwise>
+		                    <button type="button" id="infoDelete">탈퇴하기</button>
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
             </form>
 

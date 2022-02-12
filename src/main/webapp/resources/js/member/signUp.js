@@ -213,6 +213,7 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 				document.querySelector('#count-down-timer').style.display ="none"; 
 				
 				$("#email-Authentication").attr("disabled", true); // 입력창 비활성화
+				$("#email-Authentication").css("background-color", "white");
 				
 				document.getElementById("certificationYN").value = "true";
 				
