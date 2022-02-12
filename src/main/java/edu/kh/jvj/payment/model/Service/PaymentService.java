@@ -36,6 +36,8 @@ public interface PaymentService {
 	KaKaoPayKey getKaKaoTid(String partner_order_id);
 
 	int saveRegularSuccess(RegularPaySuccessSave saveRegularSuccess);
+
+	List<RegualrPayInfo> getRegularPayList();
 	
 	
 

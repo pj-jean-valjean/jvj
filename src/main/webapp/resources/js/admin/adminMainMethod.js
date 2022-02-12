@@ -217,18 +217,18 @@
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine subscribe-search");
             searchDiv.innerHTML="<select>"+
-            "<option>구독상품1</option>"+
-            "<option>구독상품2</option>"+
+            "<option value='1437'>빵 세트</option>"+
+            "<option value='1438'>빵 & 커피 세트</option>"+
             "</select>";
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
             SearchResult.innerHTML=
             "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo notice-title'>구독상품명</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
+                "<span class='oneMemberInfo'>구독상품명</span>"+
+                "<span class='oneMemberInfo notice-title'>아이디</span>"+
                 "<span class='oneMemberInfo'>닉네임</span>"+
                 "<span class='oneMemberInfo'>구독시작일</span>"+
-                "<span class='oneMemberInfo'>구독회차</span>"+
+                "<span class='oneMemberInfo notice-title'>상세 옵션</span>"+
                 "<span class='oneMemberInfo'>구독중 여부</span>"+
             "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
@@ -299,7 +299,7 @@
             enterfunc();
         }
         //-----------------------------------------------------------------//
-
+        
         //글관리2- 공지사항 관리
         function modifyWrite(){
 

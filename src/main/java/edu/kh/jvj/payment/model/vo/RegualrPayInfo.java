@@ -17,6 +17,9 @@ public class RegualrPayInfo {
      private String  shippingPhone       ;
      private String  shippingEmail       ;
      private String  shippingMsg       ;
+     private String userId;
+     private  String  sid    ;   
+     private  int  turms;
 	public int getProductCd() {
 		return productCd;
 	}
@@ -113,6 +116,24 @@ public class RegualrPayInfo {
 	public void setShippingMsg(String shippingMsg) {
 		this.shippingMsg = shippingMsg;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+	public int getTurms() {
+		return turms;
+	}
+	public void setTurms(int turms) {
+		this.turms = turms;
+	}
 	@Override
 	public String toString() {
 		return "RegualrPayInfo [productCd=" + productCd + ", productNo=" + productNo + ", productName=" + productName
@@ -120,8 +141,7 @@ public class RegualrPayInfo {
 				+ ", amount=" + amount + ", totalPrice=" + totalPrice + ", memberNo=" + memberNo
 				+ ", shippingAddrEqualMemberAddr=" + shippingAddrEqualMemberAddr + ", shippingName=" + shippingName
 				+ ", memberId=" + memberId + ", shippingAddr=" + shippingAddr + ", shippingPhone=" + shippingPhone
-				+ ", shippingEmail=" + shippingEmail + ", shippingMsg=" + shippingMsg + "]";
-	}
-	
-     
+				+ ", shippingEmail=" + shippingEmail + ", shippingMsg=" + shippingMsg + ", userId=" + userId + ", sid="
+				+ sid + ", turms=" + turms + "]";
+	}   
 }

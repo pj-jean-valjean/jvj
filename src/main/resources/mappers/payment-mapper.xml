@@ -46,6 +46,18 @@
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
 	
+	<resultMap type="edu.kh.jvj.payment.model.vo.RegualrPayInfo" id="payList_rm">
+		<id property="partner_order_id" column="PARTNER_ORDER_ID" />
+		<result property="tid" column="TID" />
+		<result property="userId" column="USERID" />
+		<result property="sid" column="REGULAR_KEY" />
+		<result property="turms" column="TERMS" />
+		<result property="productNo" column="PRODUCT_NO" />
+		<result property="productOption" column="ORDER_OPTION" />
+		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="amount" column="PRODUCT_AMOUNT" />
+	</resultMap>
+	
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -146,5 +158,24 @@
 	<select id="selectPayInfo" resultMap="payment_rm">
 		SELECT * FROM PURCHASE
 		WHERE PURCHASE_NO = ${partner_order_id}
+	</select>
+	
+	<select id="getRegularPayList" resultMap="payList_rm">
+	SELECT 
+		KRK.PARTNER_ORDER_ID,
+		KRK.TID,
+		KRK.USERID,
+		KRK.REGULAR_KEY,
+		KRK.TERMS,
+		PUR.PRODUCT_NO,
+		PUR.TOTAL_PRICE,
+		ORD.PRODUCT_AMOUNT,
+		OOP.ORDER_OPTION
+		FROM KAKAO_REGULARPAY_KEY KRK
+		JOIN PURCHASE PUR ON (PARTNER_ORDER_ID =  PURCHASE_NO)
+		JOIN "ORDER" ORD ON (ORD.PURCHASE_NO = PUR.PURCHASE_NO)
+		JOIN ORDER_OPTION OOP ON (OOP.ORDER_NO = ORD.ORDER_NO)
+		WHERE PAYMENT_STATUS = 'Y'
+		AND REFUND_YN = 'N'
 	</select>
 </mapper>

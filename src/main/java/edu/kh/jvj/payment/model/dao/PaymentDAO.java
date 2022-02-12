@@ -96,4 +96,10 @@ public class PaymentDAO {
 
 
 
+	public List<RegualrPayInfo> getRegularPayList() {
+		return sqlSession.selectList("paymentMapper.getRegularPayList");
+	}
+	
+
+
 }

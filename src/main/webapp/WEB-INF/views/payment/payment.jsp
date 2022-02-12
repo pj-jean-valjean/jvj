@@ -66,7 +66,7 @@
             
             
             <!-- 정기구독용 주문내역확인 -->
-            <c:if test="${ productcate eq 1}">
+            <c:if test="${ productcate eq 2}">
             <div class="product-list">
 			<c:if test="${!empty oneSubsOrder.optionList[4]}">  <c:set var="optionNo4" value="/ ${oneSubsOrder.optionList[4].optioanName} " /> </c:if> 
                 <a href="#"><img src="${contextPath}${oneSubsOrder.classImgList[0].productImgPath}${oneSubsOrder.classImgList[0].productImgName}"></a>
@@ -360,10 +360,10 @@
         
         <div class="give-flex">
             <div class="payment-select-btn">
-            	<c:if test="${productcate != 1}">
+            	<c:if test="${productcate != 2}">
                 <button type="button" id="payment-btn">결제하기</button>
                 </c:if>
-            	<c:if test="${productcate == 1}">
+            	<c:if test="${productcate == 2}">
                 <button type="button" id="kakaoPay">정기결제하기</button>
                 </c:if>
             </div>

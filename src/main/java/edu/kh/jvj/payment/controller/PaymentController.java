@@ -99,7 +99,7 @@ public class PaymentController {
 		List<OrderSubsOption> optionList = service.getOptionsList(getOptionSearch);
 		oneSubsOrder.setOptionList(optionList);
 		
-		model.addAttribute("productcate", "1");
+		model.addAttribute("productcate", "2");
 		model.addAttribute("productNo", ""+productNo);
 		model.addAttribute("oneSubsOrder", oneSubsOrder);
 		

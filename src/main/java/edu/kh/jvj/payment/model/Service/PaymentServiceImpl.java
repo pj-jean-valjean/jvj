@@ -94,6 +94,11 @@ public class PaymentServiceImpl implements PaymentService{
 		
 		return result;
 	}
+
+	@Override
+	public List<RegualrPayInfo> getRegularPayList() {
+		return dao.getRegularPayList();
+	}
 	
 
 
