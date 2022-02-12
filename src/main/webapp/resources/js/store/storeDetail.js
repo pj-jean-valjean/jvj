@@ -242,12 +242,16 @@ comma();
 
 /* 스크롤 - 페이지 내 이동 */
 function scrollExp() {
+  
+  $("html,body").css('scroll-behavior','smooth');
   document.querySelector("#contents-exp").scrollIntoView();
 }
 function scrollReview() {
+  $("html,body").css('scroll-behavior','smooth');
   document.querySelector("#contents-review").scrollIntoView();
 }
 function scrollDelievery() {
+  $("html,body").css('scroll-behavior','smooth');
   document.querySelector("#contents-delievery").scrollIntoView();
 }
 
@@ -350,8 +354,8 @@ function buy() {
     },
     success: function (result) {
       if (result > 0) {
+        location.href= contextPath + "/cart";
         mx();
-      
         bigBox.innerHTML = "";
 
         if (cartOpenDefaultOne == 0) {
@@ -360,7 +364,7 @@ function buy() {
           $(".resultPrice2")[0].textContent =
             mxprice.toLocaleString("ko-KR") + "원";
 
-            location.href= contextPath + "/cart";
+           
         }
       } else {
         swal("오류", "관리자에게 문의하세요", "error");
@@ -401,3 +405,34 @@ function selectAmount() {
     error: function () {},
   });
 }
+
+$('.review-content').hide();
+$('.review-title').on('click',(e)=>{
+
+  const content = $(e.target).parent().next();
+
+  $('.review-content').hide(100);
+  content.slideToggle(500);
+});
+
+$('.review-content').on('click',(e)=>{
+
+  const content = $(e.target)
+
+  content.hide(100);
+});
+
+$(document).ready(function(){
+  $("html,body").css('scroll-behavior','smooth');
+  if(cp!='' || sr!=''){
+    $("html,body").css('scroll-behavior','unset');
+   
+    var position = $("#contents-review").position();
+    $("html, body").animate({scrollTop: position.top},0);
+  }
+});
+
+$('#selectcate').on("change",(e)=>{
+  console.log($(e.target).val());
+  location.href = "?cp="+cp+"&sr="+$(e.target).val();
+});
