@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.jvj.member.model.vo.Member;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
 import edu.kh.jvj.payment.model.vo.OrderSubsOption;
@@ -104,6 +105,45 @@ public class PaymentDAO {
 
 	public int updatePayStatement(int partner_order_id) {
 		return sqlSession.update("paymentMapper.updatePayStatement",partner_order_id);
+	}
+
+
+
+	public Member getAddrInfo(int memberNo) {
+		return sqlSession.selectOne("paymentMapper.getAddrInfo",memberNo);
+	}
+
+
+	public RegualrPayInfo getRecieverInfo(int partner_order_id) {
+		return sqlSession.selectOne("paymentMapper.getRecieverInfo",partner_order_id);
+	}
+
+	public String getProductMainImg(int productNo) {
+		return sqlSession.selectOne("paymentMapper.getProductMainImg",productNo);
+	}
+
+
+
+	public int getPayDoneYn(String partner_order_id) {
+		return sqlSession.selectOne("paymentMapper.getPayDoneYn",partner_order_id);
+	}
+
+
+
+	public Payment getPayResult(String merchant_uid) {
+		return sqlSession.selectOne("paymentMapper.getPayResult",merchant_uid);
+	}
+
+
+
+	public int updatePeopleInfo(Payment payInfo) {
+		return sqlSession.update("paymentMapper.updatePeopleInfo",payInfo);
+	}
+
+
+
+	public int getPossible(Payment payInfo) {
+		return sqlSession.selectOne("paymentMapper.getPossible",payInfo);
 	}
 
 

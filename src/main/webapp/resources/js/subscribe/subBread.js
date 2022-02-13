@@ -1,4 +1,4 @@
-const contextPath = getContextPath();
+//const contextPath = getContextPath();
 
 let likedone=0;
 /* 사진교체 */

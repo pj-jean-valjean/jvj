@@ -39,6 +39,14 @@ public interface PaymentService {
 
 	List<RegualrPayInfo> getRegularPayList();
 	
+	RegualrPayInfo getRecieverInfo(int partner_order_id);
+
+	String getProductMainImg(int productNo);
+
+	int getPayDoneYn(String partner_order_id);
+
+	Payment getPayResult(String merchant_uid);
+	
 	
 
 }
