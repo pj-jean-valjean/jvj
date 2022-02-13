@@ -29,6 +29,7 @@ import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
 import edu.kh.jvj.mypage.model.vo.Product;
+import edu.kh.jvj.mypage.model.vo.Order;
 
 @Controller
 @RequestMapping("mypage/*")
@@ -38,16 +39,43 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 	
-	@GetMapping("main")
-	public String mypageMain() {
+	// 메인으로 페이지 
+	
+		
+	@RequestMapping(value = "main", method = RequestMethod.GET)
+	public String mypageMainList(@ModelAttribute("loginMember") Member loginMember, Model model,
+								 Order order
+								 ) {
+		
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setEnrollDate(loginMember.getEnrollDate());
+		order.setMemberName(loginMember.getMemberName());
+		
+		List<Order> purList = service.selectPurList(order);
+		
+		model.addAttribute("purList", purList);
 		
 		return "mypages/mypageMain";
 	}
 	
-	@GetMapping("purchase")
+	
+	// 일반 상품 결제 페이지 이동
+	@RequestMapping(value = "purchase", method = RequestMethod.GET)
 	public String mypageShopping() {
 		return "mypages/mypageShopping";
 	}
+	
+	// 일반 상품 결제 페이지 이동
+	@RequestMapping(value = "purchase", method = RequestMethod.POST)
+	public String mypageShoppingList(@ModelAttribute("loginMember") Member loginMember, Order order
+			) {
+		
+		
+		
+		return "mypages/mypageShopping";
+	}
+	
+	
 	
 	@GetMapping("class")
 	public String mypageClass() {
@@ -70,7 +98,7 @@ public class MypageController {
 	
 	
 	// 마이페이지 쿠폰
-	@GetMapping("coupon")
+	@RequestMapping(value = "coupon", method = RequestMethod.GET)
 	public String mypageCoupon( Coupon coupon,
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
 			Model model, @ModelAttribute("loginMember") Member loginMember

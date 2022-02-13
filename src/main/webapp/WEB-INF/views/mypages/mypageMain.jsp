@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
 
@@ -23,19 +24,22 @@
     </div>
 
    
-
+	<c:forEach var="pur" items="${purList}">
+	</c:forEach>
     <section>
     
     <jsp:include page="mypageMenu.jsp"/>
-    
+    	
         <article class="mainImg">
-            <p class="mainText1">장발장님 반가워요</p><br>
-            <p class="mainText2">고객님과 저희의 인연은 999일째 입니다.</p>
+            <p class="mainText1">님 반가워요</p><br>
+            <p class="mainText2">고객님과 저희의 인연은 888일째 입니다.</p>
             <p class="mainText3">고객님이 보유하신 멤버쉽 포인트는 <span>10000포인트</span> 입니다.</p>  
             <img src="${contextPath}/resources/images/mypage/myPage_main_bread.jpg" alt="">
         </article>
-
+		
         <article id="bottomCategory">
+        
+        
         <div class="category part1">
             <span>최근 주문내역</span>
             <a href="purchase">click</a>
@@ -69,9 +73,11 @@
                 </tr>
             </table>
         </div>
-    </article>
         
+    </article>
+       
     </section>
+    
     </main>
 	<jsp:include page="../common/footer.jsp" />	
 	

@@ -50,6 +50,18 @@
 	 </resultMap>
 
 
+	<resultMap type="Order" id="order_rm">
+		<id property="orderNo" column="ORDER_NO"/>
+		
+		<result property="purchaseNo" 			column="PURCHASE_NO" />
+		<result property="productNo" 			column="PRODUCT_NO" />
+		<result property="productAmount" 		column="PRODUCT_AMOUNT" />
+		<result property="discount" 			column="DISCOUNT" />
+		<result property="totalPrice" 			column="TOTAL_PRICE" />
+		<result property="memberNo" 			column="MEMBER_NO" />
+		<result property="enrollDate" 			column="ENROLL_DT" />
+		<result property="edt" 					column="EDT" />
+	</resultMap>
 
 	<!-- 전체 쿠폰 조회 -->
 	<select id="getCouponCount" resultType="_int">
@@ -57,7 +69,8 @@
 	</select>
 	
 	<select id="selectCouponList" resultMap="coupon_rm">
-		SELECT COUPON_NO, COUPON_NM, (DISCOUNT_PER *100), PROVIDE_DT, EXPIRE_DT, COUPON.COU_STATUS_CD, COU_STATUS_NM, MEMBER_NO
+		SELECT COUPON_NO, COUPON_NM, (DISCOUNT_PER *100), 
+		PROVIDE_DT, EXPIRE_DT, COUPON.COU_STATUS_CD, COU_STATUS_NM, MEMBER_NO
 		FROM COUPON
 		JOIN COUPON_STATUS ON(COUPON.COU_STATUS_CD = COUPON_STATUS.COU_STATUS_CD)
 		WHERE MEMBER_NO = #{memberNo}
@@ -98,21 +111,26 @@
 		
 			<when test="service == 'naver'">
 				UPDATE MEMBER SET 
-				MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				MEMBER_PHONE = #{memberPhone}, 
+				MEMBER_ADDR = #{memberAddress} 
 				WHERE MEMBER_NO = #{memberNo}
 				AND MEMBER_SERVICE = #{service}
 			</when>
 			
 			<when test="service == 'kakao'">
 				UPDATE MEMBER SET 
-				MEMBER_NAME = #{memberName}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				MEMBER_NAME = #{memberName}, 
+				MEMBER_PHONE = #{memberPhone}, 
+				MEMBER_ADDR = #{memberAddress} 
 				WHERE MEMBER_NO = #{memberNo}
 				AND MEMBER_SERVICE = #{service}
 			</when>
 			
 			<otherwise>
 				UPDATE MEMBER SET 
-				MEMBER_NICKNAME = #{memberNickname}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddress} 
+				MEMBER_NICKNAME = #{memberNickname}, 
+				MEMBER_PHONE = #{memberPhone}, 
+				MEMBER_ADDR = #{memberAddress} 
 				WHERE MEMBER_NO = #{memberNo}
 			</otherwise>
 				
@@ -139,5 +157,31 @@
 		STATUS_CD = 2
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 메인페이지 조회 -->
+	<select id="selectPurList" resultMap="order_rm">
+		SELECT ORDER_NO , PURCHASE_NO, 
+		PRODUCT_NO, PRODUCT_AMOUNT, 
+		DISCOUNT, TOTAL_PRICE, MEMBER_NO, 
+		(TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD')) - TO_DATE( ENROLL_DT) ) EDT, 
+		MEMBER_NAME
+		FROM "ORDER"
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<!-- 일반 상품 구매 목록 -->
+	<select id="mypageShoppingList" resultMap="order_rm">
+		SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
+		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS
+		FROM "ORDER" ORD
+		JOIN MEMBER M ON(ORD.MEMBER_NO=M.MEMBER_NO )
+		JOIN ORDER_OPTION OO ON(OO.ORDER_NO = ORD.ORDER_NO)
+		JOIN PRODUCT PR ON(PR.PRODUCT_NO = ORD.PRODUCT_NO)
+		JOIN PURCHASE PU ON(PU.PURCHASE_NO = ORD.PURCHASE_NO)
+		WHERE ORD.MEMBER_NO = 162
+		AND PR.PRODUCT_CD = 1
+	</select>
 	
 </mapper>
