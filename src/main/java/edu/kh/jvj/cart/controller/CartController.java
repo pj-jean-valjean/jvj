@@ -42,7 +42,7 @@ public class CartController {
 				Carrier carrier = new Carrier();
 				sum += cart2.getPrice() * cart2.getAddq() * (100 - cart2.getDiscountPer()) / 100;
 				// 가격을 더한다
-
+				carrier.setImgPath(cart2.getImgPath());
 				carrier.setMainProductNo(cart2.getProductNo());
 				carrier.setMainQ(cart2.getAddq());
 				carrier.setMemberNo(member.getMemberNo());
@@ -91,7 +91,7 @@ public class CartController {
 				Carrier carrier = new Carrier();
 				sum += cart2.getPrice() * cart2.getAddq() * (100 - cart2.getDiscountPer()) / 100;
 				// 가격을 더한다
-
+				carrier.setImgPath(cart2.getImgPath());
 				carrier.setMainProductNo(cart2.getProductNo());
 				carrier.setMainQ(cart2.getAddq());
 				carrier.setMemberNo(member.getMemberNo());
