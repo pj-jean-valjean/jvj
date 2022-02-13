@@ -1,5 +1,6 @@
 package edu.kh.jvj.review.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,17 +33,30 @@ public class ReviewController {
 		
 		// 1.회원번호로 결제테이블을 불러온다.
 		List<Review> orderList =  service.selectOrder(member.getMemberNo());	
-
+		List<Review> realList =  new ArrayList<Review>();
+		
 		// 2. 이미지 불러오기
 		for(Review review : orderList) {
-		 review.setImgPath(service.selectImgPath(review.getProductNo()));	
-		 logger.info(review.getImgPath());
+			//2.1 프로덕트 넘버로 리뷰썻는지 안썻는지 카운트
+			Review rv  = new Review(); 
+			rv.setMemberNo(member.getMemberNo());
+			rv.setProductNo(review.getProductNo());
+			int or = service.countOrder(rv);
+			int cr = service.countReview(rv);
+			review.setImgPath(service.selectImgPath(review.getProductNo()));	
+			
+			if ( or<=cr) {
+				continue;
+			}else {
+				realList.add(review);
+			}
+		 
 		}
 		
 
 		
 		logger.info(orderList.toString());
-		model.addAttribute("orderList",orderList);
+		model.addAttribute("orderList",realList);
 		
 		
 		return "review/reviewWrite";

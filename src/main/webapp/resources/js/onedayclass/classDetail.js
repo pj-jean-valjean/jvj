@@ -4,7 +4,7 @@ let likedone=0;
 let nownum = 0;
 window.onload = function(){
     changeImg();
-    reviewDetail();
+    // reviewDetail();
     likecheck();
 }
 function likecheck(){
@@ -217,61 +217,64 @@ function hideMaps(){
 
 
 
-/* 상세리뷰 토글check */
-let reviewtoggle = false;
-let temp = -1;
-/* 댓글보기 func */
-function reviewDetail(){
-    const reviewLines = document.querySelectorAll(".one-line-review>span:first-of-type");
-    for(let i =0 ; i<reviewLines.length ; i++){
-        reviewLines[i].addEventListener("click", function(){
-            const box = $(this).parent();
-            if(!reviewtoggle){
-                const reviewDetail = document.createElement("div");
-                reviewDetail.className = "reviewBox";
-                reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
-                /* reviewDetail.innerHTML = returnReviewContent(글번호); */
-                box.after(reviewDetail);
-                temp = i;
-                reviewtoggle = true;
-            }
-            else{
-                if(temp == i){
-                    temp = -1
-                    reviewtoggle = false;
-                    $(".reviewBox").remove();
-                }
-                else{
-                    $(".reviewBox").remove();
-                    const reviewDetail = document.createElement("div");
-                    reviewDetail.className = "reviewBox";
-                    reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
-                    /* reviewDetail.innerHTML = returnReviewContent(글번호); */
-                    temp= i;
-                    box.after(reviewDetail);
-                }
-            }
-        })
-    }
-}
+// /* 상세리뷰 토글check */
+// let reviewtoggle = false;
+// let temp = -1;
+// /* 댓글보기 func */
+// function reviewDetail(){
+//     const reviewLines = document.querySelectorAll(".one-line-review>span:first-of-type");
+//     for(let i =0 ; i<reviewLines.length ; i++){
+//         reviewLines[i].addEventListener("click", function(){
+//             const box = $(this).parent();
+//             if(!reviewtoggle){
+//                 const reviewDetail = document.createElement("div");
+//                 reviewDetail.className = "reviewBox";
+//                 reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
+//                 /* reviewDetail.innerHTML = returnReviewContent(글번호); */
+//                 box.after(reviewDetail);
+//                 temp = i;
+//                 reviewtoggle = true;
+//             }
+//             else{
+//                 if(temp == i){
+//                     temp = -1
+//                     reviewtoggle = false;
+//                     $(".reviewBox").remove();
+//                 }
+//                 else{
+//                     $(".reviewBox").remove();
+//                     const reviewDetail = document.createElement("div");
+//                     reviewDetail.className = "reviewBox";
+//                     reviewDetail.innerHTML = "<h1>리뷰열림</h1>";
+//                     /* reviewDetail.innerHTML = returnReviewContent(글번호); */
+//                     temp= i;
+//                     box.after(reviewDetail);
+//                 }
+//             }
+//         })
+//     }
+// }
 
 /* review  Contents ajax 
     리뷰 list 시 constent span 에  value=글번호 넣어놓기
     or display none으로 글번호 작성
 */
-function returnReviewContent(글번호){
-    /* ajax */
-    return ajax;
-}
+// function returnReviewContent(글번호){
+//     /* ajax */
+//     return ajax;
+// }
 
 /* 스크롤 - 페이지 내 이동 */
 function scrollExp(){
+    $("html,body").css('scroll-behavior','smooth');
 	document.querySelector('#contents-exp').scrollIntoView();	
 }
 function scrollReview(){
+    $("html,body").css('scroll-behavior','smooth');
 	document.querySelector('#contents-review').scrollIntoView();
 }
 function scrollDelievery(){
+    $("html,body").css('scroll-behavior','smooth');
 	document.querySelector('#contents-delievery').scrollIntoView();
 }
 
@@ -302,3 +305,36 @@ function reconfirim(){
         return false;
     }
 }
+
+$('.review-content').hide();
+$('.review-title').on('click',(e)=>{
+
+  const content = $(e.target).parent().next();
+  if( $(e.target).parent().next().css('display') != 'flex'){
+
+    $('.review-content').hide(100);
+    content.slideToggle(500);
+  }
+});
+
+$('.review-content').on('click',(e)=>{
+
+  const content = $(e.target)
+
+  content.hide(100);
+});
+
+$(document).ready(function(){
+  $("html,body").css('scroll-behavior','smooth');
+  if(cp!='' || sr!=''){
+    $("html,body").css('scroll-behavior','unset');
+   
+    var position = $("#contents-review").position();
+    $("html, body").animate({scrollTop: position.top},0);
+  }
+});
+
+$('#selectcate').on("change",(e)=>{
+  console.log($(e.target).val());
+  location.href = "?cp="+cp+"&sr="+$(e.target).val();
+});
