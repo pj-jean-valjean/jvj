@@ -1,5 +1,5 @@
 article{margin-left: 400px;}
-section{margin-top: 60px}
+section{margin-top: 60px;  margin-bottom: 800px;}
 
 /* 타이틀 */
 .titleText{ 
@@ -12,57 +12,32 @@ section{margin-top: 60px}
     margin-left:400px;
 }
 
+/* 페이지네이션 */
+.pagination-area{
+    height: 100px;
+}
 .pagination{
-    margin-bottom: 120px;
-    list-style-type: none;
-    padding: 0;
-}
-.pagination>li{
-    display: inline-block;
-}
-
-.pagiLink{
-    text-decoration: none; 
-    font-size: 15pt;
-    margin-top: 50px;
-    margin-bottom: 120px;
-    margin: 10px 10px;
-    color: black;
-}
-
-.pagiLink2{
-    text-decoration: none; 
-    font-size: 15pt;
-    color: black;
-}
-.pagiList{
-    width: 30px; 
-    height: 30px;
-    border-radius: 100%;
     text-align: center;
-}
-
-.pagiList:hover{
-    background-color: rgba(167, 138, 108, 1);
-}
-.pagiLink:hover{
-    color: white; 
-}
-.pagiLink2:hover{
-    color: white; 
-}
-
-.pagi{
-    color: black;
-}
-.pagi:hover{
-    color: rgba(167, 138, 108, 1);
+    color:#787878;
     font-weight: bold;
+    line-height: 98px;
 }
-.page{
+
+.pagination > li{
+    display: inline-block;
+    margin:0 10px 0 10px;
     text-align: center;
-    margin-left: 50px;
-    margin-top: 15px;
+    line-height: 24px;
+}
+
+
+/* 페이지네이션 선택 효과 css */
+.page-effect{
+    width: 25px;
+    height: 25px;
+    border-radius: 20px; 
+    background-color: #B9845A; 
+    color: white;
 }
 
 .topText{
@@ -225,3 +200,39 @@ section{margin-top: 60px}
     height: 20px;
     
 }
+
+/* info nav */
+#hr{
+    width: 280px; 
+    height: 5px; 
+    background-color: rgba(167, 138, 108, 1); 
+    margin-bottom: 20px;
+    
+}
+
+.divNav{
+    width: 24%; 
+    display: inline-block; 
+    font-size: 23px;
+    margin-right: 5px;
+    position: absolute;
+    margin-top:40px;
+    
+}
+
+.divNav>ul{
+    list-style: none; 
+    margin: 0; 
+    padding: 0;
+    
+}
+
+.divNav>ul>li:first-child{
+    font-weight: bold; 
+    font-size: 25px;
+} 
+
+
+.divNav .subText{ margin-top: 20px;}
+.divNav .topText{ margin-bottom: 10px;}
+.divNav .mTopText{ margin-top: 55px;}

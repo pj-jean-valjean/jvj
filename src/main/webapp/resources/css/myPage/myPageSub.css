@@ -1,5 +1,5 @@
 article{margin-left: 400px;}
-section{margin-top: 60px}
+section{margin-top: 60px; margin-bottom: 800px;}
 /* 타이틀 */
 .titleText{ 
     text-align: center; 
@@ -15,6 +15,7 @@ section{margin-top: 60px}
     margin-bottom: 120px;
     list-style-type: none;
     padding: 0;
+    margin-top: 20px;
 }
 .pagination>li{
     display: inline-block;
@@ -27,6 +28,7 @@ section{margin-top: 60px}
     margin-bottom: 120px;
     margin: 10px 10px;
     color: black;
+   
 }
 
 .pagiLink2{
@@ -209,3 +211,39 @@ section{margin-top: 60px}
     height: 20px;
     
 }
+
+/* info nav */
+#hr{
+    width: 280px; 
+    height: 5px; 
+    background-color: rgba(167, 138, 108, 1); 
+    margin-bottom: 20px;
+    
+}
+
+.divNav{
+    width: 24%; 
+    display: inline-block; 
+    font-size: 23px;
+    margin-right: 5px;
+    position: absolute;
+    margin-top:40px;
+    
+}
+
+.divNav>ul{
+    list-style: none; 
+    margin: 0; 
+    padding: 0;
+    
+}
+
+.divNav>ul>li:first-child{
+    font-weight: bold; 
+    font-size: 25px;
+} 
+
+
+.divNav .subText{ margin-top: 20px;}
+.divNav .topText{ margin-bottom: 10px;}
+.divNav .mTopText{ margin-top: 55px;}

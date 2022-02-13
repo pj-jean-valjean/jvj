@@ -4,22 +4,25 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.member.model.vo.SnsToken;
 import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
+import edu.kh.jvj.mypage.model.vo.Purchase;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 public interface MypageService {
 
 	/** 쿠폰 페이지네이션
 	 * @param cp
+	 * @param coupon 
 	 * @param search 
 	 * @param serch 
 	 * @return
 	 */
-	Pagination couponPagination(int cp);
+	Pagination couponPagination(int cp, Coupon coupon);
 
 	/** 쿠폰 목록조회
 	 * @param pagination
@@ -37,14 +40,14 @@ public interface MypageService {
 	 * @param cp
 	 * @return
 	 */
-	Pagination2 getLikePagination(int cp);
+	Pagination getLikePagination(int cp, Like like);
 
 	/** 좋아요 목록 조회
 	 * @param pagination2
 	 * @param like
 	 * @return
 	 */
-	List<Like> getLikeList(Pagination2 paginationLike, Like like);
+	List<Like> getLikeList(Pagination paginationLike, Like like);
 
 	/** 좋아요 취소
 	 * @param map
@@ -64,13 +67,51 @@ public interface MypageService {
 	 */
 	int updatePw(Map<String, String> map);
 
-	/** 회원 탈퇴
-	 * @param memberNo
+
+	/** 일반 결제 리스트
+	 * @param order
 	 * @return
 	 */
-	int secession(int memberNo);
+	List<Order> purList(Order order);
+	
+    
+    
+    /** api 회원탈퇴 
+     * @param memberNo
+     * @param service
+     * @return result
+     */
+    int secession(Member loginMember, SnsToken token) throws Exception;
+    
 
-	List<Order> selectPurList(Order order);
+    int getKakaoToken(String snsToken) throws Exception;
+    
+    
+
+	/** 원데이 클래스 결제 리스트
+	 * @param order
+	 * @return
+	 */
+	List<Order> classList(Order order);
+
+	/** 정기구독 결제 리스트
+	 * @param order
+	 * @return
+	 */
+	List<Order> subscription(Order order);
+
+	/** 메인 페이지 리스트
+	 * @param order
+	 * @return
+	 */
+	List<Order> mypageMain(Order order);
+
+	Pagination purPagination(int cp, Order order);
+
+	Pagination classPagination(int cp, Order order);
+
+	Pagination subPagination(int cp, Order order);
+
 	
 	
 

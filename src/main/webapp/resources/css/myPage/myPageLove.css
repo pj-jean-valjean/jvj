@@ -1,4 +1,4 @@
-section{margin-top: 90px}
+section{margin-top: 90px; }
 article{margin-left: 200px;}
 
 /* 타이틀 */
@@ -12,57 +12,32 @@ article{margin-left: 200px;}
     margin-left:400px;
 }
 
-/* 페이지 네이션 */
+/* 페이지네이션 */
+.pagination-area{
+    height: 100px;
+}
 .pagination{
-    list-style: none; 
-    margin-bottom: 120px;
-    margin-left:400px;
-}
-.pagination>li{
-    display: inline-block;
-}
-
-.pagiLink{
-    text-decoration: none; 
-    font-size: 15pt;
-    margin-top: 50px;
-    margin-bottom: 120px;
-    margin: 10px 10px;
-    color: black;
-}
-
-.pagiLink2{
-    text-decoration: none; 
-    font-size: 15pt;
-    color: black;
-}
-.pagiList{
-    width: 30px; 
-    height: 30px;
-    border-radius: 100%;
     text-align: center;
-}
-
-.pagiList:hover{
-    background-color: rgba(167, 138, 108, 1);
-}
-.pagiLink:hover{
-    color: white; 
-}
-.pagiLink2:hover{
-    color: white; 
-}
-
-.pagi{
-    color: black;
-}
-.pagi:hover{
-    color: rgba(167, 138, 108, 1);
+    color:#787878;
     font-weight: bold;
+    line-height: 98px;
 }
-.page{
+
+.pagination > li{
+    display: inline-block;
+    margin:0 10px 0 10px;
     text-align: center;
-    margin-top:15px;
+    line-height: 24px;
+}
+
+
+/* 페이지네이션 선택 효과 css */
+.page-effect{
+    width: 25px;
+    height: 25px;
+    border-radius: 20px; 
+    background-color: #B9845A; 
+    color: white;
 }
 
 .topText{
@@ -241,3 +216,5 @@ article{margin-left: 200px;}
 .divNav .subText{ margin-top: 20px;}
 .divNav .topText{ margin-bottom: 10px;}
 .divNav .mTopText{ margin-top: 55px;}
+
+

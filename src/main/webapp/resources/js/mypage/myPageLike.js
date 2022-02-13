@@ -16,3 +16,7 @@ function cancelLike(productNo) {
 	});
 }
 
+document.getElementById("").addEventListener("click", function(){
+
+	
+});
