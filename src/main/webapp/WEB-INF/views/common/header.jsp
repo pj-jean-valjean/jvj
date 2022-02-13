@@ -72,33 +72,59 @@
                 
                 <li>
                 	<!-- <form action="searchList" method="GET" id="searchForm"> -->
-	                    <select class="search-options" id="searchOptions" name="sk">
+	                    <!-- <select class="search-options" id="searchOptions" name="sk">
 	                        <option value="장발장 바게트" />
 	                        <option value="장발장 식빵" />
 	                        <option value="초코 식빵" />
 	                        <option value="로우키 커피" />
-	                    </select>
-	                    <input type="text" name="sv" class="nav-search" id="searchOptions" list="searchOptions" maxlength="20">
+	                    </select> -->
+	                    <input type="text" name="sv" class="nav-search" id="inputSearch"  maxlength="20">
                     <!-- </form> -->
                 </li>
             </ul>
         </section>
         
         <!-- modal -->
-		<button type="button" class="btn-submit"  id="open" onclick="search();">모달나오기</button>
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
 			<div class="modal-content">
+			
+				<%-- 값이 있을 경우 --%>
+                <c:choose>
+					<c:when test="${ !empty sv }">
+						<div>${searchVO.sv }</div>
+						<table>
+							<tr>
+								<td>상품명</td>
+								<td>내용</td>
+								<td>가격</td>
+							</tr>
+							<tr>
+								<td>식빵</td>
+								<td>굿</td>
+								<td>5,00</td>
+							</tr>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<table>
+							<tr>
+								<td>상품명</td>
+								<td>내용</td>
+								<td>가격</td>
+							</tr>
+							
+							<tr>
+								<td>식빵</td>
+								<td>굿</td>
+								<td>5,00</td>
+							</tr>
+
+
+						</table>
+					</c:otherwise>
+				</c:choose>
 				
-                
-				<div >검색어 </div>
-				<table>
-					<p>상품명</p>
-					<p>내용</p>
-					<p>가격</p>
-
-
-				</table>
 				<button>x</button>
 			</div>
 			
@@ -110,25 +136,45 @@
 	
 		const contextPath = "${contextPath}";
 		
-		const btnSubmit = document.getElementById("open");
+		// const btnSubmit = document.getElementById("open");
+		// const modal = document.querySelector(".modal-area");
+		// const overlay = modal.querySelector(".modal-overlay");
+		// const closeBtn = modal.querySelector("button");
+		
+		// const openModal = () => {
+		// 			modal.classList.remove("hidden");
+		// 		}
+		// const closeModal = () => {
+		// 	modal.classList.add("hidden");
+		// }
+		// overlay.addEventListener("click", closeModal);
+		// closeBtn.addEventListener("click", closeModal);
+		// btnSubmit.addEventListener("click", openModal);
+		
+		let input = document.getElementById("inputSearch");
 		const modal = document.querySelector(".modal-area");
 		const overlay = modal.querySelector(".modal-overlay");
 		const closeBtn = modal.querySelector("button");
-		
-		const openModal = () => {
-			modal.classList.remove("hidden");
+
+		input.focus()
+		input.addEventListener("keyup",function(e){
 			
-			
-		}
+			if (e.code == "Enter") { //엔터키 입력 시 
+				modal.classList.remove('hidden');
+				search();
+			}
+		});
+
 		const closeModal = () => {
-			modal.classList.add("hidden");
+		 	modal.classList.add("hidden");
 		}
 		overlay.addEventListener("click", closeModal);
 		closeBtn.addEventListener("click", closeModal);
-		btnSubmit.addEventListener("click", openModal);
-		
+
+
+
 		function search(){
-			const sv = $("#searchOptions").val();
+			const sv = $("#inputSearch").val();
 			
 			$.ajax({
 				url: contextPath + "/subscribe/main/search",
