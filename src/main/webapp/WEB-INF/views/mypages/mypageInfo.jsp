@@ -190,10 +190,10 @@
               <div class="subBtn">
                     <c:choose>
                     	<c:when test="${!empty loginMember.service}">
-		                    <button type="button" id="snsInfoDelete">계정 연동 해지하기</button>
+		                    <button type="button" id="snsInfoDelete" onclick="location.href='secession'">계정 연동 해지하기</button>
                     	</c:when>
                     	<c:otherwise>
-		                    <button type="button" id="infoDelete" onclick="location.href='secession?memberNo=${loginMember.memberNo}'">탈퇴하기</button>
+		                    <button type="button" id="infoDelete" onclick="location.href='secession'">탈퇴하기</button>
                     	</c:otherwise>
                     </c:choose>
                 </div>
