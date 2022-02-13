@@ -260,7 +260,9 @@
 								<option value="1">별점낮은순</option>
 							</select>
 						</div>
+						<c:if test="${not empty loginMember }">						
 						<a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
+						</c:if>
 					</div>
 				</div>
 			</article>
