@@ -3,12 +3,14 @@ package edu.kh.jvj.payment.model.Service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
 import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
 import edu.kh.jvj.payment.model.vo.RegualrPayInfo;
 import edu.kh.jvj.payment.model.vo.RegularPaySuccessSave;
+import edu.kh.jvj.payment.model.vo.StoreOrderInfo;
 import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 public interface PaymentService {
@@ -46,7 +48,9 @@ public interface PaymentService {
 	int getPayDoneYn(String partner_order_id);
 
 	Payment getPayResult(String merchant_uid);
-	
-	
+
+	int saveStoreInfo(StoreOrderInfo storeInfo);
+
+	List<Coupon> callCoupon(int memberNo);
 
 }

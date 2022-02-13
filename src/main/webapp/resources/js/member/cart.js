@@ -24,6 +24,35 @@ $(".x-btn").on("click", (e) => {
   resultPrice -= itemPrice;
   paging();
 });
+window.onload = function(){
+  getCoupons();
+}
+
+function getCoupons(){
+  if(loginMember ==""){
+    return;
+  }
+  $.ajax({
+    url : contextPath + "/payment/callCoupon",
+    data : {"memberNo": loginMember},
+    type : "post",
+    dataType : "json",
+    success : function(data){
+      console.log(data);
+      const selbox = document.querySelector(".couponCss");
+      for(opt of data ){
+        const option = document.createElement("option");
+        option.className="discountOpt";
+        option.value= option.couponNo;
+        option.innerText = opt.couponName+'__'+(opt.discountPer*100)+'% 쿠폰';
+        selbox.append(option);
+      }
+    },
+    error : function(){
+      alert("오류발생!")
+    }
+  })
+}
 
 // 미니 합계
 const cartSumPrice = $(".cartSumPrice");
