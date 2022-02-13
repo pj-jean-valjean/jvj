@@ -19,6 +19,16 @@
 				javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 				 select="selectProductImageList" />
 	</resultMap>
+		<resultMap type="Coupon" id="coupon_rm">
+		<id property="couponNo" column="COUPON_NO"/>
+		<result property="couponName" column="COUPON_NM"/>
+		<result property="discountPer" column="DISCOUNT_PER"/>
+		<result property="provideDate" column="PROVIDE_DT"/>
+		<result property="expireDate" column="EXPIRE_DT"/>
+		<result property="couponStatusCode" column="COU_STATUS_CD"/>
+		<result property="couponStatusName" column="COU_STATUS_NM"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
 	<resultMap type="edu.kh.jvj.onedayclass.model.vo.ProductImage" id="productImg_rm">
 		<id property="productImgNo" column="PRODUCT_IMG_NO" />
 		<result property="productImgPath" column="PRODUCT_IMG_PATH" />
@@ -254,5 +264,59 @@
 		SELECT (CLASS_MAX_PPL - CLASS_ADD_PPL) POSSIBLEPPL
 		FROM CLASS_DETAIL
 		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<insert id="saveStoreInfo">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="purchaseNo">
+ 			SELECT SEQ_PURCHASE_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO PURCHASE VALUES(
+		    #{purchaseNo}, 
+		    1,
+		    #{productNosArr[0]},
+		    #{totalPrice},
+		    DEFAULT ,
+		    SYSDATE ,
+		    DEFAULT ,
+		    #{memberNo}
+			)
+	</insert>
+	<insert id="saveStoreDetail">
+	  	<selectKey order="BEFORE" resultType="_int" keyProperty="orderNo">
+ 			SELECT SEQ_ORDER_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO "ORDER" VALUES(
+		    #{orderNo}, 
+		    #{purchaseNo},
+		    #{pno},
+		    #{pqu},
+		    NULL ,
+		    #{ppr} ,
+		     ${memberNo}
+			)
+	</insert>
+		<insert id="saveStoreOption">
+		INSERT INTO "ORDER_OPTION" VALUES(
+			SEQ_ORDER_OPTION_NO.NEXTVAL,
+			 #{orderNo},
+			 #{pna},
+			 #{pqu}
+		)
+	</insert>
+	<insert id="saveStorepayKey">
+		INSERT INTO "NORMAL_PAYMENT" VALUES(
+			SEQ_NORMAL_PAYMENT_NO.NEXTVAL,
+			 #{purchaseNo},
+			 #{result_merchant_uid},
+			 #{result_imp_uid}
+		)
+	</insert>
+	<delete id="deletecart">
+		DELETE FROM CART
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	<select id="callCoupon" resultMap="coupon_rm">
+		SELECT * FROM COUPON
+		WHERE MEMBER_NO = #{memberNo}
+		AND COU_STATUS_CD =1
 	</select>
 </mapper>

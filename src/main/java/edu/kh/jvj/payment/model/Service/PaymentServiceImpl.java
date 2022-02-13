@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.dao.PaymentDAO;
 import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
@@ -15,6 +16,7 @@ import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
 import edu.kh.jvj.payment.model.vo.RegualrPayInfo;
 import edu.kh.jvj.payment.model.vo.RegularPaySuccessSave;
+import edu.kh.jvj.payment.model.vo.StoreOrderInfo;
 import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 @Service
@@ -143,6 +145,38 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public Payment getPayResult(String merchant_uid) {
 		return dao.getPayResult(merchant_uid);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int saveStoreInfo(StoreOrderInfo storeInfo) {
+		storeInfo.setProductNamesArr(storeInfo.getProductNames().split("/"));
+		storeInfo.setProductPricesArr(storeInfo.getProductPrices().split("/"));
+		storeInfo.setProductNosArr(storeInfo.getProductNos().split("/"));;
+		storeInfo.setProductQuantitiesArr(storeInfo.getProductQuantities().split(" ,"));
+		int result = dao.saveStoreInfo(storeInfo); 
+		if(result>0) {
+			
+			int count = storeInfo.getProductNamesArr().length;
+			for(int i = 0 ; i < count ; i++) {
+				storeInfo.setPna(storeInfo.getProductNamesArr()[i]);
+				storeInfo.setPqu(storeInfo.getProductQuantitiesArr()[i]);
+				storeInfo.setPno(storeInfo.getProductNosArr()[i]);
+				storeInfo.setPpr(storeInfo.getProductPricesArr()[i]);
+				result=dao.saveStoreDetail(storeInfo);
+				result=dao.saveStoreOption(storeInfo);
+				result=dao.saveStorepayKey(storeInfo);
+			}
+			
+			result = dao.deletecart(storeInfo);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Coupon> callCoupon(int memberNo) {
+		return dao.callCoupon(memberNo);
 	}
 	
 

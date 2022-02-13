@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,13 @@ import com.google.gson.Gson;
 
 import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
+import edu.kh.jvj.cart.model.service.CartService;
+import edu.kh.jvj.cart.model.vo.Carrier;
+import edu.kh.jvj.cart.model.vo.Cart;
+import edu.kh.jvj.cart.model.vo.Option;
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.mypage.model.vo.Coupon;
+import edu.kh.jvj.mypage.model.vo.Store;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.Service.PaymentService;
 import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
@@ -43,7 +50,9 @@ import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
 import edu.kh.jvj.payment.model.vo.RegualrPayInfo;
 import edu.kh.jvj.payment.model.vo.RegularPaySuccessSave;
+import edu.kh.jvj.payment.model.vo.StoreOrderInfo;
 import edu.kh.jvj.payment.model.vo.SubsOrder;
+import edu.kh.jvj.store.model.service.StoreService;
 
 @Controller
 @RequestMapping("/payment/*")
@@ -56,25 +65,14 @@ public class PaymentController {
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping(value = "storePayment", method = RequestMethod.POST)
-	public String storePayment(HttpSession session, Model model, String carrierList) {
-		
-		System.out.println("결제화면" + carrierList);
-		
-//		List<Store> storeList = service.getStoreList(carrierList);
-		
-//		model.addAttribute("storeList", storeList);
-		return "payment/payment";
-	}
-	
 	@RequestMapping(value = "classPayment", method = RequestMethod.POST)
 	public String classPayment(HttpSession session, Model model, String totalPrice, String totalPeople, String productNo) {
 		System.out.println("상품번호 : "+productNo);
 		OnedayClass oneClass = service.getClassSelect(productNo);
 		//System.out.println(oneClass);
 		
-		  model.addAttribute("oneClass", oneClass); model.addAttribute("totalPrice",
-		  totalPrice);
+	  model.addAttribute("oneClass", oneClass); model.addAttribute("totalPrice",
+	  totalPrice);
 		 
 		model.addAttribute("totalPeople", totalPeople);
 		model.addAttribute("productcate", "3");
@@ -133,6 +131,14 @@ public class PaymentController {
 			return informs;
 		}
 	}
+	@PostMapping("possibleCheck")
+	public int possibleCheck(int productNo) {
+		
+		
+		
+		return 0;
+	}
+	
 	//일반결제 환불
 	@PostMapping(value= "normalpayRefund",produces="application/json;charset=UTF-8")
 	@ResponseBody
@@ -328,6 +334,29 @@ public class PaymentController {
 			e.printStackTrace();
 		}
 		return"/payment/paymentResult";
+	}
+	
+	
+	@PostMapping(value = "saveStoreOrderInfo",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String, String> saveStoreOrderInfo(StoreOrderInfo storeInfo) {
+		int result = service.saveStoreInfo(storeInfo);
+		Map<String, String> informs = new HashMap<String, String>();
+		if(result>0) {
+			informs.put("msg" , "결제완료");
+			return informs;
+		}
+		
+		informs.put("msg" , "에러발생! 결제가 취소됩니다");
+		return informs;
+	}
+	@PostMapping(value = "callCoupon",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<Coupon> callCoupon(int memberNo) {
+		List<Coupon> coupons= service.callCoupon(memberNo);
+		
+		Map<String, String> informs = new HashMap<String, String>();
+		return coupons;
 	}
 	
 }

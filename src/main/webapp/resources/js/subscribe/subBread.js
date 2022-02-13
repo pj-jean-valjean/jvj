@@ -76,7 +76,7 @@ function doLike(){
 			}
 		},
 		error: function() {
-
+            
 		}
 	})
 }

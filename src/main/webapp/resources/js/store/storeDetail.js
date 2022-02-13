@@ -156,7 +156,7 @@ function totalCount(type, num) {
   resultPrice.text(maxPrice());
   resultComma();
 }
-const optionList = [6300, 9900, 20000];
+const optionList = [30, 50, 20];
 
 function maxPrice() {
   let sum = 0;
