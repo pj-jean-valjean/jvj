@@ -509,7 +509,7 @@ function reconfirim(){
 			&& $(".taste-btn.active")[0] && $(".period-btn.active")[0]
 			&& $(".deliveryDay-btn.active")[0]) {
 		$("#hiddentotalAmount").val(resultNum);
-		$("#hiddenTotalPrice").val(totalprice.innerText);
+		$("#hiddenTotalPrice").val(totalprice.innerText.replace(",",""));
 		return true;
 	} else {
 		return false;

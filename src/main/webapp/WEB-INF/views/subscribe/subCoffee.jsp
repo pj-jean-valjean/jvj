@@ -84,7 +84,7 @@
                 <div class="bottom-line"></div>
                 
                 
-			 <form action="${contextPath}/payment/payment" method="GET"  name="subCoffeeForm" onsubmit="return reconfirim();">
+			 <form action="${contextPath}/payment/subscribePayment" method="POST"   name="subCoffeeForm" onsubmit="return reconfirim();">
                 <article class="sub-detail">
                     <div class="sub-title">
                         <span>빵 종류</span>
@@ -518,7 +518,7 @@ function reconfirim(){
 			&& $(".period-btn.active")[0] && $(".deliveryDay-btn.active")[0]) {
 		
 		$("#hiddentotalAmount").val(resultNum);
-		$("#hiddenTotalPrice").val(totalprice.innerText);
+		$("#hiddenTotalPrice").val(totalprice.innerText.replace(",",""));
 		return true;
 	} else {
 		return false;
