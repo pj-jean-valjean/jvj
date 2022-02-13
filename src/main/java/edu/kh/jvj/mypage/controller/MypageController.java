@@ -243,17 +243,19 @@ public class MypageController {
 	
 	// 일반 회원 탈퇴
 	@RequestMapping(value = "secession", method = RequestMethod.GET)
-	public String secession(@ModelAttribute("loginMember") Member loginMember, @ModelAttribute("token") String token,
+	public String secession(@ModelAttribute("loginMember") Member loginMember, Model model,
 			SessionStatus status, RedirectAttributes ra) {
 		
 		String path = null;
 		int result = 0;
 		int kaResult = 0;
+		String token = "";
 		
 		try {
-			if(loginMember.getService().equals("")) {
+			if(loginMember.getService() == null) {
 				result = service.secession(loginMember.getMemberNo());
 			} else if(loginMember.getService().equals("kakao")) {
+				token = (String)model.getAttribute("token");
 				kaResult = service.getKakaoToken(token);
 				
 				if(kaResult > 0) { // 카카오 회원 상태 탈퇴로 변경 
