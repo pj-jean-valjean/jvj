@@ -1,7 +1,8 @@
 package edu.kh.jvj.review.model.vo;
 
 public class Review {
-
+	
+	private int reviewNo; //리뷰번호
 	private int orderNo; // 주문번호
 	private int productNo; // 상품번호
 	private String title; // 리뷰제목
@@ -16,6 +17,14 @@ public class Review {
 
 	public Review() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getReviewNo() {
+		return reviewNo;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
 
 	public int getOrderNo() {
@@ -108,10 +117,12 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [orderNo=" + orderNo + ", productNo=" + productNo + ", title=" + title + ", point=" + point
-				+ ", content=" + content + ", date=" + date + ", memberNo=" + memberNo + ", categoryNo=" + categoryNo
-				+ ", productName=" + productName + ", imgPath=" + imgPath + ", writer=" + writer + "]";
+		return "Review [reviewNo=" + reviewNo + ", orderNo=" + orderNo + ", productNo=" + productNo + ", title=" + title
+				+ ", point=" + point + ", content=" + content + ", date=" + date + ", memberNo=" + memberNo
+				+ ", categoryNo=" + categoryNo + ", productName=" + productName + ", imgPath=" + imgPath + ", writer="
+				+ writer + "]";
 	}
+
 	
 
 	

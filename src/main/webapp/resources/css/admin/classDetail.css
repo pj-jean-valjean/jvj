@@ -5,7 +5,7 @@ main{
     margin: auto;
     display: grid;
     align-items: center;
-    scroll-behavior: smooth;
+
 }
 
 /* 메인 상단 카테고리 */
@@ -550,4 +550,11 @@ main{
     background-position: right;
     position:relative; 
     z-index:-1;
+    }
+    .review-title{
+        cursor: pointer;
+    }
+    .review-content{
+        cursor:pointer;
+        height: 400px;
     }

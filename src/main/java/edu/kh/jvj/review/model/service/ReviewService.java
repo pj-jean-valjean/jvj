@@ -18,4 +18,8 @@ public interface ReviewService {
 
 	Pagination getPagination(int cp, int no);
 
+	int countOrder(Review rv);
+
+	int countReview(Review rv);
+
 }

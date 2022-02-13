@@ -165,186 +165,107 @@
             <article id="contents-exp">
                 ${Oneclass.contents}
             </article>   
-            <!-- 리뷰 -->
-            <article class="boundary-line" id="contents-review" >
-                <div class="header-title review-header ">
-                    <p>리뷰</p>
-                    <div class="review-header-right">
-                        <div class="align-div" id="align-div">
-                            <select id='selectcate'>
-                                <option>별점높은순</option>
-                                <option>별점낮은순</option>
-                                <option>최신순</option>
-                            </select>
-                        </div>
-                        <a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
-                    </div>
-                </div>
-            </article> 
-            <article id="reviewbox">
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-                <div class="one-line-review">
-                    <div class="star-ratings">
-                        <div class="star-ratings-fill" >
-                            <i class="fas fa-star gold"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                            <i class="fas fa-star gray"></i>
-                        </div>
-                    </div>
-                    <span>장발장 바게트 3개월 째 구독중이에요.</span>
-                    <span>닉네임</span>
-                    <span>2022-01-24</span>
-                </div>
-            </article><!-- 리뷰내용  -->
-            <!-- 페이지네이션 -->
-            <article class="pagination-area">
-                <ul class="pagination">
-                    <li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
-                    <li><a class="page-link"
-                        href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
-                    <li class=" page-effect"><a class="page-link" >1</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">2</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">3</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">4</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">5</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">6</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">7</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">8</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">9</a></li>
-                    <li><a class="page-link" href="list?cp=${i}${s}">10</a></li>
-                    <li><a class="page-link"
-                        href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
-                    <li><a class="page-link"
-                        href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
-                </ul>
-            </article>
+			<!-- 리뷰 -->
+			<article class="boundary-line" id="contents-review">
+				<div class="header-title review-header " id="pagination">
+					<p>리뷰</p>
+					<div class="review-header-right">
+						<div class="align-div" id="align-div">
+							<select id='selectcate'>
+								<option disabled="disabled" selected>정렬</option>
+								<option value="0">최신순</option>
+								<option value="2">별점높은순</option>
+								<option value="1">별점낮은순</option>
+							</select>
+						</div>
+						<c:if test="${not empty loginMember }">						
+						<a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
+						</c:if>
+					</div>
+				</div>
+			</article>
+			<article id="reviewbox">
+				<c:forEach items="${reviewList}" var="r">
+
+					<div class="one-line-review">
+						<div class="star-ratings">
+							<div class="star-ratings-fill">
+								<c:if test="${r.point eq 1}">
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+								</c:if>
+								<c:if test="${r.point eq 2}">
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+								</c:if>
+								<c:if test="${r.point eq 3}">
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gray"></i>
+									<i class="fas fa-star gray"></i>
+								</c:if>
+								<c:if test="${r.point eq 4}">
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gray"></i>
+								</c:if>
+								<c:if test="${r.point eq 5}">
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+									<i class="fas fa-star gold"></i>
+								</c:if>
+							</div>
+						</div>
+						<span class="review-title">${r.title}</span> <span>${r.writer}</span>
+						<span>${r.date}</span>
+					</div>
+					<div class="one-line-review review-content">${r.content}</div>
+				</c:forEach>
+			</article>
+			<!-- 리뷰내용  -->
+			<!-- 페이지네이션 -->
+			<article class="pagination-area">
+					<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link"
+				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
+		</c:if>
+
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin: 5px"
+						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link"
+				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
+		</c:if>
+	</ul>
+			</article>
 
         </section>  
         <!-- 배송/교환/환불 -->
@@ -413,6 +334,8 @@ DELIVERY / 배송정보
 		/* const contextPath = "${contextPath}"; */
 		const loginNo = "${loginMember.memberNo}"
 		const productNo = "${productNo}"
+		const cp = '${param.cp}';
+		const sr = '${param.sr}';
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=551a4828db4bdc904ebb55328c53c9ae&libraries=services,clusterer,drawing"></script>
 	<!--  kakao sdk  -->

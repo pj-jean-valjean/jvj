@@ -44,5 +44,15 @@ public class ReviewDAO {
 	
 		return mybatis.selectOne("reviewMapper.getListCount", no);
 	}
+
+	public int countOrder(Review rv) {
+
+		return mybatis.selectOne("reviewMapper.countOrder",rv);
+	}
+
+	public int countReview(Review rv) {
+		
+		return mybatis.selectOne("reviewMapper.countReview",rv);
+	}
 	
 }
