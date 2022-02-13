@@ -14,11 +14,15 @@
 			<typeAlias alias="Cart" type="edu.kh.jvj.cart.model.vo.Cart" />
 			<typeAlias alias="Subscribe" type="edu.kh.jvj.subscribe.model.vo.SubVO" />
 			<typeAlias alias="Review" type="edu.kh.jvj.review.model.vo.Review" />
-      <typeAlias alias="Chat" type="edu.kh.jvj.chat.model.vo.Chat" />
-      <typeAlias alias="ChatMessage" type="edu.kh.jvj.chat.model.vo.ChatMessage" />
+		    <typeAlias alias="Chat" type="edu.kh.jvj.chat.model.vo.Chat" />
+		    <typeAlias alias="ChatMessage" type="edu.kh.jvj.chat.model.vo.ChatMessage" />
 			<typeAlias alias="Search" type="edu.kh.jvj.subscribe.model.vo.SearchVO" />
 			<typeAlias alias="Review" type="edu.kh.jvj.review.model.vo.Review" />
-
+			<typeAlias type="edu.kh.jvj.mypage.model.vo.Order" alias="Order"/>
+			<typeAlias type="edu.kh.jvj.mypage.model.vo.OrderOption" alias="OrderOption"/>
+			<typeAlias type="edu.kh.jvj.mypage.model.vo.Product" alias="Product"/>
+			<typeAlias type="edu.kh.jvj.mypage.model.vo.Purchase" alias="Purchase"/>
+            <typeAlias alias="ChatMessage" type="edu.kh.jvj.chat.model.vo.ChatMessage" />
 	</typeAliases>
 	
 	<mappers>

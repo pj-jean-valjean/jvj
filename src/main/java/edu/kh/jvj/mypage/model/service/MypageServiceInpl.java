@@ -14,6 +14,7 @@ import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
+import edu.kh.jvj.mypage.model.vo.Order;
 
 @Service
 public class MypageServiceInpl implements MypageService {
@@ -96,6 +97,13 @@ public class MypageServiceInpl implements MypageService {
 	@Override
 	public int secession(int memberNo) {
 		return dao.secession(memberNo);
+	}
+
+	
+	// 메인 페이지
+	@Override
+	public List<Order> selectPurList(Order order) {
+		return dao.selectPurList(order);
 	}
 
 
