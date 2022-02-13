@@ -411,7 +411,6 @@ DELIVERY / 배송정보
 	<script>
 	const cp = '${param.cp}';
 	const sr = '${param.sr}';
-	const contextPath = '${contextPath}';
 	const loginMember = '${loginMember.memberNo}';
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};

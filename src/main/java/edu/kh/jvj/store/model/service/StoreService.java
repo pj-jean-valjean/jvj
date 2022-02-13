@@ -29,5 +29,7 @@ public interface StoreService {
 
 	int expiredSale();
 
+	List<Store> selectRankProduct();
+
 
 }

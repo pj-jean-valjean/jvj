@@ -50,6 +50,15 @@ public class StoreController {
 		Pagination pagination = service.getPagination(cp,search);
 		List<Store> storeList = service.selectStoreList(pagination,search);
 		
+		List<Store> rankProduct = service.selectRankProduct();
+		if(!rankProduct.isEmpty()) {
+			
+			for(Store s : rankProduct) {
+				int best = s.getStoreNo();
+				model.addAttribute("best",best);
+			}
+		}
+		
 		
 		model.addAttribute("store",storeList);
 		model.addAttribute("pagination",pagination);
