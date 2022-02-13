@@ -182,6 +182,12 @@ public class MypageDAO {
 	}
 
 
+	public List<Order> selectPurList(Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 
