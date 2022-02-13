@@ -42,101 +42,79 @@
                     <tr id="tb-tr" >
                         <td id="td1"></td>
                         <td id="td2">클래스 강의명</td>
-                        <td id="td3">신청일/해당지점</td>
-                        <td id="td4">클래스 기간</td>
+                        <td id="td3">신청일/해당지점/클래스 기간</td>
+                        <td id="td4"></td>
                         <td id="td5"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="tb-tbd">
-                        <td></td>
-                        <td>초보자를 위한 베이킹 클래스</td>
-                        <td>2021-12-01<br>마포점</td>
-                        <td>2022-01-02<br>06:00~18:00</td>
-                        <td>
-                            <button class="shippingBtn">취소</button>
-                        </td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td></td>
-                        <td>초보자를 위한 베이킹 클래스</td>
-                        <td>2021-12-01<br>마포점</td>
-                        <td>2022-01-02<br>06:00~18:00</td>
-                        <td>
-                            <button class="shippingBtn">취소</button>
-                        </td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td></td>
-                        <td>초보자를 위한 베이킹 클래스</td>
-                        <td>2021-12-01<br>마포점</td>
-                        <td>2022-01-02<br>06:00~18:00</td>
-                        <td>
-                            <button class="shippingBtn">취소</button>
-                        </td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td></td>
-                        <td>초보자를 위한 베이킹 클래스</td>
-                        <td>2021-12-01<br>마포점</td>
-                        <td>2022-01-02<br>06:00~18:00</td>
-                        <td>
-                            <button class="shippingBtn">취소</button>
-                        </td>
-                    </tr>
-                    <tr class="tb-tbd">
-                        <td></td>
-                        <td>초보자를 위한 베이킹 클래스</td>
-                        <td>2021-12-01<br>마포점</td>
-                        <td>2022-01-02<br>06:00~18:00</td>
-                        <td>
-                            취소완료
-                        </td>
-                    </tr>
+                
+                <c:choose>
+                <c:when test="${!empty classList}">
+                
+	                <c:forEach var="classList" items="${classList}">
+	                    <tr class="tb-tbd">
+	                        <td></td>
+	                        <td>${classList.productName}</td>
+	                        <td>${classList.orderOption}</td>
+	                        <td></td>
+	                        <td>
+	                            <button class="shippingBtn">취소</button>
+	                        </td>
+	                    </tr>
+	                 </c:forEach>
+                 
+                 </c:when>
+                 
+                 <c:otherwise>
+                 	<tr>
+						<td colspan="5" 
+						style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
+						font-size:20px; font-weight:bold; margin-left: auto; margin-right: auto; text-align:center;
+						padding-top:200px; padding-bottom:300px; margin-bottum">
+						신청하신 원데이 클래스가 존재하지 않습니다.
+						</td>
+					 </tr>       
+                 
+                 </c:otherwise>
+                    
+                 </c:choose>   
                 </tbody>
 
             </table>
         </article>
 
-        <article>
-            <div class="page">
-                <ul class="pagination">
-                    <li><a href="#" class="first pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg></a></li> 
-                    <li><a href="#" class="previous pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg>
-                    </a></li> 
+       <article class="pagination-area">
+					<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link"
+				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
+		</c:if>
 
-                    <li class="pagiList"><a class="pagiLink" href="#">1</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">2</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">3</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">4</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">5</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">6</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">7</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">8</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">9</a></li>
-                    <li class="pagiList"><a class="pagiLink2" href="#">10</a></li>
-                
-                    <li><a href="#" class="next pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a></li> 
-                    <li><a href="#" class="last pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-                            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                    </a></li> 
-                </ul>
-            </div>  
-        </article>
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin: 5px"
+						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link"
+				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
+		</c:if>
+	</ul>
+	</article>
         
     </section>
     </main>

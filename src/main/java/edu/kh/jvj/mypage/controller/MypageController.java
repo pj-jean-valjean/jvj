@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,8 +28,6 @@ import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
-import edu.kh.jvj.mypage.model.vo.Pagination2;
-import edu.kh.jvj.mypage.model.vo.Product;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Controller
@@ -42,25 +38,24 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 	
+
+
 	@Autowired
 	private SnsValue kakaoSns;
 	
-	
-	// 메인으로 페이지 
-	
-		
+
+
+	// 메인 페이지 
 	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public String mypageMainList(@ModelAttribute("loginMember") Member loginMember, Model model,
-								 Order order
-								 ) {
+	public String mypageMain(@ModelAttribute("loginMember") Member loginMember, Order order, Model model) {	
 		
 		order.setMemberNo(loginMember.getMemberNo());
-		order.setEnrollDate(loginMember.getEnrollDate());
 		order.setMemberName(loginMember.getMemberName());
+		order.setService(loginMember.getService());
 		
-		List<Order> purList = service.selectPurList(order);
+		List<Order> mainList = service.mypageMain(order);
 		
-		model.addAttribute("purList", purList);
+		model.addAttribute("mainList", mainList);
 		
 		return "mypages/mypageMain";
 	}
@@ -68,38 +63,60 @@ public class MypageController {
 	
 	// 일반 상품 결제 페이지 이동
 	@RequestMapping(value = "purchase", method = RequestMethod.GET)
-	public String mypageShopping() {
+	public String mypageShoppingList(@ModelAttribute("loginMember") Member loginMember, Order order, Model model,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+				
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setService(loginMember.getService());
+		
+		
+		Pagination pagination = service.purPagination(cp, order);
+					
+		List<Order> purchase = service.purList(order);
+					
+		model.addAttribute("purchase", purchase);
+		
+		model.addAttribute("pagination", pagination);
+					
+					
 		return "mypages/mypageShopping";
-	}
+		}
 	
-	// 일반 상품 결제 페이지 이동
-	@RequestMapping(value = "purchase", method = RequestMethod.POST)
-	public String mypageShoppingList(@ModelAttribute("loginMember") Member loginMember, Order order
-			) {
+	// 클래스 구매 페이지
+	@RequestMapping(value = "class", method = RequestMethod.GET)
+	public String mypageClass(@ModelAttribute("loginMember") Member loginMember, Order order, Model model,
+							@RequestParam(value="cp", required=false, defaultValue="1") int cp ) {
 		
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setService(loginMember.getService());
 		
+		Pagination pagination = service.classPagination(cp, order);
+		List<Order> classList = service.classList(order);
 		
-		return "mypages/mypageShopping";
-	}
-	
-	
-	
-	@GetMapping("class")
-	public String mypageClass() {
+		model.addAttribute("classList", classList);
+		
+		model.addAttribute("pagination", pagination);
+		
 		return "mypages/mypageClass";
 	}
-	@GetMapping("sub")
-	public String mypageSub() {
-		return "mypages/mypageSub";
-	}
 	
-	@GetMapping("review")
-	public String mypageReview() {
-		return "mypages/mypageReview";
-	}
-	@GetMapping("recorrect")
-	public String ReviewWrite() {
-		return "mypages/reviewWrite";
+	// 정기 구독 조회
+	@RequestMapping(value = "sub", method = RequestMethod.GET)
+	public String mypageSub(@ModelAttribute("loginMember") Member loginMember, Order order, Model model,
+						 	@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+		
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setService(loginMember.getService());
+		
+		
+		Pagination pagination = service.subPagination(cp, order);
+		List<Order> subList = service.subscription(order);
+		
+		model.addAttribute("subList", subList);
+		
+		model.addAttribute("pagination", pagination);
+		
+		return "mypages/mypageSub";
 	}
 	
 	
@@ -113,7 +130,8 @@ public class MypageController {
 		
 		coupon.setMemberNo(loginMember.getMemberNo());
 		
-		Pagination pagination = service.couponPagination(cp);
+		
+		Pagination pagination = service.couponPagination(cp,coupon);
 		List<Coupon> couponList = service.couponList(pagination, coupon);
 			
 		
@@ -135,7 +153,7 @@ public class MypageController {
 		
 		like.setMemberNo(loginMember.getMemberNo());
 		
-		Pagination2 paginationLike = service.getLikePagination(cp);
+		Pagination paginationLike = service.getLikePagination(cp, like);
 		
 		List<Like> likeList = service.getLikeList(paginationLike, like);
 		
@@ -250,7 +268,6 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		
-			
 		if (result > 0) { // 성공
 			Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
 			status.setComplete(); // 세션만료
@@ -265,5 +282,25 @@ public class MypageController {
 		return "redirect:" + path;
 	}
 	
+	
+	
+	
+	
+	
+	@GetMapping("review")
+	public String mypageReview() {
+		return "mypages/mypageReview";
+	}
+	@GetMapping("recorrect")
+	public String ReviewWrite() {
+		return "mypages/reviewWrite";
+	}
+	
+	
+	
+	public String menu(@ModelAttribute("loginMember") Member loginMember, Member member ,Model model) {
+		member.setService(loginMember.getService());
+		return "mypages/mypageMenu";
+	}
 	
 }

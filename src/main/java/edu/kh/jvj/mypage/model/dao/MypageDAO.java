@@ -13,7 +13,7 @@ import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
-import edu.kh.jvj.mypage.model.vo.Pagination2;
+import edu.kh.jvj.mypage.model.vo.Purchase;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Repository
@@ -24,13 +24,14 @@ public class MypageDAO {
 
 	
 	/** 쿠폰 페이지 전체 쿠폰 수
+	 * @param coupon 
 	 * @param search 
 	 * @param member 
 	 * @param coupon 
 	 * @return
 	 */
-	public int getCouponCount() {
-		return sqlSession.selectOne("mypageMapper.getCouponCount");
+	public int getCouponCount(Coupon coupon) {
+		return sqlSession.selectOne("mypageMapper.getCouponCount",coupon);
 	}
 
 
@@ -61,8 +62,8 @@ public class MypageDAO {
 	/** 좋아요 전체 목록 조회
 	 * @return
 	 */
-	public int getLikeCount() {
-		return sqlSession.selectOne("mypageMapper.getLikeCount");
+	public int getLikeCount(Like like) {
+		return sqlSession.selectOne("mypageMapper.getLikeCount", like);
 	}
 
 
@@ -71,7 +72,7 @@ public class MypageDAO {
 	 * @param like
 	 * @return
 	 */
-	public List<Like> getLikeList(Pagination2 paginationLike, Like like) {
+	public List<Like> getLikeList(Pagination paginationLike, Like like) {
 		int offset = (paginationLike.getCurrentPage() - 1)* paginationLike.getLimit();
 		int limit = paginationLike.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
@@ -127,9 +128,64 @@ public class MypageDAO {
 	}
 
 
-	public List<Order> selectPurList(Order order) {
-		return sqlSession.selectList("mypageMapper.selectPurList", order);
+	/** 일반 결제 리스트
+	 * @param order
+	 * @return
+	 */
+	public List<Order> purList(Order order) {
+		return sqlSession.selectList("mypageMapper.purList", order);
 	}
+
+
+
+ 
+	/** 클래스 결제 리스트
+	 * @param order
+	 * @return
+	 */
+	public List<Order> classPurList(Order order) {
+		return sqlSession.selectList("mypageMapper.classPurList", order);
+	}
+
+
+	/** 정기 구독 결제 리스트
+	 * @param order
+	 * @return
+	 */
+	
+	public List<Order> subscriptionList(Order order) {
+		return sqlSession.selectList("mypageMapper.subscription", order);
+	}
+
+
+	/** 메인페이지 리스트
+	 * @param order
+	 * @return
+	 */
+	public List<Order> mypageMain(Order order) {
+		return sqlSession.selectList("mypageMapper.mypageMain", order);
+	}
+
+
+	public int purchaseListCount(Order order) {
+		return sqlSession.selectOne("mypageMapper.purchaseListCount", order);
+	}
+
+
+	public int classListCount(Order order) {
+		return sqlSession.selectOne("mypageMapper.classListCount", order);
+	}
+
+
+	public int subListCount(Order order) {
+		return sqlSession.selectOne("mypageMapper.subListCount", order);
+	}
+
+
+
+
+
+
 
 
 

@@ -74,6 +74,7 @@
                 	<c:otherwise>
 		                	<c:forEach items="${couponList}" var="couponList">
 		                	
+		                	
 		                	<c:if test="${couponList.couponStatusCode == 1}">
 			                	<tr class="tb-tbd">
 			                        <td>${couponList.couponName}</td>
@@ -103,7 +104,6 @@
 						        <td class="dontCoupon">${couponList.couponStatusName}</td>
 					        	</tr>
                 			</c:if>
-                			
 		                    </c:forEach>
                 	</c:otherwise>
                 </c:choose>
@@ -113,37 +113,45 @@
         </article>
 
 
-        <article>
-            <div class="page">
-                <ul class="pagination">
-                
-                	<c:if test="${pagination.startPage != 1 }">
-						<li><a class="first pagi" href="coupon?cp=1${c}">&lt;&lt;</a></li>
-						<li><a class="previous pagi" href="coupon?cp=${pagination.prevPage}${c}">&lt;</a></li>
-					</c:if>
 
-                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
-					<c:choose>
-						<c:when test="${i == pagination.currentPage}">
-							<li class="pagiList"><a class="pagiLink">${i}</a></li>  
-						</c:when>
-						
-						<c:otherwise>
-							<li><a class="pagiList" href="coupon?cp=${i}${c}">${i}</a></li>
-						</c:otherwise>
-						
-					</c:choose>
-				</c:forEach>
-                
-                    
-                    <c:if test="${pagination.endPage != pagination.maxPage}">
-					<li><a class="next pagi" href="coupon?cp=${pagination.nextPage}${c}">&gt;</a></li>
-					<li><a class="last pagi" href="coupon?cp=${pagination.maxPage}${c}">&gt;&gt;</a></li>
-					
-				</c:if>
-                </ul>
-            </div>  
-        </article>
+
+
+
+
+        <article class="pagination-area">
+					<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link"
+				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
+		</c:if>
+
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin: 5px"
+						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link"
+				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
+		</c:if>
+	</ul>
+	</article>
+        
+        
+        
         
     </section>
     </main>

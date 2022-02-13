@@ -30,7 +30,6 @@
 
             <div class="toDay">
                 <span>최근 주문하신 내역입니다.</span>
-                <button type="button" class="dateBtn">오늘</button>
             </div>
 
             <div class="mainTable">
@@ -43,105 +42,90 @@
                         <li></li>
                     </ul>
                 </div>
-
-                <div class="tbList">
-                    <ul class="tbname">
-                        <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                        <li> 댕식빵/댕댕식빵 <br> 옵션: 개맛있잼,사과잼</li>
-                        <li>2022-02-11 <br> 202313020213</li>
-                        <li> 10,000,000 <br> 10개</li>
-                        <li>
-                            <button class="p-btn" id="btn-pur">구매 내역</button>
-                            <button class="p-btn" id="btn-cc">구매 취소</button>
-                        </li>
-                    </ul>
-                    <ul class="tbname">
-                        <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                        <li> 댕식빵/댕댕식빵 <br> 옵션: 개맛있잼,사과잼</li>
-                        <li>2022-02-11 <br> 202313020213</li>
-                        <li> 10,000,000 <br> 10개</li>
-                        <li>
-                            <button class="p-btn" id="btn-pur">구매 내역</button>
-                            <button class="p-btn" id="btn-cc">구매 취소</button>
-                        </li>
-                    </ul>
-                    <ul class="tbname">
-                        <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                        <li> 댕식빵/댕댕식빵 <br> 옵션: 개맛있잼,사과잼</li>
-                        <li>2022-02-11 <br> 202313020213</li>
-                        <li> 10,000,000 <br> 10개</li>
-                        <li>
-                            <button class="p-btn" id="btn-pur">구매 내역</button>
-                            <button class="p-btn" id="btn-cc">구매 취소</button>
-                        </li>
-                    </ul>
-                    <ul class="tbname">
-                        <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                        <li> 댕식빵/댕댕식빵 <br> 옵션: 개맛있잼,사과잼</li>
-                        <li>2022-02-11 <br> 202313020213</li>
-                        <li> 10,000,000 <br> 10개</li>
-                        <li>
-                           <button class="p-btn" id="btn-pur">구매 내역</button>
-                           <button class="p-btn" id="btn-cc">구매 취소</button>
-                        </li>
-                    </ul>
-                    <ul class="tbname">
-                        <li><img src="${contextPath}/resources/images/mypage/dog.jpg" alt=""></li>
-                        <li> 댕식빵/댕댕식빵 <br> 옵션: 개맛있잼,사과잼</li>
-                        <li>2022-02-11 <br> 202313020213</li>
-                        <li> 10,000,000 <br> 10개</li>
-                        <li>
-                            구매 완료
-                        </li>
-                    </ul>
+					
+               
+                
+                
+                <c:forEach var="purchase" items="${purchase}">
+                <c:choose>
+               
+               		<c:when test="${empty purchase}">
+	               		<div class="tbList"></div>
+	               </c:when>
+               
+	               <c:otherwise>
+	                <div class="tbList">
+	               		<ul class="tbname">
+	                        <li><img src="${contextPath}/${purchase.productImgPath}/${purchase.productImgName}" alt=""></li>
+	                        <li> ${purchase.productName} <br> 옵션: ${purchase.orderOption}</li>
+	                        <li>${purchase.paymentDate} <br> ${purchase.productNo}</li>
+	                        <li> ${purchase.totalPrice} / ${purchase.productAmount}</li>
+	                        <li>
+	                            <button class="p-btn" id="btn-pur">구매 내역</button>
+	                            <button class="p-btn" id="btn-cc">구매 취소</button>
+	                        </li>
+                    	</ul>
+                   </div>
+	               </c:otherwise>
+	            
+	               
+	               
+	               
+	               
+               </c:choose>
+                
+                </c:forEach> 
+               
                 </div>
                 
 
                 
-            </div>
+           
         </article>
 
-        <article>
-            <div class="page">
-                <ul class="pagination">
-                    <li><a href="#" class="first pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg></a></li> 
-                    <li><a href="#" class="previous pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg>
-                    </a></li> 
+        <article class="pagination-area">
+					<ul class="pagination">
+		<c:if test="${pagination.startPage !=1 }">
+			<li><a class="page-link"
+				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
+		</c:if>
 
-                    <li class="pagiList"><a class="pagiLink" href="#">1</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">2</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">3</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">4</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">5</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">6</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">7</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">8</a></li>
-                    <li class="pagiList"><a class="pagiLink" href="#">9</a></li>
-                    <li class="pagiList"><a class="pagiLink2" href="#">10</a></li>
-                
-                    <li><a href="#" class="next pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a></li> 
-                    <li><a href="#" class="last pagi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-                            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                    </a></li> 
-                </ul>
-            </div>  
-        </article>        
+		<%-- 페이지 네이션 번호 목록 --%>
+		<c:forEach begin="${pagination.startPage }"
+			end="${pagination.endPage}" step="1" var="i">
+			<c:choose>
+				<c:when test="${i==pagination.currentPage}">
+					<li><a class="page-link"
+						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a class="page-link" style="margin: 5px"
+						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${pagination.endPage != pagination.maxPage }">
+			<li><a class="page-link"
+				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
+			<li><a class="page-link"
+				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
+		</c:if>
+	</ul>
+	</article>       
     </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
+	
+	<script type="text/javascript">
+	
+	document.getElementById("btn-pur").addEventListener("click", function(){
+		
+		location.href = "${contextPath}/payment/paymentResult"
+	
+});
+	</script>
+	
 </body>
 </html>

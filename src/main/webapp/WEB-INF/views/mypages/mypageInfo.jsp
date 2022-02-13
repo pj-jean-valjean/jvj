@@ -23,7 +23,8 @@
     </div>
     <section>
     
-    <jsp:include page="mypageMenu.jsp"/>	
+    <jsp:include page="mypageMenu.jsp"/>
+    
             <article>
             <form method="POST" action="update" class="infoForm" role="form" name="updateForm" onsubmit="return memberUpdateValidate()">
             
