@@ -39,7 +39,7 @@ public class MemberDAO {
 	
 
 	/** 로그인
-	 * @param memberEmail
+	 * @param map
 	 * @return loginMember
 	 */
 	public Member login(String memberEmail) {

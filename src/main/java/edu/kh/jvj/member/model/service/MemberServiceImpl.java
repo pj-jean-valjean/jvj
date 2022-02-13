@@ -1,5 +1,6 @@
 package edu.kh.jvj.member.model.service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 

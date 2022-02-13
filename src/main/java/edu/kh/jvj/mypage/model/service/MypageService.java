@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.member.model.vo.SnsToken;
 import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
@@ -71,10 +72,19 @@ public interface MypageService {
 	int secession(int memberNo);
 
 	List<Order> selectPurList(Order order);
+
+	
+	
+	/** api 회원탈퇴 
+	 * @param memberNo
+	 * @param service
+	 * @return result
+	 */
+	int secession(Member loginMember, SnsToken token) throws Exception;
 	
 	
 
-
+	int getKakaoToken(String snsToken) throws Exception;
 
 
 	
