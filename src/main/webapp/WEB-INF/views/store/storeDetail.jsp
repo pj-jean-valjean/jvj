@@ -144,9 +144,9 @@
 					<div class="align-div" id="align-div">
 						<select id='selectcate-option'>
 							<option value=0>선택 없음</option>
-							<option value=1>카야잼 6,300원</option>
-							<option value=2>무화과잼 9,900원</option>
-							<option value=3>버터 나이프 20,000원</option>
+							<option value=1>카야잼 30원</option>
+							<option value=2>무화과잼 50원</option>
+							<option value=3>버터 나이프 20원</option>
 						</select>
 					</div>
 				</article>
@@ -160,7 +160,7 @@
 
 					<!-- 선택한 상품 존재 -->
 					<div class="grayBox total-area choose-option option1">
-						<span>추가상품: 카야잼 6,300원</span> <img class="clear-btn" id="clearBtn"
+						<span>추가상품: 카야잼 30원</span> <img class="clear-btn" id="clearBtn"
 							src="${contextPath}/resources/images/subscribe/clear.png"
 							alt="clear">
 
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 					<div class="grayBox total-area choose-option option2">
-						<span>추가상품: 무화과잼 9,900원</span> <img class="clear-btn"
+						<span>추가상품: 무화과잼 50원</span> <img class="clear-btn"
 							id="clearBtn"
 							src="${contextPath}/resources/images/subscribe/clear.png"
 							alt="clear">
@@ -189,7 +189,7 @@
 						</div>
 					</div>
 					<div class="grayBox total-area choose-option option3">
-						<span>추가상품: 버터 나이프 20,000원</span> <img class="clear-btn"
+						<span>추가상품: 버터 나이프 20원</span> <img class="clear-btn"
 							id="clearBtn"
 							src="${contextPath}/resources/images/subscribe/clear.png"
 							alt="clear">
@@ -260,7 +260,9 @@
 								<option value="1">별점낮은순</option>
 							</select>
 						</div>
+						<c:if test="${not empty loginMember }">						
 						<a class="reviewWrite" href="${contextPath}/board/review/write">리뷰쓰기</a>
+						</c:if>
 					</div>
 				</div>
 			</article>
@@ -411,7 +413,6 @@ DELIVERY / 배송정보
 	<script>
 	const cp = '${param.cp}';
 	const sr = '${param.sr}';
-	const contextPath = '${contextPath}';
 	const loginMember = '${loginMember.memberNo}';
 	const price = ${store.price * (100-store.discountPer)/100};
 	const stock = ${store.stock};

@@ -118,21 +118,35 @@
 		STORE_DETAIL USING(PRODUCT_NO)
 		WHERE PRODUCT_NO IN (1427,1429,1428)
 	</select>
-	
+
 	<select id="selectpdtCount" resultType="_int">
-	SELECT COUNT(ADD_Q) FROM CART
-        WHERE PRODUCT_NO = #{storeNo} AND MEMBER_NO= #{memberNo}
+		SELECT COUNT(ADD_Q) FROM CART
+		WHERE PRODUCT_NO = #{storeNo} AND MEMBER_NO= #{memberNo}
 	</select>
 	<!-- 재고확인 -->
 	<select id="selectAmount" resultType="_int">
 		SELECT SUM(ADD_Q) FROM CART
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{storeNo}
-		GROUP BY PRODUCT_NO
+		GROUP BY
+		PRODUCT_NO
 	</select>
 	<!-- 세일 만료 -->
 	<delete id="expiredSale">
-	DELETE FROM DISCOUNT
-       WHERE (DISCOUNT_END_DT-SYSDATE) <![CDATA[<]]> 0
+		DELETE FROM DISCOUNT
+		WHERE (DISCOUNT_END_DT-SYSDATE) <![CDATA[<]]>
+		0
 	</delete>
+
+	<!-- 베스트 상품 찾기 -->
+	<select id="selectRankProduct" resultMap="store_rm">
+		SELECT *
+		FROM(
+		SELECT COUNT(PRODUCT_NO) STOCK,PRODUCT_NO FROM PRODUCT
+		NATURAL JOIN "ORDER"
+		WHERE PRODUCT_CD = 1
+		GROUP BY PRODUCT_NO
+		ORDER BY STOCK DESC)
+		WHERE ROWNUM = 1
+	</select>
 
 </mapper>

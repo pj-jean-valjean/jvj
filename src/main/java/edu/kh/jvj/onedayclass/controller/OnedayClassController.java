@@ -16,20 +16,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.jvj.onedayclass.model.service.OnedayClassService;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
+import edu.kh.jvj.review.model.service.ReviewService;
+import edu.kh.jvj.review.model.vo.Review;
+import edu.kh.jvj.review.model.vo.RvSearch;
+import edu.kh.jvj.store.model.vo.Pagination;
 
 @Controller
 @RequestMapping("onedayclass/*")
-@SessionAttributes({"loginNo"}) 
+@SessionAttributes({ "loginNo" })
 public class OnedayClassController {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private final OnedayClassService service;
+	@Autowired
+	private ReviewService rService;
 
 	@Autowired
 	public OnedayClassController(OnedayClassService service) {
@@ -42,11 +49,29 @@ public class OnedayClassController {
 	}
 
 	@GetMapping("view/{productNo}")
-	public String showOnedayClassDetail(@PathVariable int productNo, Model model) {
-		Map<String , Integer> map = new HashMap<>();
-		
+	public String showOnedayClassDetail(@PathVariable int productNo, Model model,
+			@RequestParam(value = "sr", required = false, defaultValue = "0") int sr,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Integer> map = new HashMap<>();
+
 		map.put("productNo", productNo);
-		
+///////////////////////////////////////////////////////////////////////		
+
+// 리뷰 가져오기 ( no 에 상품 번호 넣기 , 클래스 파라미터에 RvSearch 가져오기)
+		Pagination pagination = rService.getPagination(cp, productNo);
+		RvSearch search = new RvSearch();
+		search.setCp(cp);
+		search.setNo(productNo);
+		search.setSr(sr);
+		List<Review> reviewList = rService.selectReviewList(pagination, search);
+		if (!reviewList.isEmpty()) {
+			model.addAttribute("reviewList", reviewList);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("search", search);
+		}
+
+///////////////////////////////////////////////////////////////////////	
+
 		OnedayClass Oneclass = service.selectOneClass(map);
 		if (Oneclass != null) {
 			Oneclass.setProductNo(productNo);
@@ -84,37 +109,45 @@ public class OnedayClassController {
 
 		return new ResponseEntity<>(oneLineList, HttpStatus.OK);
 	}
-	  @PostMapping("likeclass")
-	  @ResponseBody public int likeclass(int loginNo , int productNo) {
-		  	
-		  Map<String , Integer > map = new HashMap<>();
-		  map.put("loginNo", loginNo);
-		  map.put("productNo", productNo);
-		  
-		  int result = service.likeclass(map);
-		  
-		  
-	  return result; }
-	  @PostMapping("undolike")
-	  @ResponseBody public int undolike(int loginNo , int productNo) {
-		  
-		  Map<String , Integer > map = new HashMap<>();
-		  map.put("loginNo", loginNo);
-		  map.put("productNo", productNo);
-		  
-		  int result = service.undolike(map);
-		  return result; }
-	  @PostMapping("likecheck")
-	  @ResponseBody public int likecheck(int loginNo , int productNo) {
-		  System.out.println(loginNo);
-		  System.out.println(productNo);
-		  Map<String , Integer > map = new HashMap<>();
-		  map.put("loginNo", loginNo);
-		  map.put("productNo", productNo);
-		  
-		  int result = service.likecheck(map);
-		  System.out.println("why?"+result);
-		  return result; }
+
+	@PostMapping("likeclass")
+	@ResponseBody
+	public int likeclass(int loginNo, int productNo) {
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginNo", loginNo);
+		map.put("productNo", productNo);
+
+		int result = service.likeclass(map);
+
+		return result;
+	}
+
+	@PostMapping("undolike")
+	@ResponseBody
+	public int undolike(int loginNo, int productNo) {
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginNo", loginNo);
+		map.put("productNo", productNo);
+
+		int result = service.undolike(map);
+		return result;
+	}
+
+	@PostMapping("likecheck")
+	@ResponseBody
+	public int likecheck(int loginNo, int productNo) {
+		System.out.println(loginNo);
+		System.out.println(productNo);
+		Map<String, Integer> map = new HashMap<>();
+		map.put("loginNo", loginNo);
+		map.put("productNo", productNo);
+
+		int result = service.likecheck(map);
+		System.out.println("why?" + result);
+		return result;
+	}
 
 	/*
 	 * @PostMapping("getPlace")

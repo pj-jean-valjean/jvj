@@ -37,6 +37,8 @@
 	        <beans:constructor-arg value="qMkfw_T1UO" />
 	</beans:bean>
 	<beans:bean id="naverRedirectUrl" class="java.lang.String">
+	
+			<!-- 네이버 리다이렉트 주소 -->
 	        <beans:constructor-arg value="http://localhost:8080/jvj/member/naver/callback" />
 	</beans:bean>
 	    

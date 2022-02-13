@@ -23,7 +23,6 @@ import edu.kh.jvj.member.model.service.SnsLoginService;
 import edu.kh.jvj.member.model.vo.Member;
 import edu.kh.jvj.member.model.vo.SnsToken;
 import edu.kh.jvj.member.model.vo.SnsValue;
-import edu.kh.jvj.member.model.vo.SnsValue;
 import edu.kh.jvj.mypage.model.service.MypageService;
 import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
@@ -39,9 +38,13 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 	
-    @Autowired
-    private SnsValue kakaoSns;
+
+
+	@Autowired
+	private SnsValue kakaoSns;
 	
+
+
 	// 메인 페이지 
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String mypageMain(@ModelAttribute("loginMember") Member loginMember, Order order, Model model) {	
@@ -240,34 +243,31 @@ public class MypageController {
 	
 	// 일반 회원 탈퇴
 	@RequestMapping(value = "secession", method = RequestMethod.GET)
-    public String secession(@ModelAttribute("loginMember") Member loginMember, @ModelAttribute("token") String token,
+	public String secession(@ModelAttribute("loginMember") Member loginMember, @ModelAttribute("token") String token,
 			SessionStatus status, RedirectAttributes ra) {
 		
-		
 		String path = null;
+		int result = 0;
+		int kaResult = 0;
 		
-        int result = 0;
-        int kaResult = 0;
-        
-        try {
-            if(loginMember.getService().equals("")) {
-                result = service.secession(loginMember.getMemberNo());
-            } else if(loginMember.getService().equals("kakao")) {
-                kaResult = service.getKakaoToken(token);
-                
-                if(kaResult > 0) { // 카카오 회원 상태 탈퇴로 변경 
-                    result = service.secession(loginMember.getMemberNo());
-                }
-                
-            } else if(loginMember.getService().equals("naver")) {
-                
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-            
+		try {
+			if(loginMember.getService().equals("")) {
+				result = service.secession(loginMember.getMemberNo());
+			} else if(loginMember.getService().equals("kakao")) {
+				kaResult = service.getKakaoToken(token);
+				
+				if(kaResult > 0) { // 카카오 회원 상태 탈퇴로 변경 
+					result = service.secession(loginMember.getMemberNo());
+				}
+				
+			} else if(loginMember.getService().equals("naver")) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if (result > 0) { // 성공
 			Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
 			status.setComplete(); // 세션만료

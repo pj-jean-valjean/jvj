@@ -3,16 +3,20 @@ package edu.kh.jvj.payment.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.jvj.member.model.vo.Member;
+import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.onedayclass.model.vo.OnedayClass;
 import edu.kh.jvj.payment.model.vo.KaKaoPayKey;
 import edu.kh.jvj.payment.model.vo.OrderSubsOption;
 import edu.kh.jvj.payment.model.vo.Payment;
 import edu.kh.jvj.payment.model.vo.RegualrPayInfo;
 import edu.kh.jvj.payment.model.vo.RegularPaySuccessSave;
+import edu.kh.jvj.payment.model.vo.StoreOrderInfo;
 import edu.kh.jvj.payment.model.vo.SubsOrder;
 
 
@@ -106,5 +110,83 @@ public class PaymentDAO {
 		return sqlSession.update("paymentMapper.updatePayStatement",partner_order_id);
 	}
 
+
+
+	public Member getAddrInfo(int memberNo) {
+		return sqlSession.selectOne("paymentMapper.getAddrInfo",memberNo);
+	}
+
+
+	public RegualrPayInfo getRecieverInfo(int partner_order_id) {
+		return sqlSession.selectOne("paymentMapper.getRecieverInfo",partner_order_id);
+	}
+
+	public String getProductMainImg(int productNo) {
+		return sqlSession.selectOne("paymentMapper.getProductMainImg",productNo);
+	}
+
+
+
+	public int getPayDoneYn(String partner_order_id) {
+		return sqlSession.selectOne("paymentMapper.getPayDoneYn",partner_order_id);
+	}
+
+
+
+	public Payment getPayResult(String merchant_uid) {
+		return sqlSession.selectOne("paymentMapper.getPayResult",merchant_uid);
+	}
+
+
+
+	public int updatePeopleInfo(Payment payInfo) {
+		return sqlSession.update("paymentMapper.updatePeopleInfo",payInfo);
+	}
+
+
+
+	public int getPossible(Payment payInfo) {
+		return sqlSession.selectOne("paymentMapper.getPossible",payInfo);
+	}
+
+
+
+	public int saveStoreInfo(StoreOrderInfo storeInfo) {
+		return sqlSession.insert("paymentMapper.saveStoreInfo",storeInfo);
+	}
+
+
+
+	public int saveStoreDetail(StoreOrderInfo storeInfo) {
+		return sqlSession.insert("paymentMapper.saveStoreDetail",storeInfo);
+	}
+
+
+
+	public int saveStoreOption(StoreOrderInfo storeInfo) {
+		return sqlSession.insert("paymentMapper.saveStoreOption",storeInfo);
+	}
+
+	
+	public int saveStorepayKey(StoreOrderInfo storeInfo) {
+		return sqlSession.insert("paymentMapper.saveStorepayKey",storeInfo);
+	}
+
+
+
+	public int deletecart(StoreOrderInfo storeInfo) {
+		return sqlSession.delete("paymentMapper.deletecart",storeInfo);
+	}
+
+
+
+	public List<Coupon> callCoupon(int memberNo) {
+		int offset = 0;
+		int limit = 10;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("paymentMapper.callCoupon",memberNo,rowBounds);
+	}
+	
 
 }

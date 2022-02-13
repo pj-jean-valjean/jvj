@@ -19,6 +19,16 @@
 				javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 				 select="selectProductImageList" />
 	</resultMap>
+		<resultMap type="Coupon" id="coupon_rm">
+		<id property="couponNo" column="COUPON_NO"/>
+		<result property="couponName" column="COUPON_NM"/>
+		<result property="discountPer" column="DISCOUNT_PER"/>
+		<result property="provideDate" column="PROVIDE_DT"/>
+		<result property="expireDate" column="EXPIRE_DT"/>
+		<result property="couponStatusCode" column="COU_STATUS_CD"/>
+		<result property="couponStatusName" column="COU_STATUS_NM"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
 	<resultMap type="edu.kh.jvj.onedayclass.model.vo.ProductImage" id="productImg_rm">
 		<id property="productImgNo" column="PRODUCT_IMG_NO" />
 		<result property="productImgPath" column="PRODUCT_IMG_PATH" />
@@ -44,6 +54,12 @@
 		<result property="paymentDt" column="PAYMENT_DT" />
 		<result property="refundDt" column="REFUND_YN" />
 		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPhone" column="MEMBER_PHONE" />
+		<result property="mainImgPath" column="MAINIMGPATH" />
+		<result property="productOption" column="ORDER_OPTION" />
+		<result property="amount" column="PRODUCT_AMOUNT" />
 	</resultMap>
 	
 	<resultMap type="edu.kh.jvj.payment.model.vo.RegualrPayInfo" id="payList_rm">
@@ -56,8 +72,29 @@
 		<result property="productOption" column="ORDER_OPTION" />
 		<result property="totalPrice" column="TOTAL_PRICE" />
 		<result property="amount" column="PRODUCT_AMOUNT" />
+		<result property="shippingMsg" column="SHIPPING_MSG" />
+		<result property="shippingAddr" column="SHIPPING_ADDR" />
+		<result property="shippingEmail" column="RECEIVER_EMAIL" />
+		<result property="shippingName" column="RECEIVER_NAME" />
+		<result property="shippingPhone" column="RECEIVER_PHONE" />
+		<result property="amount2" column="QUANTITY" />
 	</resultMap>
-	
+		 <resultMap type="Member" id="member_rm">
+	 	<id property="memberNo" column="MEMBER_NO"/>
+	 	
+	 	<result property="memberEmail" 			column="MEMBER_EMAIL"/>
+	 	<result property="memberPw" 			column="MEMBER_PW"/>
+	 	<result property="memberNickname" 		column="MEMBER_NICKNAME"/>
+	 	<result property="memberName" 			column="MEMBER_NAME"/>
+	 	<result property="memberPhone" 			column="MEMBER_PHONE"/>
+	 	<result property="memberAddress" 		column="MEMBER_ADDR"/>
+	 	<result property="enrollDate" 			column="ENROLL_DT"/>
+	 	<result property="statusCode" 			column="STATUS_CD"/>
+	 	<result property="gradeCode" 			column="GRADE_CD"/>
+	 	<result property="service" 				column="MEMBER_SERVICE"/>
+	 	<result property="memberId" 			column="MEMBER_ID"/>
+	 	
+	 </resultMap>
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -113,7 +150,8 @@
 		INSERT INTO "NORMAL_PAYMENT" VALUES(
 			SEQ_NORMAL_PAYMENT_NO.NEXTVAL,
 			 #{purchaseNo},
-			 #{result_merchant_uid}
+			 #{result_merchant_uid},
+			 #{result_imp_uid}
 		)
 	</insert>
 	
@@ -135,12 +173,7 @@
 	<insert id="saveRegularPayKey">
 		INSERT INTO KAKAO_REGULARPAY_KEY VALUES(
 			${partner_order_id} , #{tid} , #{memberId}
-			<if test="shippingAddrEqualMemberAddr == false">
 			, #{shippingAddr} , #{shippingMsg} , #{shippingEmail} , #{shippingName} , #{shippingPhone}, ${amount} , NULL , NULL 
-			</if>
-			<if test="shippingAddrEqualMemberAddr == true">
-			, NULL, NULL, NULL, NULL, NULL , ${amount} , NULL , NULL 
-			</if>
 		)
 	</insert>
 	
@@ -182,5 +215,108 @@
 		JOIN ORDER_OPTION OOP ON (OOP.ORDER_NO = ORD.ORDER_NO)
 		WHERE PAYMENT_STATUS = 'Y'
 		AND REFUND_YN = 'N'
+	</select>
+	<select id="getAddrInfo" resultMap="member_rm">
+		SELECT * FROM MEMBER 
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="getRecieverInfo" resultMap="payList_rm">
+		SELECT * FROM KAKAO_REGULARPAY_KEY 
+        JOIN "ORDER" ON (PARTNER_ORDER_ID = PURCHASE_NO)
+        JOIN ORDER_OPTION USING (ORDER_NO)
+		WHERE PARTNER_ORDER_ID = #{partner_order_id}
+	</select>
+	
+	<select id="getProductMainImg" resultType="string">
+		SELECT PRODUCT_IMG_PATH||PRODUCT_IMG_NAME  FROM PRODUCT_IMG
+		WHERE PRODUCT_NO = #{productNo}
+		AND PRODUCT_IMG_LEVEL = 0
+	</select>
+	<select id="getPayDoneYn" resultType="_int">
+		SELECT COUNT(*) FROM "ORDER"
+		WHERE PURCHASE_NO = #{partner_order_id}
+	</select>
+	<select id="getPayResult" resultMap="payment_rm">
+	SELECT  
+	MEM.MEMBER_NAME,MEM.MEMBER_EMAIL,
+	MEM.MEMBER_PHONE,PUR.PRODUCT_CD,
+	PUR.PRODUCT_NO,PUR.TOTAL_PRICE,
+	ORD.PRODUCT_AMOUNT,OOP.ORDER_OPTION,
+	MAINIMG.PRODUCT_IMG_PATH||MAINIMG.PRODUCT_IMG_NAME MAINIMGPATH
+	FROM NORMAL_PAYMENT NPAY
+	JOIN PURCHASE PUR ON ( PURCHASE_NO = PURCHASE_NO2)
+	JOIN "ORDER"  ORD ON (ORD.PURCHASE_NO = PUR.PURCHASE_NO) 
+	JOIN "ORDER_OPTION" OOP ON (ORD.ORDER_NO = OOP.ORDER_NO)
+	JOIN PRODUCT_IMG MAINIMG ON (MAINIMG.PRODUCT_NO = PUR.PRODUCT_NO)
+	JOIN MEMBER MEM ON (MEM.MEMBER_NO = PUR.MEMBER_NO)
+	WHERE MERCHANT_UID = #{merchant_uid}
+	AND PRODUCT_IMG_LEVEL = 0
+	</select>
+	
+	<update id="updatePeopleInfo">
+		UPDATE CLASS_DETAIL SET
+		CLASS_ADD_PPL = CLASS_ADD_PPL +  ${amount}
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	
+	<select id="getPossible" resultType="_int">
+		SELECT (CLASS_MAX_PPL - CLASS_ADD_PPL) POSSIBLEPPL
+		FROM CLASS_DETAIL
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<insert id="saveStoreInfo">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="purchaseNo">
+ 			SELECT SEQ_PURCHASE_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO PURCHASE VALUES(
+		    #{purchaseNo}, 
+		    1,
+		    #{productNosArr[0]},
+		    #{totalPrice},
+		    DEFAULT ,
+		    SYSDATE ,
+		    DEFAULT ,
+		    #{memberNo}
+			)
+	</insert>
+	<insert id="saveStoreDetail">
+	  	<selectKey order="BEFORE" resultType="_int" keyProperty="orderNo">
+ 			SELECT SEQ_ORDER_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+			INSERT INTO "ORDER" VALUES(
+		    #{orderNo}, 
+		    #{purchaseNo},
+		    #{pno},
+		    #{pqu},
+		    NULL ,
+		    #{ppr} ,
+		     ${memberNo}
+			)
+	</insert>
+		<insert id="saveStoreOption">
+		INSERT INTO "ORDER_OPTION" VALUES(
+			SEQ_ORDER_OPTION_NO.NEXTVAL,
+			 #{orderNo},
+			 #{pna},
+			 #{pqu}
+		)
+	</insert>
+	<insert id="saveStorepayKey">
+		INSERT INTO "NORMAL_PAYMENT" VALUES(
+			SEQ_NORMAL_PAYMENT_NO.NEXTVAL,
+			 #{purchaseNo},
+			 #{result_merchant_uid},
+			 #{result_imp_uid}
+		)
+	</insert>
+	<delete id="deletecart">
+		DELETE FROM CART
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	<select id="callCoupon" resultMap="coupon_rm">
+		SELECT * FROM COUPON
+		WHERE MEMBER_NO = #{memberNo}
+		AND COU_STATUS_CD =1
 	</select>
 </mapper>

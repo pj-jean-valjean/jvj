@@ -164,7 +164,6 @@
     </main>
 	<jsp:include page="../common/footer.jsp" />	
 	<script> 
-		const contextPath = "${contextPath}";
 		const loginNo = "${loginMember.memberNo}"
 		const notiecNo = "${notiecNo}"
 	</script>

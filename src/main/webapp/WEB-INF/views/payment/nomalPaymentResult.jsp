@@ -23,27 +23,17 @@
             <div class="orderer-info">
                 <div class="result-info">
                     <div class="result-info-div">
-                        <div class="p-div"><p>받는 사람</p></div>
-                        <div class="span-div"><span>${orderInfo.shippingName}</span></div>
+                        <div class="p-div"><p>예약자</p></div>
+                        <div class="span-div"><span>${payResult.memberName}</span></div>
                     </div>
-                    <div class="result-info-div">
-                        <div class="p-div"><p>주소</p></div>
-                        <div class="span-div"><span>${orderInfo.shippingAddr}</span></div>
-                    </div>
-
-                    <div class="result-info-div">
-                        <div class="p-div"><p>휴대전화</p></div>
-                        <div class="span-div"><span>${orderInfo.shippingPhone}</span></div> 
-                    </div>
-
                     <div class="result-info-div">
                         <div class="p-div"><p>이메일</p></div>
-                        <div class="span-div"><span>${orderInfo.shippingEmail}</span></div>
+                        <div class="span-div"><span>${payResult.memberEmail}</span></div>
                     </div>
 
                     <div class="result-info-div">
-                        <div class="p-div"><p>배송메세지</p></div>
-                        <div class="span-div"><span>${orderInfo.shippingMsg}</span></div>
+                        <div class="p-div"><p>휴대 전화</p></div>
+                        <div class="span-div"><span>${payResult.memberPhone}</span></div> 
                     </div>
                 </div>
             </div>
@@ -55,16 +45,16 @@
 
             <div class="product-list">
 
-                <a href="#"><img src="${contextPath}/${imgSrc}"></a>
+                <a href="#"><img src="${contextPath}/${payResult.mainImgPath}"></a>
                 <div>
                     <a href="#"><p>${orderInfo.productName}</p></a>
                     <p>
-                        ${orderInfo.productOption} <br>
-                        수량 ${orderInfo.amount2}개 <br>
+                        ${payResult.productOption} <br>
+                        신청인원 : ${payResult.amount} 명<br>
                     </p>
                 </div>
                 <div>
-                    <p>${orderInfo.totalPrice}원</p>
+                    <p>${payResult.totalPrice}원</p>
                 </div>
             </div>
 
@@ -79,7 +69,7 @@
             <div class="price-container">
                 <div class="price-flex">
                     <div class="p-div"><p>총 상품 금액</p></div>
-                    <div class="price-won"><p>${orderInfo.totalPrice}원</p></div>
+                    <div class="price-won"><p>${payResult.totalPrice}원</p></div>
                 </div>
                 <div class="price-flex">
                     <div class="p-div"><p>배송비</p></div>
@@ -100,7 +90,7 @@
             <div class="price-container">
                 <div class="price-flex">
                     <div class="p-div"><p>총 결제 금액</p></div>
-                    <div class="price-won"><p>${orderInfo.totalPrice}원</p></div>
+                    <div class="price-won"><p>${payResult.totalPrice}원</p></div>
                 </div>
            </div>
 

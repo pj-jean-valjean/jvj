@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -21,6 +23,7 @@ import edu.kh.jvj.member.model.vo.Member;
 import edu.kh.jvj.member.model.vo.SnsToken;
 import edu.kh.jvj.member.model.vo.SnsValue;
 
+@Service
 public class SnsLoginService {
 
 	private OAuth20Service oauthService;
@@ -43,6 +46,10 @@ public class SnsLoginService {
 		}
 
 		this.sns = sns;
+	}
+	
+	public SnsLoginService() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getSnsAuthURL() {
@@ -90,6 +97,8 @@ public class SnsLoginService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("grant_type=authorization_code");
 		sb.append("&client_id=dce5678c6c2aceeae891719b598cbe3b");  //본인이 발급받은 key
+		
+		// 로그인 리다이렉트 주소
 		sb.append("&redirect_uri=http://localhost:8080/jvj/member/kakao/callback");     // 본인이 설정해 놓은 경로
 		sb.append("&code=" + code);
 		bw.write(sb.toString());
@@ -165,5 +174,4 @@ public class SnsLoginService {
 
 		return member;
 	}
-
 }

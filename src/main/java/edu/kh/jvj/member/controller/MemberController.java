@@ -34,7 +34,7 @@ import edu.kh.jvj.member.model.vo.SnsValue;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember", "token"}) 
+@SessionAttributes({"loginMember","token"}) 
 public class MemberController {
 
 	@Autowired
@@ -114,7 +114,7 @@ public class MemberController {
 
 	@RequestMapping(value="/{service}/callback", method = {RequestMethod.GET, RequestMethod.POST})
 	public String snsLoginCallback(@PathVariable("service") String snsService, Model model, @RequestParam String code, HttpSession session) throws Exception{
-
+		
 		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
 
 		SnsValue sns = null;
@@ -134,7 +134,7 @@ public class MemberController {
 			snsUser = snsLogin.getNaverUserProfile(code, snsService);
 		} else if(StringUtils.equals("kakao", snsService)) {
 			SnsToken snsToken = snsLogin.getKakaoToken(code);
-
+			
 			if(snsToken != null) {
 				snsUser = snsLogin.getKakaoProfile(snsToken, snsService);
 				model.addAttribute("token", snsToken.getAccess_Token());
@@ -146,6 +146,8 @@ public class MemberController {
 		// 3. DB에 해당 유저가 존재하는지 체크
 		Member member = service.getSnsUser(snsUser);
 		String path = "";
+		
+		
 
 		if(member == null) { // 회원이 없는 경우
 			model.addAttribute("snsUser", snsUser);
@@ -163,7 +165,8 @@ public class MemberController {
 		
 		return path;
 	}
-
+	
+	// 로그아웃
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(SessionStatus status) {
 		status.setComplete();

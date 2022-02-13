@@ -50,4 +50,16 @@ public class ReviewServiceImpl implements ReviewService{
 			 listCount = dao.getListCount(no);
 		return new Pagination(listCount,cp);
 	}
+
+	@Override
+	public int countOrder(Review rv) {
+		
+		return dao.countOrder(rv);
+	}
+
+	@Override
+	public int countReview(Review rv) {
+	
+		return dao.countReview(rv);
+	}
 }

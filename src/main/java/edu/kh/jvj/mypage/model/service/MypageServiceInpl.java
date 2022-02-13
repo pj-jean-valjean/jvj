@@ -1,7 +1,12 @@
 package edu.kh.jvj.mypage.model.service;
 
 import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -10,6 +15,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import edu.kh.jvj.member.model.vo.Member;
@@ -26,20 +35,24 @@ public class MypageServiceInpl implements MypageService {
 
 	@Autowired
 	private MypageDAO dao;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
-	
+
 	// 마이페이지 쿠폰
 	@Override
 	public Pagination couponPagination(int cp , Coupon coupon) {
 		
+
+	
+
+
 		// 전체 쿠폰 조회수 
 		int listCount = dao.getCouponCount(coupon);
 		return new Pagination(listCount, cp);
 	}
-	
+
 	// 쿠폰 목록 조회
 	@Override
 	public List<Coupon> couponList(Pagination pagination, Coupon coupon) {
@@ -54,10 +67,12 @@ public class MypageServiceInpl implements MypageService {
 
 	// 좋아요 페이지네이션
 	@Override
+
 	public Pagination getLikePagination(int cp, Like like) {
 		
 		int count = dao.getLikeCount(like);
 		return new Pagination(count, cp);
+
 	}
 
 	// 좋아요 목록 조회
@@ -77,7 +92,7 @@ public class MypageServiceInpl implements MypageService {
 	public int memberUpdate(Member member) {
 		return dao.memberUpdate(member);
 	}
-	
+
 	// 비밀번호 수정
     @Override
     public int updatePw(Map<String, String> map) {
@@ -123,6 +138,7 @@ public class MypageServiceInpl implements MypageService {
 
 	// 일반 결제 리스트
 	@Override
+
 	public List<Order> purList(Order order) {
 		return dao.purList(order);
 	}
@@ -160,6 +176,25 @@ public class MypageServiceInpl implements MypageService {
 		int classCount = dao.classListCount(order);
 		
 		return new Pagination(classCount, cp);
+
+    
+	public int updatePw(Map<String, String> map) {
+
+		String decodePw = dao.selectDecodePw(map.get("memberNo"));
+
+		int pwUpdate = 0;
+
+		if(encoder.matches(map.get("memberPw"), decodePw)) {
+
+			String encPw = encoder.encode(map.get("modifyPw"));
+
+			map.put("modifyPw", encPw);
+
+			pwUpdate = dao.modifyPassword(map);
+		}
+
+		return pwUpdate;
+
 	}
 
 	// 정기 구독 결제 페이지네이션
@@ -171,7 +206,30 @@ public class MypageServiceInpl implements MypageService {
 		return new Pagination(subCount, cp);
 	}
 
-	
+
+	// sns 회원 탈퇴
+	@Override
+	public int secession(Member loginMember, SnsToken token) throws Exception{
+
+		if( loginMember.getService().equals("naver")) {
+
+		} else if( loginMember.getService().equals("kakao")) {
+
+
+		}
+
+
+
+		return dao.secession(0);
+	}
+
+
+	// 메인 페이지
+	@Override
+	public List<Order> selectPurList(Order order) {
+		return dao.selectPurList(order);
+	}
+
 
     @Override
     public int getKakaoToken(String snsToken) throws Exception{
@@ -198,11 +256,40 @@ public class MypageServiceInpl implements MypageService {
 
     }
 
+
 	
 	
 	
 	
 
-	
-	
+	@Override
+	public int getKakaoToken(String snsToken) throws Exception{
+		String reqURL = "https://kapi.kakao.com/v1/user/unlink"; 
+			URL url = new URL(reqURL); 
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
+			conn.setRequestMethod("POST"); 
+			conn.setRequestProperty("Authorization", "Bearer " + snsToken); 
+			int responseCode = conn.getResponseCode(); 
+			System.out.println("responseCode : " + responseCode); 
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream())); 
+			String result = ""; 
+			String line = ""; 
+			while ((line = br.readLine()) != null) { 
+				result += line; 
+			} 
+		
+		int kaResult = 0;
+		if(!result.equals("")) {
+			kaResult = 1;
+		} 
+		
+		return kaResult;
+
+	}
+
+
+
+
+
+
 }

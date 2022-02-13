@@ -1,6 +1,6 @@
 
 html{
-    scroll-behavior: smooth;
+   
 }
 
 main{
@@ -8,7 +8,7 @@ main{
     margin: auto;
     display: grid;
     align-items: center;
-    scroll-behavior: smooth;
+    
 }
 
 /* 메인 상단 카테고리 */
@@ -607,4 +607,11 @@ input[type=radio]:checked + label{
   box-shadow: 0 0 10px rgba(102, 179, 251, 0.5);
   border-color: #4B9DEA;
   z-index: 1;
+}
+.review-title{
+    cursor: pointer;
+}
+.review-content{
+    cursor:pointer;
+    height: 400px;
 }

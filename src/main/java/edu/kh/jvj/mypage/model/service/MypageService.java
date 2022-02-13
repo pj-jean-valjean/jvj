@@ -112,10 +112,22 @@ public interface MypageService {
 
 	Pagination subPagination(int cp, Order order);
 
+
+	List<Order> selectPurList(Order order);
+
+	
+	
+	/** api 회원탈퇴 
+	 * @param memberNo
+	 * @param service
+	 * @return result
+	 */
+	int secession(Member loginMember, SnsToken token) throws Exception;
+
 	
 	
 
-
+	int getKakaoToken(String snsToken) throws Exception;
 
 
 	

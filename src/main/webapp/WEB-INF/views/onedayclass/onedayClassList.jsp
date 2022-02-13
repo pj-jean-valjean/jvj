@@ -76,10 +76,16 @@
         </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	
-	<script>
-		const contextPath = "${contextPath}"
-		const loginNo = "${loginMember.memberNo}"
-	</script>
+	<c:if test="${empty loginMember }">
+		<script>
+			const loginNo = '';
+		</script>
+	</c:if>
+	<c:if test="${!empty loginMember }">
+		<script>
+			const loginNo = "${loginMember.memberNo}";
+		</script>
+	</c:if>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classList.js"></script>
 </body>
 </html>

@@ -7,8 +7,8 @@
         <section class="title-section">
             <p>주문 / 결제 </p>  
         </section>
-
-
+		
+		
         <!-- 주문 내역 -->
         <section>
             <p class="listTitle">주문 내역 확인</p>
@@ -32,7 +32,7 @@
                     <p class="classPrice">${oneClass.price}원</p>
                 </div>
             </div>
-            	<c:set var="totalP" value="${oneClass.price}" />
+            	<c:set var="totalP" value="${oneClass.price * totalPeople}" />
 			</c:if>
 			
 			
@@ -67,6 +67,8 @@
             
             <!-- 정기구독용 주문내역확인 -->
             <c:if test="${ productcate eq 2}">
+            <div>${carrierList }</div>
+            <div>${cartList }</div>
             <div class="product-list">
 			<c:if test="${!empty oneSubsOrder.optionList[4]}">  <c:set var="optionNo4" value="/ ${oneSubsOrder.optionList[4].optioanName} " /> </c:if> 
                 <a href="#"><img src="${contextPath}${oneSubsOrder.classImgList[0].productImgPath}${oneSubsOrder.classImgList[0].productImgName}"></a>
@@ -85,6 +87,24 @@
             </div>
             <c:set var="totalP" value="${oneSubsOrder.totalPrice}" />
             </c:if> 
+            
+            <!-- 정기구독용 주문내역확인 -->
+            <c:if test="${ productcate eq 1}">
+            <div class="product-list">
+			<c:if test="${!empty oneSubsOrder.optionList[4]}">  <c:set var="optionNo4" value="/ ${oneSubsOrder.optionList[4].optioanName} " /> </c:if> 
+                <a href="#"><img src="${contextPath}sd"></a>
+                <div>
+                    <a href="#"><p class="titlesubs">제목</p></a>
+                    <p> 내용
+                    </p>
+                    <input type="hidden" value="dd" name="totalOption">
+                </div>
+                <div>
+                    <p>price 원</p>
+                </div>
+            </div>
+            <c:set var="totalP" value="totalp" />
+            </c:if> 
 
 
             <!-- 주문자 정보 -->
@@ -93,7 +113,6 @@
             </div>
 
             <hr>
-
             <div class="orderer-info">
             
             
@@ -109,8 +128,8 @@
                 </div>
 			</c:if>
             <br>
-            
-            
+            	
+            	
             	
                 
                 <!-- 원데이 클래스 회원 정보 -->
@@ -123,7 +142,7 @@
                 <div class="input-info-div">
                         <div class="p-div"><p>휴대폰번호</p></div>
                  		<div class="span-div"><span>${loginMember.memberPhone}</span></div>
-                 	</div>
+               	</div>
                 
                 <div class="input-info-div">
                       <div class="p-div"><p>이메일</p></div>
@@ -132,7 +151,7 @@
                 </div>
                 <div class="space-div"></div>
                 </c:if>
-                
+                 
                 
                 <c:if test="${  oneClass.productCd ne 3 }">
                 	<div class="loginForm">
@@ -166,10 +185,10 @@
                       <div class="p-div"><p>이메일<span> *</span></p></div>
                       <div class="span-div"><span>${loginMember.memberEmail}</span></div>
                 </div>
-            
+            	
             	</div>
-            
-            
+            	
+            	
             	<!-- 새로운 배송지 선택시 보이는 div-->
             	<div class="newInfo">
                 <div class="input-info">
@@ -229,13 +248,12 @@
                         <div class="p-div"><p>배송메세지</p></div>
                         <div class="input-div">
                             <select class="receiver-info" id="delivery-message-select">
-                                <option>-- 메세지 선택 (선택사항) --</option>
-                                <option value="1">배송 전에 미리 연락바랍니다.</option>
-                                <option value="2">부재 시 경비실에 맡겨주세요.</option>
-                                <option value="3">부재시 문 앞에 놓아주세요.</option>  
-                                <option value="4">빠른 배송 부탁드립니다.</option>  
-                                <option value="5">택배함에 보관해 주세요.</option>  
-                                <option value="0">직접입력</option>
+                                <option>-- 메세지 선택 --</option>
+                                <option value="배송 전에 미리 연락바랍니다.">배송 전에 미리 연락바랍니다.</option>
+                                <option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
+                                <option value="부재시 문 앞에 놓아주세요.">부재시 문 앞에 놓아주세요.</option>  
+                                <option value="빠른 배송 부탁드립니다." selected>빠른 배송 부탁드립니다.</option>  
+                                <option value="택배함에 보관해 주세요.">택배함에 보관해 주세요.</option>  
                             </select>
                             <br>
                             <input type="text" class="receiver-info" id="delivery-message">
@@ -378,13 +396,7 @@
 
 	<jsp:include page="../common/footer.jsp" />
 
-	<!-- iamport.payment.js -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-	
-	<!-- 다음 지도 -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-	<script src="${contextPath}/resources/js/payment/payment.js"></script>
+
   
   <script>
   	const productCd = "${productcate}"
@@ -394,12 +406,46 @@
   	const amount ="${oneSubsOrder.totalAmount}";
   	const totalprice = "${totalP}"
   </script>
+	
+	<!-- 다음 지도 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+  	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script src="${contextPath}/resources/js/payment/payment.js"></script>
   <script>
   if(document.querySelector("#payment-btn") != null){
 	  document.querySelector("#payment-btn").addEventListener("click", function(){
+		if(productCd==3){
+			 const check = peoplecheck(productNo);
+			 			
+			 if(check){	
+				 		
+			 }			
+		}
+		
 	    requestPay();
 	  });
   }
+  
+  function peoplecheck(productNo){
+	  $.ajax({
+		  url : "possibleCheck",
+	        type : "post",
+	        data : {"productNo" : productNo},
+	        dataType : "json",
+	        success : function(data){
+                alert("예약성공!");
+                return true;
+	        },
+	        error: function(){
+	            alert("오류가 발생했습니다.");
+	            return false;
+	        }
+	        return false;
+	  })
+  }
+  
   function requestPay() {
 	  var IMP = window.IMP; // 생략가능
 	  IMP.init('imp64541030');
@@ -431,7 +477,7 @@
 	  buyer_name: '${loginMember.memberName}',
 	  buyer_tel: '${loginMember.memberPhone}',
 	  buyer_addr: '서울특별시 중구 남대문로 120 대일빌딩 2F, 3F',
-	  buyer_postcode: '04540',
+	  buyer_postcode: '04540', 
 	  m_redirect_url: 'https://localhost:8080/payments/complete'
 	  
 	  /*
@@ -441,9 +487,10 @@
   }, 
 	  function (rsp) {
 	  		console.log(rsp);
+	  		let resultUrl =''; 
+	  		let resultpayid ='';
 	  	if (rsp.success) {
-	  		const result_merchant_uid = rsp.merchant_uid;
-	  		saveOrderInfo(result_merchant_uid);
+	  		saveOrderInfo(rsp.imp_uid,rsp.merchant_uid,rsp.paid_amount);
 	  		var msg = '결제가 완료되었습니다.';
 		  		msg += '고유ID : ' + rsp.imp_uid;
 		  		msg += '상점 거래ID : ' + rsp.merchant_uid; // !!! merchant_uid 결제 ID !!!
@@ -452,10 +499,11 @@
 	  } else {
 	  	var msg = '결제에 실패하였습니다.';
 	  		msg += '에러내용 : ' + rsp.error_msg;
+		  	alert(msg);
 	  }
-	  	alert(msg);
+	  	
 	  });
-	
+		
 	  }
   
   </script>

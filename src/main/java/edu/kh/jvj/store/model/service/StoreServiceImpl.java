@@ -103,4 +103,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 
+
+	@Override
+	public List<Store> selectRankProduct() {
+		// TODO Auto-generated method stub
+		return dao.selectRankProduct();
+	}
+
+
 }
