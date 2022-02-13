@@ -410,9 +410,11 @@ $('.review-content').hide();
 $('.review-title').on('click',(e)=>{
 
   const content = $(e.target).parent().next();
+  if( $(e.target).parent().next().css('display') != 'flex'){
 
-  $('.review-content').hide(100);
-  content.slideToggle(500);
+    $('.review-content').hide(100);
+    content.slideToggle(500);
+  }
 });
 
 $('.review-content').on('click',(e)=>{

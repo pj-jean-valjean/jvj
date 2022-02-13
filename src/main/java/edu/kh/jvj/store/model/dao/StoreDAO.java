@@ -75,4 +75,9 @@ public class StoreDAO {
 		return mybatis.delete("storeMapper.expiredSale");
 	}
 
+	public List<Store> selectRankProduct() {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("storeMapper.selectRankProduct");
+	}
+
 }

@@ -87,7 +87,7 @@
 
 					</c:if>
 
-					<c:if test="">
+					<c:if test="${best == pdt.storeNo}">
 						<div class="pdt-label label-best">BEST</div>
 					</c:if>
 
@@ -132,7 +132,7 @@
 	<!-- main-wrapper end-->
 </body>
 <script>
-const contextPath = '${contextPath}';
+
 const loginMember = '${loginMember.memberNo}';
 </script>
 <script type="text/javascript"
