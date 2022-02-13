@@ -10,6 +10,7 @@ public class Carrier {
 	private int memberNo; // 회원번호
 	private int sumPrice; // 합계금액 ( 배송비 미포함 )
 	private int discountPer ; // 할인율
+	private String imgPath;// 이미지
 	public Carrier() {
 		// TODO Auto-generated constructor stub
 	
@@ -62,11 +63,21 @@ public class Carrier {
 	public void setDiscountPer(int discountPer) {
 		this.discountPer = discountPer;
 	}
+	
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
 	@Override
 	public String toString() {
 		return "Carrier [mainProductNo=" + mainProductNo + ", mainQ=" + mainQ + ", optionList=" + optionList
-				+ ", memberNo=" + memberNo + ", sumPrice=" + sumPrice + ", discountPer=" + discountPer + "]";
+				+ ", memberNo=" + memberNo + ", sumPrice=" + sumPrice + ", discountPer=" + discountPer + ", imgPath="
+				+ imgPath + "]";
 	}
 
 	
