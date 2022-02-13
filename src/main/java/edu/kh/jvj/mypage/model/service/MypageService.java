@@ -78,10 +78,9 @@ public interface MypageService {
     
     /** api 회원탈퇴 
      * @param memberNo
-     * @param service
      * @return result
      */
-    int secession(Member loginMember, SnsToken token) throws Exception;
+    int secession(int memberNo) throws Exception;
     
 
     int getKakaoToken(String snsToken) throws Exception;
@@ -115,25 +114,4 @@ public interface MypageService {
 
 	List<Order> selectPurList(Order order);
 
-	
-	
-	/** api 회원탈퇴 
-	 * @param memberNo
-	 * @param service
-	 * @return result
-	 */
-	int secession(Member loginMember, SnsToken token) throws Exception;
-
-	
-	
-
-	int getKakaoToken(String snsToken) throws Exception;
-
-
-	
-
-
-	
-	
-	
 }

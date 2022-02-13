@@ -122,16 +122,8 @@ public class MypageServiceInpl implements MypageService {
 
     // sns 회원 탈퇴
     @Override
-    public int secession(Member loginMember, SnsToken token) throws Exception{
-
-        if( loginMember.getService().equals("naver")) {
-
-        } else if( loginMember.getService().equals("kakao")) {
-
-        }
-
-
-        return dao.secession(0);
+    public int secession(int memberNo) throws Exception{
+        return dao.secession(memberNo);
     }
 
     
@@ -177,26 +169,8 @@ public class MypageServiceInpl implements MypageService {
 		
 		return new Pagination(classCount, cp);
 
-    
-	public int updatePw(Map<String, String> map) {
-
-		String decodePw = dao.selectDecodePw(map.get("memberNo"));
-
-		int pwUpdate = 0;
-
-		if(encoder.matches(map.get("memberPw"), decodePw)) {
-
-			String encPw = encoder.encode(map.get("modifyPw"));
-
-			map.put("modifyPw", encPw);
-
-			pwUpdate = dao.modifyPassword(map);
-		}
-
-		return pwUpdate;
-
 	}
-
+	
 	// 정기 구독 결제 페이지네이션
 	@Override
 	public Pagination subPagination(int cp, Order order) {
@@ -205,24 +179,6 @@ public class MypageServiceInpl implements MypageService {
 		
 		return new Pagination(subCount, cp);
 	}
-
-
-	// sns 회원 탈퇴
-	@Override
-	public int secession(Member loginMember, SnsToken token) throws Exception{
-
-		if( loginMember.getService().equals("naver")) {
-
-		} else if( loginMember.getService().equals("kakao")) {
-
-
-		}
-
-
-
-		return dao.secession(0);
-	}
-
 
 	// 메인 페이지
 	@Override
@@ -255,41 +211,5 @@ public class MypageServiceInpl implements MypageService {
         return kaResult;
 
     }
-
-
-	
-	
-	
-	
-
-	@Override
-	public int getKakaoToken(String snsToken) throws Exception{
-		String reqURL = "https://kapi.kakao.com/v1/user/unlink"; 
-			URL url = new URL(reqURL); 
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
-			conn.setRequestMethod("POST"); 
-			conn.setRequestProperty("Authorization", "Bearer " + snsToken); 
-			int responseCode = conn.getResponseCode(); 
-			System.out.println("responseCode : " + responseCode); 
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream())); 
-			String result = ""; 
-			String line = ""; 
-			while ((line = br.readLine()) != null) { 
-				result += line; 
-			} 
-		
-		int kaResult = 0;
-		if(!result.equals("")) {
-			kaResult = 1;
-		} 
-		
-		return kaResult;
-
-	}
-
-
-
-
-
 
 }
