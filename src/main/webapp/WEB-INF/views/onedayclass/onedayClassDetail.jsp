@@ -69,7 +69,7 @@
                         <span>지점명</span>
                     </div>
                     <div class="subdetail-content"> 
-                          <input type="text" name="place" readonly value="${Oneclass.placeName}"><button onclick="showMaps()"><i class="fas fa-map-marker-alt"></i> 위치</button>
+                          <input type="text" name="place" readonly value="${Oneclass.placeName}"><button onclick="showMaps()" type="button"><i class="fas fa-map-marker-alt"></i> 위치</button>
                     </div>
                 </article>
                 <div class="bottom-line"></div>
@@ -410,7 +410,7 @@ DELIVERY / 배송정보
 	<jsp:include page="../common/footer.jsp" />	
 	<script> 
 		let mapAddress = "${Oneclass.placeAddr}" ;
-		const contextPath = "${contextPath}";
+		/* const contextPath = "${contextPath}"; */
 		const loginNo = "${loginMember.memberNo}"
 		const productNo = "${productNo}"
 	</script>

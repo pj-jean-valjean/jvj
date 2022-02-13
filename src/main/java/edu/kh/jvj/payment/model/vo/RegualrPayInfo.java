@@ -8,6 +8,7 @@ public class RegualrPayInfo {
 	private  String  tid    ;   
 	private  String  partner_order_id    ;   
 	private  int amount       ;
+	private  int amount2       ;
      private int  totalPrice       ;
      private int  memberNo    ;
      private boolean shippingAddrEqualMemberAddr;   
@@ -20,6 +21,14 @@ public class RegualrPayInfo {
      private String userId;
      private  String  sid    ;   
      private  int  turms;
+     
+     
+	public int getAmount2() {
+		return amount2;
+	}
+	public void setAmount2(int amount2) {
+		this.amount2 = amount2;
+	}
 	public int getProductCd() {
 		return productCd;
 	}
