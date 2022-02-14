@@ -326,4 +326,9 @@
 		SELECT COUNT(*)  FROM  PURCHASE
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
+	<update id="deleteCoupon" >
+		UPDATE COUPON SET
+		COU_STATUS_CD = 2
+		WHERE COUPON_NO = #{usedCouponNo}
+	</update>
 </mapper>

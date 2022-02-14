@@ -227,7 +227,7 @@
 			<option value ="0">쿠폰선택</option>
 			</select>
 			<h1>총 할인 금액</h1>
-			<h1>0원</h1>
+			<h1 class="calcDis">0</h1>원
 			
 		</div>
 		<div class="j-sum inline-block">
@@ -237,7 +237,7 @@
 				=
 			</p>
 			<h1>총 결제 금액</h1>
-			<h1 class="lastMaxPrice">0원</h1>
+			<h1 class="lastMaxPrice">0</h1><h1>원</h1>
 			
 		</div>
 		
