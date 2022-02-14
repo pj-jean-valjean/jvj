@@ -33,6 +33,8 @@ function dodouble(){
 setInterval(getTime, 1000);
         //check 변수
         let firstdone = true;
+        let Reviewtoggle = false;
+        let tempRNo =0 ;
         let selectMonth = 0;
         let commonWriteCheckObj={};
         let nomalChekcObj={};

@@ -94,9 +94,9 @@ public class OnedayClassController {
 		List<OnedayClass> oneLineList = service.scrollListAdd(pagination);
 
 		long endMs = System.currentTimeMillis(); // 서비스 종료 시의 ms 값
-
+		
 		long takeTime = (endMs - startMs);
-
+		
 		if (oneLineList.isEmpty()) {
 			log.info("검색기준 : {}", pagination.get("getType"));
 			log.info("결과 : {}", "결과 클래스가 없습니다");

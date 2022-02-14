@@ -48,12 +48,12 @@ function saveOrderInfo(result_imp_uid , result_merchant_uid,paid_amount){
             }
             else{
                 alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
-                cancelPay(result_merchant_uid,paid_amount);
+                //cancelPay(result_merchant_uid,paid_amount);
             }
         },
         error: function(){
             alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
-            cancelPay(result_merchant_uid,paid_amount);
+            //cancelPay(result_merchant_uid,paid_amount);
         }
     })
 }

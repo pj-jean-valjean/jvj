@@ -15,6 +15,8 @@
 	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/admin/summernote-bs4.min.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/admin/reviewWrite.css">
@@ -32,8 +34,7 @@
 	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
 	crossorigin="anonymous">
 <!-- include summernote css/js -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/admin/summernote-bs4.min.css">
+
 <script src="${contextPath}/resources/js/admin/summernote-bs4.min.js"></script>
 <script src="${contextPath}/resources/js/admin/summernote-ko-KR.js"></script>
 </head>
