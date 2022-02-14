@@ -16,6 +16,7 @@ header{
     width: 100%;
     box-shadow: 3px 3px 3px 5px rgba(169, 169, 169, 0.5);
     font-weight: bold;
+    z-index: 10;
 }
 
 .nav{
@@ -102,26 +103,32 @@ header{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
+	backdrop-filter: blur(1px);
 }
 .modal-overlay{
     width: 100%;
 	height: 100%;
 	position: absolute;
+	background-color: #000000;
+	opacity: 0.5;
+	
 }
 
-.modal-content{
+.header-modal-content{
 	position : absolute;
-	padding: 300px 100%;
+	padding: 80px 100%;
 	top: 0px;
 	text-align: center;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-	background-color: white;
 	z-index: 15;
 	display: -webkit-inline-box;
     width: 70%;
     display: grid;
-
+	background-color : #FFF6EE;
 }
+
+
 
 .hidden{
 	display: none;
@@ -171,7 +178,6 @@ header{
 /* --- 모달 영역 끝 ----- */
 
 .deleteBtn{
-	
     width: 15%;
     height: 30px;
     font-weight: bold;
@@ -187,17 +193,45 @@ header{
 }
 
 
-.searchDiv{
+.searchLi{
     display: inline-flex;
     justify-content: center;
     text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 5px solid #DBC6B1;
+}
+ 
+
+.searchLi > p {
+	font-size: 20px;
+    width: 33%;
+    margin-bottom: 10px;
+	color : #323232;
 }
 
-.searchDiv > p {
-    width: 30%;
+
+.searchTr{
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    color : #323232;
 }
 
+.searchTr:hover {
+	border: #FFFFFF;
+	background-color:#DBC6B1;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+}
 
+.searchTr > p{
+	width:33%;
+    margin: 10px;
+}
+.searchList{
+	display: contents;
+}
 
 
 

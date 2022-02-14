@@ -81,7 +81,8 @@
 	<select id="search" resultMap="search_rm">
 		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE
 		FROM PRODUCT 
-		WHERE PRODUCT_NM LIKE #{sv} ||'%'
+		WHERE PRODUCT_NM LIKE '%' || #{sv} || '%'
+		AND PRODUCT_CD = 1
 	</select>
 	
 	
