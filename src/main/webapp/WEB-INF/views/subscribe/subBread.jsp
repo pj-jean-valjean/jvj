@@ -18,11 +18,7 @@
 </head>
 <body>
 	<main>
-<%-- <hr>
-subVOList  => ${subVOList}
-<hr>
-subVOImgList ${subVOImgList}
-<hr> --%>
+
         <section class="top">
             <section class="main-nav">
                 <a href="${contextPath}">HOME</a>
@@ -72,7 +68,13 @@ subVOImgList ${subVOImgList}
 								<div class="heart"></div>
 							</div>
 						</div>
-					</div>
+						<%--  <div class="kakaolink">
+						    <a id="kakao-link-btn" href="javascript:kakaoShare()">
+						    	<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+						    </a>
+						    <span id="kakaolink-text" class="text">카톡으로 <br>공유하기</span>
+						</div> --%>
+					</div> 
                     <span class="price" name="price"> ${subVOList[0].productPrice} 원 </span>
                 </article>
 
@@ -418,6 +420,8 @@ DELIVERY / 배송정보
 	
 	
 <jsp:include page="../common/footer.jsp" />	
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
 const loginMember = "${loginMember.memberNo}";
@@ -515,6 +519,46 @@ function reconfirim(){
 		return false;
 	}
 }
+
+/* 
+//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('551a4828db4bdc904ebb55328c53c9ae');
+//SDK 초기화 여부를 판단합니다.
+console.log(Kakao.isInitialized());
+
+function kakaoShare() {
+<!--  <한글 부분은 각자 설정!!> -->
+	   const productNo =${subVOList[0].productNo}.value;
+	
+	   const subBread= ${subVOList[0].productName};
+	   const url = location.href;
+	   const subBreadImg = ${subVOImgList[0]}.getAttribute("src");
+
+	   console.log(contextPath);
+	   console.log(url);
+	   Kakao.Link.sendDefault({
+	       objectType: 'feed',
+		       content: {
+		       title:  subBread ,
+		       description:  subBread,
+		       imageUrl:  subBreadImg,
+		       link: {
+		           mobileWebUrl: url,
+		           webUrl: url,
+		       },
+	       }, buttons: [
+	   {
+           title: '웹으로 보기',
+           link: {
+           mobileWebUrl: url,
+           webUrl: url,
+           },
+       },
+       ],
+       // 카카오톡 미설치 시 카카오톡 설치 경로이동
+       installTalk: true,
+   })
+} */
 </script>
 
 <script type="text/javascript" src="${contextPath}/resources/js/subscribe/subBread.js"></script>
