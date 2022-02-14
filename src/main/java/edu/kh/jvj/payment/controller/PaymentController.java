@@ -131,12 +131,13 @@ public class PaymentController {
 			return informs;
 		}
 	}
+	
 	@PostMapping("possibleCheck")
+	@ResponseBody
 	public int possibleCheck(int productNo) {
-		
-		
-		
-		return 0;
+		int result = service.possibleCheck(productNo);
+		log.info("신청가능 인원 {}", result);
+		return result;
 	}
 	
 	//일반결제 환불
@@ -356,6 +357,7 @@ public class PaymentController {
 		List<Coupon> coupons= service.callCoupon(memberNo);
 		
 		Map<String, String> informs = new HashMap<String, String>();
+		
 		return coupons;
 	}
 	
