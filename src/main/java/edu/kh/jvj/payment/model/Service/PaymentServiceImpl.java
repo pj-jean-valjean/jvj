@@ -167,7 +167,9 @@ public class PaymentServiceImpl implements PaymentService{
 				result=dao.saveStoreOption(storeInfo);
 				result=dao.saveStorepayKey(storeInfo);
 			}
-			
+			if(Integer.parseInt(storeInfo.getUsedCouponNo())>0) {
+				result = dao.deleteCoupon(storeInfo);
+			}
 			result = dao.deletecart(storeInfo);
 		}
 		
