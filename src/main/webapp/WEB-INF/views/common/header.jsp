@@ -29,6 +29,7 @@
 
 <body>
 	<header>
+	        ${list} ${searchResult}
         <section class="nav">
             <ul class="nav-menu">
                 <li><a href="${contextPath}/subscribe/subMain">정기 구독</a></li>
@@ -61,6 +62,7 @@
 	                    </a>
 	                    <a href="${contextPath}/cart">
 	                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
+
 	                    </a>
 						<a href="${contextPath}/member/logout" title="logout-icon">
 							<img class="logout-img" src="${contextPath}/resources/images/common/icon-logout.png">
@@ -83,28 +85,21 @@
                 </li>
             </ul>
         </section>
-        
         <!-- modal -->
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
-			<div class="header-modal-content">
-				<ul class="searchList">
-					<li class="searchLi">
-						<p class="searchTitle">상품번호</p>
-						<p class="searchContent">상품명</p>
-						<p class="searchPrice">가격(원)</p>
-					</li>
-					
-				</ul>
-				<button class="deleteBtn">x</button>
-			</div>
-				
-				
-			
+				<div class="header-modal-content">
+					<ul class="searchList">
+						<li class="searchLi">
+							<p class="searchTitle">상품번호</p>
+							<p class="searchContent">상품명</p>
+							<p class="searchPrice">가격(원)</p>
+						</li>
+					</ul>
+					<button class="deleteBtn">x</button>
+				</div>
 		</div>
-
 	</header>
-
 	<script>
 	
 		const contextPath = "${contextPath}";
@@ -112,7 +107,7 @@
 		let input = document.getElementById("inputSearch");
 		const modal = document.querySelector(".modal-area");
 		const overlay = modal.querySelector(".modal-overlay");
-		const closeBtn = modal.querySelector("button");
+		const closeBtn = modal.querySelector(".deleteBtn");
 
 		input.focus();
 		input.addEventListener("keyup",function(e){
@@ -140,15 +135,16 @@
 				data : {"sv" : sv},
 				success:function(list){
 					
-					$(".searchTr").html("");
+					$(".resultLink").html("");
 					/* 데이터값 가져오기*/
 					
 					let content = $(".header-modal-content");
 					
+					const li = $('<li class="searchTr">');
+					
 					$.each(list, function(index, searchResult){
 						
-						//const link = $('<a href ="${contextPath}/store/info/" + searchResult.productNo>');
-						const link = $('<a>');	
+						const link = $('<a class="resultLink">');	
 						link.attr("href", "${contextPath}/store/info/" + searchResult.productNo);
 						
 						const li = $('<li class="searchTr">');
