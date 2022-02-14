@@ -143,7 +143,7 @@ function doLike(){
 				likedone = 1;
 			}
 			else {
-				alert("이미 좋아요를 누르셨어요!");
+				//alert("이미 좋아요를 누르셨어요!");
 			}
 		},
 		error: function() {
