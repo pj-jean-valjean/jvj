@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
@@ -277,6 +278,14 @@ public class AdminBoardController {
 		String resultSubsMember= gson.toJson(list); 
 		dataMap.put("pagination", pageJson);
 		dataMap.put("resultSubsMember", resultSubsMember);
+		return dataMap;
+	}
+	@PostMapping("getChartData")
+	public Map<String,String> showSubsMember(){
+		Map<String,String> dataMap = new HashMap<String, String>();
+		Gson gson = new Gson();
+		List<SalesRank> storeSales = service.getStoreRanks();
+		dataMap.put("storeSales", gson.toJson(storeSales));
 		return dataMap;
 	}
 }

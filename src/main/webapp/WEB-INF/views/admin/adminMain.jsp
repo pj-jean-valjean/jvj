@@ -40,7 +40,6 @@
                         <li><a href="${contextPath}/admin/board/route/searchMember">회원 정보 조회</a></li>
                         <li><a href="${contextPath}/admin/board/route/subsMember">구독 회원 조회</a></li>
                         <li><a href="${contextPath}/admin/board/route/searchOrder">주문 조회</a></li>
-                        <li><a>원데이 클래스 회원 조회</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,7 +85,6 @@
                 </div>
             </div>
             <div class="one-admin-func"><a href="${contextPath}/admin/board/route/showSales" id="showChart">매출 분석</a></div>
-            <div class="one-admin-func"><button onclick="sendMessage();" id="msgTest">문자테스트</button></div>
         </aside>
         <section>
             <article id="adminPCont">
