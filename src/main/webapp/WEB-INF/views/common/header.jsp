@@ -89,22 +89,16 @@
 			<div class="modal-overlay"> </div>
 			<div class="modal-content">
 			
-				<table class="searchTable">
-					<tr class="searchTr">
-						<th>상품명</th>
-						<th>내용</th>
-						<th>가격</th>
-					</tr>
-					<tr class="resultTr">
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					
-					
-				</table>
-					
-				<button>x</button>
+				<div class="searchDiv">
+					<p class="searchTitle">상품명</p>
+					<p class="searchContent">내용</p>
+					<p class="searchPrice">가격</p>
+				</div>
+				<div class="searchTr">
+				
+				</div>
+				
+				<button class="deleteBtn">x</button>
 			</div>
 			
 		</div>
@@ -146,7 +140,7 @@
 				data : {"sv" : sv},
 				success:function(list){
 					
-					$(".resultTr").html("");
+					$(".searchTr").html("");
 
 					
 					/* 데이터값 가져오기*/
@@ -157,14 +151,14 @@
 					// console.log(list.sv); 
 					// 접근하는 인덱스, 반복 접근중인 searchResult
 					
-					let tr = $(".resultTr");
-						let resultNo ="";
-						let resultName="";
-						let resultPrice="";
+					let div = $(".searchTr");
+					let resultNo ="";
+					let resultName="";
+					let resultPrice="";
 					$.each(list, function(index, searchResult){
-						resultNo =  $('<td >').text(searchResult.productNo);
-						resultName =  $('<td>').text(searchResult.productName);
-						resultPrice =  $('<td>').text(searchResult.product);
+						resultNo =  $('<p class="searchTitle" >').text(searchResult.productNo);
+						resultName =  $('<p class="searchContent" >').text(searchResult.productName);
+						resultPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
 						
 						tr.append(resultNo, resultName, resultPrice );
 					});

@@ -170,12 +170,32 @@ header{
 
 /* --- 모달 영역 끝 ----- */
 
+.deleteBtn{
+	
+    width: 15%;
+    height: 30px;
+    font-weight: bold;
+    color: white;
+    margin: 20px auto;
+    padding:0;
+    display: inline;
+    border: 0;
+    border-radius: 5px;
+    background-color: #A78A6C;
+    cursor: pointer;
+    text-align : center;
+}
 
 
+.searchDiv{
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+}
 
-
-
-
+.searchDiv > p {
+    width: 30%;
+}
 
 
 
