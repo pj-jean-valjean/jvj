@@ -88,45 +88,22 @@
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
 			<div class="modal-content">
-				searchVO = ${searchVO}
-				search = ${search}
-				LIST = ${list}
-				<%-- 값이 있을 경우 --%>
-                <c:choose>
-					<c:when test="${ !empty sv }">
-						<div>${list.sv }</div>
-						<table>
-							<tr>
-								<td>상품명</td>
-								<td>내용</td>
-								<td>가격</td>
-							</tr>
-							<tr>
-								<td>식빵</td>
-								<td>굿</td>
-								<td>5,00</td>
-							</tr>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<table>
-							<tr>
-								<td>상품명</td>
-								<td>내용</td>
-								<td>가격</td>
-							</tr>
-							
-							<tr>
-								<td>식빵</td>
-								<td>굿</td>
-								<td>5,00</td>
-							</tr>
-
-
-						</table>
-					</c:otherwise>
-				</c:choose>
-				
+			
+				<table class="searchTable">
+					<tr class="searchTr">
+						<th>상품명</th>
+						<th>내용</th>
+						<th>가격</th>
+					</tr>
+					<tr class="resultTr">
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					
+					
+				</table>
+					
 				<button>x</button>
 			</div>
 			
@@ -137,21 +114,6 @@
 	<script>
 	
 		const contextPath = "${contextPath}";
-		
-		// const btnSubmit = document.getElementById("open");
-		// const modal = document.querySelector(".modal-area");
-		// const overlay = modal.querySelector(".modal-overlay");
-		// const closeBtn = modal.querySelector("button");
-		
-		// const openModal = () => {
-		// 			modal.classList.remove("hidden");
-		// 		}
-		// const closeModal = () => {
-		// 	modal.classList.add("hidden");
-		// }
-		// overlay.addEventListener("click", closeModal);
-		// closeBtn.addEventListener("click", closeModal);
-		// btnSubmit.addEventListener("click", openModal);
 		
 		let input = document.getElementById("inputSearch");
 		const modal = document.querySelector(".modal-area");
@@ -183,12 +145,30 @@
 				dataType : "JSON",
 				data : {"sv" : sv},
 				success:function(list){
+					
+					$(".resultTr").html("");
+
+					
 					/* 데이터값 가져오기*/
 					
-					console.log(list);
-					console.log(list[0].productNo);
-					console.log(list[1].productNo);
-					console.log(list.sv);
+					// console.log(list);
+					// console.log(list[0].productNo);
+					// console.log(list[1].productNo);
+					// console.log(list.sv); 
+					// 접근하는 인덱스, 반복 접근중인 searchResult
+					
+					let tr = $(".resultTr");
+						let resultNo ="";
+						let resultName="";
+						let resultPrice="";
+					$.each(list, function(index, searchResult){
+						resultNo =  $('<td >').text(searchResult.productNo);
+						resultName =  $('<td>').text(searchResult.productName);
+						resultPrice =  $('<td>').text(searchResult.product);
+						
+						tr.append(resultNo, resultName, resultPrice );
+					});
+					
 				}
 				
 			});
