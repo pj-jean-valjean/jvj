@@ -191,6 +191,10 @@ public class PaymentDAO {
 	public int deleteCoupon(StoreOrderInfo storeInfo) {
 		return sqlSession.update("paymentMapper.deleteCoupon",storeInfo);
 	}
+
+	public int possibleCheck(int productNo) {
+		return sqlSession.selectOne("paymentMapper.possibleCheck",productNo);
+	}								
 	
 
 }

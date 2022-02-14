@@ -331,4 +331,8 @@
 		COU_STATUS_CD = 2
 		WHERE COUPON_NO = #{usedCouponNo}
 	</update>
+	<select id="possibleCheck" resultType="_int">
+		SELECT CLASS_MAX_PPL-CLASS_ADD_PPL FROM CLASS_DETAIL
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
 </mapper>

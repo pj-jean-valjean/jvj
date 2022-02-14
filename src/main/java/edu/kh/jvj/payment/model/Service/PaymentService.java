@@ -53,4 +53,6 @@ public interface PaymentService {
 
 	List<Coupon> callCoupon(int memberNo);
 
+	int possibleCheck(int productNo);
+
 }

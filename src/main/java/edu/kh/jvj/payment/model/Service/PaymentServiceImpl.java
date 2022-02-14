@@ -180,6 +180,11 @@ public class PaymentServiceImpl implements PaymentService{
 	public List<Coupon> callCoupon(int memberNo) {
 		return dao.callCoupon(memberNo);
 	}
+
+	@Override
+	public int possibleCheck(int productNo) {
+		return dao.possibleCheck(productNo);
+	}
 	
 
 
