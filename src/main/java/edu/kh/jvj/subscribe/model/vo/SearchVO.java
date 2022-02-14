@@ -9,6 +9,7 @@ public class SearchVO {
 	private String productName;
 	private String productCode;
 	private int productPrice;
+	private String storeAmount;
 	
 	
 	// + 인풋 값
@@ -85,14 +86,22 @@ public class SearchVO {
 
 
 
-	@Override
-	public String toString() {
-		return "SearchVO [productNo=" + productNo + ", productName=" + productName + ", productCode=" + productCode
-				+ ", productPrice=" + productPrice + ", sv=" + sv + "]";
+	public String getStoreAmount() {
+		return storeAmount;
+	}
+
+	public void setStoreAmount(String storeAmount) {
+		this.storeAmount = storeAmount;
 	}
 
 
+	@Override
+	public String toString() {
+		return "SearchVO [productNo=" + productNo + ", productName=" + productName + ", productCode=" + productCode
+				+ ", productPrice=" + productPrice + ", storeAmount=" + storeAmount + ", sv=" + sv + "]";
+	}
 
+	
 
 	
 
