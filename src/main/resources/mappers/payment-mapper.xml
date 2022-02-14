@@ -315,8 +315,15 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</delete>
 	<select id="callCoupon" resultMap="coupon_rm">
-		SELECT * FROM COUPON
+		SELECT COUPON_NO,COUPON_NM, DISCOUNT_PER*100 DISCOUNT_PER, 
+		COU_STATUS_CD , MEMBER_NO
+		FROM COUPON
 		WHERE MEMBER_NO = #{memberNo}
 		AND COU_STATUS_CD =1
+		AND SYSDATE &lt; EXPIRE_DT
+	</select>
+	<select id="countSubsMember" resultType="_int">
+		SELECT COUNT(*)  FROM  PURCHASE
+		WHERE PRODUCT_NO = #{productNo}
 	</select>
 </mapper>

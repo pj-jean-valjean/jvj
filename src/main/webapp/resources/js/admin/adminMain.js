@@ -40,6 +40,7 @@ setInterval(getTime, 1000);
         let filecheck=[0 , 0 , 0 , 0];
         let discountset=false;
         let saveDateBtnthis;
+        let tempNo =1437;
         let classCheckObj={};
         /* 페이지네이션 변수 */
         let cp =1;

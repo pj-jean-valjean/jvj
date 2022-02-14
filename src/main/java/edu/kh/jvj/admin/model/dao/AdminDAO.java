@@ -200,4 +200,16 @@ public class AdminDAO {
 		return sqlSession.insert("adminMapper.addMakeCoupons", couponList);
 	}
 
+	public int countSubsMember(Map<String, String> dataMap) {
+		return sqlSession.selectOne("adminMapper.countSubsMember",dataMap);
+	}
+
+	public List<SubsInfo> getSubsList(Map<String, String> dataMap, Pagination page) {
+		int limit =page.getLimit();
+		int offset = (page.getCurrentPage() -1 )* limit;
+		RowBounds rowBounds = new RowBounds(offset, limit); 
+		
+		return sqlSession.selectList("adminMapper.getSubsList",dataMap,rowBounds);
+	}
+
 }

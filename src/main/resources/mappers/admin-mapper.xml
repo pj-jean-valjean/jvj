@@ -25,6 +25,7 @@
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="enrollDt" column="ENROLL_DT" />
 		<result property="statusCode" column="STATUS_CD" />
+		<result property="paysum" column="PAYSUM" />
 	</resultMap>
 	<resultMap type="edu.kh.jvj.admin.model.vo.SimpleProduct" id="product_rm">
 		<id property="productNo" column="PRODUCT_NO" />
@@ -65,6 +66,11 @@
 		<result property="productNo" column="PRODUCT_NO" />
 	</resultMap>
     <resultMap id="subsinfo_rm" extends="product_rm" type="edu.kh.jvj.admin.model.vo.SubsInfo">
+   		<result property="userId" column="MEMBER_EMAIL" />
+		<result property="userNickName" column="MEMBER_NICKNAME" />
+		<result property="StartDay" column="PAYMENT_DT" />
+		<result property="options" column="ORDER_OPTION" />
+		<result property="YN" column="PAYMENT_STATUS" />
      	<collection property="classImgList" column="PRODUCT_NO"
 		javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 		select="selectProductImageList" />
@@ -228,7 +234,9 @@
 	<select id="searchMember" resultMap="member_rm">
 		SELECT 
 		MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_NAME ,
-		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER 
+		NVL ((SELECT SUM(TOTAL_PRICE)  FROM "ORDER" ORD
+		WHERE ORD.MEMBER_NO = MEM.MEMBER_NO) , 0 ) PAYSUM,
+		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER MEM
 		WHERE GRADE_CD = 100
 		<if test="cate == 1">
 			AND MEMBER_EMAIL LIKE '%'||#{search}||'%'
@@ -395,4 +403,20 @@
 			SEQ_GETCOUPON.NEXTVAL , #{couponNo}, #{adminNo}
 		)
 	</insert>
+	<select id="countSubsMember" resultType="_int">
+		SELECT COUNT(*) FROM "PURCHASE"
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<select id="getSubsList" resultMap="subsinfo_rm">
+		SELECT 
+		PRO.PRODUCT_NM,  MEM.MEMBER_EMAIL, MEM.MEMBER_NICKNAME,
+		TO_CHAR(PUR.PAYMENT_DT , 'YYYY-MM-DD') PAYMENT_DT,
+		ORDER_OPTION
+		FROM "PURCHASE" PUR
+		JOIN "MEMBER" MEM ON (MEM.MEMBER_NO = PUR.MEMBER_NO)
+		JOIN PRODUCT PRO ON (PRO.PRODUCT_NO = PUR.PRODUCT_NO)
+		JOIN "ORDER" ORD ON (ORD.PURCHASE_NO =PUR.PURCHASE_NO )
+		JOIN "ORDER_OPTION" USING(ORDER_NO)
+		WHERE PUR.PRODUCT_NO = #{productNo}
+	</select>
 </mapper>

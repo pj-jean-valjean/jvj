@@ -523,5 +523,17 @@ public class AdminServiceImpl implements AdminService{
 		return dao.makingCoupon(mCoupon);
 	}
 
+	@Override
+	public List<SubsInfo> getSubsList(Map<String,String> dataMap, Pagination page) {
+		return dao.getSubsList(dataMap,page);
+	}
+
+	@Override
+	public Pagination countSubsMember(Map<String, String> dataMap) {
+		int cp = Integer.parseInt(dataMap.get("cp"));
+		int listcount = dao.countSubsMember(dataMap);
+		return new Pagination(listcount,cp);
+	}
+
 }
 

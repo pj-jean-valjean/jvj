@@ -44,7 +44,7 @@ function getCoupons(){
         const option = document.createElement("option");
         option.className="discountOpt";
         option.value= option.couponNo;
-        option.innerText = opt.couponName+'__'+(opt.discountPer*100)+'% 쿠폰';
+        option.innerText = opt.couponName+'__'+(opt.discountPer)+' % 쿠폰';
         selbox.append(option);
       }
     },

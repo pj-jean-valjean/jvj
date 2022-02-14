@@ -264,5 +264,19 @@ public class AdminBoardController {
 		int result = service.makingCoupon(mCoupon);
 		return result;
 	}
-	
+	@PostMapping("showSubsMember")
+	public Map<String,String> showSubsMember(@RequestBody Map<String,String> dataMap){
+		
+		System.out.println(dataMap);
+		Pagination page = service.countSubsMember(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<SubsInfo> list = service.getSubsList(dataMap,page);
+		Gson gson = new Gson(); 
+		String pageJson = gson.toJson(page); 
+		String resultSubsMember= gson.toJson(list); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("resultSubsMember", resultSubsMember);
+		return dataMap;
+	}
 }

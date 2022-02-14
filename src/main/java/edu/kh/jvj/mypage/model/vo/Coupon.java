@@ -6,7 +6,7 @@ public class Coupon {
 	
 	private int couponNo; // 쿠폰 번호
 	private String couponName; // 쿠폰 이름
-	private Double discountPer; // 할인률
+	private int discountPer; // 할인률
 	
 	private Date provideDate; // 발급일
 	private Date expireDate; // 만료일
@@ -21,7 +21,7 @@ public class Coupon {
 
 
 
-	public Coupon(int couponNo, String couponName, Double discountPer, Date provideDate, Date expireDate,
+	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
 			int couponStatusCode, String couponStatusName, int memberNo) {
 		super();
 		this.couponNo = couponNo;
@@ -60,13 +60,13 @@ public class Coupon {
 
 
 
-	public Double getDiscountPer() {
+	public int getDiscountPer() {
 		return discountPer;
 	}
 
 
 
-	public void setDiscountPer(Double discountPer) {
+	public void setDiscountPer(int discountPer) {
 		this.discountPer = discountPer;
 	}
 

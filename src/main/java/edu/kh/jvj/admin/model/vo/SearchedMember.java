@@ -14,6 +14,14 @@ public class SearchedMember {
 	private String enrollDt;
 	//STATUS_CD
 	private int statusCode;
+	private int paysum;
+	
+	public int getPaysum() {
+		return paysum;
+	}
+	public void setPaysum(int paysum) {
+		this.paysum = paysum;
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}
