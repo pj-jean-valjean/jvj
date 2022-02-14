@@ -1,7 +1,7 @@
 
 
         const routepath = contextPath+'/admin/board/route/';
-       /* router 구현 */
+        /* router 구현 */
         const routes = [
             { path: routepath+'showSales', component: function(){
                 drawing(); } },

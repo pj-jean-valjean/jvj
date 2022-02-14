@@ -87,6 +87,14 @@
 		<result property="hashName" column="HASHNAME" />
 		<result property="noticeNo" column="NOTICE_NO" />
     </resultMap>
+    <resultMap id="storerank_rm" type="edu.kh.jvj.admin.model.vo.SalesRank">
+     	<id property="rank" column="RANK" />
+		<result property="productNo" column="PRODUCT_NO" />
+		<result property="sales" column="SALES" />
+		<result property="payday" column="PAYMENT_DT" />
+		<result property="productName" column="PRODUCT_NM" />
+    </resultMap>
+    
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -418,5 +426,16 @@
 		JOIN "ORDER" ORD ON (ORD.PURCHASE_NO =PUR.PURCHASE_NO )
 		JOIN "ORDER_OPTION" USING(ORDER_NO)
 		WHERE PUR.PRODUCT_NO = #{productNo}
+	</select>
+	<select id="getStoreRanks" resultMap="storerank_rm">
+		SELECT ROWNUM RANK, SALESFORCE.*, PRODUCT_NM
+		FROM (
+		SELECT  PUR.PRODUCT_NO , COUNT(PUR.PRODUCT_NO) SALES 
+		FROM PURCHASE PUR 
+		JOIN "ORDER" ORD ON(PUR.PURCHASE_NO = ORD.PURCHASE_NO)
+		WHERE PRODUCT_CD = 1
+		GROUP BY PUR.PRODUCT_NO  ) SALESFORCE
+		JOIN PRODUCT PRO ON (SALESFORCE.PRODUCT_NO = PRO.PRODUCT_NO)
+		WHERE ROWNUM &lt;=5
 	</select>
 </mapper>

@@ -12,6 +12,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
@@ -210,6 +211,10 @@ public class AdminDAO {
 		RowBounds rowBounds = new RowBounds(offset, limit); 
 		
 		return sqlSession.selectList("adminMapper.getSubsList",dataMap,rowBounds);
+	}
+
+	public List<SalesRank> getStoreRanks() {
+		return sqlSession.selectList("adminMapper.getStoreRanks");
 	}
 
 }
