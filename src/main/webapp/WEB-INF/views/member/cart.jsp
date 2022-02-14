@@ -93,9 +93,9 @@
 		
 		            <!-- 주문자 정보 -->
             <div class="orderer-info-title">
-                <p class="listTitle">주문자 정보</p>
+                <h2 class="listTitle" style="margin-left:0">주문자 정보</h2>
             </div>
-            <hr>
+           <div class="hr" style="height: 1px; margin: 0 0 30px 0"></div>
                  <div>
                     <input type="radio" name="orderer-addr" class="selectInfo" id="member-addr" value="1" checked> 
                     <label for="member-addr">회원정보와 동일</label>
@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="input-info-div">
-                        <div class="p-div"><p>배송메세지</p></div>
+                        <div class="p-div"><p style="line-height:3">배송메세지</p></div>
                         <div class="input-div">
                             <select class="receiver-info" id="delivery-message-select">
                                 <option>-- 메세지 선택 --</option>
@@ -223,11 +223,11 @@
             
 		<div class="j-sum inline-block">
 			쿠폰 할인: 
-			<select class = "couponCss" >
+			<select class = "couponCss receiver-info"  style="font-size:18px;">
 			<option value ="0">쿠폰선택</option>
 			</select>
 			<h1>총 할인 금액</h1>
-			<h1 class="calcDis">0</h1>원
+			<h1 class="calcDis">0</h1><h1 style="margin-right:20px">원</h1>
 			
 		</div>
 		<div class="j-sum inline-block">
@@ -237,7 +237,7 @@
 				=
 			</p>
 			<h1>총 결제 금액</h1>
-			<h1 class="lastMaxPrice">0</h1><h1>원</h1>
+			<h1 class="lastMaxPrice">0</h1><h1 style="margin-right:20px">원</h1>
 			
 		</div>
 		
