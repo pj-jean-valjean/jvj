@@ -7,9 +7,9 @@
                 drawing(); } },
                 /* 1 조회 업무 */
             { path: routepath+'searchMember', component: function(){
-                memberInfo();firstMemberSearch();} },
+                memberInfo();firstMemberSearch();} },//회원
             { path: routepath+'subsMember', component: function(){
-                subscribingInfo();} },
+                subscribingInfo();} },//구독상품 구매자
             { path: routepath+'searchOrder', component: function(){
                 orderInfo();} },
                 /* 2 게시글작성 -- 공지사항 / 상품등록 */
@@ -181,7 +181,7 @@
                             "<span class='oneMemberInfo'>"+oneLi.memberNickName+"</span>"+
                             "<span class='oneMemberInfo'>"+oneLi.memberName+"</span>"+
                             "<span class='oneMemberInfo'>"+oneLi.enrollDt+"</span>"+
-                            "<span class='oneMemberInfo'>"+"100000"+"</span>";
+                            "<span class='oneMemberInfo'>"+(oneLi.paysum).toLocaleString('ko-KR')+" 원 </span>";
                             if(oneLi.statusCode ==1) inner+="<span class='oneMemberInfo'>"+"정상"+"</span>";
                             else  inner+="<span class='oneMemberInfo'>"+"탈퇴"+"</span>"
                             li.innerHTML = inner;
@@ -208,6 +208,7 @@
 
         //-----------------------------------------------------------------//
         //2. 구독 회원 조회---------------------------------------------------
+        
         function subscribingInfo(){
             contentbox.innerHTML="";
             //이름
@@ -216,23 +217,80 @@
             funcName.innerHTML="<h2>"+"구독회원 조회"+"</h2>"
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine subscribe-search");
-            searchDiv.innerHTML="<select>"+
+            searchDiv.innerHTML="<select name='showSubsMember'>"+
             "<option value='1437'>빵 세트</option>"+
             "<option value='1438'>빵 & 커피 세트</option>"+
             "</select>";
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo'>구독상품명</span>"+
-                "<span class='oneMemberInfo notice-title'>아이디</span>"+
-                "<span class='oneMemberInfo'>닉네임</span>"+
-                "<span class='oneMemberInfo'>구독시작일</span>"+
-                "<span class='oneMemberInfo notice-title'>상세 옵션</span>"+
-                "<span class='oneMemberInfo'>구독중 여부</span>"+
-            "</li>";
+
             contentbox.append(funcName,searchDiv,SearchResult);
+            document.getElementsByName("showSubsMember")[0].addEventListener("change",function(){
+                tempNo= this.value;
+                cp=1;
+                showSubsMember(tempNo)
+            })
+            showSubsMember(tempNo);
         }
+        function showSubsMember(proNo){
+            
+            let httpRequest = new XMLHttpRequest();
+            const jsonObj ={
+                "productNo": tempNo,
+                "cp" : cp
+            }
+            httpRequest.open("POST", contextPath+'/admin/board/showSubsMember', true);
+            httpRequest.responseType = "json";
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify(jsonObj));
+            
+            httpRequest.onreadystatechange = ()=>{
+                if(httpRequest.readyState===XMLHttpRequest.DONE){
+                    if(httpRequest.status ===200){
+                        
+                        const resultData = httpRequest.response;
+                        const resultSubsMember = JSON.parse(resultData.resultSubsMember);
+                        const page = JSON.parse(resultData.pagination);
+                        const parentUl = document.getElementsByClassName("ResultLine")[0];
+                        parentUl.innerHTML = 
+                        "<li class='resultTitle oneMemberResult'>"+
+                            "<span class='oneMemberInfo'>구독상품명</span>"+
+                            "<span class='oneMemberInfo notice-title'>아이디</span>"+
+                            "<span class='oneMemberInfo'>닉네임</span>"+
+                            "<span class='oneMemberInfo'>구독시작일</span>"+
+                            "<span class='oneMemberInfo notice-title'>상세 옵션</span>";
+                        "</li>";
+                        for(oneLi of resultSubsMember){
+                            const li = document.createElement("li");
+                            li.className = "oneMemberResult";
+                            let inner =
+                            "<span class='oneMemberInfo'>"+oneLi.title+"</span>"+
+                            "<span class='oneMemberInfo notice-title'>"+oneLi.userId+"</span>"+
+                            "<span class='oneMemberInfo'>"+oneLi.userNickName+"</span>"+
+                            "<span class='oneMemberInfo'>"+oneLi.StartDay+"</span>"
+                            +"<span class='oneMemberInfo notice-title'>"+oneLi.options+"</span>";
+                            li.innerHTML = inner;
+                            parentUl.append(li);
+                        }
+
+                        /* 페이지네이션 생성 및 동작  */
+                        parentUl.append(makePagination(page));
+                        addPageFunc(showSubsMember, page,cate,search); 
+                    }
+                    else{
+
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
         //-----------------------------------------------------------------//
 
         //3. 주문 조회--------------------------------------------------------
@@ -462,8 +520,8 @@
                 success : function(data) {
                     console.log(data);
                     console.log(data.noticeTitle);
-                    document.querySelector("input[name='title']").value = data.noticeTitle;
-                    document.querySelector("select[name='noticecate']").value = data.noticeCd;
+                    document.querySelector("input[name='noticeTitle']").value = data.noticeTitle;
+                    document.querySelector("select[name='noticeCd']").value = data.noticeCd;
                     if(document.querySelector(".note-placeholder") !=null){
                         document.querySelector(".note-placeholder").innerText=""; 
                     }

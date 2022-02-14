@@ -106,5 +106,9 @@ public interface AdminService {
 	List<String> selectImgList();
 
 	int makingCoupon(MadeCoupon mCoupon);
+
+	List<SubsInfo> getSubsList(Map<String,String> dataMap, Pagination page);
+
+	Pagination countSubsMember(Map<String, String> dataMap);
 	
 }
