@@ -87,19 +87,19 @@
         <!-- modal -->
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
-			<div class="modal-content">
-			
-				<div class="searchDiv">
-					<p class="searchTitle">상품명</p>
-					<p class="searchContent">내용</p>
-					<p class="searchPrice">가격</p>
-				</div>
-				<div class="searchTr">
-				
-				</div>
-				
+			<div class="header-modal-content">
+				<ul class="searchList">
+					<li class="searchLi">
+						<p class="searchTitle">상품번호</p>
+						<p class="searchContent">상품명</p>
+						<p class="searchPrice">가격(원)</p>
+					</li>
+					
+				</ul>
 				<button class="deleteBtn">x</button>
 			</div>
+				
+				
 			
 		</div>
 
@@ -141,28 +141,25 @@
 				success:function(list){
 					
 					$(".searchTr").html("");
-
-					
 					/* 데이터값 가져오기*/
 					
-					// console.log(list);
-					// console.log(list[0].productNo);
-					// console.log(list[1].productNo);
-					// console.log(list.sv); 
-					// 접근하는 인덱스, 반복 접근중인 searchResult
+					let content = $(".header-modal-content");
 					
-					let div = $(".searchTr");
-					let resultNo ="";
-					let resultName="";
-					let resultPrice="";
 					$.each(list, function(index, searchResult){
-						resultNo =  $('<p class="searchTitle" >').text(searchResult.productNo);
-						resultName =  $('<p class="searchContent" >').text(searchResult.productName);
-						resultPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
 						
-						tr.append(resultNo, resultName, resultPrice );
+						//const link = $('<a href ="${contextPath}/store/info/" + searchResult.productNo>');
+						const link = $('<a>');	
+						link.attr("href", "${contextPath}/store/info/" + searchResult.productNo);
+						
+						const li = $('<li class="searchTr">');
+						const resultNo =  $('<p class="searchTitle" >').text(searchResult.productNo);
+						const resultName =  $('<p class="searchContent" >').text(searchResult.productName);
+						const resultPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
+						li.append(resultNo, resultName, resultPrice );
+						link.append(li);
+						
+						$(".searchList").append(link);
 					});
-					
 				}
 				
 			});
