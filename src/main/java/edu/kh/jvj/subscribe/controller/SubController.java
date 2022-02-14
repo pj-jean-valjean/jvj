@@ -169,7 +169,14 @@ public class SubController {
 	public String search(SearchVO search) {
 		List<SearchVO> list = service.search(search);
 		
-		return new Gson().toJson(list);
+		System.out.println(list);
+		
+		Gson gson = new Gson();
+		String jsonList = gson.toJson(list);
+		
+		System.out.println(jsonList);
+		
+		return jsonList;
 	}
 	
 	
