@@ -88,11 +88,13 @@
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
 			<div class="modal-content">
-			
+				searchVO = ${searchVO}
+				search = ${search}
+				LIST = ${list}
 				<%-- 값이 있을 경우 --%>
                 <c:choose>
 					<c:when test="${ !empty sv }">
-						<div>${searchVO.sv }</div>
+						<div>${list.sv }</div>
 						<table>
 							<tr>
 								<td>상품명</td>
@@ -156,7 +158,7 @@
 		const overlay = modal.querySelector(".modal-overlay");
 		const closeBtn = modal.querySelector("button");
 
-		input.focus()
+		input.focus();
 		input.addEventListener("keyup",function(e){
 			
 			if (e.code == "Enter") { //엔터키 입력 시 
@@ -178,13 +180,16 @@
 			
 			$.ajax({
 				url: contextPath + "/subscribe/main/search",
-				dataType : "json",
+				dataType : "JSON",
 				data : {"sv" : sv},
 				success:function(list){
 					/* 데이터값 가져오기*/
-					console.log("list"+list);
-				
-				}	
+					
+					console.log(list);
+					console.log(list[0].productNo);
+					console.log(list[1].productNo);
+					console.log(list.sv);
+				}
 				
 			});
 		}	
