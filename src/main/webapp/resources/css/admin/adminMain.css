@@ -328,9 +328,29 @@
         .reviewId{
             width: 20%!important;
         }
+
         .showR{
             color:#A78A6C;
             cursor: pointer;
+        }
+        /* 차트 */
+        #newboxs{
+            display: flex;
+            padding: 30px;
+        }
+        .chartTitle{
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration:underline;
+            margin-bottom: 10px;
+        }
+        .salerank{
+            color: #A78A6C;
+            margin-right: 5px;
+        }
+        .disrank{
+            font-size: 18px;
+            padding: 20px;
         }
         /* 달력 모달 */
         .cal { 

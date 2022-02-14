@@ -15,7 +15,6 @@ document.getElementById("showChart").addEventListener("click", e=>{
 })
 
 function drawing(){
-
     $.ajax({
         url : contextPath+"/admin/board/getChartData",
         data : {},
@@ -24,24 +23,41 @@ function drawing(){
         success : function(data) {
             const result = JSON.parse(data.storeSales);
             console.log(result);
+            contentbox.innerHTML="";
             let names = [];
             let ranks = [];
             let counts = [];
-            let dates = [];
+            const newbox =document.createElement("div")
+            newbox.setAttribute("id", "newboxs");
+            newbox.setAttribute("width" , "100%");
+            newbox.setAttribute("height" , "100%");
+            contentbox.append(newbox);
+            const divbox = document.createElement("div")
+            divbox.setAttribute("id", "rank");
+            divbox.setAttribute("width" , "500px");
+            divbox.setAttribute("height" , "500px");
+
             for(let i = 0 ; i< result.length ; i++){
                 names[i] = result[i].productName;
                 counts[i] = result[i].sales;
                 ranks[i] = result[i].rank;
+                const div = document.createElement("div")
+                div.className="disrank";
+                div.innerHTML = "<span class='salerank'> "+(result.length-i)+"위</span> " 
+                + names[i] +" ("+counts[i] +" 개 )";
+                divbox.prepend(div);
             }
             console.log(names);
-            contentbox.innerHTML="";
-
+            const div = document.createElement("div")
+            div.className = "chartTitle"
+            div.innerText ="<주간 스토어 판매 순위!>"
+            divbox.prepend(div);
             const canvas= document.createElement("canvas")
             canvas.setAttribute("id", "chartdiv");
             canvas.setAttribute("width" , "700");
             canvas.setAttribute("height" , "500");
-    
-            contentbox.append(canvas);
+
+            newbox.append(divbox,canvas);
             
 
 
@@ -65,7 +81,7 @@ function drawing(){
                     {
                         label: names[2],
                         data :[counts[2]],
-                        backgroundColor: "yellow"
+                        backgroundColor: "purple"
                     },
                     {
                         label: names[3],

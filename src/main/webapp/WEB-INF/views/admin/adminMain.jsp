@@ -84,7 +84,13 @@
                     </ul>
                 </div>
             </div> --%>
-            <div class="one-admin-func"><a href="${contextPath}/admin/board/route/showSales" id="showChart">매출 분석</a></div>
+            <div class="one-admin-func">▶매출분석
+         		<div class="addAdmin">
+                    <ul class="eachW">
+                        <li><a href="${contextPath}/admin/board/route/showSales" id="showChart">스토어 판매 순위</a></li>
+                    </ul>
+                </div>
+            </div>
         </aside>
         <section>
             <article id="adminPCont">
@@ -121,8 +127,8 @@
 		const adminNo ="${loginAdmin.memberNo}"
 	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMain.js"></script>
-	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainMethod.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainChart.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/admin/adminMainMethod.js"></script>
 	
 </body>
 </html>
