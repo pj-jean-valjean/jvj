@@ -100,8 +100,11 @@ $(".couponCss").on("change", function(){
   const texts = $(".couponCss option:checked").text()
   const last1 = texts.lastIndexOf('_');
   const last2 = texts.indexOf('%');
-  const text2 = texts.slice(last1+1, last2-1) / 100;
+  let text2 = texts.slice(last1+1, last2-1) / 100;
   const totalp = $(".resultPrice").text().replace("원","");
+  if(couponNo==0){
+    text2 =0
+  }
   const calc = parseInt(totalp * text2);
   $(".calcDis").text(calc);
   $(".discountPrice").text(calc);

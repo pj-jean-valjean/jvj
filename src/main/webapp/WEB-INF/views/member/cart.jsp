@@ -80,7 +80,7 @@
 						</c:forEach>
 					</div>
 					<div style="width: 204px; height: 195px; text-align: center;">
-						<h2 class="cartSumPrice" style="margin-top: 80px">1000원</h2>
+						<h2 class="cartSumPrice" style="margin-top: 80px">0원</h2>
 
 					</div>
 
@@ -233,7 +233,7 @@
 		<div class="j-sum inline-block">
 			<p>
 				총 주문 금액 <b class="resultPrice">0</b> + 배송비 <b class="taxPrice">3,000</b>원
-				- 할인 금액 <b class="discountPrice"> 1000</b>원
+				- 할인 금액 <b class="discountPrice"> 0</b>원
 				=
 			</p>
 			<h1>총 결제 금액</h1>
