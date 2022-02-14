@@ -291,26 +291,25 @@
                                     const newinfoLine = document.createElement("span");
                                     newinfoLine.className = "newinfoLine";
                                         const basesta = document.createElement("span");
-                                        basesta.className = "review-ratings-reals";
+                                        basesta.className = "review-ratings-bases";
                                         basesta.innerText="★★★★★";
                                         const realstar = document.createElement("span");
                                         realstar.className = "review-ratings-reals";
                                         realstar.innerText="★★★★★";
-                                        const rating = document.createElement("span")
+                                        const rating = document.createElement("span");
                                         rating.innerText = " (" + oneclass.ratingAgv +")";
+                                        realstar.style.width = (60 * (oneclass.ratingAgv / 5)) + "px";
                                         const heartshape = document.createElement("i");
                                         heartshape.className="fas fa-heart";
-                                        const likecount = document.createElement("span")
+                                        const likecount = document.createElement("span");
                                         likecount.innerText = oneclass.likecount;
                                         const mapshape = document.createElement("i");
                                         mapshape.className="fas fa-map-marker-alt";
-                                        const place = document.createElement("span")
+                                        const place = document.createElement("span");
                                         place.innerText = oneclass.placeName;
                                     newinfoLine.append(basesta,realstar,rating,heartshape,likecount,mapshape,place);
-
                                     const price = document.createElement("span");
                                     price.innerText = oneclass.price.toLocaleString('ko-KR')+" 원";
-
                                 atag.append(thumb,title,newinfoLine,price)
                                 newClassInfo.append(atag);
                                 oneNewClass.append(newDate,newClassInfo);

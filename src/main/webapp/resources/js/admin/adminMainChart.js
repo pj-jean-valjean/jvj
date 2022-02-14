@@ -73,8 +73,8 @@ function drawing(){
                         backgroundColor: "red"
                     },
                     {
-                        label: names[3],
-                        data :[counts[3]],
+                        label: names[4],
+                        data :[counts[4]],
                         backgroundColor: "orange"
                     }
                 ]

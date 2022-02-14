@@ -322,7 +322,16 @@
             width: 100px;
             height: 70%;
         }
-        
+        .reviewno{
+            width: 15%!important;
+        }
+        .reviewId{
+            width: 20%!important;
+        }
+        .showR{
+            color:#A78A6C;
+            cursor: pointer;
+        }
         /* 달력 모달 */
         .cal { 
             position: absolute; 

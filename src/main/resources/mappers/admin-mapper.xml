@@ -94,6 +94,15 @@
 		<result property="payday" column="PAYMENT_DT" />
 		<result property="productName" column="PRODUCT_NM" />
     </resultMap>
+    <resultMap id="reviews_rm" type="edu.kh.jvj.admin.model.vo.Reviews">
+     	<id property="reviewNo" column="REVIEW_NO" />
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="userId" column="MEMBER_EMAIL" />
+		<result property="reviewPoint" column="REVIEW_POINT" />
+		<result property="reviewTitle" column="REVIEW_TITLE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewStatus" column="REVIEW_STATUS_CD" />
+    </resultMap>
     
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
@@ -191,7 +200,6 @@
 		) MATCHRESULT
 		JOIN MEMBER MR ON (MATCHRESULT.MEMBER_NO= MR.MEMBER_NO)
 	</select>
-	
 	
 	<!-- 공지사항 카운트 -->
 	<select id="countNotice"  resultType="_int">
@@ -438,4 +446,42 @@
 		JOIN PRODUCT PRO ON (SALESFORCE.PRODUCT_NO = PRO.PRODUCT_NO)
 		WHERE ROWNUM &lt;=5
 	</select>
+	<select id="countReview" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT_REVIEW 
+			JOIN PRODUCT USING (PRODUCT_NO)
+			JOIN MEMBER USING(MEMBER_NO)
+		<if test=" cate gt 0 and cate lt 4">
+			WHERE PRODUCT_CD = #{cate}
+			AND PRODUCT_NM LIKE '%'|| #{search} ||'%'
+		</if>
+		<if test="cate==4">
+			WHERE MEMBER_EMAIL LIKE '%'|| #{search} ||'%'
+		</if>
+	</select>
+	<select id="getReviewList" resultMap="reviews_rm">
+			SELECT 
+			REVIEW_NO,
+			PRODUCT_NM, MEMBER_EMAIL,
+			REVIEW_TITLE,REVIEW_POINT,
+			REVIEW_STATUS_CD
+			FROM PRODUCT_REVIEW 
+			JOIN MEMBER USING(MEMBER_NO)
+			JOIN PRODUCT USING (PRODUCT_NO)
+		<if test=" cate gt 0 and cate lt 4">
+			WHERE PRODUCT_CD = #{cate}
+			AND PRODUCT_NM LIKE '%'|| #{search} ||'%'
+		</if>
+		<if test="cate==4">
+			WHERE MEMBER_EMAIL LIKE '%'|| #{search} ||'%'
+		</if>
+	</select>
+	<select id="getReview" resultType="string">
+		SELECT REVIEW_CONTENT FROM PRODUCT_REVIEW
+		WHERE REVIEW_NO = #{reviewNo} 
+	</select>
+	<update id="blindReview">
+		UPDATE PRODUCT_REVIEW
+		SET REVIEW_STATUS_CD = #{setStatus}
+		WHERE REVIEW_NO = #{reviewNo} 
+	</update>
 </mapper>

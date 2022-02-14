@@ -12,6 +12,7 @@ import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.Reviews;
 import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
@@ -215,6 +216,27 @@ public class AdminDAO {
 
 	public List<SalesRank> getStoreRanks() {
 		return sqlSession.selectList("adminMapper.getStoreRanks");
+	}
+
+	public int countReview(Map<String, String> dataMap) {
+		return sqlSession.selectOne("adminMapper.countReview",dataMap);
+	}
+
+	public List<Reviews> getReviewList(Map<String, String> dataMap, Pagination page) {
+		
+		int limit =page.getLimit();
+		int offset = (page.getCurrentPage() -1 )* limit;
+		RowBounds rowBounds = new RowBounds(offset, limit); 
+		
+		return sqlSession.selectList("adminMapper.getReviewList",dataMap,rowBounds);
+	}
+
+	public String getReview(int reviewNo) {
+		return sqlSession.selectOne("adminMapper.getReview",reviewNo);
+	}
+
+	public int blindReview(Map<String, Integer> dataMap) {
+		return sqlSession.update("adminMapper.blindReview",dataMap);
 	}
 
 }

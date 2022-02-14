@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.jvj.admin.model.vo.Admin;
 import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.Reviews;
 import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
@@ -113,5 +114,13 @@ public interface AdminService {
 	Pagination countSubsMember(Map<String, String> dataMap);
 
 	List<SalesRank> getStoreRanks();
+
+	Pagination countReview(Map<String, String> dataMap);
+
+	List<Reviews> getReviewList(Map<String, String> dataMap, Pagination page);
+
+	String getReview(int reviewNo);
+
+	int blindReview(Map<String, Integer> dataMap);
 	
 }

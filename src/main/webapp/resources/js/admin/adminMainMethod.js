@@ -25,7 +25,9 @@
                 optionProductWrite(); } },
                 /* 3 글관리 */
             { path: routepath+'reviewManage', component: function(){
-                reviewManage();} },
+                reviewManage();
+                document.getElementById("searchreview").click();
+            } },
             { path: routepath+'noticeManage', component: function(){
                 modifyWrite();searchNotice();} },
                 { path: routepath+'modifyNotice', component: function(){
@@ -326,7 +328,7 @@
             contentbox.append(funcName,searchDiv,SearchResult);
         }
         //-----------------------------------------------------------------//
-        //글관리1- 후기 관리
+        //글관리1- 리뷰 관리
         function reviewManage(){
             contentbox.innerHTML="";
             //이름
@@ -335,26 +337,175 @@
             funcName.innerHTML="<h2>"+"리뷰 관리"+"</h2>"
             const searchDiv = document.createElement("div");
             searchDiv.setAttribute("class", "oneLine search-review");
-            searchDiv.innerHTML="<select>"+
-            "<option>All</option>"+
-            "<option>일반 상품 별</option>"+
-            "<option>구독 상품 별</option>"+
-            "<option>클래스 상품 별</option>"+
-            "<option>아이디 별</option>"+
-            "<input type='text' class='inputboxs'><button class='opencal'>검색</button>";
+            searchDiv.innerHTML="<select name='review_searchby'>"+
+            "<option value='0'>All</option>"+
+            "<option value='1'>스토어 상품 별</option>"+
+            "<option value='2'>구독 상품 별</option>"+
+            "<option value='3'>클래스 상품 별</option>"+
+            "<option value='4'>아이디 별</option>"+
+            "<input type='text' class='inputboxs'><button class='opencal' type='button' value='1' id='searchreview'>검색</button>";
             const SearchResult = document.createElement("ul");
             SearchResult.setAttribute("class", "ResultLine");
-            SearchResult.innerHTML=
-            "<li class='resultTitle oneMemberResult'>"+
-                "<span class='oneMemberInfo sequence'>글 번호</span>"+
-                "<span class='oneMemberInfo'>상품명</span>"+
-                "<span class='oneMemberInfo'>아이디</span>"+
-                "<span class='oneMemberInfo notice-title'>후기 내용</span>"+
-                "<span class='oneMemberInfo'>블라인드 여부</span>"+
-                "<span class='oneMemberInfo'>후기 처리</span>"+
-            "</li>";
             contentbox.append(funcName,searchDiv,SearchResult);
             enterfunc();
+            document.getElementById("searchreview").addEventListener("click", function(){
+                cp = this.value;
+                cate = document.querySelector("select[name='review_searchby']").value;
+                search = document.querySelector(".inputboxs").value;
+                searchReview();
+            })
+        }
+
+        function searchReview(){
+            let httpRequest = new XMLHttpRequest();
+            const reqJson  = {
+                "search": search,
+                "cate" : cate,
+                "cp" : cp
+            } 
+            /* Post 방식으로 요청 */
+            httpRequest.open("POST", contextPath+'/admin/board/reviewselect' , true);
+            /* Response Type 을 Json으로  */
+            httpRequest.responseType = "json";
+            /* 요청 헤더에 컨텐츠 타입 json 명시 */
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            /* 데이더 json으로 변환 후 전송하기 */
+            httpRequest.send(JSON.stringify(reqJson));
+            //readyState가 변화했을 때 함수 실행
+            httpRequest.onreadystatechange = ()=>{
+                if(httpRequest.readyState === XMLHttpRequest.DONE){
+                //readyState가 Done이고 응답값이 200이면
+                    if(httpRequest.status ===200){
+                        //성공
+                        const result = httpRequest.response;
+                        console.log(result);
+                        const reviewList = JSON.parse(result.reviewList);
+                        const page = JSON.parse(result.pagination);
+                        console.log(reviewList);
+                        const ul = document.querySelector(".ResultLine");
+                        ul.innerHTML=
+                        "<li class='resultTitle oneMemberResult'>"+
+                            "<span class='oneMemberInfo reviewno'>글 번호</span>"+
+                            "<span class='oneMemberInfo'>상품명</span>"+
+                            "<span class='oneMemberInfo reviewId'>아이디</span>"+
+                            "<span class='oneMemberInfo  reviewId'>리뷰 제목</span>"+
+                            "<span class='oneMemberInfo '>별점</span>"+
+                            "<span class='oneMemberInfo'>블라인드 여부</span>"+
+                            "<span class='oneMemberInfo'>블라인드 처리</span>"+
+                        "</li>";
+
+                        if(reviewList.length ==0){
+                            console.log("결과없음");
+                            const li = document.createElement("li");
+                            li.className = "oneMemberResult";
+                            li.innerHTML="<div style='font-size:20px;'>조회되는 결과가 없습니다</div>";
+                            ul.append(li);
+                            return;
+                        }
+                        for(review of reviewList){
+                            let status='';
+                            if(review.reviewStatus==0) status='정상 리뷰'
+                            else if(review.reviewStatus==1) status='블라인드 리뷰'
+                            else status='삭제'
+                            const li = document.createElement("li");
+                            li.className = "oneMemberResult";
+                            const inner =
+                            "<span class='oneMemberInfo reviewno'>"+review.reviewNo+"</span>"+
+                            "<span class='oneMemberInfo'>"+review.productName+"</span>"+
+                            "<span class='oneMemberInfo  reviewId'>"+review.userId+"</span>"+
+                            "<span class='oneMemberInfo  reviewId showR' onclick='showRcontent(this)'>"+review.reviewTitle+"</span>"+
+                            "<span class='oneMemberInfo '>"+review.reviewPoint+"</span>"+
+                            "<span class='oneMemberInfo'>"+status+"</span>"+
+                            "<span class='oneMemberInfo'><button onclick='doblind(this)'>블라인드</button></span>";
+                            li.innerHTML = inner;
+                            ul.append(li);
+                        }
+                        cate = result.cate;
+                        search = result.search;
+                        /* 페이지네이션 생성 및 동작  */
+                        ul.append(makePagination(page));
+                        addPageFunc(searchNotice, page,cate,search);
+
+                    }
+                    else{
+                        //실패
+                    }
+                }
+            }
+        }
+        function showRcontent(btn){
+            const nos = btn.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+            
+            if(!Reviewtoggle){
+                $.ajax({
+                    url : contextPath+'/admin/board/getReview',
+                    type: "post",
+                    data: {"reviewNo" : nos},
+                    success : function(content){
+                        Reviewtoggle= true;
+                        tempRNo = nos;
+                        const lis = document.createElement("li");
+                        lis.className = "appendreviewC";
+                        lis.innerHTML = content;
+                        btn.parentElement.after(lis);
+                    },
+                    error : function(){
+                        alert("에러발생")
+                    }
+                })
+            }
+            else if(nos == tempRNo){
+                document.querySelector(".appendreviewC").remove();
+                Reviewtoggle= false;
+            }
+            else {
+                document.querySelector(".appendreviewC").remove();
+                $.ajax({
+                    url : contextPath+'/admin/board/getReview',
+                    type: "post",
+                    data: {"reviewNo" : nos},
+                    success : function(content){
+                        Reviewtoggle= true;
+                        tempRNo = nos;
+                        const lis = document.createElement("li");
+                        lis.className = "appendreviewC";
+                        lis.innerHTML = content;
+                        btn.parentElement.after(lis);
+                    },
+                    error : function(){
+                        alert("에러발생")
+                    }
+                })
+            }
+        }
+        function doblind(btn){
+            const nowstatus = btn.parentElement.previousElementSibling.innerText;
+            const nos = btn.parentElement.parentElement.firstElementChild.innerText;
+            console.log(nos);
+            let msg = '';
+            let doing = 0;
+            if(nowstatus=='블라인드 리뷰'){
+                msg= "블라인드처리를 취소하시겠습니까?";
+            }
+            else{
+                msg= "블라인드처리 하시겠습니까?";
+                doing= 1;
+            }
+            if(confirm(msg)){
+                $.ajax({
+                    url : contextPath+'/admin/board/blindReview',
+                    type: "post",
+                    data: {"reviewNo" : nos,
+                        "setStatus" : doing
+                    },
+                    success : function(result){
+                        searchReview();
+                    },
+                    error : function(){
+                        alert("에러발생")
+                    }
+                })
+            }
         }
         //-----------------------------------------------------------------//
         
@@ -774,7 +925,6 @@
                         const resultData = httpRequest.response;
                         /* 이미지처리 */
                         const showImgs = document.querySelectorAll(".images>img");
-                        console.log(resultData);
                         if(resultData==null){
                             alert("상품 오류, DB 수정 필요");
                             window.history.back();

@@ -12,6 +12,7 @@
 		<result property="placeCd" column="PLACE_CODE"></result>
 		<result property="classStatusName" column="CLASS_STATUS_NM"></result>
 		<result property="classtime" column="CLASS_TIME"></result>
+		<result property="ratingAgv" column="AVGPOINT"></result>
 		<result property="placeName" column="PLACE_NM"></result>
 		<result property="likecount" column="LIKECOUNT"></result>
 		<result property="imgPathName" column="PRODUCT_IMG_PATH"></result>
@@ -48,6 +49,7 @@
 	
 	<select id="scrollListAdd" resultMap="onedayclass_list">
 		SELECT (SELECT COUNT (*) FROM "LIKE" WHERE PRODUCT_NO = RSSET.PRODUCT_NO) LIKECOUNT,
+		(SELECT TRUNC(NVL(AVG(REVIEW_POINT),0),1) FROM PRODUCT_REVIEW WHERE PRODUCT_NO = RSSET.PRODUCT_NO) AVGPOINT,
 		RSSET.*
 		FROM(
 		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE, 

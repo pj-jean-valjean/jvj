@@ -39,7 +39,7 @@
                     <ul class="eachW">
                         <li><a href="${contextPath}/admin/board/route/searchMember">회원 정보 조회</a></li>
                         <li><a href="${contextPath}/admin/board/route/subsMember">구독 회원 조회</a></li>
-                        <li><a href="${contextPath}/admin/board/route/searchOrder">주문 조회</a></li>
+                        <%-- <li><a href="${contextPath}/admin/board/route/searchOrder">주문 조회</a></li> --%>
                     </ul>
                 </div>
             </div>
@@ -77,13 +77,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="one-admin-func">▶마케팅 업무
+<%--             <div class="one-admin-func">▶마케팅 업무
                 <div class="addAdmin">
                     <ul class="eachW">
                         <li><a href="${contextPath}/admin/board/route/sendCouponToMember">전체 회원 SMS</a></li>
                     </ul>
                 </div>
-            </div>
+            </div> --%>
             <div class="one-admin-func"><a href="${contextPath}/admin/board/route/showSales" id="showChart">매출 분석</a></div>
         </aside>
         <section>
