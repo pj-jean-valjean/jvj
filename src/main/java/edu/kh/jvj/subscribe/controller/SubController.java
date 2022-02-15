@@ -95,12 +95,26 @@ public class SubController {
 	
 	// 커피 상세 조회
 	@GetMapping("subCoffee")
-	public String subCoffee(SubVO subVO, Model model) {
+	public String subCoffee(SubVO subVO, Model model,@RequestParam(value="sr",required=false,defaultValue ="0")int sr ,
+			@RequestParam(value="cp",required=false,defaultValue ="1")int cp) {
 		long startMs = System.currentTimeMillis(); // 서비스 시작 시의 ms 값
 		Map<String , Integer> map = new HashMap<>();
 		
 		map.put("productNo", 1438);
-		
+		int no = 1438;
+		// 리뷰 가져오기 ( no 에 상품 번호 넣기 , 클래스 파라미터에 RvSearch 가져오기)
+		Pagination pagination = rService.getPagination(cp,no);
+		RvSearch search = new RvSearch();
+		search.setCp(cp);
+		search.setNo(no);
+		search.setSr(sr);
+		List<Review> reviewList = rService.selectReviewList(pagination,search);
+		if(!reviewList.isEmpty()) {
+			model.addAttribute("reviewList",reviewList);
+			model.addAttribute("pagination",pagination);
+			model.addAttribute("search",search);
+		}
+		////////////////////////////////////////////////////////////////////
 		List<SubVO> subVOList = service.selectSubBread(map);
 		List<ProductImage> subVOImgList = service.selectProductImageList(map);
 		
