@@ -23,22 +23,6 @@ public class Coupon {
 
 
 
-	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
-			int couponStatusCode, String couponStatusName, int memberNo, String service) {
-		super();
-		this.couponNo = couponNo;
-		this.couponName = couponName;
-		this.discountPer = discountPer;
-		this.provideDate = provideDate;
-		this.expireDate = expireDate;
-		this.couponStatusCode = couponStatusCode;
-		this.couponStatusName = couponStatusName;
-		this.memberNo = memberNo;
-		this.service = service;
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
@@ -154,6 +138,25 @@ public class Coupon {
 	public void setService(String service) {
 		this.service = service;
 	}
+
+
+
+	public Coupon(int couponNo, String couponName, Double discountPer, Date provideDate, Date expireDate,
+			int couponStatusCode, String couponStatusName, int memberNo, String service) {
+		super();
+		this.couponNo = couponNo;
+		this.couponName = couponName;
+		this.discountPer = discountPer;
+		this.provideDate = provideDate;
+		this.expireDate = expireDate;
+		this.couponStatusCode = couponStatusCode;
+		this.couponStatusName = couponStatusName;
+		this.memberNo = memberNo;
+		this.service = service;
+	}
+
+
+
 
 
 
