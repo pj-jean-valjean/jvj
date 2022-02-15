@@ -141,10 +141,12 @@ document.querySelector("#check-email-Authentication").addEventListener("click", 
 					$("#email-Authentication").css("background-color", "initial");
 					document.getElementById("certificationYN").value = "true";
 					searchPwResult.checkEmail= true;
+					searchPwResult.checkAuthentication = true;
 					
 					memberEmail.onchange = function(){
 						document.getElementById("certificationYN").value = "false";
 						searchPwResult.checkEmail = true;
+						searchPwResult.checkAuthentication = true;
 					}
 				} else{
 					$("#email-Authentication").css("background-color", "#F99C9C");
