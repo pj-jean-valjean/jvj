@@ -214,7 +214,6 @@
 					<p>총 구매 금액</p>
 					<span class="resultPrice"></span>
 				</article>
-
 				<div class="submit-sub">
 					<button class="shopping-btn"
 						onclick=<c:if test="${not empty loginMember }"> 'cart();'</c:if>
