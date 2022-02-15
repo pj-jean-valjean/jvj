@@ -1,7 +1,9 @@
 package edu.kh.jvj.review.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,14 @@ public class ReviewController {
 		// 1.회원번호로 결제테이블을 불러온다.
 		List<Review> orderList =  service.selectOrder(member.getMemberNo());	
 		List<Review> realList =  new ArrayList<Review>();
-		
+		int tempNo[] = {} ;
 		// 2. 이미지 불러오기
+		Set<Integer> set = new HashSet<Integer>();
+	for(Review review2 : orderList) {
+		set.add(review2.getProductNo());
+	}
 		for(Review review : orderList) {
+			
 			//2.1 프로덕트 넘버로 리뷰썻는지 안썻는지 카운트
 			Review rv  = new Review(); 
 			rv.setMemberNo(member.getMemberNo());
@@ -45,10 +52,17 @@ public class ReviewController {
 			int cr = service.countReview(rv);
 			review.setImgPath(service.selectImgPath(review.getProductNo()));	
 			
+		
+			   
 			if ( or<=cr) {
 				continue;
 			}else {
+				
+			if(set.contains(review.getProductNo())) {
 				realList.add(review);
+				set.remove(review.getProductNo());
+			}
+				
 			}
 		 
 		}

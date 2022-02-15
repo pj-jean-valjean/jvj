@@ -103,8 +103,7 @@
 		</section>
 	</main>
 	<jsp:include page="../common/footer.jsp" />
-	<script> const contextPath = "${contextPath}";
-		</script>
+
 	<script type="text/javascript"
 		src="${contextPath}/resources/js/admin/reviewWrite.js"></script>
 </body>

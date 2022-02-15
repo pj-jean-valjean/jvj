@@ -14,6 +14,7 @@ public class Member {
 	private Date enrollDate;
 	private int statusCode;
 	private int gradeCode;
+	private String edt;
 	
 	// 로그인 api용 변수
 	private String service;
@@ -22,16 +23,6 @@ public class Member {
 	
 	
 	public Member() {}
-
-
-
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
-				+ ", memberNickname=" + memberNickname + ", memberName=" + memberName + ", memberPhone=" + memberPhone
-				+ ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", statusCode=" + statusCode
-				+ ", gradeCode=" + gradeCode + ", service=" + service + ", memberId=" + memberId + "]";
-	}
 
 
 
@@ -155,6 +146,18 @@ public class Member {
 
 
 
+	public String getEdt() {
+		return edt;
+	}
+
+
+
+	public void setEdt(String edt) {
+		this.edt = edt;
+	}
+
+
+
 	public String getService() {
 		return service;
 	}
@@ -179,9 +182,19 @@ public class Member {
 
 
 
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberEmail=" + memberEmail + ", memberPw=" + memberPw
+				+ ", memberNickname=" + memberNickname + ", memberName=" + memberName + ", memberPhone=" + memberPhone
+				+ ", memberAddress=" + memberAddress + ", enrollDate=" + enrollDate + ", statusCode=" + statusCode
+				+ ", gradeCode=" + gradeCode + ", edt=" + edt + ", service=" + service + ", memberId=" + memberId + "]";
+	}
+
+
+
 	public Member(int memberNo, String memberEmail, String memberPw, String memberNickname, String memberName,
-			String memberPhone, String memberAddress, Date enrollDate, int statusCode, int gradeCode, String service,
-			String memberId) {
+			String memberPhone, String memberAddress, Date enrollDate, int statusCode, int gradeCode, String edt,
+			String service, String memberId) {
 		super();
 		this.memberNo = memberNo;
 		this.memberEmail = memberEmail;
@@ -193,15 +206,13 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.statusCode = statusCode;
 		this.gradeCode = gradeCode;
+		this.edt = edt;
 		this.service = service;
 		this.memberId = memberId;
 	}
 
 
 
-	
-
-	
 	
 	
 }

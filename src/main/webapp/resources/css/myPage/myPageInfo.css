@@ -220,3 +220,11 @@ input[id="cbInput"]{
 .divNav .subText{ margin-top: 20px;}
 .divNav .topText{ margin-bottom: 10px;}
 .divNav .mTopText{ margin-top: 55px;}
+
+
+#snsInfoDelete, #infoDelete{
+    margin-left: 95px;
+}
+.secessionDeleteBtn{
+	text-align: center;
+}

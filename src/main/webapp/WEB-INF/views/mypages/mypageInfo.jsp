@@ -232,7 +232,7 @@
                 </div>
               </form>
               
-              <div class="subBtn">
+              <div class="subBtn secessionDeleteBtn">
                     <c:choose>
                     	<c:when test="${!empty loginMember.service}">
 		                    <button type="button" id="snsInfoDelete" onclick="location.href='secession'">계정 연동 해지하기</button>

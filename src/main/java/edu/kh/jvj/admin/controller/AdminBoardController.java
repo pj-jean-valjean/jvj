@@ -216,10 +216,10 @@ public class AdminBoardController {
 	}
 	//공지사항 수정 
 	@PostMapping("noticeUpdate")
-	public int noticeUpdate(String title,	String noticecate,
+	public int noticeUpdate(String noticeTitle,	String noticeCd,
 			String editordata, String noticeNo) {
 		int result =0;
-		result = service.updateNotice(title, noticecate, editordata, noticeNo);
+		result = service.updateNotice(noticeTitle, noticeCd, editordata, noticeNo);
 		return result;
 	}
 	
