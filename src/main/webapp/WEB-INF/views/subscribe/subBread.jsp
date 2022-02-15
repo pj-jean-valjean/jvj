@@ -80,7 +80,7 @@
 							</div>
 						 </div>
 					</div> 
-                    <span class="price" name="price"> ${subVOList[0].productPrice} 원 </span>
+                    <span class="price" name="price">20,000 원 </span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -197,7 +197,7 @@
 	                <article class="total-price">
 	                
 	                    <p>총 구매 금액
-		                    <span id="totalprice" class="showprice">10</span>
+		                    <span id="totalprice" class="showprice">20,000</span>
 		                    <span class="showprice">원</span>
 	                    </p>
 	                </article>
