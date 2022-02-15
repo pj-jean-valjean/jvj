@@ -11,7 +11,7 @@
 
 <style type="text/css">
 /* 채팅리스트 */
-
+	html {overflow:hidden;} 
 	ul>li{
 	    display: inline-block;
 	    list-style: none;
@@ -115,7 +115,7 @@
     
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden; overflow-y:auto;">
 	<main>
 		<section>
         <div class="chatting_div">

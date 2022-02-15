@@ -124,6 +124,13 @@ public interface MypageService {
 	 */
 	int cancelOnedayClass(Order order);
 
+	
+
+	/** 회원 가입일 계산
+	 * @param member
+	 * @return
+	 */
+	int memberDate(Member loginMember);
 
 
 }
