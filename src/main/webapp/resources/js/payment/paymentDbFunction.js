@@ -239,14 +239,6 @@ function saveStoreOrderInfo(rsp_imp_uid,rsp_merchant_uid,rsp_paid_amount){
         success : function(data){
             const returnurl = data.msg
             console.log(returnurl);
-            if(returnurl=='결제완료'){
-                alert("결제완료!");
-                location.href = contextPath+"/cart"
-            }
-            else{
-                alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
-                //cancelPay(rsp_merchant_uid,rsp_paid_amount);
-            }
         },
         error: function(){
             alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
