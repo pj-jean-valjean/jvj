@@ -85,6 +85,7 @@
 		LEFT JOIN STORE_DETAIL USING (PRODUCT_NO)
 		WHERE PRODUCT_NM LIKE '%' || #{sv} || '%'
 		AND PRODUCT_CD = 1
+		AND STORE_AMOUNT &gt; 0
 	</select>
 	
 	
