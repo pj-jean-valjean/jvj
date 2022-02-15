@@ -72,18 +72,17 @@
    
    
    
-   <%-- ${mainList} --%>
-    	
+   
+    	${mainList}
     	
     	<c:forEach var="mainList" items="${mainList}" begin="1" end="1">
         <article class="mainImg">
-        	
-            <p class="mainText1" ><span>${mainList.memberName}</span>님 반가워요</p><br>
-            <p class="mainText2">고객님과 저희의 인연은 <span>${mainList.edt}일째</span> 입니다.</p>
-            
-            <div >
-            	<img src="${contextPath}/resources/images/mypage/myPage_main_bread.jpg" alt="" id="mainImage">
-         	</div>
+        
+            <p class="mainText1"><span style="color:white; font-weight: bold;">${mainList.memberName}</span>님 반가워요</p><br>
+            <p class="mainText2">고객님과 저희의 인연은 <span style="color:white; font-weight: bold;">${mainList.edt}일째</span> 입니다.</p>
+            <p class="mainText3">고객님이 보유하신 멤버쉽 포인트는 <span>10000포인트</span> 입니다.</p>  
+            <img src="${contextPath}/resources/images/mypage/myPage_main_bread.jpg" alt="">
+         
         </article>
 		
     	

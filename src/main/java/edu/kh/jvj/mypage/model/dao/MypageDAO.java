@@ -14,6 +14,7 @@ import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Purchase;
+import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Repository
@@ -25,6 +26,7 @@ public class MypageDAO {
 	
 	/** 쿠폰 페이지 전체 쿠폰 수
 	 * @param coupon 
+	 * @param search 
 	 * @param member 
 	 * @param coupon 
 	 * @return
@@ -36,6 +38,7 @@ public class MypageDAO {
 
 	/** 페이지에 보여지는 쿠폰 수 지정
 	 * @param pagination
+	 * @param search 
 	 * @return
 	 */
 	public List<Coupon> getCouponList(Pagination pagination, Coupon coupon) {

@@ -9,6 +9,9 @@ import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
+import edu.kh.jvj.mypage.model.vo.Pagination2;
+import edu.kh.jvj.mypage.model.vo.Purchase;
+import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 public interface MypageService {
@@ -16,6 +19,7 @@ public interface MypageService {
 	/** 쿠폰 페이지네이션
 	 * @param cp
 	 * @param coupon 
+	 * @param search 
 	 * @param serch 
 	 * @return
 	 */

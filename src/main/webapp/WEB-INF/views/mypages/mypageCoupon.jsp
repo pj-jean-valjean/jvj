@@ -119,7 +119,7 @@
 		                	<c:if test="${couponList.couponStatusCode == 1}">
 			                	<tr class="tb-tbd">
 			                        <td>${couponList.couponName}</td>
-			                        <td>${couponList.discountPer}%</td>
+			                        <td>${couponList.discountPer}</td>
 			                        <td>${couponList.provideDate}</td>
 			                        <td>${couponList.expireDate}</td>
 			                        <td>${couponList.couponStatusName}</td>
@@ -129,7 +129,7 @@
 			                <c:if test="${couponList.couponStatusCode == 2}">
 		                		<tr class="tb-tbd">
 			                	<td class="dontCoupon">${couponList.couponName}</td>
-						        <td class="dontCoupon">${couponList.discountPer}%</td>
+						        <td class="dontCoupon">${couponList.discountPer}</td>
 						        <td class="dontCoupon">${couponList.provideDate}</td>
 						        <td class="dontCoupon">${couponList.expireDate}</td>
 						        <td class="dontCoupon">${couponList.couponStatusName}</td>
@@ -139,7 +139,7 @@
 			                <c:if test="${couponList.couponStatusCode == 3}">
 		                		<tr class="tb-tbd">
 			                	<td class="dontCoupon">${couponList.couponName}</td>
-						        <td class="dontCoupon">${couponList.discountPer}%</td>
+						        <td class="dontCoupon">${couponList.discountPer}</td>
 						        <td class="dontCoupon">${couponList.provideDate}</td>
 						        <td class="dontCoupon">${couponList.expireDate}</td>
 						        <td class="dontCoupon">${couponList.couponStatusName}</td>

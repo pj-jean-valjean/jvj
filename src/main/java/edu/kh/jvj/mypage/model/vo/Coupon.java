@@ -6,7 +6,7 @@ public class Coupon {
 	
 	private int couponNo; // 쿠폰 번호
 	private String couponName; // 쿠폰 이름
-	private int discountPer; // 할인률
+	private Double discountPer; // 할인률
 	
 	private Date provideDate; // 발급일
 	private Date expireDate; // 만료일
@@ -20,6 +20,32 @@ public class Coupon {
 	
 
 	public Coupon() {}
+
+
+
+	public Coupon(int couponNo, String couponName, Double discountPer, Date provideDate, Date expireDate,
+			int couponStatusCode, String couponStatusName, int memberNo, String service) {
+		super();
+		this.couponNo = couponNo;
+		this.couponName = couponName;
+		this.discountPer = discountPer;
+		this.provideDate = provideDate;
+		this.expireDate = expireDate;
+		this.couponStatusCode = couponStatusCode;
+		this.couponStatusName = couponStatusName;
+		this.memberNo = memberNo;
+		this.service = service;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
+				+ ", provideDate=" + provideDate + ", expireDate=" + expireDate + ", couponStatusCode="
+				+ couponStatusCode + ", couponStatusName=" + couponStatusName + ", memberNo=" + memberNo + ", service="
+				+ service + "]";
+	}
 
 
 
@@ -47,13 +73,13 @@ public class Coupon {
 
 
 
-	public int getDiscountPer() {
+	public Double getDiscountPer() {
 		return discountPer;
 	}
 
 
 
-	public void setDiscountPer(int discountPer) {
+	public void setDiscountPer(Double discountPer) {
 		this.discountPer = discountPer;
 	}
 
@@ -131,33 +157,9 @@ public class Coupon {
 
 
 
-	@Override
-	public String toString() {
-		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
-				+ ", provideDate=" + provideDate + ", expireDate=" + expireDate + ", couponStatusCode="
-				+ couponStatusCode + ", couponStatusName=" + couponStatusName + ", memberNo=" + memberNo + ", service="
-				+ service + "]";
-	}
-
-
-
-	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
-			int couponStatusCode, String couponStatusName, int memberNo, String service) {
-		super();
-		this.couponNo = couponNo;
-		this.couponName = couponName;
-		this.discountPer = discountPer;
-		this.provideDate = provideDate;
-		this.expireDate = expireDate;
-		this.couponStatusCode = couponStatusCode;
-		this.couponStatusName = couponStatusName;
-		this.memberNo = memberNo;
-		this.service = service;
-	}
-
-
 	
-
+	
+	
 	
 	
 	
