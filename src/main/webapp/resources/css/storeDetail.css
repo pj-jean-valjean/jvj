@@ -93,16 +93,14 @@ main{
     margin-right: 0;
 }
 .review-content{
-	display:block!important;
+	
 }
 .review-content>p>img{
 	display: block;
 	width: 150px!important;
 	height : 150px;
 }
-.review-content>p{
-	display:
-}
+
 /* 우측 세부내용 */
 .product_detail{  
     width: 47%;
@@ -659,5 +657,8 @@ footer{
 }
 .review-content{
     cursor:pointer;
-    height: 400px;
+    height: 60px;
+}
+.review-content>*{
+    display:inline-block;
 }
