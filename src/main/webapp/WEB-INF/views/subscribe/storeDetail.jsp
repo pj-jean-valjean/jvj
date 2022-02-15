@@ -43,7 +43,6 @@
                 <img class="sub-img img-margin" src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg" alt="sub-bread-main">
             </div>
             </section>
-
             <section class="product_detail">
                 <article class="category_product">
                     <div class="category-title">
@@ -63,7 +62,8 @@
                 <div class="bottom-line"></div>
 
                 <article class="delivery-detail">
-                    <span>배송비: 3,000원 (3만원 이상 구매 시, </span>
+                    <span>배송비: 3,000원 (3만원 이상 구매 시, 
+                    </span>
                     <span class="delievery-span">무료배송!</span>
                     <span>)</span>
                 </article>
@@ -416,6 +416,5 @@ DELIVERY / 배송정보
 	
 	
 	<jsp:include page="../common/footer.jsp" />	
-	<script type="text/javascript" src="${contextPath}/resources/js/store/storeDetail.js"></script>
 </body>
 </html>
