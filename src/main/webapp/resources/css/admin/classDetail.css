@@ -166,6 +166,7 @@ main{
     border: none;
     width: 150px;
     line-height: 40px;
+    outline: 0;
 }
 .subdetail-content>button{
     color: white;
