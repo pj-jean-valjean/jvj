@@ -148,10 +148,10 @@
 						link.attr("href", "${contextPath}/store/info/" + searchResult.productNo);
 						
 						const li = $('<li class="searchTr">');
-						const resultNo =  $('<p class="searchTitle" >').text(searchResult.productNo);
-						const resultName =  $('<p class="searchContent" >').text(searchResult.productName);
-						const resultPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
-						li.append(resultNo, resultName, resultPrice );
+						const searchTitle =  $('<p class="searchTitle" >').text(searchResult.productNo);
+						const searchContent =  $('<p class="searchContent" >').text(searchResult.productName);
+						const searchPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
+						li.append(searchTitle, searchContent, searchPrice );
 						link.append(li);
 						
 						$(".searchList").append(link);
