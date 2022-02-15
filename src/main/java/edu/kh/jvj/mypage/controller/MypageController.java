@@ -28,7 +28,6 @@ import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
-import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Controller
@@ -157,7 +156,7 @@ public class MypageController {
 	
 	// 마이페이지 쿠폰
 	@RequestMapping(value = "coupon", method = RequestMethod.GET)
-	public String mypageCoupon( Coupon coupon, Search search,
+	public String mypageCoupon( Coupon coupon, 
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
 			Model model, @ModelAttribute("loginMember") Member loginMember
 			) {

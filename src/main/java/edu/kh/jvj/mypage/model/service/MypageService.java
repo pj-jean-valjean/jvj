@@ -11,7 +11,6 @@ import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
 import edu.kh.jvj.mypage.model.vo.Purchase;
-import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 public interface MypageService {

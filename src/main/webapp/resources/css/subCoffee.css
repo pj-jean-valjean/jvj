@@ -51,7 +51,11 @@ main{
     
     object-fit: cover;
 }
-
+.review-content>p>img{
+	display: block;
+	width: 150px!important;
+	height : 150px;
+}
 .main-img-area:hover img{
     transform:scale(1.1);
     transition-duration:0.4s;
@@ -574,6 +578,14 @@ main{
 	position: relative;
 	z-index: -1;
 }
+
+/* 카톡 공유하기 */
+.kakao-img{
+	width: 45px;
+}
+
+
+/* 리뷰 */
 .review-title{
     cursor: pointer;
 }
@@ -581,3 +593,19 @@ main{
     cursor:pointer;
     height: 400px;
 }
+  .heart.heart-active{
+   animation: animate .8s steps(28) 1;
+   background-position: right;
+ position:relative; z-index:-1;
+   
+    
+ }
+ @keyframes animate {
+   0%{
+     background-position: left;
+   }
+   100%{
+     background-position: right;
+   }
+ }   
+    

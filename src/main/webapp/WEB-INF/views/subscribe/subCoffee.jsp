@@ -65,12 +65,24 @@
                 <article class="category_product">
                     <div class="category-title">
                         <span>${subVOList[0].productName}</span>
-                        <div class="heart-btn">
-							<div class="heart-content">
-								<div class="heart"></div>
+
+						<div class="top-btn-area">
+							<div class="heart-btn">
+								<div class="heart-content">
+									<div class="heart"></div>
+								</div>
+							</div>
+							<div class="kakao-content">
+								<div class="kakaolink ">
+									<a id="kakao-link-btn" href="javascript:kakaoShare()"> 
+										<img class="kakao-img" src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 45px;" />
+									</a>
+									<!-- <span id="kakaolink-text" class="text">카톡으로 <br>공유하기</span> -->
+								</div>
 							</div>
 						</div>
-                    </div>
+
+					</div>
                     <span class="price">${subVOList[0].productPrice} 원</span>
                 </article>
 
@@ -415,11 +427,20 @@ DELIVERY / 배송정보
 
 
 <jsp:include page="../common/footer.jsp" />	
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
 const loginMember = "${loginMember.memberNo}";
 const cp = '${param.cp}';
 const sr = '${param.sr}';
+
+
+const subBread= "${subVOList[0].productName}";
+const url = location.href;
+const subBreadImg = document.querySelector("body > main > section.top > section.product-thumbnail > div > img:nth-child(1)").getAttribute('src')
+
+
 function chooseBtn(){
 	// 빵 버튼 제외 모두 비활성화
 	$(".btn").not(".bread-btn").attr("disabled", true);
@@ -524,6 +545,42 @@ function reconfirim(){
 		return false;
 	}
 }
+
+
+
+//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('551a4828db4bdc904ebb55328c53c9ae');
+//SDK 초기화 여부를 판단합니다.
+console.log(Kakao.isInitialized());
+
+function kakaoShare() {
+<!--  <한글 부분은 각자 설정!!> -->
+
+	   console.log(contextPath);
+	   console.log(url);
+	   Kakao.Link.sendDefault({
+	       objectType: 'feed',
+		       content: {
+		       title:  subBread ,
+		       description:  subBread,
+		       imageUrl:  subBreadImg,
+		       link: {
+		           mobileWebUrl: url,
+		           webUrl: url,
+		       },
+	       }, buttons: [
+	   {
+           title: '웹으로 보기',
+           link: {
+           mobileWebUrl: url,
+           webUrl: url,
+           },
+       },
+       ],
+       // 카카오톡 미설치 시 카카오톡 설치 경로이동
+       installTalk: true,
+   })
+} 
 </script>
 
 <%-- <script type="text/javascript" src="${contextPath}/resources/js/subscribe/subCoffee.js"></script> --%>

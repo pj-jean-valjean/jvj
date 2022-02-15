@@ -75,7 +75,11 @@ main{
 .img-margin:last-child{
     margin-right: 0;
 }
-
+.review-content>p>img{
+	display: block;
+	width: 150px!important;
+	height : 150px;
+}
 /* 우측 세부내용 */
 .product_detail{  
     width: 47%;
@@ -545,12 +549,24 @@ main{
 .text.heart-active{
     color: #000;
     }
-.heart-active{
-    animation: animate 0.8s steps(28) 1;
-    background-position: right;
-    position:relative; 
-    z-index:-1;
-    }
+
+  .heart.heart-active{
+   animation: animate .8s steps(28) 1;
+   background-position: right;
+ position:relative; z-index:-1;
+   
+    
+ }
+ @keyframes animate {
+   0%{
+     background-position: left;
+   }
+   100%{
+     background-position: right;
+   }
+ }   
+    
+    
     .review-title{
         cursor: pointer;
     }

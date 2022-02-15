@@ -83,7 +83,11 @@ main{
     margin-right: 0;
 }
 
-
+.review-content>p>img{
+	display: block;
+	width: 150px!important;
+	height : 150px;
+}
 
 /* 우측 세부내용 */
 .product_detail{  
@@ -529,10 +533,16 @@ main{
     font-size: 13px;
 }
 
+/* 좋아요, 카톡 공유하기 div */
+.top-btn-area{
+    display: flex;
+}
+
 /* heart */
 .heart-btn {
 	float: right;
 	width: 49px;
+	margin-right: 15px;
 }
 
 .heart-content {
@@ -573,9 +583,27 @@ main{
 }
 
 
+  .heart.heart-active{
+   animation: animate .8s steps(28) 1;
+   background-position: right;
+ position:relative; z-index:-1;
+   
+    
+ }
+ @keyframes animate {
+   0%{
+     background-position: left;
+   }
+   100%{
+     background-position: right;
+   }
+ }   
+    
 
-
-
+/* 카톡 공유하기 */
+.kakao-img{
+	width: 45px;
+}
 
 
 

@@ -29,13 +29,13 @@
 				<h1 >정기구독</h1>
 			</div>
 	
-			<div class="subs-wrap" >
+			<div class="subs-wrap main-img-area" >
 			<a href="${contextPath}/subscribe/subBread">
-					<img class="subs-item subs-img1" src="${contextPath}/resources/images/subscribe/subMain_bread.jpg" alt="subMain_bread">
+					<img class="subs-item subs-img1 " src="${contextPath}/resources/images/subscribe/subMain_bread.jpg" alt="subMain_bread">
 					<p>빵 세트</p>
 				</a>
 			</div>
-			<div class="subs-wrap">
+			<div class="subs-wrap main-img-area">
 				<a href="${contextPath}/subscribe/subCoffee">
 					<img class="subs-item subs-img2" src="${contextPath}/resources/images/subscribe/subMain_coffee.jpg" alt="subMain_coffee">
 					<p>빵 & 커피 세트</p>
