@@ -223,11 +223,12 @@ public class MypageServiceInpl implements MypageService {
 	
 	
 
+
 	// 구독 취소
 	@Override
 	public int cancelSubscription(Order order) {
 		return dao.cancelSubscription(order);
-	}
+
 
 	
 		

@@ -186,11 +186,11 @@ $(".deliveryDay-btn").on("click", function() {
 let resultNum = document.getElementById('result').innerText;
 const price = document.querySelector(".price").innerText.replace(",","").replace("원","");
 
+	let resultCount = document.getElementById("result");
+    let totalprice= document.getElementById("totalprice");
 
 /* 수량 증가 */
 function plusCount(){
-	let resultCount = document.getElementById("result");
-    let totalprice= document.getElementById("totalprice");
     
     resultCount.innerText = ++resultNum;
     /* 원화 단위 콤마포함한 값 대입*/					 
@@ -199,13 +199,17 @@ function plusCount(){
 
 /* 수량 감소 */
 function minusCount(){
-	if(resultNum!=0){
-		let resultCount = document.getElementById("result");
-	    let totalprice= document.getElementById("totalprice");
+	if(resultNum!=0){ // 0이 아니라면
+		/*let resultCount = document.getElementById("result");
+	    let totalprice= document.getElementById("totalprice");*/
 	    
 	    resultCount.innerText = --resultNum;				 
 	    totalprice.innerText = (resultNum*parseInt(price)).toLocaleString('ko-KR');
     }
+    else if(resultNum == 0){
+		resultCount.inner
+	}
+    
 }
 
 

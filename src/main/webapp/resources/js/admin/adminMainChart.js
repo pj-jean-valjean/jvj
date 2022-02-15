@@ -43,9 +43,9 @@ function drawing(){
                 ranks[i] = result[i].rank;
                 const div = document.createElement("div")
                 div.className="disrank";
-                div.innerHTML = "<span class='salerank'> "+(result.length-i)+"위</span> " 
-                + names[i] +" ("+counts[i] +" 개 )";
-                divbox.prepend(div);
+                div.innerHTML = "<span class='salerank'>"+(i+1)+"위 </span>" 
+                + "<a target='_blink' class='rankatype' href='"+contextPath+"/store/info/"+result[i].productNo+"'> "+names[i] +"</a> ("+counts[i] +" 개 )";
+                divbox.append(div);
             }
             console.log(names);
             const div = document.createElement("div")
@@ -69,30 +69,55 @@ function drawing(){
                 data : {
                     labels: ['판매량 차트'],
                     datasets: [{
-                        label: names[0],
-                        data :[counts[0]],
+                        label: names[9],
+                        data :[counts[9]],
                         backgroundColor: "lime"
                     },
                     {
-                        label: names[1],
-                        data :[counts[1]],
+                        label: names[8],
+                        data :[counts[8]],
                         backgroundColor: "blue"
                     },
                     {
-                        label: names[2],
-                        data :[counts[2]],
+                        label: names[7],
+                        data :[counts[7]],
                         backgroundColor: "purple"
                     },
                     {
-                        label: names[3],
-                        data :[counts[3]],
+                        label: names[6],
+                        data :[counts[6]],
                         backgroundColor: "red"
+                    },
+                    {
+                        label: names[5],
+                        data :[counts[5]],
+                        backgroundColor: "orange"
                     },
                     {
                         label: names[4],
                         data :[counts[4]],
-                        backgroundColor: "orange"
-                    }
+                        backgroundColor: "gray"
+                    },
+                    {
+                        label: names[3],
+                        data :[counts[3]],
+                        backgroundColor: "black"
+                    },
+                    {
+                        label: names[2],
+                        data :[counts[2]],
+                        backgroundColor: "pink"
+                    },
+                    {
+                        label: names[1],
+                        data :[counts[1]],
+                        backgroundColor: "green"
+                    },
+                    {
+                        label: names[0],
+                        data :[counts[0]],
+                        backgroundColor: "yellowgreen"
+                    },
                 ]
                 },
                 options:{

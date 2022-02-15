@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -183,10 +184,14 @@ public class PaymentController {
 	//정기결제 카카오
 	@GetMapping(value= "/kapay",produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String kapayTest(RegualrPayInfo regualrPayInfo) {
+	public String kapayTest(RegualrPayInfo regualrPayInfo, HttpServletRequest req) {
+		
+
 		
 		//시퀀스 가져오기
 		int seq = service.getPerchaseSeq();
+		System.out.println("카카오 페이가 시작됩니다!!!"+seq);
+		System.out.println("카카오 페이가 시작됩니다!!!");
 		try {
 		URL addr =new URL("https://kapi.kakao.com/v1/payment/ready");
 		
@@ -199,6 +204,9 @@ public class PaymentController {
 		kapayconn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		kapayconn.setDoOutput(true);
 		//이 연결을 통해서 서버에 전해줄것이 있는지 여부
+		
+		String paths = req.getContextPath();
+		
 		String parameter = "cid=TCSUBSCRIP" // 가맹점 코드
 				+ "&partner_order_id="+seq // 가맹점 주문번호
 				+ "&partner_user_id="+encodeUserId// 가맹점 회원 id
@@ -207,9 +215,9 @@ public class PaymentController {
 				+ "&total_amount="+regualrPayInfo.getTotalPrice()// 총 금액
 				+ "&vat_amount=0" // 부가세
 				+ "&tax_free_amount=0" // 상품 비과세 금액
-				+ "&approval_url=http://localhost:8080/jvj/payment/payresult?partner_order_id="+seq // 결제 성공 시
-				+ "&fail_url=http://localhost:8080/fail" // 결제 실패 시
-				+ "&cancel_url=http://localhost:8080/jvj/subscribe/subBread";
+				+ "&approval_url="+"http://kh-aclass.xyz:8080/jvj/"+"/payment/payresult?partner_order_id="+seq // 결제 성공 시
+				+ "&fail_url="+"http://kh-aclass.xyz:8080/jvj/"+"/fail/asdsadsad" // 결제 실패 시
+				+ "&cancel_url="+"http://kh-aclass.xyz:8080/jvj/"+"/subscribe/subBread";
 		
 		OutputStream output = kapayconn.getOutputStream();
 		DataOutputStream daoutput = new DataOutputStream(output);
@@ -234,6 +242,7 @@ public class PaymentController {
 		String resultJSON = bufferR.readLine();
 		
 		resultJSON = resultJSON.substring(0, resultJSON.length()-1)+",\"partner_order_id\":"+"\""+seq+"\""+",\"userid\":"+"\""+regualrPayInfo.getMemberId()+"\""+"}";
+		System.out.println(resultJSON);
 		return resultJSON;
 		}
 		catch(Exception e) {

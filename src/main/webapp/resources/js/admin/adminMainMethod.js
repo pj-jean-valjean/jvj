@@ -424,7 +424,7 @@
                         search = result.search;
                         /* 페이지네이션 생성 및 동작  */
                         ul.append(makePagination(page));
-                        addPageFunc(searchNotice, page,cate,search);
+                        addPageFunc(searchReview, page,cate,search);
 
                     }
                     else{
@@ -682,9 +682,9 @@
             })
         }
         function updateNotice(){
-            if(document.querySelector("input[name='title']").value.trim().length==0){
+            if(document.querySelector("input[name='noticeTitle']").value.trim().length==0){
                 alert("제목을 입력해주세요!");
-                document.querySelector("input[name='title']").focus();
+                document.querySelector("input[name='noticeTitle']").focus();
                 return;
             }
             const form = $("#writerForm"); 
