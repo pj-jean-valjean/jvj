@@ -218,8 +218,8 @@ function stopTimer() {
 
 // 타이머 시작하기
 function startTimer() {
-	let time_minutes = 1; // Value in minutes
-	let time_seconds = 59; // Value in seconds
+	let time_minutes = 3; // Value in minutes
+	let time_seconds = 00; // Value in seconds
 
 	let duration = time_minutes * 60 + time_seconds;
 
