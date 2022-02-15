@@ -114,7 +114,7 @@
 			</div>
 		</div>
 		<div class="m-notice" data-aos="fade-up" data-aos-duration="400">
-		<img alt="" src="${contextPath}/resources/images/main/notice.png" style="width:1200px">
+		<a href="notice/view?noticeNo=481&cate=0&cp=1"><img alt="" src="${contextPath}/resources/images/main/notice.png" style="width:1200px"></a>
 		</div>
 	</div>
 
@@ -148,22 +148,22 @@
 			<div class="class-wrapper">
 				<div class="class-wrap bigclass class-img0" onclick="location.href='onedayclass/list'"></div>
 				<div class="class-wrap">
-					<div class="smallclass class-img2"></div>
+					<a href="onedayclass/view/1521"><div class="smallclass class-img2"></div></a>
 					<div class="class-article">
 						<p style="font-size: 26px;">마카롱 클래스</p>
-						<p style="font-size: 20px; margin-top: 20px">2/14~2/20</p>
+						<p style="font-size: 20px; margin-top: 20px">2/16</p>
 						<p style="font-size: 20px; margin-top: 20px">50,000원</p>
-						<div class="black-btn" style="margin-top: 20px">부천점</div>
+						<a href="onedayclass/view/1521"><div class="black-btn" style="margin-top: 20px">마포점</div></a>
 					</div>
 
 					<div class="fake-hr2"></div>
 
-					<div class="smallclass class-img1"></div>
+					<a href="onedayclass/view/1591"><div class="smallclass class-img1"></div></a>
 					<div class="class-article">
 						<p style="font-size: 26px;">슈크림 클래스</p>
-						<p style="font-size: 20px; margin-top: 20px">2/14~2/20</p>
+						<p style="font-size: 20px; margin-top: 20px">2/16</p>
 						<p style="font-size: 20px; margin-top: 20px">50,000원</p>
-						<div class="black-btn" style="margin-top: 20px">부천점</div>
+						<a href="onedayclass/view/1591"><div class="black-btn" style="margin-top: 20px">마포점</div></a>
 					</div>
 				</div>
 
@@ -240,6 +240,12 @@
         	location.href='store?cp=1&ct=2&op=0';
 
     });
+    const btn3 = document.getElementsByClassName('moreBtn')[2];
+    btn3.addEventListener('click', function() {
+      
+        	location.href='store/info/1941';
+
+    });
     $('.subs-img1').on('click',()=>{
     	 morphing.restart();
          morphing.finished.then(() => {
@@ -253,6 +259,7 @@
     	location.href='subscribe/subCoffee';
            });
     });
+    
     $('.swiper-pagination-bullet').css('background','#564334');
 
     $(document).ready(function(){
