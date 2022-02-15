@@ -308,20 +308,21 @@ function reconfirim(){
 
 $('.review-content').hide();
 $('.review-title').on('click',(e)=>{
-
+  
   const content = $(e.target).parent().next();
   if( $(e.target).parent().next().css('display') != 'flex'){
-
     $('.review-content').hide(100);
-    content.slideToggle(500);
+
+   
   }
+  content.slideToggle(500);
 });
 
 $('.review-content').on('click',(e)=>{
 
-  const content = $(e.target)
+  const content =$('.review-title');
 
-  content.hide(100);
+  content.click();
 });
 
 $(document).ready(function(){
