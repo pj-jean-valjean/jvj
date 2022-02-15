@@ -338,8 +338,10 @@ DELIVERY / 배송정보
 		const sr = '${param.sr}';
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=551a4828db4bdc904ebb55328c53c9ae&libraries=services,clusterer,drawing"></script>
+	
 	<!--  kakao sdk  -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/onedayclass/classDetail.js"></script>
+	
 </body>
 </html>

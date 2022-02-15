@@ -91,14 +91,19 @@
 				<article class="category_product">
 					<div class="category-title">
 						<span>${store.storeName}</span>
-						<div class="heart-btn">
+											<div class="kakaolink" style="float: right;">
+							    <a id="kakao-link-btn" href="javascript:kakaoShare()" style="float: right;">
+							    	<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="float: right; width:44px; margin-right:13px"/>
+							    </a>
+							</div>
+						<div class="heart-btn" style="margin-right:13px;">
 							<div
 								class="contentss <c:if test="${store.likeit  > 0}">heart-active</c:if>">
 								<div
 									class="heart <c:if test="${store.likeit > 0}">heart-active</c:if>"></div>
 							</div>
-
 						</div>
+		
 					</div>
 
 					<c:if test="${store.discountPer > 0}">
@@ -426,5 +431,45 @@ DELIVERY / 배송정보
 	<jsp:include page="../common/footer.jsp" />
 	<script type="text/javascript"
 		src="${contextPath}/resources/js/store/storeDetail.js"></script>
+		<!--  kakao sdk  -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/store/storeDetail.js"></script>
+
+	<script>
+  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('551a4828db4bdc904ebb55328c53c9ae');
+    // SDK 초기화 여부를 판단합니다.
+    console.log(Kakao.isInitialized());
+    function kakaoShare() {
+        const title = document.querySelector("body > main > section.top > section.product_detail > article.category_product > div > span").innerText;
+        const url = location.href;
+        const mainurl = document.querySelector("body > main > section.top > section.product-thumbnail > div > img:nth-child(1)").getAttribute("src");
+        console.log(contextPath);
+        console.log(url);
+        Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+            title: '장발장의 특별한 빵을 만나보세요!',
+            description: title,
+            imageUrl: mainurl,
+            link: {
+                mobileWebUrl: url,
+                webUrl: url,
+            },
+            },
+            buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                mobileWebUrl: url,
+                webUrl: url,
+                },
+            },
+            ],
+            // 카카오톡 미설치 시 카카오톡 설치 경로이동
+            installTalk: true,
+        })
+    }
+    </script>
 </body>
 </html>
