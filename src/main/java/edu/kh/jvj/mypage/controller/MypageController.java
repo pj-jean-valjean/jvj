@@ -50,37 +50,43 @@ public class MypageController {
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String mypageMain(@ModelAttribute("loginMember") Member loginMember, Order order, Model model) {	
 		
+		System.out.println(loginMember);
+		
 		order.setMemberNo(loginMember.getMemberNo());
 		order.setMemberName(loginMember.getMemberName());
+		
 		order.setService(loginMember.getService());
+		
 		
 		List<Order> mainList = service.mypageMain(order);
 		
+		//List<Member> memberList = service.memberList(member);
+		
 		model.addAttribute("mainList", mainList);
+		//model.addAttribute("memberList", memberList);
 		
 		return "mypages/mypageMain";
 	}
 	
-	
 	// 일반 상품 결제 페이지 이동
-	@RequestMapping(value = "purchase", method = RequestMethod.GET)
-	public String mypageShoppingList(@ModelAttribute("loginMember") Member loginMember, Order order, Model model,
-									@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
-				
-		order.setMemberNo(loginMember.getMemberNo());
-		order.setService(loginMember.getService());
-		
-		
-		Pagination pagination = service.purPagination(cp, order);
+		@RequestMapping(value = "purchase", method = RequestMethod.GET)
+		public String mypageShoppingList(@ModelAttribute("loginMember") Member loginMember, Order order, Model model,
+										@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 					
-		List<Order> purchase = service.purList(order);
-					
-		model.addAttribute("purchase", purchase);
-		model.addAttribute("pagination", pagination);
-					
-					
-		return "mypages/mypageShopping";
-		}
+			order.setMemberNo(loginMember.getMemberNo());
+			order.setService(loginMember.getService());
+			
+			
+			Pagination pagination = service.purPagination(cp, order);
+						
+			List<Order> purchase = service.purList(order);
+						
+			model.addAttribute("purchase", purchase);
+			model.addAttribute("pagination", pagination);
+						
+						
+			return "mypages/mypageShopping";
+			}
 	
 	// 일반 결제 취소
 	@ResponseBody

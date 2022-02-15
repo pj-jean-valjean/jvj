@@ -116,7 +116,7 @@ public class MypageServiceInpl implements MypageService {
         return pwUpdate;
     }
 
-    // sns 회원 탈퇴
+    //"SNS" 회원 탈퇴
     @Override
     public int secession(int memberNo) throws Exception{
         return dao.secession(memberNo);
@@ -214,6 +214,7 @@ public class MypageServiceInpl implements MypageService {
 	public int cancelOnedayClass(Order order) {
 		return dao.cancelOnedayClass(order);
 	}
+
     
 
 }

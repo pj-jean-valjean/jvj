@@ -23,7 +23,7 @@ public class Coupon {
 
 
 
-	public Coupon(int couponNo, String couponName, Double discountPer, Date provideDate, Date expireDate,
+	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
 			int couponStatusCode, String couponStatusName, int memberNo, String service) {
 		super();
 		this.couponNo = couponNo;
@@ -157,6 +157,7 @@ public class Coupon {
 
 
 
+	
 	
 	
 	
