@@ -200,6 +200,15 @@ public class MypageDAO {
 	}
 
 
+	/** 회원 날짜계산
+	 * @param member
+	 * @return
+	 */
+	public int memberDate(Member member) {
+		return sqlSession.selectOne("mypageMapper.memberDate", member);
+	}
+
+
 
 	
 
