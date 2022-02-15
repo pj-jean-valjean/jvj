@@ -50,6 +50,8 @@
 	 	<result property="gradeCode" 			column="GRADE_CD"/>
 	 	<result property="service" 				column="MEMBER_SERVICE"/>
 	 	<result property="memberId" 			column="MEMBER_ID"/>
+	 	
+	 	<result property="edt" 					column="EDT" />
 	 </resultMap>
 
 
@@ -239,7 +241,7 @@
 		AND PU.REFUND_YN = 'N'
 	</select>
 	
-	<!-- 마이페이지 메인 -->
+	<!-- 마이페이지 메인 상품 조회-->
 	<select id="mypageMain" resultMap="order_rm">
 	SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
 		PRODUCT_NM, PR.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PAYMENT_STATUS, M.MEMBER_NAME, 
@@ -251,6 +253,7 @@
 		JOIN PURCHASE PU ON(PU.PURCHASE_NO = ORD.PURCHASE_NO)
         JOIN PRODUCT_IMG PIMG ON(PIMG.PRODUCT_NO = ORD.PRODUCT_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		AND PU.REFUND_YN = 'N'
 	</select>
 	
 	<!-- 일반 상품 구매내역 페이지 네이션 -->
@@ -292,7 +295,13 @@
 		REFUND_YN = 'Y'
 		WHERE MEMBER_NO = #{memberNo}
         AND PRODUCT_NO = #{productNo}
-        AND PRODUCT_CD = 2
+        AND PRODUCT_CD = 3
 	</update>
 	
+	<!-- 회원 가입일 계산 -->
+	<select id="memberDate" resultType="_int">
+		SELECT (TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD')) - TO_DATE( ENROLL_DT)) EDT 
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 </mapper>

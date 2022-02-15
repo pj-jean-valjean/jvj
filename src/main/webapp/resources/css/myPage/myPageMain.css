@@ -1,4 +1,5 @@
 article{margin-left: 400px;}
+section{margin-bottom: 200px;}
 
 
 /* 타이틀 */
@@ -53,6 +54,7 @@ article{margin-left: 400px;}
     height: 170px;
     margin-right: 10px;
     margin-bottom: 120px;
+    vertical-align: top;
 }
 .category>span{
     font-size: 23px;
@@ -63,6 +65,16 @@ article{margin-left: 400px;}
     padding-top: 15px;
     color: rgba(167, 138, 108, 1); 
 }
+.numList1{
+    display: inline-block;
+    padding-left: 15px;
+}
+.numList2{
+    float: right;
+    padding-right: 15px;
+}
+
+
 #hr2{
     border: 0;
     height: 1px;

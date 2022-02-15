@@ -214,6 +214,16 @@ public class MypageServiceInpl implements MypageService {
 	public int cancelOnedayClass(Order order) {
 		return dao.cancelOnedayClass(order);
 	}
+	
+	
+	// 회원 가입일
+	@Override
+	public  int memberDate(Member member) {
+		return dao.memberDate(member);
+	}
+
+	
+		
 
     
 
