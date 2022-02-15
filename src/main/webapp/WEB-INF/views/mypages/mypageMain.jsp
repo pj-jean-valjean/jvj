@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
 
 <!DOCTYPE html>
@@ -25,7 +26,6 @@
 
 	
     <section>
-   
    
    
    <%-- 메뉴 --%>
@@ -69,37 +69,46 @@
     		</div> 
     	</c:otherwise>
     </c:choose>	
+    
+    
+    
+   		<fmt:parseDate value="20140701" pattern="yyyyMMdd" var="nowdate" />
+		<fmt:formatDate value="${nowdate}" pattern="yyyy-MM-dd"/>
+
+    
    
    
-   
-   
-    	${mainList}
     	
-    	<c:forEach var="mainList" items="${mainList}" begin="1" end="1">
         <article class="mainImg">
-        
-            <p class="mainText1"><span style="color:white; font-weight: bold;">${mainList.memberName}</span>님 반가워요</p><br>
-            <p class="mainText2">고객님과 저희의 인연은 <span style="color:white; font-weight: bold;">${mainList.edt}일째</span> 입니다.</p>
-            <p class="mainText3">고객님이 보유하신 멤버쉽 포인트는 <span>10000포인트</span> 입니다.</p>  
+            <p class="mainText1"><span style="color:white; font-weight: bold;">${loginMember.memberName}</span>님 반가워요</p><br>
+            <p class="mainText2">고객님과 저희의 인연은 <span style="color:white; font-weight: bold;">${now}일째</span> 입니다.</p>
             <img src="${contextPath}/resources/images/mypage/myPage_main_bread.jpg" alt="">
          
         </article>
-		
     	
         <article id="bottomCategory">
         
       
+      <c:forEach var="mainList" items="${mainList}" begin="1" end="1">
         <div class="category part1">
             <span>최근 주문내역</span>
             <a href="purchase">자세히</a>
             <hr id="hr2"></hr>
             <table>
-             <c:if test="${mainList.productCode eq 1}">
+            <c:choose>
+            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
                 <tr>
                     <td class="td-title">${mainList.productName}</td>
                     <td class="td-sub">${mainList.createDate}</td>
                 </tr>
-              </c:if>
+            	</c:when>
+            	<c:otherwise>
+            	<tr>
+                    <td class="td-title"></td>
+                    <td class="td-sub"></td>
+                </tr>
+            	</c:otherwise>
+            </c:choose>
             </table>
         </div>
        
@@ -108,37 +117,65 @@
             <span>구독한 상품 내역</span>
             <a href="sub">자세히</a>
             <hr id="hr2"></hr>
-            <table>
-                <c:if test="${mainList.productCode eq 2}">
+           <c:choose>
+            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
                 <tr>
                     <td class="td-title">${mainList.productName}</td>
                     <td class="td-sub">${mainList.createDate}</td>
                 </tr>
-              </c:if>
-            </table>
+            	</c:when>
+            	<c:otherwise>
+            	<tr>
+                    <td class="td-title"></td>
+                    <td class="td-sub"></td>
+                </tr>
+            	</c:otherwise>
+            </c:choose>
         </div>
         
         <div class="category part3">
             <span>클래스 수강 목록</span>
             <a href="class">자세히</a>
             <hr id="hr2"></hr>
-            <table>
-               <c:if test="${mainList.productCode eq 3}">
+            <c:choose>
+            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
                 <tr>
                     <td class="td-title">${mainList.productName}</td>
                     <td class="td-sub">${mainList.createDate}</td>
                 </tr>
-              </c:if>
-            </table>
+            	</c:when>
+            	<c:otherwise>
+            	<tr>
+                    <td class="td-title"></td>
+                    <td class="td-sub"></td>
+                </tr>
+            	</c:otherwise>
+            </c:choose>
         </div>
-    </article>
     </c:forEach>
+    </article>
+   
     </section>
     
     
     </main>
 	<jsp:include page="../common/footer.jsp" />	
+	<script type="text/javascript">
+	function date() {
+		
+		ar today = new Date();   
+
+		var hours = ('0' + today.getHours()).slice(-2); 
+		var minutes = ('0' + today.getMinutes()).slice(-2);
+		var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+		var timeString = hours + ':' + minutes  + ':' + seconds;
+		
+		
+	}
 	
+	
+	</script>
 	
 </body>
 </html>
