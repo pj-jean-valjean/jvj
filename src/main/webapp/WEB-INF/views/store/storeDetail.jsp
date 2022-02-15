@@ -66,7 +66,7 @@
 					</c:if>
 					<c:if test="${not empty imgLevel[2].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg"
+							src="${contextPath}${imgLevel[2].imgPath}"
 							alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[2].imgPath}">
@@ -76,7 +76,7 @@
 					</c:if>
 					<c:if test="${not empty imgLevel[3].imgPath}">
 						<img class="sub-img img-margin"
-							src="${contextPath}/resources/images/subscribe/sub-bread-main.jpg"
+							src="${contextPath}${imgLevel[3].imgPath}"
 							alt="sub-bread-main">
 					</c:if>
 					<c:if test="${empty imgLevel[3].imgPath}">
@@ -433,10 +433,10 @@ DELIVERY / 배송정보
 		src="${contextPath}/resources/js/store/storeDetail.js"></script>
 		<!--  kakao sdk  -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script type="text/javascript" src="${contextPath}/resources/js/store/storeDetail.js"></script>
+
 
 	<script>
-  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+	// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('551a4828db4bdc904ebb55328c53c9ae');
     // SDK 초기화 여부를 판단합니다.
     console.log(Kakao.isInitialized());
