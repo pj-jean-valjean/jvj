@@ -67,10 +67,9 @@ public class RegularPaymentScheduling {
 						+ "&total_amount="+onePay.getTotalPrice()// 총 금액
 						+ "&vat_amount=0" // 부가세
 						+ "&tax_free_amount=0" // 상품 비과세 금액
-						+ "&approval_url=http://localhost:8080/jvj/payment/payresult?result="+1111 // 결제 성공 시
-						+ "&fail_url=http://localhost:8080/fail" // 결제 실패 시
-						+ "&cancel_url=http://localhost:8080/jvj/subscribe/subBread";
-				
+						+ "&approval_url="+"http://kh-aclass.xyz:8080/jvj/"+"/payment/payresult?result="+1111 // 결제 성공 시
+						+ "&fail_url="+"http://kh-aclass.xyz:8080/jvj/"+"/fail/asdsadsad" // 결제 실패 시
+						+ "&cancel_url="+"http://kh-aclass.xyz:8080/jvj/"+"/subscribe/subBread";
 				OutputStream output = kapayconn.getOutputStream();
 				//전달해주는 객체 생성
 				DataOutputStream daoutput = new DataOutputStream(output);

@@ -290,6 +290,9 @@
         .pagination{
             justify-content: center!important;
         }
+        input[name='noticeTitle']{
+            width: 500px;
+        }
         .pagination>span{
             width: 30px;
             height: 30px;
@@ -333,6 +336,10 @@
             color:#A78A6C;
             cursor: pointer;
         }
+        .appendreviewC{
+            flex-direction: column;
+            padding-left: 150px;
+        }
         /* 차트 */
         #newboxs{
             display: flex;
@@ -345,12 +352,17 @@
             margin-bottom: 10px;
         }
         .salerank{
-            color: #A78A6C;
+            color: brown;
+            font-size: 25px!important;
             margin-right: 5px;
         }
         .disrank{
             font-size: 18px;
             padding: 20px;
+        }
+        .rankatype{
+            text-decoration: none;
+            color: #A78A6C;
         }
         /* 달력 모달 */
         .cal { 

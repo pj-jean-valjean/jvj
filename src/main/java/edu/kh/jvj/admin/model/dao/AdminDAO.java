@@ -228,6 +228,10 @@ public class AdminDAO {
 		int offset = (page.getCurrentPage() -1 )* limit;
 		RowBounds rowBounds = new RowBounds(offset, limit); 
 		
+		
+		System.out.println(dataMap);
+		System.out.println(page);
+		
 		return sqlSession.selectList("adminMapper.getReviewList",dataMap,rowBounds);
 	}
 
