@@ -83,7 +83,11 @@ main{
     margin-right: 0;
 }
 
-
+.review-content>p>img{
+	display: block;
+	width: 150px!important;
+	height : 150px;
+}
 
 /* 우측 세부내용 */
 .product_detail{  
@@ -573,7 +577,22 @@ main{
 }
 
 
-
+  .heart.heart-active{
+   animation: animate .8s steps(28) 1;
+   background-position: right;
+ position:relative; z-index:-1;
+   
+    
+ }
+ @keyframes animate {
+   0%{
+     background-position: left;
+   }
+   100%{
+     background-position: right;
+   }
+ }   
+    
 
 
 
