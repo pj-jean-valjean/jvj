@@ -30,7 +30,7 @@
         <div class="banner"><h1>Jean Val Jean</h1><h1>관리자 페이지</h1></div>
         <div class="admin-info">
         <h3 id="clock">현재시각</h3>
-        <h4>${loginAdmin.nickName}</h4><span>님 환영합니다!</span><button>로그아웃</button></div>
+        <h4>${loginAdmin.nickName}</h4><span>님 환영합니다!</span><a href="${contextPath}/admin/board/adminlogout">로그아웃</a></div>
     </header>
     <main>
         <aside class='showfunc'>

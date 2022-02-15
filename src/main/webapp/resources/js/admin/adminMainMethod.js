@@ -1390,7 +1390,3 @@
                 }) 
             }
         }
-
-        function sendCouponToMember(){
-            
-        }
