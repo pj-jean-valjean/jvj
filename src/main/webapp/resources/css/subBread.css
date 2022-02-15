@@ -83,7 +83,11 @@ main{
     margin-right: 0;
 }
 
-
+.review-content>p>img{
+	display: block;
+	width: 150px!important;
+	height : 150px;
+}
 
 /* 우측 세부내용 */
 .product_detail{  
