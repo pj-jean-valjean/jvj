@@ -339,8 +339,7 @@
 	  		saveStoreOrderInfo(rsp.imp_uid,rsp.merchant_uid,rsp.paid_amount);
 	  		var msg = '결제가 완료되었습니다.';
 		  		msg += '결제 금액 : ' + rsp.paid_amount;
-					  	
-		  	alert(contextPath+"/store?cp=1&ct=0&op=0");	
+		  		alert(msg);
 	  		location.href = contextPath+"/store?cp=1&ct=0&op=0";
 	  } else {
 	  	var msg = '결제에 실패하였습니다.';
