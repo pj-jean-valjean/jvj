@@ -117,8 +117,7 @@ main{
 
 /* 상품명 */
 .category-title{
-    display: flex;
-    justify-content: space-between;
+
     padding: 25px 0 25px 0;
 }
 .category-title span{
@@ -604,8 +603,7 @@ footer{
 .heart-btn{
 	float: right;
 	width:49px;
-	margin-top:-32px;
-}
+	}
 .contentss{
   width: 40px;
   height: 40px;

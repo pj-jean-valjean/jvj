@@ -29,7 +29,7 @@ public class RegularPaymentScheduling {
 	private PaymentService service;
 	
 	//임의 수정 금지
-	//@Scheduled(fixedDelay = 30000)
+	@Scheduled(fixedDelay = 10000)
 	public void regularPayment() {
 		logger.info("[scheduling] 실행!");
 		List<RegualrPayInfo> toPay = service.getRegularPayList();

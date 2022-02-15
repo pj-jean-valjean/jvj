@@ -1,4 +1,6 @@
-const resultPrice = $(".resultPrice");
+
+  const resultPrice = $(".resultPrice");
+
 let yn;
 /* 사진교체 */
 window.onload = function () {
