@@ -37,6 +37,8 @@ import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.MessagesRequestDto;
 import edu.kh.jvj.admin.model.vo.ProductImage;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.Reviews;
+import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SmsRequestDto;
@@ -521,6 +523,45 @@ public class AdminServiceImpl implements AdminService{
 		String ranName ="jvj"+ UUID.randomUUID();
 		mCoupon.setHashName(ranName);
 		return dao.makingCoupon(mCoupon);
+	}
+
+	@Override
+	public List<SubsInfo> getSubsList(Map<String,String> dataMap, Pagination page) {
+		return dao.getSubsList(dataMap,page);
+	}
+
+	@Override
+	public Pagination countSubsMember(Map<String, String> dataMap) {
+		int cp = Integer.parseInt(dataMap.get("cp"));
+		int listcount = dao.countSubsMember(dataMap);
+		return new Pagination(listcount,cp);
+	}
+
+	@Override
+	public List<SalesRank> getStoreRanks() {
+		return dao.getStoreRanks();
+	}
+
+	@Override
+	public Pagination countReview(Map<String, String> dataMap) {
+		int count = dao.countReview(dataMap);
+		int cp = Integer.parseInt(dataMap.get("cp"));
+		return new Pagination(count,cp);
+	}
+
+	@Override
+	public List<Reviews> getReviewList(Map<String, String> dataMap, Pagination page) {
+		return dao.getReviewList(dataMap,page);
+	}
+
+	@Override
+	public String getReview(int reviewNo) {
+		return dao.getReview(reviewNo);
+	}
+
+	@Override
+	public int blindReview(Map<String, Integer> dataMap) {
+		return dao.blindReview(dataMap);
 	}
 
 }

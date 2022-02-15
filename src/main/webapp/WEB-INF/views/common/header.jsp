@@ -29,6 +29,7 @@
 
 <body>
 	<header>
+	        ${list} ${searchResult}
         <section class="nav">
             <ul class="nav-menu">
                 <li><a href="${contextPath}/subscribe/subMain">정기 구독</a></li>
@@ -61,6 +62,7 @@
 	                    </a>
 	                    <a href="${contextPath}/cart">
 	                        <img class="shopping-img" src="${contextPath}/resources/images/common/shopping.png" alt="shopping">
+
 	                    </a>
 						<a href="${contextPath}/member/logout" title="logout-icon">
 							<img class="logout-img" src="${contextPath}/resources/images/common/icon-logout.png">
@@ -83,80 +85,31 @@
                 </li>
             </ul>
         </section>
-        
         <!-- modal -->
 		<div class="modal-area hidden">
 			<div class="modal-overlay"> </div>
-			<div class="modal-content">
-			
-				<%-- 값이 있을 경우 --%>
-                <c:choose>
-					<c:when test="${ !empty sv }">
-						<div>${searchVO.sv }</div>
-						<table>
-							<tr>
-								<td>상품명</td>
-								<td>내용</td>
-								<td>가격</td>
-							</tr>
-							<tr>
-								<td>식빵</td>
-								<td>굿</td>
-								<td>5,00</td>
-							</tr>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<table>
-							<tr>
-								<td>상품명</td>
-								<td>내용</td>
-								<td>가격</td>
-							</tr>
-							
-							<tr>
-								<td>식빵</td>
-								<td>굿</td>
-								<td>5,00</td>
-							</tr>
-
-
-						</table>
-					</c:otherwise>
-				</c:choose>
-				
-				<button>x</button>
-			</div>
-			
+				<div class="header-modal-content">
+					<ul class="searchList">
+						<li class="searchLi">
+							<p class="searchTitle">상품번호</p>
+							<p class="searchContent">상품명</p>
+							<p class="searchPrice">가격(원)</p>
+						</li>
+					</ul>
+					<button class="deleteBtn">x</button>
+				</div>
 		</div>
-
 	</header>
-
 	<script>
 	
 		const contextPath = "${contextPath}";
 		
-		// const btnSubmit = document.getElementById("open");
-		// const modal = document.querySelector(".modal-area");
-		// const overlay = modal.querySelector(".modal-overlay");
-		// const closeBtn = modal.querySelector("button");
-		
-		// const openModal = () => {
-		// 			modal.classList.remove("hidden");
-		// 		}
-		// const closeModal = () => {
-		// 	modal.classList.add("hidden");
-		// }
-		// overlay.addEventListener("click", closeModal);
-		// closeBtn.addEventListener("click", closeModal);
-		// btnSubmit.addEventListener("click", openModal);
-		
 		let input = document.getElementById("inputSearch");
 		const modal = document.querySelector(".modal-area");
 		const overlay = modal.querySelector(".modal-overlay");
-		const closeBtn = modal.querySelector("button");
+		const closeBtn = modal.querySelector(".deleteBtn");
 
-		input.focus()
+		input.focus();
 		input.addEventListener("keyup",function(e){
 			
 			if (e.code == "Enter") { //엔터키 입력 시 
@@ -178,13 +131,32 @@
 			
 			$.ajax({
 				url: contextPath + "/subscribe/main/search",
-				dataType : "json",
+				dataType : "JSON",
 				data : {"sv" : sv},
 				success:function(list){
+					
+					$(".resultLink").html("");
 					/* 데이터값 가져오기*/
-					console.log("list"+list);
-				
-				}	
+					
+					let content = $(".header-modal-content");
+					
+					const li = $('<li class="searchTr">');
+					
+					$.each(list, function(index, searchResult){
+						
+						const link = $('<a class="resultLink">');	
+						link.attr("href", "${contextPath}/store/info/" + searchResult.productNo);
+						
+						const li = $('<li class="searchTr">');
+						const resultNo =  $('<p class="searchTitle" >').text(searchResult.productNo);
+						const resultName =  $('<p class="searchContent" >').text(searchResult.productName);
+						const resultPrice =  $('<p class="searchPrice" >').text(searchResult.productPrice);
+						li.append(resultNo, resultName, resultPrice );
+						link.append(li);
+						
+						$(".searchList").append(link);
+					});
+				}
 				
 			});
 		}	

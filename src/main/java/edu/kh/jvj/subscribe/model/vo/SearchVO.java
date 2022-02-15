@@ -5,8 +5,11 @@ public class SearchVO {
 	// 상품명 금액 
 	
 	
+	private int productNo ;
 	private String productName;
-	private int price;
+	private String productCode;
+	private int productPrice;
+	private String storeAmount;
 	
 	
 	// + 인풋 값
@@ -14,6 +17,22 @@ public class SearchVO {
 
 	
 	public SearchVO() {}
+
+	
+	
+	
+
+
+
+
+	public int getProductNo() {
+		return productNo;
+	}
+
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
 
 	public String getProductName() {
 		return productName;
@@ -24,15 +43,35 @@ public class SearchVO {
 		this.productName = productName;
 	}
 
-
-	public int getPrice() {
-		return price;
+	
+	
+	
+	public int getProductPrice() {
+		return productPrice;
 	}
 
 
-	public void setPrice(int price) {
-		this.price = price;
+
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
+
+
+
+
+	public String getProductCode() {
+		return productCode;
+	}
+
+
+
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+
 
 
 	public String getSv() {
@@ -44,10 +83,30 @@ public class SearchVO {
 		this.sv = sv;
 	}
 
+
+
+
+	public String getStoreAmount() {
+		return storeAmount;
+	}
+
+	public void setStoreAmount(String storeAmount) {
+		this.storeAmount = storeAmount;
+	}
+
+
 	@Override
 	public String toString() {
-		return "SearchVO [productName=" + productName + ", price=" + price + ", sv=" + sv + "]";
+		return "SearchVO [productNo=" + productNo + ", productName=" + productName + ", productCode=" + productCode
+				+ ", productPrice=" + productPrice + ", storeAmount=" + storeAmount + ", sv=" + sv + "]";
 	}
+
+	
+
+	
+
+
+
 	
 	
 }

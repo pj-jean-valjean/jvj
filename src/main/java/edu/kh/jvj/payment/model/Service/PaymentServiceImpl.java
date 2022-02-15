@@ -167,7 +167,9 @@ public class PaymentServiceImpl implements PaymentService{
 				result=dao.saveStoreOption(storeInfo);
 				result=dao.saveStorepayKey(storeInfo);
 			}
-			
+			if(Integer.parseInt(storeInfo.getUsedCouponNo())>0) {
+				result = dao.deleteCoupon(storeInfo);
+			}
 			result = dao.deletecart(storeInfo);
 		}
 		
@@ -177,6 +179,11 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public List<Coupon> callCoupon(int memberNo) {
 		return dao.callCoupon(memberNo);
+	}
+
+	@Override
+	public int possibleCheck(int productNo) {
+		return dao.possibleCheck(productNo);
 	}
 	
 

@@ -5,6 +5,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class AdminMemberController {
 	public AdminMemberController(AdminService service) {
 		this.service = service;
 	}
-	
+	private Logger log = LoggerFactory.getLogger(getClass());
 	//로그인 페이지
 	@GetMapping("admin/login")
 	public String AdmingLogin() {
@@ -74,9 +76,7 @@ public class AdminMemberController {
 	// router 새로고침 처리 
 	@GetMapping("admin/board/route/*")
 	public String refresh( @ModelAttribute(value="loginAdmin") Admin loginAdmin) {
-		if(loginAdmin==null) {
-			return "redirect:/admin/login";
-		}
-		else return "admin/adminMain";
+			log.info("관리자페이지 새로고침");
+			return "admin/adminMain";
 	}
 }
