@@ -322,7 +322,9 @@
 	  buyer_tel: '${loginMember.memberPhone}',
 	  buyer_addr: '서울특별시 중구 남대문로 120 대일빌딩 2F, 3F',
 	  buyer_postcode: '04540', 
-	  m_redirect_url: 'https://localhost:8080/payments/store'
+
+	  m_redirect_url: specialContextPath+'/payments/complete'
+
 	  
 	  /*
 		  모바일 결제시, 결제가 끝나고 랜딩되는 URL을 지정
