@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.jvj.admin.model.service.AdminService;
@@ -78,5 +79,12 @@ public class AdminMemberController {
 	public String refresh( @ModelAttribute(value="loginAdmin") Admin loginAdmin) {
 			log.info("관리자페이지 새로고침");
 			return "admin/adminMain";
+	}
+	
+	@GetMapping(value="admin/board/adminlogout")
+	public String adminlogout(SessionStatus status) {
+		status.setComplete();
+		
+		return "admin/adminLogin";
 	}
 }

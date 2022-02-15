@@ -70,15 +70,15 @@ $(document).ready(function () {
 
 // 우리팀 1등을 위한 도약 1
 $(".pdt-img").click(function () {
-  $(this).addClass("outer");
+//  $(this).addClass("outer");
   let storeNo = $(this).next().val();
-  $(this).addClass("bingel").toggleClass("emphasized");
+ /* $(this).addClass("bingel").toggleClass("emphasized");
   $(this)
     .css({ position: "fixed", top: "41%", left: "43%" })
     .css("z-index", "999");
-  setTimeout(() => {
+  setTimeout(() => {*/
     location.href = "store/info/" + storeNo;
-  }, 1500);
+/*  }, 1500);*/
 });
 
 // 가격에 콤마표시
