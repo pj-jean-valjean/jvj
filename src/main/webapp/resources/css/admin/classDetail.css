@@ -573,5 +573,6 @@ main{
     }
     .review-content{
         cursor:pointer;
-        height: 400px;
+        height: 100%;
+        flex-direction: column;
     }

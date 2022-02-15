@@ -84,9 +84,9 @@ main{
 }
 
 .review-content>p>img{
-	display: block;
+	
 	width: 150px!important;
-	height : 150px;
+	
 }
 
 /* 우측 세부내용 */
@@ -641,5 +641,6 @@ input[type=radio]:checked + label{
 }
 .review-content{
     cursor:pointer;
-    height: 400px;
+    height: 100%;
+    flex-direction: column;
 }
