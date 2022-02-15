@@ -1,5 +1,5 @@
 package edu.kh.jvj.payment.controller;
-
+/*
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -360,3 +360,4 @@ public class PaymentController {
 	}
 	
 }
+*/

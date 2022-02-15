@@ -25,23 +25,19 @@ article{margin-left: 400px;}
     margin-top: 170px;
     margin-left: 100px;
     font-weight: bold;
-    color: #323232;
+    z-index: 1;
 }
 .mainText2{ 
     font-size: 30px;
     margin-top: 200px;
     margin-left: 110px;
-    color: #323232;
+    z-index: 1;
 }
-.mainText3{ 
-    font-size: 18px;
-    margin-top: 270px;
-    margin-left: 110px;
-    font-weight: bold;
-    color: #323232;;
+.mainText1>span{
+    color:rgba(86, 67, 52, 1); font-weight: bold; 
 }
-.mainText3>span{
-    color: white; 
+.mainText2>span{
+    color:rgba(86, 67, 52, 1); font-weight: bold;
 }
 
 #bottomCategory{margin: 0; margin-top: 100px;}
@@ -114,3 +110,9 @@ article{margin-left: 400px;}
 .divNav .subText{ margin-top: 20px;}
 .divNav .topText{ margin-bottom: 10px;}
 .divNav .mTopText{ margin-top: 55px;}
+
+#mainImage{
+    background-color: white;
+    opacity: 0.7;
+
+}
