@@ -70,89 +70,97 @@
     	</c:otherwise>
     </c:choose>	
     
-    
-    
-   		<fmt:parseDate value="20140701" pattern="yyyyMMdd" var="nowdate" />
-		<fmt:formatDate value="${nowdate}" pattern="yyyy-MM-dd"/>
 
-    
    
    
     	
         <article class="mainImg">
             <p class="mainText1"><span style="color:white; font-weight: bold;">${loginMember.memberName}</span>님 반가워요</p><br>
-            <p class="mainText2">고객님과 저희의 인연은 <span style="color:white; font-weight: bold;">${now}일째</span> 입니다.</p>
+            <p class="mainText2">고객님과 저희의 인연은 <span style="color:white; font-weight: bold;">${memberDate}일째</span> 입니다.</p>
             <img src="${contextPath}/resources/images/mypage/myPage_main_bread.jpg" alt="">
-         
+        
         </article>
     	
         <article id="bottomCategory">
         
       
-      <c:forEach var="mainList" items="${mainList}" begin="1" end="1">
+      
         <div class="category part1">
             <span>최근 주문내역</span>
             <a href="purchase">자세히</a>
             <hr id="hr2"></hr>
             <table>
-            <c:choose>
-            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
-                <tr>
-                    <td class="td-title">${mainList.productName}</td>
-                    <td class="td-sub">${mainList.createDate}</td>
-                </tr>
+           <c:forEach var="mainList" items="${mainList}" begin="0" end="4" step="1">
+           <c:choose>
+            	<c:when test="${mainList.productCode eq 1}">
+                <ul>
+  					<li class="numList1"> ${mainList.productName} </li>
+  					<li class="numList2"> ${mainList.createDate} </li>
+				</ul>
+
             	</c:when>
             	<c:otherwise>
-            	<tr>
-                    <td class="td-title"></td>
-                    <td class="td-sub"></td>
-                </tr>
+            	<ul>
+  					<li></li>
+  					<li></li>
+				</ul>
             	</c:otherwise>
-            </c:choose>
+            </c:choose> 
+           </c:forEach>
             </table>
         </div>
+         
        
-        
         <div class="category part2">
             <span>구독한 상품 내역</span>
             <a href="sub">자세히</a>
             <hr id="hr2"></hr>
+            
+            
+            <c:forEach var="mainList" items="${mainList}" begin="0" end="4" step="1">
            <c:choose>
-            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
-                <tr>
-                    <td class="td-title">${mainList.productName}</td>
-                    <td class="td-sub">${mainList.createDate}</td>
-                </tr>
+            	<c:when test="${mainList.productCode eq 2}">
+                <ul>
+  					<li class="numList1"> ${mainList.productName} </li>
+  					<li class="numList2"> ${mainList.createDate} </li>
+				</ul>
+
             	</c:when>
             	<c:otherwise>
-            	<tr>
-                    <td class="td-title"></td>
-                    <td class="td-sub"></td>
-                </tr>
+            	<ul>
+  					<li></li>
+  					<li></li>
+				</ul>
             	</c:otherwise>
-            </c:choose>
+            </c:choose> 
+           </c:forEach>
         </div>
-        
+      
+          
+          
         <div class="category part3">
             <span>클래스 수강 목록</span>
             <a href="class">자세히</a>
             <hr id="hr2"></hr>
-            <c:choose>
-            	<c:when test="${mainList.productCode eq 1 && !empty mainList.productCode}">
-                <tr>
-                    <td class="td-title">${mainList.productName}</td>
-                    <td class="td-sub">${mainList.createDate}</td>
-                </tr>
+            <c:forEach var="mainList" items="${mainList}" begin="0" end="4" step="1">
+           <c:choose>
+            	<c:when test="${mainList.productCode eq 3}">
+                <ul>
+  					<li class="numList1"> ${mainList.productName} </li>
+  					<li class="numList2"> ${mainList.createDate} </li>
+				</ul>
+
             	</c:when>
             	<c:otherwise>
-            	<tr>
-                    <td class="td-title"></td>
-                    <td class="td-sub"></td>
-                </tr>
+            	<ul>
+  					<li></li>
+  					<li></li>
+				</ul>
             	</c:otherwise>
-            </c:choose>
+            </c:choose> 
+           </c:forEach>
         </div>
-    </c:forEach>
+   
     </article>
    
     </section>

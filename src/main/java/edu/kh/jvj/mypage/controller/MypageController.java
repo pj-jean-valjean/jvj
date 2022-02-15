@@ -47,22 +47,22 @@ public class MypageController {
 
 	// 메인 페이지 
 	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public String mypageMain(@ModelAttribute("loginMember") Member loginMember, Order order, Model model) {	
+	public String mypageMain(@ModelAttribute("loginMember") Member loginMember, Order order, Model model, Member member) {	
 		
 		System.out.println(loginMember);
 		
 		order.setMemberNo(loginMember.getMemberNo());
 		order.setMemberName(loginMember.getMemberName());
-		
 		order.setService(loginMember.getService());
-		
+		order.setEnrollDate(loginMember.getEnrollDate());
 		
 		List<Order> mainList = service.mypageMain(order);
 		
-		//List<Member> memberList = service.memberList(member);
+		
+		int memberDate = service.memberDate(loginMember);
 		
 		model.addAttribute("mainList", mainList);
-		//model.addAttribute("memberList", memberList);
+		model.addAttribute("memberDate", memberDate);
 		
 		return "mypages/mypageMain";
 	}
