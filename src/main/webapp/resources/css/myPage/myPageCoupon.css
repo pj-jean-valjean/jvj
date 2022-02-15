@@ -1,6 +1,6 @@
 
 article{margin-left: 400px; }
-
+section {margin-bottom: 700px;}
 /* 타이틀 */
 .titleText{ 
     text-align: center; 
@@ -10,6 +10,7 @@ article{margin-left: 400px; }
     font-size: 27pt; 
     font-weight: bold;
     margin-left: 400px;
+    margin-bottom: 60px;
 }
 
 /* main table */
@@ -110,6 +111,7 @@ table{
 .selectDiv{
     width: 900px;
     margin-bottom: 10px;
+    margin-top: 10px;
     display: inline-block;
     text-align: right;
 }

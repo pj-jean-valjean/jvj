@@ -5,6 +5,7 @@ public class Like {
 	
 	private int productNo;
 	private int memberNo;
+	private String service;
 	
 	private String productName;
 	private int productPrice;
@@ -17,11 +18,12 @@ public class Like {
 	
 	public Like() {}
 
-	public Like(int productNo, int memberNo, String productName, int productPrice, int productCode, int productImageNo,
-			String productImagePath, String productImageName, int productImageLevel) {
+	public Like(int productNo, int memberNo, String service, String productName, int productPrice, int productCode,
+			int productImageNo, String productImagePath, String productImageName, int productImageLevel) {
 		super();
 		this.productNo = productNo;
 		this.memberNo = memberNo;
+		this.service = service;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productCode = productCode;
@@ -29,6 +31,14 @@ public class Like {
 		this.productImagePath = productImagePath;
 		this.productImageName = productImageName;
 		this.productImageLevel = productImageLevel;
+	}
+
+	@Override
+	public String toString() {
+		return "Like [productNo=" + productNo + ", memberNo=" + memberNo + ", service=" + service + ", productName="
+				+ productName + ", productPrice=" + productPrice + ", productCode=" + productCode + ", productImageNo="
+				+ productImageNo + ", productImagePath=" + productImagePath + ", productImageName=" + productImageName
+				+ ", productImageLevel=" + productImageLevel + "]";
 	}
 
 	public int getProductNo() {
@@ -45,6 +55,14 @@ public class Like {
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+
+	public String getService() {
+		return service;
+	}
+
+	public void setService(String service) {
+		this.service = service;
 	}
 
 	public String getProductName() {
@@ -103,18 +121,6 @@ public class Like {
 		this.productImageLevel = productImageLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "Like [productNo=" + productNo + ", memberNo=" + memberNo + ", productName=" + productName
-				+ ", productPrice=" + productPrice + ", productCode=" + productCode + ", productImageNo="
-				+ productImageNo + ", productImagePath=" + productImagePath + ", productImageName=" + productImageName
-				+ ", productImageLevel=" + productImageLevel + "]";
-	}
-
 	
-
-	
-	
-
 		
 }

@@ -11,6 +11,7 @@ import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Pagination2;
 import edu.kh.jvj.mypage.model.vo.Purchase;
+import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 public interface MypageService {
@@ -111,7 +112,19 @@ public interface MypageService {
 
 	Pagination subPagination(int cp, Order order);
 
+	
+	/** 일반 결제 취소
+	 * @param order
+	 * @return result
+	 */
+	int cancelPayment(Order order);
 
-	List<Order> selectPurList(Order order);
+	/** 클래스 결제 취소
+	 * @param order
+	 * @return result
+	 */
+	int cancelOnedayClass(Order order);
+
+
 
 }

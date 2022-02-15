@@ -13,7 +13,9 @@ public class Coupon {
 	
 	private int couponStatusCode; // 쿠폰 상태 코드
 	private String couponStatusName; // 쿠폰 상태 코드 이름
+	
 	private int memberNo; // 회원 번호
+	private String service;
 	
 	
 
@@ -21,8 +23,8 @@ public class Coupon {
 
 
 
-	public Coupon(int couponNo, String couponName, int discountPer, Date provideDate, Date expireDate,
-			int couponStatusCode, String couponStatusName, int memberNo) {
+	public Coupon(int couponNo, String couponName, Double discountPer, Date provideDate, Date expireDate,
+			int couponStatusCode, String couponStatusName, int memberNo, String service) {
 		super();
 		this.couponNo = couponNo;
 		this.couponName = couponName;
@@ -32,6 +34,17 @@ public class Coupon {
 		this.couponStatusCode = couponStatusCode;
 		this.couponStatusName = couponStatusName;
 		this.memberNo = memberNo;
+		this.service = service;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
+				+ ", provideDate=" + provideDate + ", expireDate=" + expireDate + ", couponStatusCode="
+				+ couponStatusCode + ", couponStatusName=" + couponStatusName + ", memberNo=" + memberNo + ", service="
+				+ service + "]";
 	}
 
 
@@ -81,8 +94,8 @@ public class Coupon {
 	public void setProvideDate(Date provideDate) {
 		this.provideDate = provideDate;
 	}
-	
-	
+
+
 
 	public Date getExpireDate() {
 		return expireDate;
@@ -132,13 +145,18 @@ public class Coupon {
 
 
 
-	@Override
-	public String toString() {
-		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", discountPer=" + discountPer
-				+ ", provideDate=" + provideDate + ", expireDate=" + expireDate + ", couponStatusCode="
-				+ couponStatusCode + ", couponStatusName=" + couponStatusName + ", memberNo=" + memberNo + "]";
+	public String getService() {
+		return service;
 	}
-	
+
+
+
+	public void setService(String service) {
+		this.service = service;
+	}
+
+
+
 	
 	
 	

@@ -25,7 +25,55 @@
 
 	
     <section>
-   <jsp:include page="mypageMenu.jsp"/>
+   
+   
+   
+   <%-- 메뉴 --%>
+    <c:choose>
+    	<c:when test="${loginMember.service eq null}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="password">비밀번호 변경</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	
+    	<c:otherwise>
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+    		</div> 
+    	</c:otherwise>
+    </c:choose>	
+   
+   
+   
+   
+    	${mainList}
     	
     	<c:forEach var="mainList" items="${mainList}" begin="1" end="1">
         <article class="mainImg">

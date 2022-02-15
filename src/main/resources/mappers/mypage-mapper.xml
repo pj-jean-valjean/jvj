@@ -11,6 +11,7 @@
 		<result property="couponStatusCode" column="COU_STATUS_CD"/>
 		<result property="couponStatusName" column="COU_STATUS_NM"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="service" column="MEMBER_SERVICE"/>
 	</resultMap>
 	
 	<resultMap type="CouponStatus" id="couponStatus_rm">
@@ -19,17 +20,19 @@
 	</resultMap>
 	
 	<resultMap type="Like" id="like_rm">
-		<id property="productNo" column="PRODUCT_NO"/>
-		<result property="memberNo" column="MEMBER_NO"/>
+		<id property="productNo" 				column="PRODUCT_NO"/>
 		
-		<result property="productName" column="PRODUCT_NM"/>
-		<result property="productPrice" column="PRODUCT_PRICE"/>
-		<result property="productCode" column="PRODUCT_CD"/>
+		<result property="memberNo" 			column="MEMBER_NO"/>
+		<result property="service" 				column="MEMBER_SERVICE"/>
+		
+		<result property="productName" 			column="PRODUCT_NM"/>
+		<result property="productPrice" 		column="PRODUCT_PRICE"/>
+		<result property="productCode" 			column="PRODUCT_CD"/>
 				
-		<result property="productImageNo" column="PRODUCT_IMG_NO"/>
-		<result property="productImagePath" column="PRODUCT_IMG_PATH"/>
-		<result property="productImageName" column="PRODUCT_IMG_NAME"/>
-		<result property="productImageLevel" column="PRODUCT_IMG_LEVEL"/>
+		<result property="productImageNo" 		column="PRODUCT_IMG_NO"/>
+		<result property="productImagePath" 	column="PRODUCT_IMG_PATH"/>
+		<result property="productImageName" 	column="PRODUCT_IMG_NAME"/>
+		<result property="productImageLevel"	column="PRODUCT_IMG_LEVEL"/>
 	</resultMap>
 	
 	
@@ -61,6 +64,7 @@
 		<result property="memberNo" 			column="MEMBER_NO" />
 		<result property="enrollDate" 			column="ENROLL_DT" />
 		<result property="memberName" 			column="MEMBER_NAME" />
+		<result property="service" 				column="MEMBER_SERVICE" />
 		<result property="edt" 					column="EDT" />
 		
 		<result property="orderOptionNo" 		column="ORDER_OPTION_NO"/>
@@ -89,12 +93,14 @@
 		SELECT COUNT(*) FROM COUPON WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 회원 쿠폰 리스트 조회 -->
 	<select id="selectCouponList" resultMap="coupon_rm">
-		SELECT COUPON_NO, COUPON_NM, (DISCOUNT_PER *100), 
-		PROVIDE_DT, EXPIRE_DT, COUPON.COU_STATUS_CD, COU_STATUS_NM, MEMBER_NO
-		FROM COUPON
-		JOIN COUPON_STATUS ON(COUPON.COU_STATUS_CD = COUPON_STATUS.COU_STATUS_CD)
-		WHERE MEMBER_NO = #{memberNo}
+		SELECT COUPON_NO, COUPON_NM, (DISCOUNT_PER *100) DISCOUNT, 
+		PROVIDE_DT, EXPIRE_DT, CS.COU_STATUS_CD, CS.COU_STATUS_NM, M.MEMBER_NO, M.MEMBER_SERVICE
+		FROM COUPON C
+		JOIN COUPON_STATUS CS ON(CS.COU_STATUS_CD = C.COU_STATUS_CD)
+		JOIN MEMBER M ON (C.MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_NO = #{memberNo}
 		ORDER BY COUPON_NO DESC
 	</select>
 	
@@ -109,16 +115,19 @@
 		SELECT COUNT(*) FROM "LIKE" 
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
 	<!-- 회원 목록 좋아요 조회 -->
 	<select id="getLikeList" resultMap="like_rm">
-		SELECT PRODUCT_NO, MEMBER_NO, 
+		SELECT PRODUCT_NO, MEMBER_NO, MEMBER_SERVICE,
 		PRODUCT_NM, PRODUCT_PRICE, PRODUCT_CD, 
 		PRODUCT_IMG_NO, PRODUCT_IMG_PATH, PRODUCT_IMG_NAME, PRODUCT_IMG_LEVEL
 		FROM "LIKE"
+		LEFT JOIN MEMBER USING(MEMBER_NO)
 		LEFT JOIN PRODUCT USING(PRODUCT_NO)
 		LEFT JOIN PRODUCT_IMG USING(PRODUCT_NO)
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
 	<!-- 좋아요 취소 -->
 	<delete id="cancleLike" parameterType="_int">
 		DELETE FROM "LIKE"
@@ -184,7 +193,7 @@
 	
 	<!-- 일반 상품 구매 목록 -->
 	<select id="purList" resultMap="order_rm">
-		SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
+		SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, M.MEMBER_SERVICE,
 		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS , PRODUCT_IMG_PATH, PRODUCT_IMG_NAME, PRODUCT_IMG_LEVEL
 		FROM "ORDER" ORD
 		JOIN MEMBER M ON(ORD.MEMBER_NO=M.MEMBER_NO )
@@ -195,12 +204,13 @@
 		WHERE ORD.MEMBER_NO = #{memberNo}
         AND PRODUCT_IMG_LEVEL = 0
 		AND PR.PRODUCT_CD = 1
+		AND PU.REFUND_YN = 'N'
 	</select>
 	
 	<!-- 클래스 상품 구매 목록 -->
 	<select id="classPurList" resultMap="order_rm">
 	SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
-		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS
+		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS, M.MEMBER_SERVICE
 		FROM "ORDER" ORD
 		JOIN MEMBER M ON(ORD.MEMBER_NO=M.MEMBER_NO )
 		JOIN ORDER_OPTION OO ON(OO.ORDER_NO = ORD.ORDER_NO)
@@ -210,13 +220,14 @@
 		WHERE ORD.MEMBER_NO = #{memberNo}
         AND PRODUCT_IMG_LEVEL = 0
 		AND PR.PRODUCT_CD = 3
+		AND PU.REFUND_YN = 'N'
 	</select>
 	
 	
 	<!-- 정기 결제 상품 구매 목록 -->
 	<select id="subscription" resultMap="order_rm">
 	SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
-		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS
+		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS , M.MEMBER_SERVICE
 		FROM "ORDER" ORD
 		JOIN MEMBER M ON(ORD.MEMBER_NO=M.MEMBER_NO )
 		JOIN ORDER_OPTION OO ON(OO.ORDER_NO = ORD.ORDER_NO)
@@ -225,13 +236,14 @@
         JOIN PRODUCT_IMG PIMG ON(PIMG.PRODUCT_NO = ORD.PRODUCT_NO)
 		WHERE ORD.MEMBER_NO = #{memberNo}
 		AND PR.PRODUCT_CD = 2
+		AND PU.REFUND_YN = 'N'
 	</select>
 	
 	<!-- 마이페이지 메인 -->
 	<select id="mypageMain" resultMap="order_rm">
 	SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
-		PRODUCT_NM, PR.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PAYMENT_STATUS, M.MEMBER_NAME,
-		(TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD')) - TO_DATE( M.ENROLL_DT))EDT, PR.CREATE_DT
+		PRODUCT_NM, PR.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PAYMENT_STATUS, M.MEMBER_NAME, 
+		(TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD')) - TO_DATE( M.ENROLL_DT))EDT, PR.CREATE_DT, M.MEMBER_SERVICE
 		FROM "ORDER" ORD
 		JOIN MEMBER M ON(ORD.MEMBER_NO=M.MEMBER_NO ) 
 		JOIN ORDER_OPTION OO ON(OO.ORDER_NO = ORD.ORDER_NO)
@@ -241,7 +253,7 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	<!-- 페이지 네이션 -->
+	<!-- 일반 상품 구매내역 페이지 네이션 -->
 	<select id="purchaseListCount" resultType="_int">
 		SELECT COUNT(*) FROM "ORDER" O
         JOIN PRODUCT P  ON(P.PRODUCT_NO = O.PRODUCT_NO)
@@ -249,6 +261,7 @@
 		AND PRODUCT_CD = 1
 	</select>
 	
+	<!-- 원데이 클래스 상품 구매내역 페이지 네이션 -->
 	<select id="classListCount" resultType="_int">
 		SELECT COUNT(*) FROM "ORDER" O
         JOIN PRODUCT P  ON(P.PRODUCT_NO = O.PRODUCT_NO)
@@ -256,11 +269,30 @@
 		AND PRODUCT_CD = 2
 	</select>
 	
+	<!-- 정기 구독 상품 구매내역 페이지 네이션 -->
 	<select id="subListCount" resultType="_int">
 		SELECT COUNT(*) FROM "ORDER" O
         JOIN PRODUCT P  ON(P.PRODUCT_NO = O.PRODUCT_NO)
         WHERE O.MEMBER_NO = #{memberNo}
 		AND PRODUCT_CD = 3
 	</select>
+	
+	<!-- 일반 결제 취소 -->
+	<update id="cancelPayment" parameterType="_int">
+		UPDATE PURCHASE SET 
+		REFUND_YN = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+        AND PRODUCT_NO = #{productNo}
+        AND PRODUCT_CD = 1
+	</update>
+	
+	<!-- 원데이클래스 결제 취소 -->
+	<update id="cancelOnedayClass" parameterType="_int">
+		UPDATE PURCHASE SET 
+		REFUND_YN = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+        AND PRODUCT_NO = #{productNo}
+        AND PRODUCT_CD = 2
+	</update>
 	
 </mapper>

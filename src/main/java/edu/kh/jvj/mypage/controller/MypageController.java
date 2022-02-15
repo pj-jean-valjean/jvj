@@ -28,6 +28,7 @@ import edu.kh.jvj.mypage.model.vo.Coupon;
 import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
+import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Controller
@@ -75,12 +76,24 @@ public class MypageController {
 		List<Order> purchase = service.purList(order);
 					
 		model.addAttribute("purchase", purchase);
-		
 		model.addAttribute("pagination", pagination);
 					
 					
 		return "mypages/mypageShopping";
 		}
+	
+	// 일반 결제 취소
+	@ResponseBody
+	@RequestMapping(value = "updatePur", method = RequestMethod.POST) 
+	public int cancelPayment(Order order, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
+		
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setProductNo(productNo);
+		
+		return service.cancelPayment(order);
+		
+	}
+	
 	
 	// 클래스 구매 페이지
 	@RequestMapping(value = "class", method = RequestMethod.GET)
@@ -99,6 +112,21 @@ public class MypageController {
 		
 		return "mypages/mypageClass";
 	}
+	
+	// 클래스 결제 취소
+	@ResponseBody
+	@RequestMapping(value = "cancleClass", method = RequestMethod.POST) 
+	public int cancelOnedayClass(Order order, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
+			
+		order.setMemberNo(loginMember.getMemberNo());
+		order.setProductNo(productNo);
+			
+		return service.cancelOnedayClass(order);
+			
+	}
+	
+	
+	
 	
 	// 정기 구독 조회
 	@RequestMapping(value = "sub", method = RequestMethod.GET)
@@ -123,17 +151,18 @@ public class MypageController {
 	
 	// 마이페이지 쿠폰
 	@RequestMapping(value = "coupon", method = RequestMethod.GET)
-	public String mypageCoupon( Coupon coupon,
+	public String mypageCoupon( Coupon coupon, Search search,
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp, 
 			Model model, @ModelAttribute("loginMember") Member loginMember
 			) {
 		
 		coupon.setMemberNo(loginMember.getMemberNo());
-		
-		
+		coupon.setService(loginMember.getService());
+			
 		Pagination pagination = service.couponPagination(cp,coupon);
 		List<Coupon> couponList = service.couponList(pagination, coupon);
-			
+		
+		
 		
 		List<CouponStatus> couponStatus = service.statusCategory();
 		
@@ -152,12 +181,13 @@ public class MypageController {
 			Like like) {
 		
 		like.setMemberNo(loginMember.getMemberNo());
+		like.setService(loginMember.getService());
 		
-		Pagination paginationLike = service.getLikePagination(cp, like);
+		Pagination pagination = service.getLikePagination(cp, like);
 		
-		List<Like> likeList = service.getLikeList(paginationLike, like);
+		List<Like> likeList = service.getLikeList(pagination, like);
 		
-		model.addAttribute("paginationLike", paginationLike);
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("likeList", likeList);
 		
 		return "mypages/mypageLove";
@@ -289,6 +319,7 @@ public class MypageController {
 	
 	
 	
+	/*
 	@GetMapping("review")
 	public String mypageReview() {
 		return "mypages/mypageReview";
@@ -297,6 +328,7 @@ public class MypageController {
 	public String ReviewWrite() {
 		return "mypages/reviewWrite";
 	}
+	*/
 	
 	
 	

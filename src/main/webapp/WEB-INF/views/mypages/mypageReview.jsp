@@ -73,36 +73,29 @@
 		
 
         <article class="pagination-area">
-					<ul class="pagination">
-		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link"
-				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
-		</c:if>
+                <ul class="pagination">
 
-		<%-- 페이지 네이션 번호 목록 --%>
-		<c:forEach begin="${pagination.startPage }"
-			end="${pagination.endPage}" step="1" var="i">
-			<c:choose>
-				<c:when test="${i==pagination.currentPage}">
-					<li><a class="page-link"
-						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a class="page-link" style="margin: 5px"
-						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link"
-				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
-		</c:if>
-	</ul>
-	</article>e>        
+                    <li><a class="page-link" href="list?cp=1${s}">&lt;&lt;</a></li>
+                    <li><a class="page-link"
+                        href="list?cp=${pagination.prevPage}${s}">&lt;</a></li>
+                    <li class=" page-effect"><a class="page-link" >1</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">2</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">3</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">4</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">5</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">6</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">7</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">8</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">9</a></li>
+                    <li><a class="page-link" href="list?cp=${i}${s}">10</a></li>
+                    <li><a class="page-link"
+                        href="list?cp=${pagination.nextPage}${s}">&gt;</a></li>
+                    <li><a class="page-link"
+                        href="list?cp=${pagination.maxPage }${s}">&gt;&gt;</a></li>
+                </ul>
+            </article>       
+            
+            
     </section>
     </main>
 	<jsp:include page="../common/footer.jsp" />	

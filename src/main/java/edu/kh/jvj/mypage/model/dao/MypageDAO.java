@@ -14,6 +14,7 @@ import edu.kh.jvj.mypage.model.vo.CouponStatus;
 import edu.kh.jvj.mypage.model.vo.Like;
 import edu.kh.jvj.mypage.model.vo.Pagination;
 import edu.kh.jvj.mypage.model.vo.Purchase;
+import edu.kh.jvj.mypage.model.vo.Search;
 import edu.kh.jvj.mypage.model.vo.Order;
 
 @Repository
@@ -182,11 +183,26 @@ public class MypageDAO {
 	}
 
 
-	public List<Order> selectPurList(Order order) {
-		// TODO Auto-generated method stub
-		return null;
+	/** 일반 상품 결제 취소
+	 * @param order
+	 * @return result
+	 */
+	public int cancelPayment(Order order) {
+		return sqlSession.update("mypageMapper.cancelPayment", order);
 	}
 
+
+	/** 원데이 클래스 결제 취소
+	 * @param order
+	 * @return
+	 */
+	public int cancelOnedayClass(Order order) {
+		return sqlSession.update("mypageMapper.cancelOnedayClass", order);
+	}
+
+
+
+	
 
 
 

@@ -1,5 +1,5 @@
 article{margin-left: 400px;}
-section{margin-top: 60px; margin-bottom: 800px;}
+section{margin-top: 60px; margin-bottom: 700px;}
 /* 타이틀 */
 .titleText{ 
     text-align: center; 
@@ -148,8 +148,7 @@ table{
     font-size: 23px;
     margin-right: 5px;
     position: absolute;
-    margin-top:40px;
-    
+    margin-top: 30px;
 }
 
 .divNav>ul{
