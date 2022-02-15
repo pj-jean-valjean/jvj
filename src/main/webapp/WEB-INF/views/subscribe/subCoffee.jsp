@@ -83,7 +83,8 @@
 						</div>
 
 					</div>
-                    <span class="price">${subVOList[0].productPrice} 원</span>
+<%--                     <span class="price">${subVOList[0].productPrice} 원</span> --%>
+                    <span class="price">25,000 원</span>
                 </article>
 
                 <div class="bottom-line"></div>
@@ -199,7 +200,7 @@
                     </div>
                     <div class="buy-count">
                         <img class="minus-btn" src="${contextPath}/resources/images/subscribe/minus-btn.png" alt="minus-btn"  onclick='minusCount()'>
-                        <span id="result" >0</span>
+                        <span id="result" >1</span>
                         <img class="add-btn" src="${contextPath}/resources/images/subscribe/add-btn.png" alt="add-btn" onclick='plusCount()'>
                     </div>
                 
@@ -207,7 +208,8 @@
 				
                 <article class="total-price">
                     <p>총 구매 금액
-	                    <span id="totalprice" class="showprice">0</span>
+	                   <!--  <span id="totalprice" class="showprice">0</span> -->
+	                    <span id="totalprice" class="showprice">25,000</span>
 	                    <span class="showprice">원</span>
                     </p>
                 </article>
