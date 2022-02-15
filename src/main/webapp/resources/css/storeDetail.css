@@ -657,8 +657,6 @@ footer{
 }
 .review-content{
     cursor:pointer;
-    height: 60px;
-}
-.review-content>*{
-    display:inline-block;
+    height: 100%;
+    flex-direction: column;
 }
