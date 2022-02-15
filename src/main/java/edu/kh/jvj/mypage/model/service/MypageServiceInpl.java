@@ -230,7 +230,7 @@ public class MypageServiceInpl implements MypageService {
 		return dao.cancelSubscription(order);
 
 
-	
+	}
 		
 
     

@@ -116,13 +116,6 @@ public interface MypageService {
 
 	
 	
-	/** 회원 가입일 계산
-	 * @param member
-	 * @return
-	 */
-	int memberDate(Member loginMember);
-	
-	
 	
 	
 	/** 일반 결제 취소
