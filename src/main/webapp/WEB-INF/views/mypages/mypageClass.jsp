@@ -119,17 +119,6 @@
                  
                  </c:when>
                  
-                 <c:otherwise>
-                 	<tr>
-						<td colspan="5" 
-						style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
-						font-size:20px; font-weight:bold; margin-left: auto; margin-right: auto; text-align:center;
-						padding-top:200px; padding-bottom:300px; margin-bottum">
-						신청하신 원데이 클래스가 존재하지 않습니다.
-						</td>
-					 </tr>       
-                 
-                 </c:otherwise>
                     
                  </c:choose>   
                 </tbody>

@@ -44,9 +44,9 @@ public class MypageServiceInpl implements MypageService {
 	@Override
 	public Pagination couponPagination(int cp , Coupon coupon ) {
 		
-		// 전체 쿠폰 조회수 
-		int listCount = dao.getCouponCount(coupon);
-		return new Pagination(listCount, cp);
+	// 전체 쿠폰 조회수 
+	int listCount = dao.getCouponCount(coupon);
+	return new Pagination(listCount, cp);
 	}
 
 	// 쿠폰 목록 조회
@@ -73,8 +73,8 @@ public class MypageServiceInpl implements MypageService {
 
 	// 좋아요 목록 조회
 	@Override
-	public List<Like> getLikeList(Pagination paginationLike, Like like) {
-		return dao.getLikeList(paginationLike, like);
+	public List<Like> getLikeList(Pagination pagination, Like like) {
+		return dao.getLikeList(pagination, like);
 	}
 
 	// 좋아요 취소
@@ -127,20 +127,20 @@ public class MypageServiceInpl implements MypageService {
 	// 일반 결제 리스트
 	@Override
 
-	public List<Order> purList(Order order) {
-		return dao.purList(order);
+	public List<Order> purList(Order order, Pagination pagination) {
+		return dao.purList(order, pagination);
 	}
 
 	// 클래스 결제 리스트
 	@Override
-	public List<Order> classList(Order order) {
-		return dao.classPurList(order);
+	public List<Order> classList(Pagination pagination, Order order) {
+		return dao.classPurList(order, pagination );
 	}
 
 	// 정기 구독 결제 리스트
 	@Override
-	public List<Order> subscription(Order order) {
-		return dao.subscriptionList(order);
+	public List<Order> subscription(Order order, Pagination pagination) {
+		return dao.subscriptionList(order, pagination);
 	}
 	// 메인페이지 리스트 조회
 	@Override
@@ -203,6 +203,12 @@ public class MypageServiceInpl implements MypageService {
 
     }
 
+    // 회원 가입일
+ 	@Override
+ 	public  int memberDate(Member member) {
+ 		return dao.memberDate(member);
+ 	}
+    
     // 일반 결제 상품 취소
 	@Override
 	public int cancelPayment(Order order) {
@@ -216,11 +222,13 @@ public class MypageServiceInpl implements MypageService {
 	}
 	
 	
-	// 회원 가입일
+
+
+	// 구독 취소
 	@Override
-	public  int memberDate(Member member) {
-		return dao.memberDate(member);
-	}
+	public int cancelSubscription(Order order) {
+		return dao.cancelSubscription(order);
+
 
 	
 		

@@ -72,9 +72,9 @@ public class MypageDAO {
 	 * @param like
 	 * @return
 	 */
-	public List<Like> getLikeList(Pagination paginationLike, Like like) {
-		int offset = (paginationLike.getCurrentPage() - 1)* paginationLike.getLimit();
-		int limit = paginationLike.getLimit();
+	public List<Like> getLikeList(Pagination pagination, Like like) {
+		int offset = (pagination.getCurrentPage() - 1)* pagination.getLimit();
+		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return sqlSession.selectList("mypageMapper.getLikeList", like , rowBounds);
@@ -132,8 +132,13 @@ public class MypageDAO {
 	 * @param order
 	 * @return
 	 */
-	public List<Order> purList(Order order) {
-		return sqlSession.selectList("mypageMapper.purList", order);
+	public List<Order> purList(Order order, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1)* pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("mypageMapper.purList", order, rowBounds);
 	}
 
 
@@ -143,8 +148,13 @@ public class MypageDAO {
 	 * @param order
 	 * @return
 	 */
-	public List<Order> classPurList(Order order) {
-		return sqlSession.selectList("mypageMapper.classPurList", order);
+	public List<Order> classPurList(Order order, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1)* pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("mypageMapper.classPurList", order, rowBounds);
 	}
 
 
@@ -153,8 +163,13 @@ public class MypageDAO {
 	 * @return
 	 */
 	
-	public List<Order> subscriptionList(Order order) {
-		return sqlSession.selectList("mypageMapper.subscription", order);
+	public List<Order> subscriptionList(Order order, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1)* pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("mypageMapper.subscription", order, rowBounds);
 	}
 
 
@@ -168,6 +183,7 @@ public class MypageDAO {
 
 
 	public int purchaseListCount(Order order) {
+		
 		return sqlSession.selectOne("mypageMapper.purchaseListCount", order);
 	}
 
@@ -181,6 +197,14 @@ public class MypageDAO {
 		return sqlSession.selectOne("mypageMapper.subListCount", order);
 	}
 
+	
+	/** 회원 날짜계산
+	 * @param member
+	 * @return member
+	 */
+	public int memberDate(Member member) {
+		return sqlSession.selectOne("mypageMapper.memberDate", member);
+	}
 
 	/** 일반 상품 결제 취소
 	 * @param order
@@ -193,7 +217,7 @@ public class MypageDAO {
 
 	/** 원데이 클래스 결제 취소
 	 * @param order
-	 * @return
+	 * @return result
 	 */
 	public int cancelOnedayClass(Order order) {
 		return sqlSession.update("mypageMapper.cancelOnedayClass", order);
@@ -206,6 +230,16 @@ public class MypageDAO {
 	 */
 	public int memberDate(Member member) {
 		return sqlSession.selectOne("mypageMapper.memberDate", member);
+	}
+
+
+
+	/** 구독 결제 취소
+	 * @param order
+	 * @return result
+	 */
+	public int cancelSubscription(Order order) {
+		return sqlSession.update("mypageMapper.cancelSubscription", order);
 	}
 
 

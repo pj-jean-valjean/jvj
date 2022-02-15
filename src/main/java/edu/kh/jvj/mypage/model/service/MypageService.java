@@ -70,9 +70,10 @@ public interface MypageService {
 
 	/** 일반 결제 리스트
 	 * @param order
+	 * @param pagination 
 	 * @return
 	 */
-	List<Order> purList(Order order);
+	List<Order> purList(Order order, Pagination pagination);
 	
     
     
@@ -88,16 +89,18 @@ public interface MypageService {
     
 
 	/** 원데이 클래스 결제 리스트
+	 * @param pagination 
 	 * @param order
 	 * @return
 	 */
-	List<Order> classList(Order order);
+	List<Order> classList(Pagination pagination, Order order);
+	
 
 	/** 정기구독 결제 리스트
 	 * @param order
 	 * @return
 	 */
-	List<Order> subscription(Order order);
+	List<Order> subscription(Order order, Pagination pagination);
 
 	/** 메인 페이지 리스트
 	 * @param order
@@ -111,6 +114,16 @@ public interface MypageService {
 
 	Pagination subPagination(int cp, Order order);
 
+	
+	
+	/** 회원 가입일 계산
+	 * @param member
+	 * @return
+	 */
+	int memberDate(Member loginMember);
+	
+	
+	
 	
 	/** 일반 결제 취소
 	 * @param order
@@ -131,6 +144,14 @@ public interface MypageService {
 	 * @return
 	 */
 	int memberDate(Member loginMember);
+
+	/** 구독 취소
+	 * @param order
+	 * @return
+	 */
+	int cancelSubscription(Order order);
+
+	
 
 
 }
