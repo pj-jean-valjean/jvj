@@ -67,7 +67,7 @@
     </c:choose>
     
        
-            <article style="height:800px">
+            <article>
                 <div class="mainTable">
                     <div class="tList thList">
                         <ul class="tname">
@@ -82,11 +82,6 @@
                     
                     <c:choose>
 	                    <c:when test="${empty likeList}">
-							<div style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
-										font-size:20px; font-weight:bold; text-align:center; height:600px; 
-										display: flex; align-items: center; justify-content: center;">
-							좋아요 하신 상품이 존재하지 않습니다.
-							</div>	                    	
 	                    </c:when>
 	                    
 	                    <c:otherwise>

@@ -78,7 +78,7 @@ public class MypageController {
 			
 			Pagination pagination = service.purPagination(cp, order);
 						
-			List<Order> purchase = service.purList(order);
+			List<Order> purchase = service.purList(order,pagination);
 						
 			model.addAttribute("purchase", purchase);
 			model.addAttribute("pagination", pagination);
@@ -93,7 +93,7 @@ public class MypageController {
 	public int cancelPayment(Order order, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
 		
 		order.setMemberNo(loginMember.getMemberNo());
-		order.setProductNo(productNo);
+		order.setPurchaseNo(productNo);
 		
 		return service.cancelPayment(order);
 		
@@ -109,7 +109,7 @@ public class MypageController {
 		order.setService(loginMember.getService());
 		
 		Pagination pagination = service.classPagination(cp, order);
-		List<Order> classList = service.classList(order);
+		List<Order> classList = service.classList(pagination,order);
 		
 		model.addAttribute("classList", classList);
 		
@@ -124,7 +124,7 @@ public class MypageController {
 	public int cancelOnedayClass(Order order, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
 			
 		order.setMemberNo(loginMember.getMemberNo());
-		order.setProductNo(productNo);
+		order.setPurchaseNo(productNo);
 			
 		return service.cancelOnedayClass(order);
 			
@@ -143,7 +143,7 @@ public class MypageController {
 		
 		
 		Pagination pagination = service.subPagination(cp, order);
-		List<Order> subList = service.subscription(order);
+		List<Order> subList = service.subscription(order, pagination);
 		
 		model.addAttribute("subList", subList);
 		
@@ -151,6 +151,18 @@ public class MypageController {
 		
 		return "mypages/mypageSub";
 	}
+	
+	// 클래스 결제 취소
+		@ResponseBody
+		@RequestMapping(value = "cancleSub", method = RequestMethod.POST) 
+		public int cancelSubscription(Order order, @ModelAttribute("loginMember") Member loginMember, int productNo, RedirectAttributes ra) {
+				
+			order.setMemberNo(loginMember.getMemberNo());
+			order.setPurchaseNo(productNo);
+				
+			return service.cancelSubscription(order);
+				
+		}
 	
 	
 	

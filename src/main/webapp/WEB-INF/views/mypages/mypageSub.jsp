@@ -112,18 +112,13 @@
 	                            <li>${subList.paymentDate}</li>
 	                            <li>${subList.orderOption}</li>
 	                            <li>
-	                             <button class="p-btn" id="btn-pur" >재구매</button>
+	                             <button class="p-btn" id="btn-pur" onclick="cancleSub(${subList.productNo})">취소하기</button>
 	                            </li>
 	                        </ul>
 	                    </div>
                 	</c:when>
                 	
                 	<c:otherwise>
-                	 		<div style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
-										font-size:20px; font-weight:bold; text-align:center; height:600px; 
-										display: flex; align-items: center; justify-content: center;">
-							정기 구독 하신 상품이 존재하지 않습니다.
-							</div>
                 	</c:otherwise>
                 	</c:choose>
                </c:forEach> 
@@ -153,19 +148,16 @@
                 </ul>
             </article>
         
+        
     </section>
     </main>
+	<script>
+	    const contextPath = "${contextPath}";
+	    
+	</script> 
 	<jsp:include page="../common/footer.jsp" />	
 	
-	<script type="text/javascript">
 	
-	document.getElementById("btn-pur").addEventListener("click", function(){
-		
-			location.href = "${contextPath}/subscribe/subMain"
-		
-	});
-
-	
-	</script>
+	<script src="${contextPath}/resources/js/mypage/myPageSub.js"></script> 
 </body>
 </html>

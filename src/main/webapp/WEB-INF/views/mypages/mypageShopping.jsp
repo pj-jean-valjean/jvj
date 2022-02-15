@@ -128,13 +128,6 @@
                    </div>
 	               </c:when>
                
-	               <c:when test="${empty purchase}">
-	                <div style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
-										font-size:20px; font-weight:bold; text-align:center; height:600px; 
-										display: flex; align-items: center; justify-content: center;">
-							구매 하신 상품이 존재하지 않습니다.
-							</div>	
-	               </c:when>
 	            
                </c:choose>
                 

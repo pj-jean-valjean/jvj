@@ -1,7 +1,7 @@
 package edu.kh.jvj.payment.controller;
 
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -363,3 +363,4 @@ public class PaymentController {
 
 	
 }
+*/

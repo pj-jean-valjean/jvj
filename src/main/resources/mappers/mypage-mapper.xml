@@ -226,7 +226,7 @@
 	</select>
 	
 	
-	<!-- 정기 결제 상품 구매 목록 -->
+	<!-- 정기 구독 결제 상품 구매 목록 -->
 	<select id="subscription" resultMap="order_rm">
 	SELECT ORD.ORDER_NO, ORD.PRODUCT_NO, PU.TOTAL_PRICE, PRODUCT_AMOUNT, ORD.MEMBER_NO, ORD.PURCHASE_NO, ORDER_OPTION, 
 		PRODUCT_NM, PU.PRODUCT_CD, REFUND_YN, PAYMENT_DT, PU.PRODUCT_CD, PAYMENT_STATUS , M.MEMBER_SERVICE
@@ -269,7 +269,7 @@
 		SELECT COUNT(*) FROM "ORDER" O
         JOIN PRODUCT P  ON(P.PRODUCT_NO = O.PRODUCT_NO)
         WHERE O.MEMBER_NO = #{memberNo}
-		AND PRODUCT_CD = 2
+		AND PRODUCT_CD = 3
 	</select>
 	
 	<!-- 정기 구독 상품 구매내역 페이지 네이션 -->
@@ -277,7 +277,7 @@
 		SELECT COUNT(*) FROM "ORDER" O
         JOIN PRODUCT P  ON(P.PRODUCT_NO = O.PRODUCT_NO)
         WHERE O.MEMBER_NO = #{memberNo}
-		AND PRODUCT_CD = 3
+		AND PRODUCT_CD = 2
 	</select>
 	
 	<!-- 일반 결제 취소 -->
@@ -296,6 +296,15 @@
 		WHERE MEMBER_NO = #{memberNo}
         AND PRODUCT_NO = #{productNo}
         AND PRODUCT_CD = 3
+	</update>
+	
+	<!-- 정기 구독 결제 취소 -->
+	<update id="cancelSubscription" parameterType="_int">
+		UPDATE PURCHASE SET 
+		REFUND_YN = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+        AND PRODUCT_CD = 2
+        AND PRODUCT_NO = #{productNo}
 	</update>
 	
 	<!-- 회원 가입일 계산 -->
