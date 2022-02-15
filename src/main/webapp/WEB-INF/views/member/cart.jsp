@@ -322,7 +322,7 @@
 	  buyer_tel: '${loginMember.memberPhone}',
 	  buyer_addr: '서울특별시 중구 남대문로 120 대일빌딩 2F, 3F',
 	  buyer_postcode: '04540', 
-	  m_redirect_url: 'https://localhost:8080/payments/complete'
+	  m_redirect_url: 'https://localhost:8080/payments/store'
 	  
 	  /*
 		  모바일 결제시, 결제가 끝나고 랜딩되는 URL을 지정
@@ -336,10 +336,10 @@
 	  	if (rsp.success) {
 	  		saveStoreOrderInfo(rsp.imp_uid,rsp.merchant_uid,rsp.paid_amount);
 	  		var msg = '결제가 완료되었습니다.';
-		  		msg += '고유ID : ' + rsp.imp_uid;
-		  		msg += '상점 거래ID : ' + rsp.merchant_uid; // !!! merchant_uid 결제 ID !!!
 		  		msg += '결제 금액 : ' + rsp.paid_amount;
-		  		msg += '카드 승인번호 : ' + rsp.apply_num;
+					  	
+		  	alert(contextPath+"/store?cp=1&ct=0&op=0");	
+	  		location.href = contextPath+"/store?cp=1&ct=0&op=0";
 	  } else {
 	  	var msg = '결제에 실패하였습니다.';
 	  		msg += '에러내용 : ' + rsp.error_msg;
@@ -349,6 +349,6 @@
 	  });
 		
 	  }
-  
+  		
   </script>
 </html>

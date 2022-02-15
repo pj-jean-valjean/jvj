@@ -106,7 +106,7 @@
 
         <div class="give-flex">
             <div class="payment-result-btn">
-                <button type="button">주문 목록</button>
+                <button type="button" onclick="goback()">돌아가기</button>
             </div>
         </div>
 
@@ -116,3 +116,10 @@
 
 
 <jsp:include page="../common/footer.jsp" />
+<script>
+	function goback(){
+		location.href = contextPath+"/subscribe/subMain";
+	}
+</script>
+</body>
+</html>
