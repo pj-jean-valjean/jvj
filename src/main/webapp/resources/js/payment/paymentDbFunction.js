@@ -48,12 +48,12 @@ function saveOrderInfo(result_imp_uid , result_merchant_uid,paid_amount){
             }
             else{
                 alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
-                cancelPay(result_merchant_uid,paid_amount);
+                //cancelPay(result_merchant_uid,paid_amount);
             }
         },
         error: function(){
             alert("결제 중 오류가 발생했습니다. 결제가 환불됩니다!");
-            cancelPay(result_merchant_uid,paid_amount);
+            //cancelPay(result_merchant_uid,paid_amount);
         }
     })
 }
@@ -148,6 +148,8 @@ function saveTidKey(RegularOrderObject){
 }
 
 
+
+
 function saveStoreOrderInfo(rsp_imp_uid,rsp_merchant_uid,rsp_paid_amount){
 
     const StoreOrderInfoObject ={
@@ -159,7 +161,7 @@ function saveStoreOrderInfo(rsp_imp_uid,rsp_merchant_uid,rsp_paid_amount){
         "totalPrice" : rsp_paid_amount,
         "memberNo" : loginMember,
         "shippingAddr" : "",
-        "usedCouponNo" : "",
+        "usedCouponNo" : couponNo,
         "shippingAddrEqualMemberAddr" : true,
         "shippingName" : "",
         "shippingPhone" : "",
@@ -177,7 +179,7 @@ function saveStoreOrderInfo(rsp_imp_uid,rsp_merchant_uid,rsp_paid_amount){
     for(let i = 0; i< itemss.length ; i++){
         if(i%2 == 0 ){
             names += itemss[i].innerText;
-            let option_box = document.querySelectorAll(".items")[0].children[2].children;
+            let option_box = document.querySelectorAll(".inline-block.option-box > h4");
             if(option_box.length!=0){
                 names += ' +추가상품 : '
             }
@@ -198,7 +200,7 @@ function saveStoreOrderInfo(rsp_imp_uid,rsp_merchant_uid,rsp_paid_amount){
     }
     let perp = document.querySelectorAll(".cartSumPrice")
     for(let j = 0 ; j< perp.length ; j++){
-        perPrice+= perp[j].innerText.replace('원','') + '/';
+        perPrice+= perp[j].innerText.replace('원','').replace(',','') + '/';
     }
     const productNoQ = document.querySelectorAll(".productsNo");
     let productNoss = "";

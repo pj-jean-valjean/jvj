@@ -41,6 +41,7 @@
 		<result property="productName" column="PRODUCT_NM" />
 		<result property="productPrice" column="PRODUCT_PRICE" />
 		<result property="productCode" column="PRODUCT_CD" />
+		<result property="storeAmount" column="STORE_AMOUNT" />
 	</resultMap>
 	
 	<!-- 구독 이미지 조회 -->
@@ -79,9 +80,11 @@
 	
 	
 	<select id="search" resultMap="search_rm">
-		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE
+		SELECT PRODUCT_NO, PRODUCT_NM, PRODUCT_PRICE, STORE_AMOUNT
 		FROM PRODUCT 
-		WHERE PRODUCT_NM LIKE #{sv} ||'%'
+		LEFT JOIN STORE_DETAIL USING (PRODUCT_NO)
+		WHERE PRODUCT_NM LIKE '%' || #{sv} || '%'
+		AND PRODUCT_CD = 1
 	</select>
 	
 	

@@ -27,7 +27,7 @@ $(".x-btn").on("click", (e) => {
 window.onload = function(){
   getCoupons();
 }
-
+let couponNo =0;
 function getCoupons(){
   if(loginMember ==""){
     return;
@@ -43,8 +43,8 @@ function getCoupons(){
       for(opt of data ){
         const option = document.createElement("option");
         option.className="discountOpt";
-        option.value= option.couponNo;
-        option.innerText = opt.couponName+'__'+(opt.discountPer*100)+'% 쿠폰';
+        option.value= opt.couponNo;
+        option.innerText = opt.couponName+'__'+(opt.discountPer)+' % 쿠폰';
         selbox.append(option);
       }
     },
@@ -76,8 +76,6 @@ for (let i = 0; i < items.length; i++) {
       tempsum += parseInt(optionBox[i].children[j].value);
     }
   }
-  console.log(arr);
-  console.log(tempsum);
   resultPrice += pp * aq + tempsum;
  
   cartSumPrice[i].textContent = pp * aq + tempsum + "원";
@@ -89,13 +87,30 @@ function paging() {
 
   if (resultPrice >= 30000) {
     taxPrice.text(0 + "원");
-    lastMaxPrice.text(resultPrice.toLocaleString('ko-KR')+"원");
+    lastMaxPrice.text((resultPrice-parseInt($(".discountPrice").text())).toLocaleString('ko-KR'));
   } else {
-    taxPrice.text('3,000' + "원");
-    lastMaxPrice.text((resultPrice + 3000).toLocaleString('ko-KR')+"원");
+    taxPrice.text('3,000' );
+    lastMaxPrice.text((resultPrice-parseInt($(".discountPrice").text())+3000).toLocaleString('ko-KR'));
   }
  
 }
+
+$(".couponCss").on("change", function(){
+  couponNo = $(this).val();
+  const texts = $(".couponCss option:checked").text()
+  const last1 = texts.lastIndexOf('_');
+  const last2 = texts.indexOf('%');
+  let text2 = texts.slice(last1+1, last2-1) / 100;
+  const totalp = $(".resultPrice").text().replace("원","");
+  if(couponNo==0){
+    text2 =0
+  }
+  const calc = parseInt(totalp * text2);
+  $(".calcDis").text(calc);
+  $(".discountPrice").text(calc);
+  paging();
+})
+
 paging();
 
 // 결제 페이지 이동

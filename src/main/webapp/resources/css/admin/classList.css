@@ -135,7 +135,7 @@
 		}
 		.review-ratings-bases{
             position:absolute; 
-            width:120px; overflow:hidden; color:#cdcdcd;
+            width:60px; overflow:hidden; color:#cdcdcd;
 		}
         .newinfoLine>span:nth-of-type(3){
             margin-left: 70px;

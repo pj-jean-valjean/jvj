@@ -25,6 +25,7 @@
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="enrollDt" column="ENROLL_DT" />
 		<result property="statusCode" column="STATUS_CD" />
+		<result property="paysum" column="PAYSUM" />
 	</resultMap>
 	<resultMap type="edu.kh.jvj.admin.model.vo.SimpleProduct" id="product_rm">
 		<id property="productNo" column="PRODUCT_NO" />
@@ -65,6 +66,11 @@
 		<result property="productNo" column="PRODUCT_NO" />
 	</resultMap>
     <resultMap id="subsinfo_rm" extends="product_rm" type="edu.kh.jvj.admin.model.vo.SubsInfo">
+   		<result property="userId" column="MEMBER_EMAIL" />
+		<result property="userNickName" column="MEMBER_NICKNAME" />
+		<result property="StartDay" column="PAYMENT_DT" />
+		<result property="options" column="ORDER_OPTION" />
+		<result property="YN" column="PAYMENT_STATUS" />
      	<collection property="classImgList" column="PRODUCT_NO"
 		javaType="java.util.ArrayList" ofType ="edu.kh.jvj.onedayclass.model.vo.ProductImage" 
 		select="selectProductImageList" />
@@ -81,6 +87,23 @@
 		<result property="hashName" column="HASHNAME" />
 		<result property="noticeNo" column="NOTICE_NO" />
     </resultMap>
+    <resultMap id="storerank_rm" type="edu.kh.jvj.admin.model.vo.SalesRank">
+     	<id property="rank" column="RANK" />
+		<result property="productNo" column="PRODUCT_NO" />
+		<result property="sales" column="SALES" />
+		<result property="payday" column="PAYMENT_DT" />
+		<result property="productName" column="PRODUCT_NM" />
+    </resultMap>
+    <resultMap id="reviews_rm" type="edu.kh.jvj.admin.model.vo.Reviews">
+     	<id property="reviewNo" column="REVIEW_NO" />
+		<result property="productName" column="PRODUCT_NM" />
+		<result property="userId" column="MEMBER_EMAIL" />
+		<result property="reviewPoint" column="REVIEW_POINT" />
+		<result property="reviewTitle" column="REVIEW_TITLE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewStatus" column="REVIEW_STATUS_CD" />
+    </resultMap>
+    
 	<select id="selectProductImageList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO = #{productNo} 
 		ORDER BY PRODUCT_IMG_LEVEL 
@@ -178,7 +201,6 @@
 		JOIN MEMBER MR ON (MATCHRESULT.MEMBER_NO= MR.MEMBER_NO)
 	</select>
 	
-	
 	<!-- 공지사항 카운트 -->
 	<select id="countNotice"  resultType="_int">
 		SELECT COUNT(*) FROM NOTICE_BOARD
@@ -228,7 +250,9 @@
 	<select id="searchMember" resultMap="member_rm">
 		SELECT 
 		MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_NAME ,
-		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER 
+		NVL ((SELECT SUM(TOTAL_PRICE)  FROM "ORDER" ORD
+		WHERE ORD.MEMBER_NO = MEM.MEMBER_NO) , 0 ) PAYSUM,
+		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD') ENROLL_DT ,STATUS_CD FROM MEMBER MEM
 		WHERE GRADE_CD = 100
 		<if test="cate == 1">
 			AND MEMBER_EMAIL LIKE '%'||#{search}||'%'
@@ -395,4 +419,69 @@
 			SEQ_GETCOUPON.NEXTVAL , #{couponNo}, #{adminNo}
 		)
 	</insert>
+	<select id="countSubsMember" resultType="_int">
+		SELECT COUNT(*) FROM "PURCHASE"
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	<select id="getSubsList" resultMap="subsinfo_rm">
+		SELECT 
+		PRO.PRODUCT_NM,  MEM.MEMBER_EMAIL, MEM.MEMBER_NICKNAME,
+		TO_CHAR(PUR.PAYMENT_DT , 'YYYY-MM-DD') PAYMENT_DT,
+		ORDER_OPTION
+		FROM "PURCHASE" PUR
+		JOIN "MEMBER" MEM ON (MEM.MEMBER_NO = PUR.MEMBER_NO)
+		JOIN PRODUCT PRO ON (PRO.PRODUCT_NO = PUR.PRODUCT_NO)
+		JOIN "ORDER" ORD ON (ORD.PURCHASE_NO =PUR.PURCHASE_NO )
+		JOIN "ORDER_OPTION" USING(ORDER_NO)
+		WHERE PUR.PRODUCT_NO = #{productNo}
+	</select>
+	<select id="getStoreRanks" resultMap="storerank_rm">
+		SELECT ROWNUM RANK, SALESFORCE.*, PRODUCT_NM
+		FROM (
+		SELECT  PUR.PRODUCT_NO , COUNT(PUR.PRODUCT_NO) SALES 
+		FROM PURCHASE PUR 
+		JOIN "ORDER" ORD ON(PUR.PURCHASE_NO = ORD.PURCHASE_NO)
+		WHERE PRODUCT_CD = 1
+		GROUP BY PUR.PRODUCT_NO  ) SALESFORCE
+		JOIN PRODUCT PRO ON (SALESFORCE.PRODUCT_NO = PRO.PRODUCT_NO)
+		WHERE ROWNUM &lt;=5
+	</select>
+	<select id="countReview" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT_REVIEW 
+			JOIN PRODUCT USING (PRODUCT_NO)
+			JOIN MEMBER USING(MEMBER_NO)
+		<if test=" cate gt 0 and cate lt 4">
+			WHERE PRODUCT_CD = #{cate}
+			AND PRODUCT_NM LIKE '%'|| #{search} ||'%'
+		</if>
+		<if test="cate==4">
+			WHERE MEMBER_EMAIL LIKE '%'|| #{search} ||'%'
+		</if>
+	</select>
+	<select id="getReviewList" resultMap="reviews_rm">
+			SELECT 
+			REVIEW_NO,
+			PRODUCT_NM, MEMBER_EMAIL,
+			REVIEW_TITLE,REVIEW_POINT,
+			REVIEW_STATUS_CD
+			FROM PRODUCT_REVIEW 
+			JOIN MEMBER USING(MEMBER_NO)
+			JOIN PRODUCT USING (PRODUCT_NO)
+		<if test=" cate gt 0 and cate lt 4">
+			WHERE PRODUCT_CD = #{cate}
+			AND PRODUCT_NM LIKE '%'|| #{search} ||'%'
+		</if>
+		<if test="cate==4">
+			WHERE MEMBER_EMAIL LIKE '%'|| #{search} ||'%'
+		</if>
+	</select>
+	<select id="getReview" resultType="string">
+		SELECT REVIEW_CONTENT FROM PRODUCT_REVIEW
+		WHERE REVIEW_NO = #{reviewNo} 
+	</select>
+	<update id="blindReview">
+		UPDATE PRODUCT_REVIEW
+		SET REVIEW_STATUS_CD = #{setStatus}
+		WHERE REVIEW_NO = #{reviewNo} 
+	</update>
 </mapper>

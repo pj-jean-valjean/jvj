@@ -187,6 +187,14 @@ public class PaymentDAO {
 		
 		return sqlSession.selectList("paymentMapper.callCoupon",memberNo,rowBounds);
 	}
+
+	public int deleteCoupon(StoreOrderInfo storeInfo) {
+		return sqlSession.update("paymentMapper.deleteCoupon",storeInfo);
+	}
+
+	public int possibleCheck(int productNo) {
+		return sqlSession.selectOne("paymentMapper.possibleCheck",productNo);
+	}								
 	
 
 }

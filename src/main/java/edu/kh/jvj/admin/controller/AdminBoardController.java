@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,8 @@ import com.google.gson.Gson;
 import edu.kh.jvj.admin.model.service.AdminService;
 import edu.kh.jvj.admin.model.vo.MadeCoupon;
 import edu.kh.jvj.admin.model.vo.ProductWrite;
+import edu.kh.jvj.admin.model.vo.Reviews;
+import edu.kh.jvj.admin.model.vo.SalesRank;
 import edu.kh.jvj.admin.model.vo.SearchedMember;
 import edu.kh.jvj.admin.model.vo.SimpleProduct;
 import edu.kh.jvj.admin.model.vo.SubsInfo;
@@ -262,6 +265,67 @@ public class AdminBoardController {
 	@PostMapping("makingCoupon")
 	public int makingCoupon(MadeCoupon mCoupon) {
 		int result = service.makingCoupon(mCoupon);
+		return result;
+	}
+	@PostMapping("showSubsMember")
+	public Map<String,String> showSubsMember(@RequestBody Map<String,String> dataMap){
+		
+		System.out.println(dataMap);
+		Pagination page = service.countSubsMember(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<SubsInfo> list = service.getSubsList(dataMap,page);
+		Gson gson = new Gson(); 
+		String pageJson = gson.toJson(page); 
+		String resultSubsMember= gson.toJson(list); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("resultSubsMember", resultSubsMember);
+		return dataMap;
+	}
+	@PostMapping("getChartData")
+	public Map<String,String> showSubsMember(){
+		Map<String,String> dataMap = new HashMap<String, String>();
+		Gson gson = new Gson();
+		List<SalesRank> storeSales = service.getStoreRanks();
+		dataMap.put("storeSales", gson.toJson(storeSales));
+		return dataMap;
+	}
+	
+	
+	@PostMapping(value="reviewselect" ,produces="application/json;charset=UTF-8")
+	public Map<String,String> reviewselect(@RequestBody Map<String,String> dataMap){
+		
+		Pagination page = service.countReview(dataMap); 
+		page.setLimit(15);
+		page.setPageSize(10);
+		List<Reviews> reviewList2 = service.getReviewList(dataMap,page);
+		
+		Gson gson = new Gson(); 
+		String pageJson = gson.toJson(page); 
+		String reviewList= gson.toJson(reviewList2); 
+		dataMap.put("pagination", pageJson);
+		dataMap.put("reviewList", reviewList);
+		
+		return dataMap;
+	}
+	
+	
+	@PostMapping(value="getReview",produces="application/x-www-form-urlencoded;charset=UTF-8" )
+	public String getReview(int reviewNo){
+		
+		String content = service.getReview(reviewNo);
+		
+		return content;
+	}
+	
+	@PostMapping(value="blindReview")
+	public int blindReview(int reviewNo , int setStatus){
+		
+		Map<String, Integer> dataMap = new HashMap<String, Integer>();
+		dataMap.put("reviewNo", reviewNo);
+		dataMap.put("setStatus", setStatus);
+		int result= service.blindReview(dataMap);
+		
 		return result;
 	}
 	

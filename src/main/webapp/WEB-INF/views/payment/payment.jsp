@@ -35,34 +35,6 @@
             	<c:set var="totalP" value="${oneClass.price * totalPeople}" />
 			</c:if>
 			
-			
-			
-			
-			<!-- 각 스토어마다 변수명이 달라서 화면을 나눠놨습니다. 
-				스토어 용 주문내역 확인
-			-->
-            <%-- <c:if test="${ }">
-            <hr>
-
-            <div class="product-list">
-
-                <a href="#"><img src="${contextPath}/resources/images/140673cf2ef31196c0744a90952e7711.jpg"></a>
-                <div>
-                    <a href="#"><p>녹차코코넛식빵</p></a>
-                    <p>
-                        첫 구독일 : 금요일, 2022-02-11 <br>
-                        구독내용 : 2개월동안 X 2주마다 <br>
-                        수량 1개 <br>
-                    </p>
-                </div>
-                <div>
-                    <p>7,000원</p>
-                </div>
-            </div>
-            
-            </c:if>--%>
-            
-            
             
             
             <!-- 정기구독용 주문내역확인 -->
@@ -416,34 +388,34 @@
   <script>
   if(document.querySelector("#payment-btn") != null){
 	  document.querySelector("#payment-btn").addEventListener("click", function(){
-		if(productCd==3){
-			 const check = peoplecheck(productNo);
-			 			
-			 if(check){	
-				 		
-			 }			
-		}
-		
-	    requestPay();
-	  });
-  }
+		  $.ajax({
+			  url : "possibleCheck" ,
+		        type : "post" ,
+		        data : {
+		        	"productNo" : productNo,
+		        },
+		        dataType : "json",
+		        success : function(data){
+		        	const submit = document.querySelector(".totalPeople").innerText;
+		        	if(submit<data){
+		                requestPay();
+		        	}
+		        	else{
+		        		alert("가능인원 초과!")
+		        		return;
+		        	}
+		        },
+		        error: function(){
+		            alert("오류가 발생했습니다.");
+		            return;
+		        }
+		  })	  	
+	    
+	  });		
+  }				
   
   function peoplecheck(productNo){
-	  $.ajax({
-		  url : "possibleCheck",
-	        type : "post",
-	        data : {"productNo" : productNo},
-	        dataType : "json",
-	        success : function(data){
-                alert("예약성공!");
-                return true;
-	        },
-	        error: function(){
-	            alert("오류가 발생했습니다.");
-	            return false;
-	        }
-	        return false;
-	  })
+
   }
   
   function requestPay() {
@@ -496,14 +468,13 @@
 		  		msg += '상점 거래ID : ' + rsp.merchant_uid; // !!! merchant_uid 결제 ID !!!
 		  		msg += '결제 금액 : ' + rsp.paid_amount;
 		  		msg += '카드 승인번호 : ' + rsp.apply_num;
-	  } else {
-	  	var msg = '결제에 실패하였습니다.';
-	  		msg += '에러내용 : ' + rsp.error_msg;
-		  	alert(msg);
-	  }
-	  	
+		  } 
+	  	else {
+		  	var msg = '결제에 실패하였습니다.';
+		  		msg += '에러내용 : ' + rsp.error_msg;
+			  	alert(msg);
+		  }
 	  });
-		
 	  }
   
   </script>

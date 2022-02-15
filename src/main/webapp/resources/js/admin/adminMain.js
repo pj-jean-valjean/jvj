@@ -33,6 +33,8 @@ function dodouble(){
 setInterval(getTime, 1000);
         //check 변수
         let firstdone = true;
+        let Reviewtoggle = false;
+        let tempRNo =0 ;
         let selectMonth = 0;
         let commonWriteCheckObj={};
         let nomalChekcObj={};
@@ -40,6 +42,7 @@ setInterval(getTime, 1000);
         let filecheck=[0 , 0 , 0 , 0];
         let discountset=false;
         let saveDateBtnthis;
+        let tempNo =1437;
         let classCheckObj={};
         /* 페이지네이션 변수 */
         let cp =1;
