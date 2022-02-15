@@ -25,28 +25,69 @@
         <span>보유한 쿠폰 목록</span>
     </div>
     
-    <jsp:include page="mypageMenu.jsp"/>	
+     <%-- 메뉴 --%>
+    <c:choose>
+    	<c:when test="${loginMember.service eq null}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="password">비밀번호 변경</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	
+    	<c:otherwise>
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+    		</div> 
+    	</c:otherwise>
+    </c:choose>	
+    
+    
     
     
       <article>
-      
      	
-            <div class="selectDiv">
-                <span>쿠폰 보유 내역</span>
-                <select name="couponStatus" id="selectOption">
+          <div class="selectDiv" >
+                <span>회원님이 보유하신 쿠폰 목록 입니다.</span>
+                  <%--<select name="couponStatus" id="selectOption">
                 	<option>전체</option>
                 	<c:forEach items="${couponStatus}"  var="c">
 	               		<option value="${c.couponStatusCode}">${c.couponStatusName}</option>
 	            	</c:forEach>
-                </select>
-            </div>
+                </select>--%>
+            </div> 
             
             <%-- 파라미터 중 cs가 있다면 변수 생성 --%>
 			<c:if test="${!empty param.ct}">
 				<c:set var="c" value="&cs=${param.ct}"/>
 			</c:if>
             
-            <table style="height:742.5px">
+            <table>
                 <thead >
                     <tr id="tb-tr" >
                         <td id="td1">쿠폰명</td>
@@ -113,42 +154,28 @@
         </article>
 
 
-
-
-
-
-
-        <article class="pagination-area">
-					<ul class="pagination">
-		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link"
-				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
-		</c:if>
-
-		<%-- 페이지 네이션 번호 목록 --%>
-		<c:forEach begin="${pagination.startPage }"
-			end="${pagination.endPage}" step="1" var="i">
-			<c:choose>
-				<c:when test="${i==pagination.currentPage}">
-					<li><a class="page-link"
-						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a class="page-link" style="margin: 5px"
-						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link"
-				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
-		</c:if>
-	</ul>
-	</article>
+        <!-- 페이지네이션 -->
+           <article class="pagination-area">
+                <ul class="pagination">
+                
+					<li><a class="page-link" href="coupon?cp=1">&lt;&lt;</a></li>
+					<li><a class="page-link" href="coupon?cp=${pagination.prevPage}">&lt;</a></li>
+                      
+                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+					<c:choose>
+						<c:when test="${i == pagination.currentPage}">
+							<li><a class="page-link" style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>   
+						</c:when>
+						
+						<c:otherwise>
+							<li><a class="page-link" href="coupon?cp=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+					<li><a class="page-link" href="coupon?cp=${pagination.nextPage}">&gt;</a></li>
+					<li><a class="page-link" href="coupon?cp=${pagination.maxPage}">&gt;&gt;</a></li>
+                </ul>
+            </article>
         
         
         

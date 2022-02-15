@@ -42,12 +42,8 @@ public class MypageServiceInpl implements MypageService {
 
 	// 마이페이지 쿠폰
 	@Override
-	public Pagination couponPagination(int cp , Coupon coupon) {
+	public Pagination couponPagination(int cp , Coupon coupon ) {
 		
-
-	
-
-
 		// 전체 쿠폰 조회수 
 		int listCount = dao.getCouponCount(coupon);
 		return new Pagination(listCount, cp);
@@ -180,11 +176,6 @@ public class MypageServiceInpl implements MypageService {
 		return new Pagination(subCount, cp);
 	}
 
-	// 메인 페이지
-	@Override
-	public List<Order> selectPurList(Order order) {
-		return dao.selectPurList(order);
-	}
 
 
     @Override
@@ -211,5 +202,18 @@ public class MypageServiceInpl implements MypageService {
         return kaResult;
 
     }
+
+    // 일반 결제 상품 취소
+	@Override
+	public int cancelPayment(Order order) {
+		return dao.cancelPayment(order);
+	}
+
+	// 클래스 결제 취소
+	@Override
+	public int cancelOnedayClass(Order order) {
+		return dao.cancelOnedayClass(order);
+	}
+    
 
 }

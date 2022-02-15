@@ -24,7 +24,71 @@
    
 
     <section class="bodySection">
-    <jsp:include page="mypageMenu.jsp"/>	
+    
+    
+    
+    <%-- 메뉴 --%>
+    <c:choose>
+    	<c:when test="${loginMember.service eq 'naver'}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	<c:when test="${loginMember.service eq 'kakao'}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	
+    	<c:otherwise>
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="password">비밀번호 변경</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+    		</div> 
+    	</c:otherwise>
+    </c:choose>	
+       
+       
+       
        
 		<article>
 
@@ -49,83 +113,74 @@
                 <c:forEach var="purchase" items="${purchase}">
                 <c:choose>
                
-               		<c:when test="${empty purchase}">
-	               		<div class="tbList"></div>
-	               </c:when>
-               
-	               <c:otherwise>
-	                <div class="tbList">
+               		<c:when test="${!empty purchase}">
+	               		<div class="tbList">
 	               		<ul class="tbname">
 	                        <li><img src="${contextPath}/${purchase.productImgPath}/${purchase.productImgName}" alt=""></li>
 	                        <li> ${purchase.productName} <br> 옵션: ${purchase.orderOption}</li>
 	                        <li>${purchase.paymentDate} <br> ${purchase.productNo}</li>
 	                        <li> ${purchase.totalPrice} / ${purchase.productAmount}</li>
 	                        <li>
-	                            <button class="p-btn" id="btn-pur">구매 내역</button>
-	                            <button class="p-btn" id="btn-cc">구매 취소</button>
+	                            <button class="p-btn" id="btn-pur" >구매 내역</button>
+	                            <button class="p-btn" id="btn-cc" onclick="updatePur(${purchase.productNo})">구매 취소</button>
 	                        </li>
                     	</ul>
                    </div>
-	               </c:otherwise>
+	               </c:when>
+               
+	               <c:when test="${empty purchase}">
+	                <div style="color:rgba(167, 138, 108, 1); background-color:rgba(167, 138, 108, 0.3); 
+										font-size:20px; font-weight:bold; text-align:center; height:600px; 
+										display: flex; align-items: center; justify-content: center;">
+							구매 하신 상품이 존재하지 않습니다.
+							</div>	
+	               </c:when>
 	            
-	               
-	               
-	               
-	               
                </c:choose>
                 
                 </c:forEach> 
                
                 </div>
                 
-
-                
            
         </article>
 
-        <article class="pagination-area">
-					<ul class="pagination">
-		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link"
-				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
-		</c:if>
-
-		<%-- 페이지 네이션 번호 목록 --%>
-		<c:forEach begin="${pagination.startPage }"
-			end="${pagination.endPage}" step="1" var="i">
-			<c:choose>
-				<c:when test="${i==pagination.currentPage}">
-					<li><a class="page-link"
-						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a class="page-link" style="margin: 5px"
-						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link"
-				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
-		</c:if>
-	</ul>
-	</article>       
+        
+       <article class="pagination-area">
+                <ul class="pagination">
+                
+					<li><a class="page-link" href="purchase?cp=1">&lt;&lt;</a></li>
+					<li><a class="page-link" href="purchase?cp=${pagination.prevPage}">&lt;</a></li>
+                      
+                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+					<c:choose>
+						<c:when test="${i == pagination.currentPage}">
+							<li><a class="page-link" style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>   
+						</c:when>
+						
+						<c:otherwise>
+							<li><a class="page-link" href="purchase?cp=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+					<li><a class="page-link" href="purchase?cp=${pagination.nextPage}">&gt;</a></li>
+					<li><a class="page-link" href="purchase?cp=${pagination.maxPage}">&gt;&gt;</a></li>
+                </ul>
+            </article>
+        
+        
+        
     </section>
     </main>
+    
+    <script>
+	    const contextPath = "${contextPath}";
+	    
+	</script> 
 	<jsp:include page="../common/footer.jsp" />	
 	
-	<script type="text/javascript">
 	
-	document.getElementById("btn-pur").addEventListener("click", function(){
-		
-		location.href = "${contextPath}/payment/paymentResult"
-	
-});
-	</script>
+	<script src="${contextPath}/resources/js/mypage/myPageShopping.js"></script> 
 	
 </body>
 </html>

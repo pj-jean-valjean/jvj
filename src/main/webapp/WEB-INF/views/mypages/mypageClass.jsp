@@ -23,19 +23,72 @@
 
     <section>
     
+    <%-- 메뉴 --%>
+   <c:choose>
+    	<c:when test="${loginMember.service eq 'naver'}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	<c:when test="${loginMember.service eq 'kakao'}">
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+		    	</div> 
+    	</c:when>
+    	
+    	<c:otherwise>
+	    	<div class="divNav">
+		        <div id="hr"></div>
+		        <ul>
+		        	<li class="topText ">회원 관리</li>
+		        	<li class="subText"><a href="main">마이 페이지</a></li>
+		        	<li class="subText mbText"><a href="info">회원정보 수정</a></li>
+		        	<li class="subText mbText"><a href="password">비밀번호 변경</a></li>
+		        	<li class="subText mbText"><a href="coupon">쿠폰 정보</a></li>
+		        </ul>
+		        <ul>
+		        	<li class="topText mTopText">쇼핑정보</li>
+		        	<li class="subText"><a href="purchase">상품 주문 내역</a></li>
+		            <li class="subText"><a href="sub">구독 신청 내역</a></li>
+		            <li class="subText"><a href="class">수강 신청 내역</a></li>
+		            <li class="subText"><a href="love">좋아요 내역</a></li>
+		        </ul>
+    		</div> 
+    	</c:otherwise>
+    </c:choose>	
     
-    <jsp:include page="mypageMenu.jsp"/>	
+    
     
     
        <article>
             <div class="selectDiv">
                 <span>최근 6개월내 수강하신 목록입니다.</span>
-                <select name="" id="selectOption">
-                    <option value="">전체</option>
-                    <option value="">수강 전</option>
-                    <option value="">수강 완료</option>
-                    <option value="">취소</option>
-                </select>
             </div>
             <table >
                 <thead >
@@ -59,7 +112,7 @@
 	                        <td>${classList.orderOption}</td>
 	                        <td></td>
 	                        <td>
-	                            <button class="shippingBtn">취소</button>
+	                            <button class="shippingBtn" onclick="cancleClass(${classList.productNo})">취소</button>
 	                        </td>
 	                    </tr>
 	                 </c:forEach>
@@ -84,40 +137,38 @@
             </table>
         </article>
 
-       <article class="pagination-area">
-					<ul class="pagination">
-		<c:if test="${pagination.startPage !=1 }">
-			<li><a class="page-link"
-				href="?cp=1&sr=${param.sr}">&lt;&lt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.prevPage}&sr=${param.sr}">&lt;</a></li>
-		</c:if>
-
-		<%-- 페이지 네이션 번호 목록 --%>
-		<c:forEach begin="${pagination.startPage }"
-			end="${pagination.endPage}" step="1" var="i">
-			<c:choose>
-				<c:when test="${i==pagination.currentPage}">
-					<li><a class="page-link"
-						style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a class="page-link" style="margin: 5px"
-						href="?cp=${i}&sr=${param.sr}">${i}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pagination.endPage != pagination.maxPage }">
-			<li><a class="page-link"
-				href="?cp=${pagination.nextPage}&sr=${param.sr}">&gt;</a></li>
-			<li><a class="page-link"
-				href="?cp=${pagination.maxPage }&sr=${param.sr}">&gt;&gt;</a></li>
-		</c:if>
-	</ul>
-	</article>
+      <article class="pagination-area">
+                <ul class="pagination">
+                
+					<li><a class="page-link" href="class?cp=1">&lt;&lt;</a></li>
+					<li><a class="page-link" href="class?cp=${pagination.prevPage}">&lt;</a></li>
+                      
+                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+					<c:choose>
+						<c:when test="${i == pagination.currentPage}">
+							<li><a class="page-link" style="padding: 6px 12px; border-radius: 20px; background-color: #B9845A; color: white;">${i}</a></li>   
+						</c:when>
+						
+						<c:otherwise>
+							<li><a class="page-link" href="class?cp=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+					<li><a class="page-link" href="class?cp=${pagination.nextPage}">&gt;</a></li>
+					<li><a class="page-link" href="class?cp=${pagination.maxPage}">&gt;&gt;</a></li>
+                </ul>
+            </article>
         
     </section>
     </main>
+    
+	<script>
+	    const contextPath = "${contextPath}";
+	    
+	</script> 
 	<jsp:include page="../common/footer.jsp" />	
+	
+	
+	<script src="${contextPath}/resources/js/mypage/myPageClass.js"></script> 
 </body>
 </html>
