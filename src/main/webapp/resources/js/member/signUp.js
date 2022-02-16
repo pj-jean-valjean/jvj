@@ -72,7 +72,7 @@ function validate(){
         input3.value = address[0].value + ",," + address[1].value + ",," + address[2].value;
         document.signUpForm.append(input3);
     }   
-    
+     /**/
 }
     
 
